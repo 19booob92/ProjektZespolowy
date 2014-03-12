@@ -32,11 +32,9 @@ public class MainView extends JFrame{
 		
 		listBtn.addActionListener(new ActionListener() {
 			
-			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				EventQueue.invokeLater(new Runnable() {
 					
-					@Override
 					public void run() {
 						DetailsView dv = new DetailsView();
 					}
@@ -59,7 +57,6 @@ public class MainView extends JFrame{
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			
-			@Override
 			public void run() {
 				new MainView();
 			}
