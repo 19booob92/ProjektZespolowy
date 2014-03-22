@@ -22,7 +22,8 @@ public class MainView extends JFrame {
 
 	private JTextField nameOfGame = new JTextField("Name of quest");
 	
-	private GoogleMapPanel panel;
+	private JPanel panel;
+	private GoogleMapPanel googlePanel;
 	private DetailsView detailsView;
 	private JList list;
 	private int QuestType = 0;
@@ -60,14 +61,16 @@ public class MainView extends JFrame {
 		super("Editor");
 		this.setBounds(0, 0, 600, 600);
 		setLocationRelativeTo(null);
-		panel = new GoogleMapPanel();
+		
+		panel = new JPanel();
+		googlePanel = new GoogleMapPanel();
 		
 		//GoogleMap Listeners, labels etc
-		panel.addMouseListener(panel);
-        panel.addMouseMotionListener(panel);
-        panel.addKeyListener(panel);
-        panel.setFocusable(true);
-        panel.setBounds(213, 86, 338, 329);
+		googlePanel.addMouseListener(googlePanel);
+        googlePanel.addMouseMotionListener(googlePanel);
+        googlePanel.addKeyListener(googlePanel);
+        googlePanel.setFocusable(true);
+        googlePanel.setBounds(272, 32, 338, 329);
         
         display = new JLabel();
         display.setPreferredSize(new Dimension(imageSizeW,imageSizeH));
@@ -117,39 +120,42 @@ public class MainView extends JFrame {
 		
 		QuestGroup = new ButtonGroup();
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel_1.setBounds(12, 32, 250, 320);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
+		JPanel controlsPanel = new JPanel();
+		controlsPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		controlsPanel.setBounds(12, 32, 250, 320);
+		
+		panel.add(controlsPanel);
+		panel.add(googlePanel);
+		
+		controlsPanel.setLayout(null);
 		
 		JLabel lblQuestType = new JLabel("Quest Type");
 		lblQuestType.setBounds(20, 54, 56, 14);
-		panel_1.add(lblQuestType);
+		controlsPanel.add(lblQuestType);
 		
 		lblNodeList = new JLabel("Node list");
 		lblNodeList.setBounds(20, 120, 56, 14);
-		panel_1.add(lblNodeList);
+		controlsPanel.add(lblNodeList);
 		nameOfGame.setBounds(101, 23, 139, 20);
-		panel_1.add(nameOfGame);
+		controlsPanel.add(nameOfGame);
 		
 		lblQuestName = new JLabel("Quest Name");
 		lblQuestName.setBounds(20, 26, 59, 14);
 		
-		panel_1.add(lblQuestName);
+		controlsPanel.add(lblQuestName);
 		list = new JList(mapPoints);
 		list.setBounds(101, 119, 139, 190);
-		panel_1.add(list);
+		controlsPanel.add(list);
 		
 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Zagadka ...");
 		rdbtnNewRadioButton_1.setBounds(101, 76, 129, 23);
-		panel_1.add(rdbtnNewRadioButton_1);
+		controlsPanel.add(rdbtnNewRadioButton_1);
 		QuestGroup.add(rdbtnNewRadioButton_1);
 		
 		//Pogrupowane typy zagadek + listenery
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Zagadka tekstowa");
 		rdbtnNewRadioButton.setBounds(101, 50, 129, 23);
-		panel_1.add(rdbtnNewRadioButton);
+		controlsPanel.add(rdbtnNewRadioButton);
 		QuestGroup.add(rdbtnNewRadioButton);
 		
 		rdbtnNewRadioButton.addActionListener(new ActionListener() {
@@ -185,7 +191,7 @@ public class MainView extends JFrame {
 		});
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(new Dimension(800, 600));
+		setSize(new Dimension(794, 600));
 		setVisible(true);
 	}
 

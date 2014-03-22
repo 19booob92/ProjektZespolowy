@@ -83,7 +83,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
                 }*/
         img.flush();
         //POLOZENIE CZARNEGO TLA
-        g2d.drawImage(img, 300, 20, this);
+        g2d.drawImage(img, 0, 0, this);
     }
     
     
