@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.JRadioButton;
 
 public class MainView extends JFrame {
 
@@ -22,14 +24,15 @@ public class MainView extends JFrame {
 	private GoogleMapPanel panel;
 	private JList list;
 	private String pointName = "default";
-	private int QuestType = 1;
+	private int QuestType = 0;
 	private DetailsView detailsView;
 	private String[] mapPoints = { "test 0", "test 1" };
 	private JButton userDataBtn;
 	private JLabel lblQuestName;
 	private JLabel lblNodeList;
 	private JButton btnCreate;
-
+	private ButtonGroup QuestGroup;
+	
 	//Here Goes GoogleMap
 	private static double step=0.003;
     private static int zoom=15;
@@ -128,7 +131,43 @@ public class MainView extends JFrame {
 		btnCreate = new JButton("Generate Package");
 		btnCreate.setBounds(247, 533, 181, 25);
 		panel.add(btnCreate);
+		
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Zagadka tekstowa");
+		rdbtnNewRadioButton.setBounds(26, 282, 129, 23);
+		panel.add(rdbtnNewRadioButton);
+		
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Zagadka ...");
+		rdbtnNewRadioButton_1.setBounds(26, 308, 129, 23);
+		panel.add(rdbtnNewRadioButton_1);
+		
+		QuestGroup = new ButtonGroup();
+		QuestGroup.add(rdbtnNewRadioButton_1);
+		QuestGroup.add(rdbtnNewRadioButton);
+		
+		rdbtnNewRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						QuestType = 0;
+						System.out.println(detailsView.getPointName());
+					}
+				});
+			}
+		});
+		
+		rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						QuestType = 1;
+						System.out.println(detailsView.getPointName());
+					}
+				});
+			}
+		});
+		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(new Dimension(800, 600));
 		setVisible(true);
