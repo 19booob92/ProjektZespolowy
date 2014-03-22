@@ -1,5 +1,6 @@
 package Editor;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -18,7 +19,7 @@ public class MainView extends JFrame {
 
 	private JTextField nameOfGame = new JTextField("Name of quest");
 	private JButton listBtn = new JButton("Details");
-	private JPanel panel;
+	private GoogleMapPanel panel;
 	private JList list;
 	private String pointName = "default";
 	private DetailsView detailsView;
@@ -28,10 +29,43 @@ public class MainView extends JFrame {
 	private JLabel lblNodeList;
 	private JButton btnCreate;
 
+	//Here Goes GoogleMap
+	private static double step=0.003;
+    private static int zoom=15;
+    private static int imageSizeW=440;
+    private static int imageSizeH=440;
+    private static double latitude=51.110851;
+    private static double longtitude=17.029839;
+    private static  final String googleKey="AIzaSyAYEbDIFRtcBXkDn4XbE_VH7A7WqHx1Z8o";
+    
+    private static JLabel display = null;
+    private static JButton up = null;
+    private static JButton down = null;
+    private static JButton left = null;
+    private static JButton right = null;
+	//endof
+	
 	public MainView() {
 		super("Editor");
+		this.setBounds(0, 0, 600, 600);
 		setLocationRelativeTo(null);
-		panel = new JPanel();
+		panel = new GoogleMapPanel();
+		
+		//GoogleMap Listeners, labels etc
+		panel.addMouseListener(panel);
+        panel.addMouseMotionListener(panel);
+        panel.addKeyListener(panel);
+        panel.setFocusable(true);
+        panel.setBounds(213, 86, 338, 329);
+        
+        display = new JLabel();
+        display.setPreferredSize(new Dimension(imageSizeW,imageSizeH));
+        display.setMaximumSize(new Dimension(imageSizeW,imageSizeH));
+        display.setAlignmentX(Component.CENTER_ALIGNMENT);
+        MapGetter.getMapImage(MapGetter.createUrl(0, 0));
+	    //endof
+		
+		
 		listBtn.setBounds(12, 533, 107, 25);
 		list = new JList(mapPoints);
 		userDataBtn = new JButton("Create User");
@@ -94,16 +128,8 @@ public class MainView extends JFrame {
 		btnCreate.setBounds(247, 533, 181, 25);
 		panel.add(btnCreate);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(213, 86, 338, 329);
-		panel.add(panel_1);
-
-		JLabel lblMockedMap = new JLabel("Mocked Map");
-		lblMockedMap.setBounds(199, 61, 121, 15);
-		panel.add(lblMockedMap);
-
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(new Dimension(600, 600));
+		setSize(new Dimension(800, 600));
 		setVisible(true);
 	}
 
