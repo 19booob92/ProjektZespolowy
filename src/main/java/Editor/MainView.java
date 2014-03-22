@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,7 +26,10 @@ public class MainView extends JFrame {
 	private JPanel panel;
 	private GoogleMapPanel googlePanel;
 	private DetailsView detailsView;
-	private JList list;
+	
+	private static DefaultListModel listModel;
+	private static JList list;
+	
 	private int QuestType = 0;
 	
 	
@@ -41,10 +45,10 @@ public class MainView extends JFrame {
 	private ButtonGroup QuestGroup;
 	
 	//Here Goes GoogleMap
-	
+
     private static int zoom=15;
-    private static int imageSizeW=440;
-    private static int imageSizeH=440;
+    private static int imageSizeW=640;
+    private static int imageSizeH=640;
     private static double latitude=51.110851;
     private static double longtitude=17.029839;
     private static double step=0.003;
@@ -143,7 +147,11 @@ public class MainView extends JFrame {
 		lblQuestName.setBounds(20, 26, 59, 14);
 		
 		controlsPanel.add(lblQuestName);
-		list = new JList(mapPoints);
+		
+		listModel = new DefaultListModel();
+		listModel.addElement(mapPoints[0]);
+		listModel.addElement(mapPoints[1]);
+		list = new JList(listModel);
 		list.setBounds(101, 119, 139, 190);
 		controlsPanel.add(list);
 		
@@ -210,5 +218,10 @@ public class MainView extends JFrame {
 
 	public void setDetailsView(DetailsView detailsView) {
 		this.detailsView = detailsView;
+	}
+	
+	public static void createPoint(String testValue)
+	{
+		listModel.addElement(testValue);
 	}
 }

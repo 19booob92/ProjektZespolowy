@@ -117,6 +117,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         System.out.println("Y:"+Integer.toString(mouseY));
         System.out.println("Koordynaty: "+MapGetter.addMarker(mouseX,mouseY));
         MapGetter.getMapImage(MapGetter.createUrl(0, 0));
+        MainView.createPoint("test");
         //mouse_x=0;
         //mouse_y=0;
         repaint();}
