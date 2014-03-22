@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JRadioButton;
+import javax.swing.border.EtchedBorder;
 
 public class MainView extends JFrame {
 
@@ -71,16 +72,7 @@ public class MainView extends JFrame {
 		
 		
 		listBtn.setBounds(12, 533, 107, 25);
-		list = new JList(mapPoints);
 		userDataBtn = new JButton("Create User");
-
-		// Block of listeners
-		list.addListSelectionListener(new ListSelectionListener() {
-
-			public void valueChanged(ListSelectionEvent event) {
-				pointName = list.getSelectedValue().toString();
-			}
-		});
 
 		userDataBtn.addActionListener(new ActionListener() {
 
@@ -108,65 +100,83 @@ public class MainView extends JFrame {
 		});
 
 		panel.setLayout(null);
-		nameOfGame.setBounds(12, 30, 96, 19);
-
-		panel.add(nameOfGame);
 		panel.add(listBtn);
 		getContentPane().add(panel);
 
-		list.setBounds(26, 85, 129, 190);
-		panel.add(list);
-
 		userDataBtn.setBounds(430, 533, 143, 25);
 		panel.add(userDataBtn);
-
-		lblQuestName = new JLabel("Quest Name");
-		lblQuestName.setBounds(12, 10, 113, 9);
-		panel.add(lblQuestName);
-
-		lblNodeList = new JLabel("Node list");
-		lblNodeList.setBounds(12, 61, 70, 15);
-		panel.add(lblNodeList);
 
 		btnCreate = new JButton("Generate Package");
 		btnCreate.setBounds(247, 533, 181, 25);
 		panel.add(btnCreate);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Zagadka tekstowa");
-		rdbtnNewRadioButton.setBounds(26, 282, 129, 23);
-		panel.add(rdbtnNewRadioButton);
-		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Zagadka ...");
-		rdbtnNewRadioButton_1.setBounds(26, 308, 129, 23);
-		panel.add(rdbtnNewRadioButton_1);
-		
 		QuestGroup = new ButtonGroup();
-		QuestGroup.add(rdbtnNewRadioButton_1);
-		QuestGroup.add(rdbtnNewRadioButton);
 		
-		rdbtnNewRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel_1.setBounds(12, 32, 250, 320);
+		panel.add(panel_1);
+				panel_1.setLayout(null);
+				
+				JLabel lblQuestType = new JLabel("Quest Type");
+				lblQuestType.setBounds(20, 54, 56, 14);
+				panel_1.add(lblQuestType);
+				
+						lblNodeList = new JLabel("Node list");
+						lblNodeList.setBounds(20, 120, 41, 14);
+						panel_1.add(lblNodeList);
+				nameOfGame.setBounds(101, 23, 139, 20);
+				panel_1.add(nameOfGame);
+		
+				lblQuestName = new JLabel("Quest Name");
+				lblQuestName.setBounds(20, 26, 59, 14);
+				panel_1.add(lblQuestName);
+				list = new JList(mapPoints);
+				list.setBounds(101, 119, 139, 190);
+				panel_1.add(list);
+				
+				JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Zagadka ...");
+				rdbtnNewRadioButton_1.setBounds(101, 76, 129, 23);
+				panel_1.add(rdbtnNewRadioButton_1);
+				QuestGroup.add(rdbtnNewRadioButton_1);
+				
+				//Pogrupowane typy zagadek + listenery
+				JRadioButton rdbtnNewRadioButton = new JRadioButton("Zagadka tekstowa");
+				rdbtnNewRadioButton.setBounds(101, 50, 129, 23);
+				panel_1.add(rdbtnNewRadioButton);
+				QuestGroup.add(rdbtnNewRadioButton);
+				
+				rdbtnNewRadioButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
 
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						QuestType = 0;
-						System.out.println(detailsView.getPointName());
+						EventQueue.invokeLater(new Runnable() {
+							public void run() {
+								QuestType = 0;
+								System.out.println(detailsView.getPointName());
+							}
+						});
 					}
 				});
-			}
-		});
-		
-		rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+				
+				rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
 
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						QuestType = 1;
-						System.out.println(detailsView.getPointName());
+						EventQueue.invokeLater(new Runnable() {
+							public void run() {
+								QuestType = 1;
+								System.out.println(detailsView.getPointName());
+							}
+						});
 					}
 				});
-			}
-		});
+				
+						// Block of listeners
+						list.addListSelectionListener(new ListSelectionListener() {
+				
+							public void valueChanged(ListSelectionEvent event) {
+								pointName = list.getSelectedValue().toString();
+							}
+						});
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(new Dimension(800, 600));
