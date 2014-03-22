@@ -22,8 +22,8 @@ public class MapGetter {
     private static double yToMap=0.000026;
     
     private static int zoom=15;
-    private static int imageSizeW=640;
-    private static int imageSizeH=640;
+    private static int imageSizeW=440;
+    private static int imageSizeH=440;
     private static double latitude=51.110851;
     private static double longtitude=17.029839;
     private static String googleKey="AIzaSyAYEbDIFRtcBXkDn4XbE_VH7A7WqHx1Z8o";
