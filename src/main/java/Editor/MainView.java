@@ -22,6 +22,7 @@ public class MainView extends JFrame {
 	private GoogleMapPanel panel;
 	private JList list;
 	private String pointName = "default";
+	private int QuestType = 1;
 	private DetailsView detailsView;
 	private String[] mapPoints = { "test 0", "test 1" };
 	private JButton userDataBtn;
@@ -96,7 +97,7 @@ public class MainView extends JFrame {
 
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
-						detailsView = new DetailsView(pointName);
+						detailsView = new DetailsView(pointName, QuestType);
 						System.out.println(detailsView.getPointName());
 					}
 				});

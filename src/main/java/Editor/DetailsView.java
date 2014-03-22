@@ -29,12 +29,39 @@ public class DetailsView extends JFrame {
 	private String pointName = "default";
 	private JLabel lblNewLabel;
 
-	public DetailsView(String pointName) {
+	public DetailsView(String pointName, int QuestType) {
 		super("Details view");
-
-		this.pointName = pointName;
-
+		
 		panel = new JPanel();
+		//Typy zagadek
+		switch(QuestType){
+			case 0:
+				constructTextQuestFields();
+				break;
+			case 1:
+				constructRangeQuestFields();
+				break;
+			//Inne typy zagadek
+			default:
+				break;
+		}
+		
+		
+		setSize(new Dimension(300, 300));
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setVisible(true);
+
+	}
+	//Tworz pola zagadki dotyczacej zasiegu
+	private void constructRangeQuestFields() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	//Tworz pola zagadki tekstowej
+	private void constructTextQuestFields()
+	{
+		this.pointName = pointName;
 		setOfpath = new HashSet<>();
 		listModel = new DefaultListModel<String>();
 		paths = new JList<String>(listModel);
@@ -85,12 +112,8 @@ public class DetailsView extends JFrame {
 		lblNewLabel.setBounds(170, 83, 102, 15);
 		panel.add(lblNewLabel);
 
-		setSize(new Dimension(300, 300));
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setVisible(true);
-
 	}
-
+	
 	public String getPointName() {
 		return pointName;
 	}
