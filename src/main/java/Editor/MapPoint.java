@@ -17,4 +17,10 @@ public class MapPoint {
 		xCoordinate= coords[0];
 		yCoordinate = coords[1];
 	}
+	
+	public String toString()
+	{
+		return xCoordinate+", "+yCoordinate;
+	}
+
 }

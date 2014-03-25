@@ -27,15 +27,15 @@ public class DetailsView extends JFrame {
 	private JList<String> paths;
 	private DefaultListModel<String> listModel;
 	private JLabel pointNameLbl;
-	private String pointName = "default";
+	private String pointName;// = "default";
 	private JLabel lblNewLabel;
 	private JTextField textField;
 	private JLabel lblListOfSounds;
 	private JList list;
 
-	public DetailsView(String pointName, int QuestType) {
+	public DetailsView(String pntName, int QuestType) {
 		super("Details view");
-		
+		this.pointName = pntName;
 		panel = new JPanel();
 		//TYMCZASOWE KONTROLKI DO ZMIANY WIDOKU W WB
 		
@@ -70,7 +70,6 @@ public class DetailsView extends JFrame {
 	//Tworz pola zagadki tekstowej
 	private void constructTextQuestFields()
 	{
-		this.pointName = pointName;
 		setOfpath = new HashSet<>();
 		listModel = new DefaultListModel<String>();
 		paths = new JList<String>(listModel);

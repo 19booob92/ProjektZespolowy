@@ -27,6 +27,7 @@ public class MainView extends JFrame {
 	private JPanel panel;
 	private GoogleMapPanel googlePanel;
 	private DetailsView detailsView;
+	//Lista byc moze do usuniecia
 	private static ArrayList<MapPoint> mPoints;
 		
 	private static DefaultListModel listModel;
@@ -36,7 +37,7 @@ public class MainView extends JFrame {
 	
 	
 	private String[] mapPoints = { "test 0", "test 1" };
-	private String pointName = "default";
+	private String pointName;// = "default";
 	
 	private JLabel lblQuestName;
 	private JLabel lblNodeList;
@@ -242,7 +243,8 @@ public class MainView extends JFrame {
 	
 	public static void createPoint(double [] coords)
 	{
-		mPoints.add(new MapPoint(coords));
-		listModel.addElement(String.valueOf(coords[0])+", "+String.valueOf(coords[1]));
+		//MapPoint p = new MapPoint(coords);
+		listModel.addElement(new MapPoint(coords));
+		//mPoints.add(p);
 	}
 }
