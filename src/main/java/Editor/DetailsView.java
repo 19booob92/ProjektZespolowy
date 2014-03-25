@@ -61,6 +61,26 @@ public class DetailsView extends JFrame {
 		setVisible(true);
 
 	}
+	
+	public DetailsView(MapPoint m, int QuestType)
+	{
+		super("Details view");
+		this.pointName = m.toString();
+		panel = new JPanel();
+
+		switch(QuestType){
+			case 0:
+				constructTextQuestFields();
+				break;
+			case 1:
+				constructRangeQuestFields();
+				break;
+			//Inne typy zagadek
+			default:
+				break;
+		}
+	}
+	
 	//Tworz pola zagadki dotyczacej zasiegu
 	private void constructRangeQuestFields() {
 		// TODO Auto-generated method stub
@@ -141,6 +161,18 @@ public class DetailsView extends JFrame {
 		list = new JList();
 		list.setBounds(248, 205, 241, 96);
 		panel.add(list);
+	}
+	
+	public void setMapPointQuestDescription(){
+		
+	}
+	
+	public void setMapPointQuestPicturePaths(){
+		
+	}
+	
+	public void setMapPointQuestSoundPaths(){
+		
 	}
 	
 	public String getPointName() {

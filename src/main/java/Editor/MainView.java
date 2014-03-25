@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -27,9 +28,12 @@ public class MainView extends JFrame {
 	private JPanel panel;
 	private GoogleMapPanel googlePanel;
 	private DetailsView detailsView;
+	
 	//Lista byc moze do usuniecia
 	private static ArrayList<MapPoint> mPoints;
-		
+	//private static MapPoint temporaryMapPoint;
+	
+	private static JScrollPane scrollPane;
 	private static DefaultListModel listModel;
 	private static JList list;
 	
@@ -108,6 +112,7 @@ public class MainView extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						detailsView = new DetailsView(pointName, QuestType);
+						//detailsView = new DetailsView(temporaryMapPoint, QuestType);
 						System.out.println(detailsView.getPointName());
 					}
 				});
@@ -152,9 +157,14 @@ public class MainView extends JFrame {
 		controlsPanel.add(lblQuestName);
 		
 		listModel = new DefaultListModel();
+		list = new JList(listModel);
+		
+		//Test 0, Test1
 		listModel.addElement(mapPoints[0]);
 		listModel.addElement(mapPoints[1]);
-		list = new JList(listModel);
+		
+		scrollPane =  new JScrollPane(list);
+		//scrollPane.setViewportView(list);
 		list.setBounds(20, 225, 220, 93);
 		controlsPanel.add(list);
 		
@@ -216,6 +226,7 @@ public class MainView extends JFrame {
 
 			public void valueChanged(ListSelectionEvent event) {
 				pointName = list.getSelectedValue().toString();
+				//temporaryMapPoint = (MapPoint) list.getSelectedValue();
 			}
 		});
 		
