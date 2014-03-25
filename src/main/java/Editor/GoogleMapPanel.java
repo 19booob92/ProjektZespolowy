@@ -59,7 +59,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
                 } catch (IOException e) {
                 }
             
-        BufferedImage image = new BufferedImage(440, 440, BufferedImage.TYPE_INT_RGB); 
+        BufferedImage image = new BufferedImage(1024, 1024, BufferedImage.TYPE_INT_RGB); 
         Graphics g = image.getGraphics();
         
         g.drawImage(img, imageX-imageVX, imageY-imageVY, null);
@@ -117,7 +117,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         System.out.println("Y:"+Integer.toString(mouseY));
         System.out.println("Koordynaty: "+MapGetter.addMarker(mouseX,mouseY));
         MapGetter.getMapImage(MapGetter.createUrl(0, 0));
-        MainView.createPoint("test");
+        MainView.createPoint(MapGetter.getMarker(mouseX, mouseY));
         //mouse_x=0;
         //mouse_y=0;
         repaint();}

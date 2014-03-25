@@ -84,7 +84,7 @@ public class MainView extends JFrame {
 	    //endof
 		
 		
-		listBtn.setBounds(12, 533, 107, 25);
+		listBtn.setBounds(159, 372, 107, 25);
 		userDataBtn = new JButton("Create User");
 		userDataBtn.addActionListener(new ActionListener() {
 
@@ -115,18 +115,18 @@ public class MainView extends JFrame {
 		panel.add(listBtn);
 		getContentPane().add(panel);
 
-		userDataBtn.setBounds(430, 533, 143, 25);
+		userDataBtn.setBounds(467, 372, 143, 25);
 		panel.add(userDataBtn);
 
 		btnCreate = new JButton("Generate Package");
-		btnCreate.setBounds(247, 533, 181, 25);
+		btnCreate.setBounds(276, 372, 181, 25);
 		panel.add(btnCreate);
 		
 		QuestGroup = new ButtonGroup();
 		
 		JPanel controlsPanel = new JPanel();
 		controlsPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		controlsPanel.setBounds(12, 32, 250, 320);
+		controlsPanel.setBounds(12, 32, 250, 329);
 		
 		panel.add(controlsPanel);
 		panel.add(googlePanel);
@@ -152,7 +152,7 @@ public class MainView extends JFrame {
 		listModel.addElement(mapPoints[0]);
 		listModel.addElement(mapPoints[1]);
 		list = new JList(listModel);
-		list.setBounds(101, 119, 139, 190);
+		list.setBounds(101, 119, 139, 199);
 		controlsPanel.add(list);
 		
 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Zagadka ...");
@@ -199,7 +199,7 @@ public class MainView extends JFrame {
 		});
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(new Dimension(794, 600));
+		setSize(new Dimension(637, 451));
 		setVisible(true);
 	}
 
