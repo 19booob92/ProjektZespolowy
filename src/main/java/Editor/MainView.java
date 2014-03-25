@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
@@ -26,7 +27,8 @@ public class MainView extends JFrame {
 	private JPanel panel;
 	private GoogleMapPanel googlePanel;
 	private DetailsView detailsView;
-	
+	private static ArrayList<MapPoint> mPoints;
+		
 	private static DefaultListModel listModel;
 	private static JList list;
 	
@@ -65,7 +67,7 @@ public class MainView extends JFrame {
 		super("Editor");
 		this.setBounds(0, 0, 600, 600);
 		setLocationRelativeTo(null);
-		
+		mPoints = new ArrayList<>();
 		panel = new JPanel();
 		googlePanel = new GoogleMapPanel();
 		
@@ -134,17 +136,17 @@ public class MainView extends JFrame {
 		controlsPanel.setLayout(null);
 		
 		JLabel lblQuestType = new JLabel("Quest Type");
-		lblQuestType.setBounds(20, 54, 56, 14);
+		lblQuestType.setBounds(20, 54, 71, 14);
 		controlsPanel.add(lblQuestType);
 		
 		lblNodeList = new JLabel("Node list");
-		lblNodeList.setBounds(20, 120, 56, 14);
+		lblNodeList.setBounds(20, 200, 71, 14);
 		controlsPanel.add(lblNodeList);
 		nameOfGame.setBounds(101, 23, 139, 20);
 		controlsPanel.add(nameOfGame);
 		
 		lblQuestName = new JLabel("Quest Name");
-		lblQuestName.setBounds(20, 26, 59, 14);
+		lblQuestName.setBounds(20, 26, 71, 14);
 		
 		controlsPanel.add(lblQuestName);
 		
@@ -152,21 +154,39 @@ public class MainView extends JFrame {
 		listModel.addElement(mapPoints[0]);
 		listModel.addElement(mapPoints[1]);
 		list = new JList(listModel);
-		list.setBounds(101, 119, 139, 199);
+		list.setBounds(20, 225, 220, 93);
 		controlsPanel.add(list);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Zagadka ...");
-		rdbtnNewRadioButton_1.setBounds(101, 76, 129, 23);
-		controlsPanel.add(rdbtnNewRadioButton_1);
-		QuestGroup.add(rdbtnNewRadioButton_1);
-		
 		//Pogrupowane typy zagadek + listenery
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Zagadka tekstowa");
-		rdbtnNewRadioButton.setBounds(101, 50, 129, 23);
-		controlsPanel.add(rdbtnNewRadioButton);
-		QuestGroup.add(rdbtnNewRadioButton);
 		
-		rdbtnNewRadioButton.addActionListener(new ActionListener() {
+		JRadioButton rdbtnRangeQuest = new JRadioButton("Zagadka ...");
+		rdbtnRangeQuest.setBounds(101, 76, 129, 23);
+		
+		JRadioButton rdbtnTextQuest = new JRadioButton("Zagadka tekstowa");
+		rdbtnTextQuest.setBounds(101, 50, 129, 23);
+		
+		JRadioButton rdbtnChoiceTest = new JRadioButton("Test wyboru");
+		rdbtnChoiceTest.setBounds(101, 102, 109, 23);
+		
+		JRadioButton rdbtnFieldQuest = new JRadioButton("Zadanie terenowe");
+		rdbtnFieldQuest.setBounds(101, 128, 109, 23);
+		
+		JRadioButton rdbtnOrderBy = new JRadioButton("Uporz\u0105dkuj ");
+		rdbtnOrderBy.setBounds(101, 154, 109, 23);
+			
+		QuestGroup.add(rdbtnRangeQuest);
+		QuestGroup.add(rdbtnTextQuest);
+		QuestGroup.add(rdbtnChoiceTest);
+		QuestGroup.add(rdbtnFieldQuest);
+		QuestGroup.add(rdbtnOrderBy);
+		
+		controlsPanel.add(rdbtnRangeQuest);
+		controlsPanel.add(rdbtnTextQuest);
+		controlsPanel.add(rdbtnChoiceTest);
+		controlsPanel.add(rdbtnOrderBy);
+		controlsPanel.add(rdbtnFieldQuest);
+		
+		rdbtnTextQuest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 		
 				EventQueue.invokeLater(new Runnable() {
@@ -178,7 +198,7 @@ public class MainView extends JFrame {
 			}
 		});
 		
-		rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
+		rdbtnRangeQuest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 		
 				EventQueue.invokeLater(new Runnable() {
@@ -220,8 +240,9 @@ public class MainView extends JFrame {
 		this.detailsView = detailsView;
 	}
 	
-	public static void createPoint(String testValue)
+	public static void createPoint(double [] coords)
 	{
-		listModel.addElement(testValue);
+		mPoints.add(new MapPoint(coords));
+		listModel.addElement(String.valueOf(coords[0])+", "+String.valueOf(coords[1]));
 	}
 }

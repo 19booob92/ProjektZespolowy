@@ -59,11 +59,12 @@ public class MapGetter {
         return Double.toString(lat)+","+Double.toString(lon);
     }
     
-    static public String getMarker(int x, int y)
+    static public double[] getMarker(int x, int y)
     {
     	double lat = latitude - yToMap*y + 320*yToMap;
-        double lon = longtitude + xToMap*x - 320*xToMap;      
-        return Double.toString(lat)+","+Double.toString(lon);
+        double lon = longtitude + xToMap*x - 320*xToMap;    
+        double [] coords = {lat, lon};
+        return coords;
     }
     
     static public String createUrl(int x,int y)

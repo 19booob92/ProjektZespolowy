@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class DetailsView extends JFrame {
 
@@ -28,11 +29,19 @@ public class DetailsView extends JFrame {
 	private JLabel pointNameLbl;
 	private String pointName = "default";
 	private JLabel lblNewLabel;
+	private JTextField textField;
+	private JLabel lblListOfSounds;
+	private JList list;
 
 	public DetailsView(String pointName, int QuestType) {
 		super("Details view");
 		
 		panel = new JPanel();
+		//TYMCZASOWE KONTROLKI DO ZMIANY WIDOKU W WB
+		
+		//KONIEC
+		
+		
 		//Typy zagadek
 		switch(QuestType){
 			case 0:
@@ -47,7 +56,7 @@ public class DetailsView extends JFrame {
 		}
 		
 		
-		setSize(new Dimension(300, 300));
+		setSize(new Dimension(515, 351));
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 
@@ -65,14 +74,15 @@ public class DetailsView extends JFrame {
 		setOfpath = new HashSet<>();
 		listModel = new DefaultListModel<String>();
 		paths = new JList<String>(listModel);
-		paths.setBounds(165, 110, 121, 126);
+		
+		paths.setBounds(248, 62, 241, 107);
 		paths.setPreferredSize(new Dimension(70, 100));
 		setLocationRelativeTo(null);
-		questContent.setBounds(12, 48, 136, 188);
+		questContent.setBounds(12, 62, 226, 107);
 		pointNameLbl = new JLabel(this.pointName);
 		pointNameLbl.setFont(new Font("Comic Sans MS", Font.BOLD | Font.ITALIC,
 				15));
-		pointNameLbl.setBounds(105, 12, 117, 15);
+		pointNameLbl.setBounds(12, 11, 117, 15);
 		panel.setLayout(null);
 
 		panel.add(questContent);
@@ -101,7 +111,7 @@ public class DetailsView extends JFrame {
 			}
 		});
 
-		choosePics.setBounds(160, 37, 112, 25);
+		choosePics.setBounds(377, 32, 112, 25);
 		panel.add(choosePics);
 		panel.add(paths);
 		panel.add(pointNameLbl);
@@ -109,9 +119,29 @@ public class DetailsView extends JFrame {
 		getContentPane().add(panel);
 
 		lblNewLabel = new JLabel("List of pic's");
-		lblNewLabel.setBounds(170, 83, 102, 15);
+		lblNewLabel.setBounds(255, 37, 102, 15);
 		panel.add(lblNewLabel);
-
+		
+		JLabel lblQuestContent = new JLabel("Quest Content");
+		lblQuestContent.setBounds(12, 37, 71, 14);
+		panel.add(lblQuestContent);
+		
+		JLabel lblQuestAnswer = new JLabel("Quest Answer");
+		lblQuestAnswer.setBounds(12, 180, 73, 14);
+		panel.add(lblQuestAnswer);
+		
+		textField = new JTextField();
+		textField.setBounds(95, 177, 143, 20);
+		panel.add(textField);
+		textField.setColumns(10);
+		
+		lblListOfSounds = new JLabel("List of sounds");
+		lblListOfSounds.setBounds(258, 180, 71, 14);
+		panel.add(lblListOfSounds);
+		
+		list = new JList();
+		list.setBounds(248, 205, 241, 96);
+		panel.add(list);
 	}
 	
 	public String getPointName() {

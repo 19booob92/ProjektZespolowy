@@ -120,7 +120,8 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         MainView.createPoint(MapGetter.getMarker(mouseX, mouseY));
         //mouse_x=0;
         //mouse_y=0;
-        repaint();}
+        repaint();
+        }
     }
 
     public void mousePressed(MouseEvent e) {
