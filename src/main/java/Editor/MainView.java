@@ -39,7 +39,6 @@ public class MainView extends JFrame {
 	
 	private int QuestType = 0;
 		
-	private String[] mapPoints = { "test 0", "test 1" };
 	private String pointName;// = "default";
 	
 	private JLabel lblQuestName;
@@ -137,10 +136,6 @@ public class MainView extends JFrame {
 		
 		listModel = new DefaultListModel();
 		list = new JList(listModel);
-		
-		//Test 0, Test1
-		listModel.addElement(mapPoints[0]);
-		listModel.addElement(mapPoints[1]);
 		
 		scrollPane =  new JScrollPane(list);
 		//scrollPane.setViewportView(list);

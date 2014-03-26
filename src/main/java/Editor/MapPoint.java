@@ -11,6 +11,7 @@ public class MapPoint {
 		yCoordinate = 0;
 	}
 	
+
 	public MapPoint(double x, double y)
 	{
 		quest = new QuestPoint();
@@ -23,4 +24,11 @@ public class MapPoint {
 		return xCoordinate+", "+yCoordinate;
 	}
 
+	public QuestPoint getQuest() {
+		return quest;
+	}
+	
+	public void setQuest(QuestPoint quest) {
+		this.quest = quest;
+	}
 }

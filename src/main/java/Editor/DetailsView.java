@@ -21,9 +21,9 @@ import javax.swing.JTextField;
 public class DetailsView extends JFrame {
 
 	private Set<String> setOfpath;
-
+	private MapPoint mapPoint;
+	
 	private JPanel panel;
-	private JTextArea questContent = new JTextArea("Insert quest content");
 	private JTextField textField;
 	
 	private JButton choosePics;
@@ -43,10 +43,11 @@ public class DetailsView extends JFrame {
 	private JLabel lblListOfSounds;
 
 
-	public DetailsView(MapPoint m, int QuestType)
+	public DetailsView(MapPoint mP, int QuestType)
 	{
 		super("Details view");
-		this.pointName = m.toString();
+		mapPoint = mP;
+		this.pointName = mapPoint.toString();
 
 		chooseSounds = new JButton("Choose sounds");
 		chooseSounds.setBounds(377, 143, 112, 23);
@@ -79,7 +80,7 @@ public class DetailsView extends JFrame {
 		
 		setLocationRelativeTo(null);
 		
-		questContent.setBounds(12, 254, 477, 107);
+		
 		
 		pointNameLbl = new JLabel(this.pointName);
 		pointNameLbl.setFont(new Font("Comic Sans MS", Font.BOLD | Font.ITALIC,15));
@@ -103,13 +104,17 @@ public class DetailsView extends JFrame {
 		
 		btnApplySettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				//TO DO
+				//Wstawienie obrazkow i dzwiekow do ArrayList w obiekcie mapPoint 
+				//Tu trzeba wywolac funkcje w zaleznosci od typu zagadki - na razie prowizorycznie wpisano Stringi
+				mapPoint.getQuest().setQuestDescription("Description");
+				mapPoint.getQuest().setQuestAnswer("Answer");
 			}
 		});
 		
+		picsListModel.addElement((mapPoint.getQuest().getPicturePaths().get(0)));
+		soundsListModel.addElement(mapPoint.getQuest().getSoundPaths().get(0));
 		
-
-		panel.add(questContent);
 		panel.add(choosePics);
 		panel.add(chooseSounds);
 		panel.add(pics);
@@ -118,8 +123,6 @@ public class DetailsView extends JFrame {
 		panel.add(lblListOfSounds);
 		panel.add(lblListOfPics);
 		panel.add(btnApplySettings);
-
-		getContentPane().add(panel);
 		
 		switch(QuestType){
 			case 0:
@@ -140,13 +143,17 @@ public class DetailsView extends JFrame {
 	//Tworz pola zagadki dotyczacej zasiegu
 	private void constructRangeQuestFields() {
 		// TODO Auto-generated method stub
-		
+		getContentPane().add(panel);
 	}
 
 	//Tworz pola zagadki tekstowej
 	private void constructTextQuestFields()
 	{
 
+		JTextArea questContent = new JTextArea(mapPoint.getQuest().getQuestDescription());
+		questContent.setBounds(12, 254, 477, 107);
+		panel.add(questContent);
+		
 		JLabel lblQuestContent = new JLabel("Quest Content");
 		lblQuestContent.setBounds(12, 37, 71, 14);
 		panel.add(lblQuestContent);
@@ -155,10 +162,12 @@ public class DetailsView extends JFrame {
 		lblQuestAnswer.setBounds(12, 180, 73, 14);
 		panel.add(lblQuestAnswer);
 		
-		textField = new JTextField();
+		textField = new JTextField(mapPoint.getQuest().getQuestAnswer());
 		textField.setBounds(95, 177, 143, 20);
 		panel.add(textField);
 		textField.setColumns(10);
+		
+		getContentPane().add(panel);
 	}
 	
 	private void getPath(DefaultListModel<String> list) {
@@ -179,19 +188,7 @@ public class DetailsView extends JFrame {
 			System.out.println("No Selection ");
 		}
 	}
-	
-	public void setMapPointQuestDescription(){
 		
-	}
-	
-	public void setMapPointQuestPicturePaths(){
-		
-	}
-	
-	public void setMapPointQuestSoundPaths(){
-		
-	}
-	
 	public String getPointName() {
 		return pointName;
 	}
