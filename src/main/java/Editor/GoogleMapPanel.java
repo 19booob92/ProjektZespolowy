@@ -18,9 +18,11 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import static java.lang.Math.abs;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -35,6 +37,10 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
     private int imageVY=0;
     private int imageWidth=0;
     private int imageHeight=0;
+    
+    private boolean mDragged=false;
+    
+    private MarkerRect markerArray = null;
     
     private String[] viewMode = new String[4];
     private int viewModeCounter = 0;
@@ -92,23 +98,38 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         img.flush();
         //POLOZENIE CZARNEGO TLA
         g2d.drawImage(img, 0, 0, this);
+        
+        if(markerArray!=null){
+            if(!mDragged){
+        markerArray.doDrawing(g);}}
     }
     
     
     @Override
    public void paintComponent(Graphics g) {
-        
    super.paintComponent(g);
    doDrawing(g);
+   
    }
 
     public void mouseDragged(MouseEvent e) {
+        
+        if(e.isControlDown())
+        {
+            markerArray.setWidth(-(mouseStartX-e.getX()));
+            markerArray.setheight(-(mouseStartY-e.getY()));
+            repaint();
+        }
+        else
+        {
+        mDragged=true;
         mouseX=e.getX();
         mouseY=e.getY();
         imageVX=mouseStartX-mouseX;
         imageVY=mouseStartY-mouseY;
         repaint();
         System.out.println("ruch");
+        }
         
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -125,27 +146,51 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         System.out.println("Y:"+Integer.toString(mouseY));
         System.out.println("Koordynaty: "+MapGetter.addMarker(mouseX,mouseY));
         MapGetter.getMapImage(MapGetter.createUrl(0, 0));
+        
         //MainView.createPoint(MapGetter.getMarker(mouseX, mouseY));
         //mouse_x=0;
         //mouse_y=0;
-        repaint();
+        
         }
+        if(markerArray!=null)
+        {
+            if(markerArray.isSelected())
+            {
+                markerArray.selectMarker(e.getX(), e.getY());
+                if(markerArray.isSelected()){
+                markerArray.setLabel(JOptionPane.showInputDialog("Dodaj nazwę"));}
+            }
+            markerArray.selectMarker(e.getX(), e.getY());
+            markerArray.cleanUp();
+        }
+        
+        repaint();
     }
 
     public void mousePressed(MouseEvent e) {
+        
+        if((e.isControlDown())&&(e.getButton()==BUTTON1))
+        {
+            markerArray = new MarkerRect(MapGetter.getLatitude(e.getY()),MapGetter.getLongtitude(e.getX()));
+
+        }
+
         mouseStartX=e.getX();
         mouseStartY=e.getY();
+        
         //mouse_x=e.getX();
         //mouse_y=e.getY();
         //System.out.println(mouse_x);
         repaint();
+
 // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void mouseReleased(MouseEvent e) {
         //mouse_x=0;
         //mouse_y=0;
-        
+        mDragged=false;
+        if(!e.isControlDown()){
         imageVX=0;
         imageVY=0;
         mouseX=e.getX();
@@ -155,6 +200,9 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         System.out.println("Roznica Y:"+Integer.toString(mouseY-mouseStartY));
         //mouse_x=0;
         //mouse_y=0;
+        }
+        if(markerArray!=null){
+        markerArray.cleanUp();}
         repaint();
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

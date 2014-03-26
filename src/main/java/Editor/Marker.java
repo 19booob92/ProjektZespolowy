@@ -34,4 +34,5 @@ public class Marker {
     {
         return "&markers=color:blue%7Clabel:"+Integer.toString(id)+"%7C"+Double.toString(latitude)+","+Double.toString(longtitude);
     }
+
 }

@@ -32,6 +32,35 @@ public class MapGetter {
     public static Marker[] markersArray = new Marker[20];
     public static int markers=0;
     
+    static public double getLatitude()
+    {
+        return latitude;
+    }
+    
+    static public double getLongtitude()
+    {
+        return longtitude;
+    }
+    
+    static public double getXToMap()
+    {
+        return xToMap;
+    }
+    
+    static public double getYToMap()
+    {
+        return yToMap;
+    }
+    
+    static public int getImageSizeW()
+    {
+        return imageSizeW;
+    }
+    
+    static public int getImageSizeH()
+    {
+        return imageSizeH;
+    }
     static public void setImageSizeW(int width)
     {
         imageSizeW=width;
@@ -54,6 +83,16 @@ public class MapGetter {
         markers--;
         Marker.decTrigger();
         }
+    }
+    
+    static public double getLatitude(int y)
+    {
+        return latitude - yToMap*y + imageSizeH/2*yToMap;
+    }
+    
+    static public double getLongtitude(int x)
+    {
+        return longtitude + xToMap*x - imageSizeW/2*xToMap;
     }
     
     static public String addMarker(int x,int y)
