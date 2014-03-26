@@ -120,6 +120,27 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
             markerArray.setheight(-(mouseStartY-e.getY()));
             repaint();
         }
+        else if(markerArray.isSelectedDrag())
+        {
+            markerArray.setX(-(mouseStartX-e.getX()));
+            markerArray.setY(-(mouseStartY-e.getY()));
+            repaint();
+        }
+        else if((markerArray.isSelectedWidth())||(markerArray.isSelecetedHeigh()))
+        {
+            if(markerArray.isSelectedWidth()){
+            markerArray.changeWidth(-(mouseStartX-e.getX()));}
+            if(markerArray.isSelecetedHeigh())
+            {
+                markerArray.changeHeight(-(mouseStartY-e.getY()));
+            }
+            repaint();
+        }
+//        else if(markerArray.isSelecetedHeigh())
+//        {
+//            markerArray.changeHeight(-(mouseStartY-e.getY()));
+//            repaint();
+//        }
         else
         {
         mDragged=true;
@@ -130,6 +151,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         repaint();
         System.out.println("ruch");
         }
+        
         
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -174,7 +196,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
             markerArray = new MarkerRect(MapGetter.getLatitude(e.getY()),MapGetter.getLongtitude(e.getX()));
 
         }
-
+        markerArray.selectWidth(e.getX(), e.getY());
         mouseStartX=e.getX();
         mouseStartY=e.getY();
         
@@ -190,7 +212,14 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         //mouse_x=0;
         //mouse_y=0;
         mDragged=false;
-        if(!e.isControlDown()){
+        
+        if(e.isControlDown()){
+        }
+        else if(((markerArray.isSelectedWidth())||markerArray.isSelecetedHeigh())||(markerArray.isSelectedDrag()))
+        {
+        }
+        else
+        {
         imageVX=0;
         imageVY=0;
         mouseX=e.getX();
@@ -201,6 +230,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         //mouse_x=0;
         //mouse_y=0;
         }
+        
         if(markerArray!=null){
         markerArray.cleanUp();}
         repaint();

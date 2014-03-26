@@ -23,6 +23,9 @@ public class MarkerRect {
     private double longtitudeV=0;
     
     private boolean selected = false;
+    private boolean selectedWidth = false;
+    private boolean selectedHeight = false;
+    private boolean selectedDrag = false;
     
     private String label=null;
  
@@ -30,6 +33,63 @@ public class MarkerRect {
     private double y;
     private int width = 0;
     private int height = 0;
+    
+    private int widthV = 0;
+    private int heightV = 0;
+    
+    private int barWidth=10;
+    private int barHeight=10;
+    
+    public void selectDrag(int tX,int tY)
+    {
+
+    }
+    
+    public boolean isSelectedDrag()
+    {
+        return selectedDrag;
+    }
+    
+    public void selectWidth(int tX,int tY)
+    {
+        if(((tX>(x+width-barWidth))&&(tX<x+width))&&((tY>y)&&(tY<y+height)))
+        {
+            selectedWidth=true;
+        }
+        else
+        {
+            selectedWidth=false;
+        }
+        
+        if(((tX>x)&&(tX<(x+width)))&&((tY>y+height-barHeight)&&(tY<y+height)))
+        {
+            selectedHeight=true;
+        }
+        else
+        {
+            selectedHeight=false;
+        }
+        
+        if(((tX>x)&&(tX<x+width-barWidth))&&((tY>y)&&(tY<y+height-barHeight)))
+        {
+            selectedDrag=true;
+        }
+        else
+        {
+            selectedDrag=false;
+        }
+    }
+    
+    
+    public boolean isSelectedWidth()
+    {
+        return selectedWidth;
+    }
+    
+    public boolean isSelecetedHeigh()
+    {
+        return selectedHeight;
+    }
     
     public double getLatitude()
     {
@@ -72,6 +132,10 @@ public class MarkerRect {
     public void cleanUp()
     {
         if(label==null){label="Obszar";}
+        height+=heightV;
+        width+=widthV;
+        heightV=0;
+        widthV=0;
         if(width==0){width=60;}
         if(height==0){height=60;}
         latitude-=latitudeV;
@@ -83,12 +147,12 @@ public class MarkerRect {
     {
         if(tWidth>0)
         {
-            width=tWidth;
+            widthV=tWidth;
         }
         else
         {
             longtitudeV=tWidth*MapGetter.getXToMap();
-            width=abs(tWidth);
+            widthV=abs(tWidth);
         }
     }
     
@@ -96,13 +160,50 @@ public class MarkerRect {
     {
         if(tHeight>=0)
         {
-            height=tHeight;
+            heightV=tHeight;
         }
         else
         {
             latitudeV=tHeight*MapGetter.getYToMap();
-            height=abs(tHeight);
+            heightV=abs(tHeight);
         }
+    }
+    
+    public void setX(int tX)
+    {
+        longtitudeV=tX*MapGetter.getXToMap();
+    }
+    
+    public void setY(int tY)
+    {
+        latitudeV=tY*MapGetter.getYToMap();
+    }
+    public void changeWidth(int tWidth)
+    {
+        if(width+widthV>=30)
+        {
+            widthV=tWidth;
+        }
+        else
+        {
+            width=30;
+            widthV=10;
+        }
+
+    }
+    
+        public void changeHeight(int tHeight)
+    {
+        if(height+heightV>=30)
+        {
+            heightV=tHeight;
+        }
+        else
+        {
+            height=30;
+            heightV=10;
+        }
+
     }
     
     public void doDrawing(Graphics g)
@@ -116,14 +217,20 @@ public class MarkerRect {
         //y = (int) (longtitude - MapGetter.getLongtitude() - MapGetter.getImageSizeH()/2*MapGetter.getXToMap());
         y = -((latitude-latitudeV) - MapGetter.getLatitude())/MapGetter.getYToMap() + MapGetter.getImageSizeH()/2;
         
-        g.drawRect((int) x, (int)y, width, height);
+        g.drawRect((int) x, (int)y, width + widthV, height + heightV);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 18)); 
+        
+        if(selected)
+        {
+            g.drawRect((int)x+width+widthV-barWidth, (int)y, barWidth, height+heightV-barWidth);
+            g.drawRect((int) x, (int) y +height+heightV-barHeight, width+widthV-barHeight, barHeight);
+        }
         g.setColor(Color.black);
         if(label!=null)
         {
             g.drawString(label, (int) x, (int) y+18);
         }
         
-        
+
     }
 }
