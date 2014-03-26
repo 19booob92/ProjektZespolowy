@@ -40,7 +40,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
     
     private boolean mDragged=false;
     
-    private MarkerRect markerArray = null;
+    private MarkerRect markerArray = new MarkerRect(0,0);
     
     private String[] viewMode = new String[4];
     private int viewModeCounter = 0;
