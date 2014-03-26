@@ -53,19 +53,9 @@ public class MainView extends JFrame {
 	
 	//Here Goes GoogleMap
 
-    private static int zoom=15;
     private static int imageSizeW=640;
     private static int imageSizeH=640;
-    private static double latitude=51.110851;
-    private static double longtitude=17.029839;
-    private static double step=0.003;
-    private static  final String googleKey="AIzaSyAYEbDIFRtcBXkDn4XbE_VH7A7WqHx1Z8o";
-    
-    private static JLabel display = null;
-    private static JButton up = null;
-    private static JButton down = null;
-    private static JButton left = null;
-    private static JButton right = null;
+
 	//endof
 	
 	public MainView() {
@@ -74,20 +64,15 @@ public class MainView extends JFrame {
 		setLocationRelativeTo(null);
 		mPoints = new ArrayList<>();
 		panel = new JPanel();
-		googlePanel = new GoogleMapPanel();
+		googlePanel = new GoogleMapPanel(338,329);
 		
 		//GoogleMap Listeners, labels etc
 		googlePanel.addMouseListener(googlePanel);
-        googlePanel.addMouseMotionListener(googlePanel);
-        googlePanel.addKeyListener(googlePanel);
-        googlePanel.setFocusable(true);
-        googlePanel.setBounds(272, 32, 338, 329);
+                googlePanel.addMouseMotionListener(googlePanel);
+                googlePanel.addKeyListener(googlePanel);
+                googlePanel.setFocusable(true);
+                googlePanel.setBounds(272, 32, 338, 329);
         
-        display = new JLabel();
-        display.setPreferredSize(new Dimension(imageSizeW,imageSizeH));
-        display.setMaximumSize(new Dimension(imageSizeW,imageSizeH));
-        display.setAlignmentX(Component.CENTER_ALIGNMENT);
-        MapGetter.getMapImage(MapGetter.createUrl(0, 0));
 	    //endof
 		
 		

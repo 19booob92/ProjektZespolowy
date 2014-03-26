@@ -32,6 +32,16 @@ public class MapGetter {
     public static Marker[] markersArray = new Marker[20];
     public static int markers=0;
     
+    static public void setImageSizeW(int width)
+    {
+        imageSizeW=width;
+    }
+    
+    static public void setImageSizeH(int height)
+    {
+        imageSizeH=height;
+    }
+    
     static public void setMapType(String type)
     {
         mapType=type;
@@ -48,9 +58,9 @@ public class MapGetter {
     
     static public String addMarker(int x,int y)
     {
-        double lat = latitude - yToMap*y + 320*yToMap;
+        double lat = latitude - yToMap*y + imageSizeH/2*yToMap;
         //double lat = 51.111565;
-        double lon = longtitude + xToMap*x - 320*xToMap;
+        double lon = longtitude + xToMap*x - imageSizeW/2*xToMap;
         
         if(markers<20){
         markersArray[markers]=new Marker(lat,lon);
@@ -61,8 +71,8 @@ public class MapGetter {
     
     static public double[] getMarker(int x, int y)
     {
-    	double lat = latitude - yToMap*y + 320*yToMap;
-        double lon = longtitude + xToMap*x - 320*xToMap;    
+    	double lat = latitude - yToMap*y + imageSizeH/2*yToMap;
+        double lon = longtitude + xToMap*x - imageSizeW/2*xToMap;    
         double [] coords = {lat, lon};
         return coords;
     }
@@ -78,9 +88,9 @@ public class MapGetter {
         url+="&zoom=";
         url+=Integer.toString(zoom);
         url+="&size=";
-        url+=Integer.toString(imageSizeH);
-        url+="x";
         url+=Integer.toString(imageSizeW);
+        url+="x";
+        url+=Integer.toString(imageSizeH);
         
         /*if(markers!=0){
         url+="&markers=color:blue%7Clabel:P%7C";

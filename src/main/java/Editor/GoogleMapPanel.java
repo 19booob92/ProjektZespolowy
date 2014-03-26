@@ -25,21 +25,27 @@ import javax.swing.JPanel;
 
 
 public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotionListener, MouseListener, KeyListener{
-	private static int mouseX=0;
-    private static int mouseY=0;
-    private static int mouseStartX=0;
-    private static int mouseStartY=0;
-    private static int imageX=0;
-    private static int imageY=0;
-    private static int imageVX=0;
-    private static int imageVY=0;
+	private int mouseX=0;
+    private int mouseY=0;
+    private int mouseStartX=0;
+    private int mouseStartY=0;
+    private int imageX=0;
+    private int imageY=0;
+    private int imageVX=0;
+    private int imageVY=0;
+    private int imageWidth=0;
+    private int imageHeight=0;
     
-    private static String[] viewMode = new String[4];
-    private static int viewModeCounter = 0;
+    private String[] viewMode = new String[4];
+    private int viewModeCounter = 0;
     private JButton buttonViewMode = null;
     
-    GoogleMapPanel()
+    GoogleMapPanel(int width, int height)
     {
+        imageWidth=width;
+        imageHeight=height;
+        MapGetter.setImageSizeH(imageHeight);
+        MapGetter.setImageSizeW(imageWidth);
         viewMode[0]="roadmap";
         viewMode[1]="satellite";
         viewMode[2]="hybrid";
@@ -49,6 +55,8 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         buttonViewMode.setAlignmentX(RIGHT_ALIGNMENT);
         
         add(buttonViewMode);
+        MapGetter.getMapImage(MapGetter.createUrl(0, 0));
+        repaint();
     }
     
     private BufferedImage createImage()
@@ -117,7 +125,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         System.out.println("Y:"+Integer.toString(mouseY));
         System.out.println("Koordynaty: "+MapGetter.addMarker(mouseX,mouseY));
         MapGetter.getMapImage(MapGetter.createUrl(0, 0));
-        MainView.createPoint(MapGetter.getMarker(mouseX, mouseY));
+        //MainView.createPoint(MapGetter.getMarker(mouseX, mouseY));
         //mouse_x=0;
         //mouse_y=0;
         repaint();
