@@ -31,15 +31,14 @@ public class MainView extends JFrame {
 	
 	//Lista byc moze do usuniecia
 	private static ArrayList<MapPoint> mPoints;
-	//private static MapPoint temporaryMapPoint;
+	private static MapPoint temporaryMapPoint;
 	
 	private static JScrollPane scrollPane;
 	private static DefaultListModel listModel;
 	private static JList list;
 	
 	private int QuestType = 0;
-	
-	
+		
 	private String[] mapPoints = { "test 0", "test 1" };
 	private String pointName;// = "default";
 	
@@ -51,27 +50,25 @@ public class MainView extends JFrame {
 	private JButton userDataBtn;
 	private ButtonGroup QuestGroup;
 	
-	//Here Goes GoogleMap
-
     private static int imageSizeW=640;
     private static int imageSizeH=640;
 
-	//endof
-	
-	public MainView() {
+	public MainView() 
+	{
 		super("Editor");
 		this.setBounds(0, 0, 600, 600);
 		setLocationRelativeTo(null);
+		
 		mPoints = new ArrayList<>();
 		panel = new JPanel();
 		googlePanel = new GoogleMapPanel(338,329);
 		
 		//GoogleMap Listeners, labels etc
 		googlePanel.addMouseListener(googlePanel);
-                googlePanel.addMouseMotionListener(googlePanel);
-                googlePanel.addKeyListener(googlePanel);
-                googlePanel.setFocusable(true);
-                googlePanel.setBounds(272, 32, 338, 329);
+        googlePanel.addMouseMotionListener(googlePanel);
+        googlePanel.addKeyListener(googlePanel);
+        googlePanel.setFocusable(true);
+        googlePanel.setBounds(272, 32, 338, 329);
         
 	    //endof
 		
@@ -96,8 +93,8 @@ public class MainView extends JFrame {
 
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
-						detailsView = new DetailsView(pointName, QuestType);
-						//detailsView = new DetailsView(temporaryMapPoint, QuestType);
+						//detailsView = new DetailsView(pointName, QuestType);
+						detailsView = new DetailsView(temporaryMapPoint, QuestType);
 						System.out.println(detailsView.getPointName());
 					}
 				});
@@ -106,7 +103,6 @@ public class MainView extends JFrame {
 
 		panel.setLayout(null);
 		panel.add(listBtn);
-		getContentPane().add(panel);
 
 		userDataBtn.setBounds(467, 372, 143, 25);
 		panel.add(userDataBtn);
@@ -120,10 +116,7 @@ public class MainView extends JFrame {
 		JPanel controlsPanel = new JPanel();
 		controlsPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		controlsPanel.setBounds(12, 32, 250, 329);
-		
-		panel.add(controlsPanel);
-		panel.add(googlePanel);
-		
+			
 		controlsPanel.setLayout(null);
 		
 		JLabel lblQuestType = new JLabel("Quest Type");
@@ -131,6 +124,7 @@ public class MainView extends JFrame {
 		controlsPanel.add(lblQuestType);
 		
 		lblNodeList = new JLabel("Node list");
+	
 		lblNodeList.setBounds(20, 200, 71, 14);
 		controlsPanel.add(lblNodeList);
 		nameOfGame.setBounds(101, 23, 139, 20);
@@ -154,7 +148,6 @@ public class MainView extends JFrame {
 		controlsPanel.add(list);
 		
 		//Pogrupowane typy zagadek + listenery
-		
 		JRadioButton rdbtnRangeQuest = new JRadioButton("Zagadka ...");
 		rdbtnRangeQuest.setBounds(101, 76, 129, 23);
 		
@@ -182,6 +175,7 @@ public class MainView extends JFrame {
 		controlsPanel.add(rdbtnOrderBy);
 		controlsPanel.add(rdbtnFieldQuest);
 		
+		// Block of listeners
 		rdbtnTextQuest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 		
@@ -206,14 +200,17 @@ public class MainView extends JFrame {
 			}
 		});
 		
-		// Block of listeners
 		list.addListSelectionListener(new ListSelectionListener() {
 
 			public void valueChanged(ListSelectionEvent event) {
 				pointName = list.getSelectedValue().toString();
-				//temporaryMapPoint = (MapPoint) list.getSelectedValue();
+				temporaryMapPoint = (MapPoint) list.getSelectedValue();
 			}
 		});
+		
+		panel.add(controlsPanel);
+		panel.add(googlePanel);
+		getContentPane().add(panel);
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(new Dimension(637, 451));
@@ -237,10 +234,8 @@ public class MainView extends JFrame {
 		this.detailsView = detailsView;
 	}
 	
-	public static void createPoint(double [] coords)
+	public static void createPoint(double x, double y)
 	{
-		//MapPoint p = new MapPoint(coords);
-		listModel.addElement(new MapPoint(coords));
-		//mPoints.add(p);
+		listModel.addElement(new MapPoint(x,y));
 	}
 }

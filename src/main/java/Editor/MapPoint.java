@@ -11,11 +11,11 @@ public class MapPoint {
 		yCoordinate = 0;
 	}
 	
-	public MapPoint(double [] coords)
+	public MapPoint(double x, double y)
 	{
 		quest = new QuestPoint();
-		xCoordinate= coords[0];
-		yCoordinate = coords[1];
+		xCoordinate= x;
+		yCoordinate = y;
 	}
 	
 	public String toString()
