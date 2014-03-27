@@ -27,7 +27,7 @@ import UserRegistration.UserDataRegister;
 
 public class MainView extends JFrame {
 
-	private JTextField nameOfGame = new JTextField("Name of quest");
+	private JTextField nameOfGame = new JTextField("Name");
 	
 	private JPanel panel;
 	private GoogleMapPanel googlePanel;
@@ -133,7 +133,7 @@ public class MainView extends JFrame {
 		nameOfGame.setBounds(101, 23, 139, 20);
 		controlsPanel.add(nameOfGame);
 		
-		lblQuestName = new JLabel("Quest Name");
+		lblQuestName = new JLabel("Name of Game");
 		lblQuestName.setBounds(20, 26, 71, 14);
 		
 		controlsPanel.add(lblQuestName);

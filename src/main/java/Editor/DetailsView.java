@@ -31,7 +31,7 @@ public class DetailsView extends JFrame implements KeyListener {
 	private MapPoint mapPoint;
 	
 	private JPanel panel;
-	private JTextField textField;
+	private JTextField textFieldAnswer;
 	
 	private JButton choosePics;
 	private JButton chooseSounds;
@@ -39,7 +39,6 @@ public class DetailsView extends JFrame implements KeyListener {
 	
 	private JList<String> pics;
 	private JList<String> sounds;
-	private int listIndex;
 	private DefaultListModel<String> picsListModel;
 	private DefaultListModel<String> soundsListModel;
 	
@@ -49,6 +48,9 @@ public class DetailsView extends JFrame implements KeyListener {
 	private JLabel lblListOfPics;
 	private JLabel lblListOfSounds;
 	private JButton btnDelete2;
+	private JTextField textFieldTimeout;
+	private JList listTreasures;
+	private JLabel lblTreasures;
 
 
 	public DetailsView(MapPoint mP, int QuestType)
@@ -170,6 +172,38 @@ public class DetailsView extends JFrame implements KeyListener {
 		btnDelete2.setBounds(248, 143, 112, 23);
 		panel.add(btnDelete2);
 		
+		////////////////////////////////////////////
+		/*
+		JTextArea questContent = new JTextArea(mapPoint.getQuest().getQuestDescription());
+		questContent.setBounds(12, 254, 477, 107);
+		panel.add(questContent);
+		
+		JLabel lblQuestAnswer = new JLabel("Quest Answer");
+		lblQuestAnswer.setBounds(10, 104, 117, 14);
+		panel.add(lblQuestAnswer);
+		
+		textFieldAnswer = new JTextField(mapPoint.getQuest().getQuestAnswer());
+		textFieldAnswer.setBounds(121, 101, 117, 20);
+		panel.add(textFieldAnswer);
+		textFieldAnswer.setColumns(10);*/
+		///////////////////////////////////////////
+		textFieldTimeout = new JTextField();
+		textFieldTimeout.setBounds(121, 60, 117, 20);
+		panel.add(textFieldTimeout);
+		textFieldTimeout.setColumns(10);
+		
+		JLabel lblQuestTimeout = new JLabel("Quest Timeout");
+		lblQuestTimeout.setBounds(10, 63, 94, 14);
+		panel.add(lblQuestTimeout);
+		
+		listTreasures = new JList();
+		listTreasures.setBounds(12, 172, 223, 56);
+		panel.add(listTreasures);
+		
+		lblTreasures = new JLabel("Treasures");
+		lblTreasures.setBounds(10, 147, 84, 14);
+		panel.add(lblTreasures);		
+		
 		switch(QuestType){
 			case 0:
 				constructTextQuestFields();
@@ -181,6 +215,9 @@ public class DetailsView extends JFrame implements KeyListener {
 			default:
 				break;
 		}
+		getContentPane().add(panel);
+		
+
 		setSize(new Dimension(515, 448));
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
@@ -200,20 +237,15 @@ public class DetailsView extends JFrame implements KeyListener {
 		questContent.setBounds(12, 254, 477, 107);
 		panel.add(questContent);
 		
-		JLabel lblQuestContent = new JLabel("Quest Content");
-		lblQuestContent.setBounds(12, 37, 71, 14);
-		panel.add(lblQuestContent);
-		
 		JLabel lblQuestAnswer = new JLabel("Quest Answer");
-		lblQuestAnswer.setBounds(12, 180, 73, 14);
+		lblQuestAnswer.setBounds(10, 104, 117, 14);
 		panel.add(lblQuestAnswer);
 		
-		textField = new JTextField(mapPoint.getQuest().getQuestAnswer());
-		textField.setBounds(95, 177, 143, 20);
-		panel.add(textField);
-		textField.setColumns(10);
-		
-		getContentPane().add(panel);
+		textFieldAnswer = new JTextField(mapPoint.getQuest().getQuestAnswer());
+		textFieldAnswer.setBounds(121, 101, 117, 20);
+		panel.add(textFieldAnswer);
+		textFieldAnswer.setColumns(10);
+		//getContentPane().add(panel);
 	}
 	
 	private void getPath(DefaultListModel<String> list) {
