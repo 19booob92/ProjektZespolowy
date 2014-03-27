@@ -168,8 +168,6 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         System.out.println("Y:"+Integer.toString(mouseY));
         System.out.println("Koordynaty: "+MapGetter.addMarker(mouseX,mouseY));
         MapGetter.getMapImage(MapGetter.createUrl(0, 0));
-        
-        //MainView.createPoint(MapGetter.getMarker(mouseX, mouseY));
         //mouse_x=0;
         //mouse_y=0;
         
@@ -194,7 +192,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         if((e.isControlDown())&&(e.getButton()==BUTTON1))
         {
             markerArray = new MarkerRect(MapGetter.getLatitude(e.getY()),MapGetter.getLongtitude(e.getX()));
-
+           
         }
         markerArray.selectWidth(e.getX(), e.getY());
         mouseStartX=e.getX();

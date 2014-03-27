@@ -41,5 +41,11 @@ public class TextQuest extends QuestPoint{
 	public void setQuestTimeout(double questTimeout) {
 		this.questTimeout = questTimeout;
 	}
+
+	@Override
+	public void method() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

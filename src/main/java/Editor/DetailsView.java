@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,8 +20,10 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
-public class DetailsView extends JFrame {
+public class DetailsView extends JFrame implements KeyListener {
 
 	private Set<String> setOfpath;
 	private MapPoint mapPoint;
@@ -32,7 +37,7 @@ public class DetailsView extends JFrame {
 	
 	private JList<String> pics;
 	private JList<String> sounds;
-	
+	private int listIndex;
 	private DefaultListModel<String> picsListModel;
 	private DefaultListModel<String> soundsListModel;
 	
@@ -41,6 +46,7 @@ public class DetailsView extends JFrame {
 	private JLabel pointNameLbl;
 	private JLabel lblListOfPics;
 	private JLabel lblListOfSounds;
+	private JButton btnDelete2;
 
 
 	public DetailsView(MapPoint mP, int QuestType)
@@ -55,7 +61,7 @@ public class DetailsView extends JFrame {
 		btnApplySettings = new JButton("Apply settings");
 		btnApplySettings.setBounds(10, 375, 119, 23);
 
-		choosePics = new JButton("Chose files");
+		choosePics = new JButton("Choose files");
 		choosePics.setBounds(377, 32, 112, 25);
 
 		panel = new JPanel();
@@ -65,18 +71,21 @@ public class DetailsView extends JFrame {
 		picsListModel = new DefaultListModel<String>();
 		soundsListModel = new DefaultListModel<String>();
 		
-		pics = new JList<String>(picsListModel);
+		//pics = new JList(mapPoint.getQuest().getPicturePaths().toArray());
+		pics = new JList(picsListModel);
+		pics.setFocusable(true);
 		lblListOfPics = new JLabel("List of pic's");
 
 		pics.setBounds(248, 62, 241, 56);
 		pics.setPreferredSize(new Dimension(70, 100));
-		lblListOfPics.setBounds(255, 37, 102, 15);
+		lblListOfPics.setBounds(248, 11, 102, 15);
 
-		sounds = new JList<String>(soundsListModel);
+		//sounds = new JList(mapPoint.getQuest().getPicturePaths().toArray());
+		sounds = new JList(soundsListModel);
 		lblListOfSounds = new JLabel("List of sounds");
 
 		sounds.setBounds(248, 172, 241, 56);
-		lblListOfSounds.setBounds(248, 147, 71, 14);
+		lblListOfSounds.setBounds(246, 129, 71, 14);
 		
 		setLocationRelativeTo(null);
 		
@@ -107,8 +116,19 @@ public class DetailsView extends JFrame {
 				//TO DO
 				//Wstawienie obrazkow i dzwiekow do ArrayList w obiekcie mapPoint 
 				//Tu trzeba wywolac funkcje w zaleznosci od typu zagadki - na razie prowizorycznie wpisano Stringi
+				//mapPoint.getQuest().setPicturePaths(paths);
+				//mapPoint.getQuest().setPicturePaths(pics);
 				mapPoint.getQuest().setQuestDescription("Description");
 				mapPoint.getQuest().setQuestAnswer("Answer");
+			}
+		});
+		
+		pics.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// TODO Auto-generated method stub
+				listIndex = pics.getSelectedIndex();
 			}
 		});
 		
@@ -123,6 +143,24 @@ public class DetailsView extends JFrame {
 		panel.add(lblListOfSounds);
 		panel.add(lblListOfPics);
 		panel.add(btnApplySettings);
+		
+		JButton btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				picsListModel.remove(pics.getSelectedIndex());
+			}
+		});
+		btnDelete.setBounds(248, 33, 112, 23);
+		panel.add(btnDelete);
+		
+		btnDelete2 = new JButton("Delete");
+		btnDelete2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				soundsListModel.remove(sounds.getSelectedIndex());
+			}
+		});
+		btnDelete2.setBounds(248, 143, 112, 23);
+		panel.add(btnDelete2);
 		
 		switch(QuestType){
 			case 0:
@@ -195,5 +233,29 @@ public class DetailsView extends JFrame {
 
 	public void setPointName(String pointName) {
 		this.pointName = pointName;
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		switch (e.getKeyCode())
+	     {
+	         case KeyEvent.VK_DELETE: 
+	        	 picsListModel.remove(pics.getSelectedIndex());
+	             repaint();
+	             break;
+	     } 
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

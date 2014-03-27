@@ -2,7 +2,7 @@ package Editor;
 
 import java.util.ArrayList;
 
-public class QuestPoint  implements DescribeQuest{
+public abstract class QuestPoint  implements DescribeQuest{
 	private ArrayList<String> PicturePaths;
 	private ArrayList<String> SoundPaths;
 	

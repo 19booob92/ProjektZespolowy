@@ -7,4 +7,10 @@ public class ChoiceQuest extends QuestPoint{
 		super();
 	}
 
+	@Override
+	public void method() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

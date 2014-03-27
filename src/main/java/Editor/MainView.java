@@ -137,7 +137,11 @@ public class MainView extends JFrame {
 		listModel = new DefaultListModel();
 		list = new JList(listModel);
 		
-		scrollPane =  new JScrollPane(list);
+		//Testowe punkty
+		listModel.addElement(new MapPoint(2.0, 3.0));
+		listModel.addElement(new MapPoint(3.0, 4.0));
+		
+		//scrollPane =  new JScrollPane(list);
 		//scrollPane.setViewportView(list);
 		list.setBounds(20, 225, 220, 93);
 		controlsPanel.add(list);

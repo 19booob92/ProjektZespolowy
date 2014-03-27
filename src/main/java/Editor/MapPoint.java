@@ -4,17 +4,17 @@ public class MapPoint {
 	private double xCoordinate;
 	private double yCoordinate;
 	private QuestPoint quest;
+	
 	public MapPoint()
 	{ 
-		quest= new QuestPoint();
+		quest= new TextQuest();
 		xCoordinate = 0;
 		yCoordinate = 0;
 	}
 	
-
 	public MapPoint(double x, double y)
 	{
-		quest = new QuestPoint();
+		quest = new TextQuest();
 		xCoordinate= x;
 		yCoordinate = y;
 	}
