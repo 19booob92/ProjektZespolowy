@@ -41,7 +41,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
     
     private boolean mDragged=false;
     
-    private MarkerRect markerArray = new MarkerRect(0,0);
+    private MarkerArray markerArray = new MarkerArray(20);
     
     private String[] viewMode = new String[4];
     private int viewModeCounter = 0;
@@ -118,7 +118,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         if(e.isControlDown())
         {
             markerArray.setWidth(-(mouseStartX-e.getX()));
-            markerArray.setheight(-(mouseStartY-e.getY()));
+            markerArray.setHeight(-(mouseStartY-e.getY()));
             repaint();
         }
         else if(markerArray.isSelectedDrag())
@@ -127,11 +127,11 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
             markerArray.setY(-(mouseStartY-e.getY()));
             repaint();
         }
-        else if((markerArray.isSelectedWidth())||(markerArray.isSelecetedHeigh()))
+        else if((markerArray.isSelectedWidth())||(markerArray.isSelectedHeight()))
         {
             if(markerArray.isSelectedWidth()){
             markerArray.changeWidth(-(mouseStartX-e.getX()));}
-            if(markerArray.isSelecetedHeigh())
+            if(markerArray.isSelectedHeight())
             {
                 markerArray.changeHeight(-(mouseStartY-e.getY()));
             }
@@ -173,13 +173,15 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         //mouse_y=0;
         
         }
+        
         if(markerArray!=null)
         {
             if(markerArray.isSelected())
             {
                 markerArray.selectMarker(e.getX(), e.getY());
                 if(markerArray.isSelected()){
-                markerArray.setLabel(JOptionPane.showInputDialog("Dodaj nazwę"));}
+                markerArray.setLabel(JOptionPane.showInputDialog("Dodaj nazwę"));
+                }
             }
             markerArray.selectMarker(e.getX(), e.getY());
             markerArray.cleanUp();
@@ -192,10 +194,10 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         
         if((e.isControlDown())&&(e.getButton()==BUTTON1))
         {
-            markerArray = new MarkerRect(MapGetter.getLatitude(e.getY()),MapGetter.getLongtitude(e.getX()));
+            markerArray.addMarker(MapGetter.getLatitude(e.getY()),MapGetter.getLongtitude(e.getX()));
            
         }
-        markerArray.selectWidth(e.getX(), e.getY());
+        markerArray.selectSize(e.getX(), e.getY());
         mouseStartX=e.getX();
         mouseStartY=e.getY();
         
@@ -214,7 +216,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         
         if(e.isControlDown()){
         }
-        else if(((markerArray.isSelectedWidth())||markerArray.isSelecetedHeigh())||(markerArray.isSelectedDrag()))
+        else if(((markerArray.isSelectedWidth())||markerArray.isSelectedHeight())||(markerArray.isSelectedDrag()))
         {
         }
         else

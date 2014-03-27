@@ -41,17 +41,13 @@ public class MarkerRect {
     private int barWidth=10;
     private int barHeight=10;
     
-    public void selectDrag(int tX,int tY)
-    {
-
-    }
     
     public boolean isSelectedDrag()
     {
         return selectedDrag;
     }
     
-    public void selectWidth(int tX,int tY)
+    public void selectSize(int tX,int tY)
     {
         if(((tX>(x+width-barWidth))&&(tX<x+width))&&((tY>y)&&(tY<y+height)))
         {
@@ -87,7 +83,7 @@ public class MarkerRect {
         return selectedWidth;
     }
     
-    public boolean isSelecetedHeigh()
+    public boolean isSelectedHeight()
     {
         return selectedHeight;
     }
