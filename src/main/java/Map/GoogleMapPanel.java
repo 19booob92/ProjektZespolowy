@@ -1,4 +1,4 @@
-package Editor;
+package Map;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -26,6 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
+
 public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotionListener, MouseListener, KeyListener{
 	private int mouseX=0;
     private int mouseY=0;
@@ -46,7 +47,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
     private int viewModeCounter = 0;
     private JButton buttonViewMode = null;
     
-    GoogleMapPanel(int width, int height)
+    public GoogleMapPanel(int width, int height)
     {
         imageWidth=width;
         imageHeight=height;

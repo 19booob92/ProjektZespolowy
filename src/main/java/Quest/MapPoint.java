@@ -1,4 +1,5 @@
-package Editor;
+package Quest;
+
 
 public class MapPoint {
 	private double xCoordinate;

@@ -23,6 +23,8 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import Quest.MapPoint;
+
 public class DetailsView extends JFrame implements KeyListener {
 
 	private Set<String> setOfpath;

@@ -21,6 +21,10 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.JRadioButton;
 import javax.swing.border.EtchedBorder;
 
+import Map.GoogleMapPanel;
+import Quest.MapPoint;
+import UserRegistration.UserDataRegister;
+
 public class MainView extends JFrame {
 
 	private JTextField nameOfGame = new JTextField("Name of quest");

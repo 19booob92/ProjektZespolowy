@@ -1,4 +1,4 @@
-package Editor;
+package Quest;
 
 public interface DescribeQuest {
 

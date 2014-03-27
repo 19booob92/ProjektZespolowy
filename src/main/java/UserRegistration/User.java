@@ -1,4 +1,4 @@
-package Editor;
+package UserRegistration;
 
 public class User {
 	private String login;

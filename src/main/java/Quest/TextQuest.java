@@ -1,4 +1,5 @@
-package Editor;
+package Quest;
+
 
 public class TextQuest extends QuestPoint{
 

@@ -1,6 +1,7 @@
-package Editor;
+package UserRegistration;
 
 import javax.ws.rs.core.MediaType;
+
 
 import com.google.gson.Gson;
 import com.sun.jersey.api.client.Client;

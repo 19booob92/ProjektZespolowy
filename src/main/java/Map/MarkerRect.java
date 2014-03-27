@@ -4,11 +4,12 @@
  * and open the template in the editor.
  */
 
-package Editor;
+package Map;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+
 import static java.lang.Math.abs;
 
 /**

@@ -1,6 +1,7 @@
-package Editor;
+package Quest;
 
 import java.util.ArrayList;
+
 
 public abstract class QuestPoint  implements DescribeQuest{
 	private ArrayList<String> PicturePaths;
