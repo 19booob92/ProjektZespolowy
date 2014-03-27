@@ -138,8 +138,20 @@ public class MainView extends JFrame {
 		list = new JList(listModel);
 		
 		//Testowe punkty
-		listModel.addElement(new MapPoint(2.0, 3.0));
-		listModel.addElement(new MapPoint(3.0, 4.0));
+		MapPoint testOne = new MapPoint(2.0, 3.0);
+		MapPoint testTwo = new MapPoint(3.0, 4.0);
+		listModel.addElement(testOne);
+		listModel.addElement(testTwo);
+		ArrayList testOnePaths = new ArrayList<String>();
+		ArrayList testTwoPaths = new ArrayList<String>();
+		testOnePaths.add("asd");
+		testOnePaths.add("zxc");
+		testOnePaths.add("cvb");
+		
+		testTwoPaths.add("qwe");
+		testTwoPaths.add("rty");
+		testOne.getQuest().setSoundPaths(testOnePaths);
+		testOne.getQuest().setPicturePaths(testTwoPaths);
 		
 		//scrollPane =  new JScrollPane(list);
 		//scrollPane.setViewportView(list);

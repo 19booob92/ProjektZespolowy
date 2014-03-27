@@ -71,7 +71,6 @@ public class DetailsView extends JFrame implements KeyListener {
 		picsListModel = new DefaultListModel<String>();
 		soundsListModel = new DefaultListModel<String>();
 		
-		//pics = new JList(mapPoint.getQuest().getPicturePaths().toArray());
 		pics = new JList(picsListModel);
 		pics.setFocusable(true);
 		lblListOfPics = new JLabel("List of pic's");
@@ -80,7 +79,6 @@ public class DetailsView extends JFrame implements KeyListener {
 		pics.setPreferredSize(new Dimension(70, 100));
 		lblListOfPics.setBounds(248, 11, 102, 15);
 
-		//sounds = new JList(mapPoint.getQuest().getPicturePaths().toArray());
 		sounds = new JList(soundsListModel);
 		lblListOfSounds = new JLabel("List of sounds");
 
@@ -122,18 +120,12 @@ public class DetailsView extends JFrame implements KeyListener {
 				mapPoint.getQuest().setQuestAnswer("Answer");
 			}
 		});
-		
-		pics.addListSelectionListener(new ListSelectionListener() {
-
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				// TODO Auto-generated method stub
-				listIndex = pics.getSelectedIndex();
-			}
-		});
-		
-		picsListModel.addElement((mapPoint.getQuest().getPicturePaths().get(0)));
-		soundsListModel.addElement(mapPoint.getQuest().getSoundPaths().get(0));
+				
+		//Wyswietl dane dla wybranego punktu
+		for (String s : mapPoint.getQuest().getPicturePaths())
+			picsListModel.addElement(s);
+		for (String s : mapPoint.getQuest().getSoundPaths())
+			soundsListModel.addElement(s);
 		
 		panel.add(choosePics);
 		panel.add(chooseSounds);
@@ -144,19 +136,33 @@ public class DetailsView extends JFrame implements KeyListener {
 		panel.add(lblListOfPics);
 		panel.add(btnApplySettings);
 		
+		//Listenery usuwania
 		JButton btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				picsListModel.remove(pics.getSelectedIndex());
+				int selectedIndex = pics.getSelectedIndex();
+				for (String s : mapPoint.getQuest().getPicturePaths())
+					if ( s == pics.getSelectedValue())
+					{
+						mapPoint.getQuest().getPicturePaths().remove(selectedIndex);
+						picsListModel.remove(selectedIndex);
+					}
 			}
 		});
+		
 		btnDelete.setBounds(248, 33, 112, 23);
 		panel.add(btnDelete);
 		
 		btnDelete2 = new JButton("Delete");
 		btnDelete2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				soundsListModel.remove(sounds.getSelectedIndex());
+				int selectedIndex = sounds.getSelectedIndex();
+				for (String s : mapPoint.getQuest().getSoundPaths())
+					if ( s == sounds.getSelectedValue())
+					{
+						mapPoint.getQuest().getSoundPaths().remove(selectedIndex);
+						soundsListModel.remove(selectedIndex);
+					}
 			}
 		});
 		btnDelete2.setBounds(248, 143, 112, 23);
@@ -217,7 +223,9 @@ public class DetailsView extends JFrame implements KeyListener {
 
 		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 			// short path looks better in GUI
-			list.addElement(chooser.getSelectedFile().getName());
+			String str = chooser.getSelectedFile().getName();
+			list.addElement(str);
+			mapPoint.getQuest().getPicturePaths().add(str);
 			// full path for creating package
 			setOfpath.add(chooser.getCurrentDirectory().toString()
 					+ chooser.getSelectedFile());
