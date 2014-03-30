@@ -15,7 +15,7 @@ import com.sun.jersey.api.client.filter.LoggingFilter;
 public class PostReqest {
 	private WebResource webResource;
 	private Client client;
-	private static final String BASE_URI = "http://localhost:8080/register/";
+	private static final String BASE_URI = "http://virt2.iiar.pwr.edu.pl:8080/register/adminPanel";
 	private User user;
 
 	public PostReqest(User user) {
@@ -32,7 +32,7 @@ public class PostReqest {
 		client.addFilter(new LoggingFilter());
 		webResource = client.resource(BASE_URI);
 
-		client.addFilter(new HTTPBasicAuthFilter("test2", "test2"));
+		client.addFilter(new HTTPBasicAuthFilter("adm", "ini"));
 		ClientResponse response = webResource.type(MediaType.APPLICATION_JSON)
 				.post(ClientResponse.class, json);
 		System.out.println(response.getStatus());
