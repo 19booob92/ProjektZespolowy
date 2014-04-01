@@ -17,9 +17,7 @@ public class UserDataRegister extends JFrame {
 	private JButton btnCommit;
 	private JTextField loginTxt;
 	private JTextField passTxt;
-	private JTextField roletxT;
 	private final JLabel lblUserLogin = new JLabel("User login");
-	private JLabel roleLbl;
 
 	public UserDataRegister() {
 
@@ -45,16 +43,7 @@ public class UserDataRegister extends JFrame {
 		contentPane.add(passTxt);
 		passTxt.setColumns(10);
 
-		roletxT = new JTextField();
-		roletxT.setBounds(150, 66, 114, 19);
-		contentPane.add(roletxT);
-		roletxT.setColumns(10);
-
 		JLabel passLbl = new JLabel("Password Label");
-
-		roleLbl = new JLabel("Role Label");
-		roleLbl.setBounds(12, 69, 117, 15);
-		contentPane.add(roleLbl);
 		lblUserLogin.setBounds(12, 0, 125, 33);
 		contentPane.add(lblUserLogin);
 		
@@ -70,7 +59,6 @@ public class UserDataRegister extends JFrame {
 					User user = new User();
 					user.setLogin(loginTxt.getText());
 					user.setPassword((passTxt.getText()));
-					user.setRole(roletxT.getText());
 
 					postReqest = new PostReqest(user);
 					postReqest.sendData();
