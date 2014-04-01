@@ -22,7 +22,7 @@ public class PostReqest {
 		this.user = user;
 	}
 
-	public void sendData() throws Exception {
+	public int sendData() throws Exception {
 		Gson gson = new Gson();
 		String json = gson.toJson(user);
 		System.out.println(json);
@@ -35,7 +35,7 @@ public class PostReqest {
 		client.addFilter(new HTTPBasicAuthFilter("adm", "ini"));
 		ClientResponse response = webResource.type(MediaType.APPLICATION_JSON)
 				.post(ClientResponse.class, json);
-		System.out.println(response.getStatus());
+		
+		return response.getStatus();
 	}
-
 }

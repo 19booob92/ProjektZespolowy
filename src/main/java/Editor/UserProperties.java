@@ -1,7 +1,11 @@
 package Editor;
+
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -13,17 +17,17 @@ import javax.swing.table.DefaultTableModel;
 
 import UserRegistration.GetRequest;
 import UserRegistration.UserDTO;
-import UserRegistration.UserDataRegister;
-
 
 public class UserProperties extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
 	private DefaultTableModel tableModel;
+	private int colNum, rowNum;
+
 	public UserProperties() {
 		super("User Properties");
-		
+
 		GetRequest getRequest = new GetRequest();
 		List<UserDTO> usersList = null;
 		try {
@@ -31,19 +35,20 @@ public class UserProperties extends JFrame {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JButton btnRegisterNewUser = new JButton("Register new user");
+
 		btnRegisterNewUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				EventQueue.invokeLater(new Runnable() {
-					
+
 					@Override
 					public void run() {
 						new UserDataRegister();
@@ -54,17 +59,51 @@ public class UserProperties extends JFrame {
 		btnRegisterNewUser.setBounds(257, 238, 164, 25);
 		contentPane.add(btnRegisterNewUser);
 
-		tableModel = new DefaultTableModel(new String[] {"login" , "password", "id", "role"}, 7);
-		
-		table = new JTable(tableModel);
-		table.setBounds(74, 12, 312, 154);
-		contentPane.add(table);
-		
-		for (UserDTO u : usersList ) {
-			tableModel.addRow(new String [] {"asdas", "asdasd"});
-		}
-		
-		
+		addTable();
+
+		addRowToTable(usersList);
+
 		setVisible(true);
+	}
+
+	// kiedy User będzie miał w tabeli maila, layout się ułoży
+	private void addTable() {
+		tableModel = new DefaultTableModel(new String[] { "login", "e-mail",
+				"points", "end time" }, 0);
+
+		table = new JTable(tableModel);
+
+		table.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 1) {
+					JTable target = (JTable) e.getSource();
+					rowNum = target.getSelectedRow();
+					colNum = target.getSelectedColumn();
+					EventQueue.invokeLater(new Runnable() {
+
+						@Override
+						public void run() {
+							new UserDetailsView((String) tableModel.getValueAt(
+									rowNum, colNum));
+						}
+					});
+				}
+			}
+		});
+
+		table.setBounds(74, 12, 312, 154);
+		contentPane.setLayout(new BorderLayout());
+		contentPane.add(table.getTableHeader(), BorderLayout.NORTH);
+		contentPane.add(table, BorderLayout.CENTER);
+	}
+
+	private void addRowToTable(List<UserDTO> usersList) {
+		for (UserDTO user : usersList) {
+			if (user.getUserGame() != null) {
+				tableModel.addRow(user.toArray());
+			} else {
+				tableModel.addRow(user.toArrayOnlyUser());
+			}
+		}
 	}
 }

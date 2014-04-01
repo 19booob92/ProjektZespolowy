@@ -23,7 +23,6 @@ import javax.swing.border.EtchedBorder;
 
 import Map.GoogleMapPanel;
 import Quest.MapPoint;
-import UserRegistration.UserDataRegister;
 
 public class MainView extends JFrame {
 
@@ -31,7 +30,7 @@ public class MainView extends JFrame {
 	
 	private JPanel panel;
 	private GoogleMapPanel googlePanel;
-	private DetailsView detailsView;
+	private QuestDetailsView detailsView;
 	
 	//Lista byc moze do usuniecia
 	private static ArrayList<MapPoint> mPoints;
@@ -97,7 +96,7 @@ public class MainView extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						//detailsView = new DetailsView(pointName, QuestType);
-						detailsView = new DetailsView(temporaryMapPoint, QuestType);
+						detailsView = new QuestDetailsView(temporaryMapPoint, QuestType);
 						System.out.println(detailsView.getPointName());
 					}
 				});
@@ -227,6 +226,10 @@ public class MainView extends JFrame {
 		panel.add(googlePanel);
 		getContentPane().add(panel);
 		
+		JButton btnRanking = new JButton("Ranking");
+		btnRanking.setBounds(22, 372, 117, 25);
+		panel.add(btnRanking);
+		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(new Dimension(637, 451));
 		setVisible(true);
@@ -241,11 +244,11 @@ public class MainView extends JFrame {
 		});
 	}
 
-	public DetailsView getDetailsView() {
+	public QuestDetailsView getDetailsView() {
 		return detailsView;
 	}
 
-	public void setDetailsView(DetailsView detailsView) {
+	public void setDetailsView(QuestDetailsView detailsView) {
 		this.detailsView = detailsView;
 	}
 	

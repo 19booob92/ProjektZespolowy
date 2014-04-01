@@ -25,7 +25,7 @@ import javax.swing.event.ListSelectionListener;
 
 import Quest.MapPoint;
 
-public class DetailsView extends JFrame implements KeyListener {
+public class QuestDetailsView extends JFrame implements KeyListener {
 
 	private Set<String> setOfpath;
 	private MapPoint mapPoint;
@@ -53,7 +53,7 @@ public class DetailsView extends JFrame implements KeyListener {
 	private JLabel lblTreasures;
 
 
-	public DetailsView(MapPoint mP, int QuestType)
+	public QuestDetailsView(MapPoint mP, int QuestType)
 	{
 		super("Details view");
 		mapPoint = mP;
