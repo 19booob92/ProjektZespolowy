@@ -56,7 +56,7 @@ public class UserDataRegister extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 				try {
-					User user = new User();
+					UserDTO user = new UserDTO();
 					user.setLogin(loginTxt.getText());
 					user.setPassword((passTxt.getText()));
 

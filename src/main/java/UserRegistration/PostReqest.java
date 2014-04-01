@@ -16,9 +16,9 @@ public class PostReqest {
 	private WebResource webResource;
 	private Client client;
 	private static final String BASE_URI = "http://virt2.iiar.pwr.edu.pl:8080/register/adminPanel";
-	private User user;
+	private UserDTO user;
 
-	public PostReqest(User user) {
+	public PostReqest(UserDTO user) {
 		this.user = user;
 	}
 
