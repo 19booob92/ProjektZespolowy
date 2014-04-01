@@ -2,15 +2,17 @@ package Editor;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import UserRegistration.GetRequest;
+import UserRegistration.UserDTO;
 import UserRegistration.UserDataRegister;
 
 
@@ -21,6 +23,14 @@ public class UserProperties extends JFrame {
 	private DefaultTableModel tableModel;
 	public UserProperties() {
 		super("User Properties");
+		
+		GetRequest getRequest = new GetRequest();
+		List<UserDTO> usersList = null;
+		try {
+			usersList = getRequest.getData();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -50,7 +60,10 @@ public class UserProperties extends JFrame {
 		table.setBounds(74, 12, 312, 154);
 		contentPane.add(table);
 		
-//		tableModel.addRow(dataRow);
+		for (UserDTO u : usersList ) {
+			tableModel.addRow(new String [] {"asdas", "asdasd"});
+		}
+		
 		
 		setVisible(true);
 	}
