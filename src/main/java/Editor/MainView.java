@@ -75,7 +75,7 @@ public class MainView extends JFrame {
 	    //endof
 		
 		
-		listBtn.setBounds(159, 372, 107, 25);
+		listBtn.setBounds(12, 372, 107, 25);
 		userDataBtn = new JButton("Create User");
 		userDataBtn.addActionListener(new ActionListener() {
 
