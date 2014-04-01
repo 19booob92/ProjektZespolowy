@@ -51,6 +51,7 @@ public class DetailsView extends JFrame implements KeyListener {
 	private JTextField textFieldTimeout;
 	private JList listTreasures;
 	private JLabel lblTreasures;
+	private JLabel lblQuestDescription;
 
 
 	public DetailsView(MapPoint mP, int QuestType)
@@ -122,6 +123,7 @@ public class DetailsView extends JFrame implements KeyListener {
 				//mapPoint.getQuest().setPicturePaths(pics);
 				mapPoint.getQuest().setQuestDescription("Description");
 				mapPoint.getQuest().setQuestAnswer("Answer");
+				mapPoint.getQuest().setQuestTimeout(Double.parseDouble(textFieldTimeout.getText()));
 			}
 		});
 				
@@ -187,7 +189,8 @@ public class DetailsView extends JFrame implements KeyListener {
 		panel.add(textFieldAnswer);
 		textFieldAnswer.setColumns(10);*/
 		///////////////////////////////////////////
-		textFieldTimeout = new JTextField();
+		
+		textFieldTimeout = new JTextField(Double.toString(mapPoint.getQuest().getQuestTimeout()));
 		textFieldTimeout.setBounds(121, 60, 117, 20);
 		panel.add(textFieldTimeout);
 		textFieldTimeout.setColumns(10);
@@ -215,8 +218,7 @@ public class DetailsView extends JFrame implements KeyListener {
 			default:
 				break;
 		}
-		getContentPane().add(panel);
-		
+		getContentPane().add(panel);	
 
 		setSize(new Dimension(515, 448));
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -232,7 +234,10 @@ public class DetailsView extends JFrame implements KeyListener {
 	//Tworz pola zagadki tekstowej
 	private void constructTextQuestFields()
 	{
-
+		lblQuestDescription = new JLabel("Quest Description");
+		lblQuestDescription.setBounds(12, 239, 128, 14);
+		panel.add(lblQuestDescription);
+		
 		JTextArea questContent = new JTextArea(mapPoint.getQuest().getQuestDescription());
 		questContent.setBounds(12, 254, 477, 107);
 		panel.add(questContent);
@@ -259,6 +264,7 @@ public class DetailsView extends JFrame implements KeyListener {
 			// short path looks better in GUI
 			String str = chooser.getSelectedFile().getName();
 			list.addElement(str);
+			//Poprawic na dodawanie w zaleznosci od listy
 			mapPoint.getQuest().getPicturePaths().add(str);
 			// full path for creating package
 			setOfpath.add(chooser.getCurrentDirectory().toString()
