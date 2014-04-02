@@ -14,7 +14,6 @@ import javax.swing.border.EmptyBorder;
 import UserRegistration.PostReqest;
 import UserRegistration.UserDTO;
 
-
 public class UserDataRegister extends JFrame {
 	private JPanel contentPane;
 	private PostReqest postReqest;
@@ -23,7 +22,7 @@ public class UserDataRegister extends JFrame {
 	private JTextField passTxt;
 	private final JLabel lblUserLogin = new JLabel("User login");
 
-	public UserDataRegister() {
+	UserDataRegister() {
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -50,7 +49,7 @@ public class UserDataRegister extends JFrame {
 		JLabel passLbl = new JLabel("Password Label");
 		lblUserLogin.setBounds(12, 0, 125, 33);
 		contentPane.add(lblUserLogin);
-		
+
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setBounds(12, 39, 46, 14);
 		contentPane.add(lblPassword);
@@ -70,17 +69,16 @@ public class UserDataRegister extends JFrame {
 					passTxt.setText("");
 					if (status == 201) {
 						new JOptionPane().showMessageDialog(null, "Success !");
-					}
-					else {
-						new JOptionPane().showMessageDialog(null, "Account could not been create !");
+					} else {
+						new JOptionPane().showMessageDialog(null,
+								"Account could not been create !");
 					}
 				} catch (Exception ex) {
-					new JOptionPane().showMessageDialog(null, "Account could not been create !");
+					new JOptionPane().showMessageDialog(null,
+							"Account could not been create !");
 					ex.printStackTrace();
 				}
-
 			}
 		});
-
 	}
 }

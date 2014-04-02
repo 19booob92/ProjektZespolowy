@@ -83,9 +83,10 @@ public class UserProperties extends JFrame {
 
 						@Override
 						public void run() {
-							new UserDetailsView((String) tableModel.getValueAt(
-									rowNum, colNum));
+							UserDetailsView.getUserDetailsViewInstance((String) tableModel
+									.getValueAt(rowNum, 0));
 						}
+
 					});
 				}
 			}
