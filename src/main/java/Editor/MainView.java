@@ -1,12 +1,16 @@
 package Editor;
 
+import Map.GoogleMapPanel;
+import Quest.MapPoint;
+import UserRegistration.UserDataRegister;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
-
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -14,16 +18,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.JRadioButton;
-import javax.swing.border.EtchedBorder;
-
-import Map.GoogleMapPanel;
-import Quest.MapPoint;
-import UserRegistration.UserDataRegister;
 
 public class MainView extends JFrame {
 
@@ -40,7 +40,7 @@ public class MainView extends JFrame {
 	private static JScrollPane scrollPane;
 	private static DefaultListModel listModel;
 	private static JList list;
-	
+        	
 	private int QuestType = 0;
 		
 	private String pointName;// = "default";
@@ -48,10 +48,12 @@ public class MainView extends JFrame {
 	private JLabel lblQuestName;
 	private JLabel lblNodeList;
 	
+        private JButton btnDeleteMarker = new JButton("Usuń");
 	private JButton btnCreate;
 	private JButton listBtn = new JButton("Details");
 	private JButton userDataBtn;
 	private ButtonGroup QuestGroup;
+        
 	
     private static int imageSizeW=640;
     private static int imageSizeH=640;
@@ -69,6 +71,7 @@ public class MainView extends JFrame {
 		//GoogleMap Listeners, labels etc
 		googlePanel.addMouseListener(googlePanel);
         googlePanel.addMouseMotionListener(googlePanel);
+        googlePanel.addMouseWheelListener(googlePanel);
         googlePanel.addKeyListener(googlePanel);
         googlePanel.setFocusable(true);
         googlePanel.setBounds(272, 32, 338, 329);
@@ -107,6 +110,18 @@ public class MainView extends JFrame {
 		panel.setLayout(null);
 		panel.add(listBtn);
 
+                
+                btnDeleteMarker.addActionListener(new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        googlePanel.deleteMarker(list.getSelectedIndex());
+                    }
+                });
+                btnDeleteMarker.setBounds(120, 372, 107, 25);
+                
+                //panel.add(btnDeleteMarker);
+                  
 		userDataBtn.setBounds(467, 372, 143, 25);
 		panel.add(userDataBtn);
 
@@ -142,10 +157,10 @@ public class MainView extends JFrame {
 		list = new JList(listModel);
 		
 		//Testowe punkty
-		MapPoint testOne = new MapPoint(2.0, 3.0);
-		MapPoint testTwo = new MapPoint(3.0, 4.0);
-		listModel.addElement(testOne);
-		listModel.addElement(testTwo);
+		//MapPoint testOne = new MapPoint(5.0, 3.0);
+		//MapPoint testTwo = new MapPoint(3.0, 4.0);
+		//listModel.addElement(testOne);
+		//listModel.addElement(testTwo);
 		ArrayList testOnePaths = new ArrayList<String>();
 		ArrayList testTwoPaths = new ArrayList<String>();
 		testOnePaths.add("asd");
@@ -154,8 +169,8 @@ public class MainView extends JFrame {
 		
 		testTwoPaths.add("qwe");
 		testTwoPaths.add("rty");
-		testOne.getQuest().setSoundPaths(testOnePaths);
-		testOne.getQuest().setPicturePaths(testTwoPaths);
+		//testOne.getQuest().setSoundPaths(testOnePaths);
+		//testOne.getQuest().setPicturePaths(testTwoPaths);
 		
 		//scrollPane =  new JScrollPane(list);
 		//scrollPane.setViewportView(list);
@@ -221,8 +236,39 @@ public class MainView extends JFrame {
 				pointName = list.getSelectedValue().toString();
 				temporaryMapPoint = (MapPoint) list.getSelectedValue();
 			}
+                        
 		});
 		
+                list.addMouseListener(new MouseListener()
+                {
+
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        if(list.getSelectedIndex()!=-1)
+                        {
+                            googlePanel.centerViewOnPoint(list.getSelectedIndex());
+                            googlePanel.selectMarker(list.getSelectedIndex());
+                        }
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                       }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                       }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        }
+                    
+                });
 		panel.add(controlsPanel);
 		panel.add(googlePanel);
 		getContentPane().add(panel);
@@ -251,6 +297,11 @@ public class MainView extends JFrame {
 	
 	public static void createPoint(double x, double y)
 	{
-		listModel.addElement(new MapPoint(x,y));
+		listModel.addElement(new MapPoint(x,y));      
 	}
+        
+        public static void setPoint(int index, double x, double y)
+        {
+                listModel.set(index, new MapPoint(x,y));
+        }
 }
