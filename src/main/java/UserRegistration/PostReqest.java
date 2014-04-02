@@ -16,13 +16,13 @@ public class PostReqest {
 	private WebResource webResource;
 	private Client client;
 	private static final String BASE_URI = "http://virt2.iiar.pwr.edu.pl:8080/register/adminPanel";
-	private User user;
+	private UserDTO user;
 
-	public PostReqest(User user) {
+	public PostReqest(UserDTO user) {
 		this.user = user;
 	}
 
-	public void sendData() throws Exception {
+	public int sendData() throws Exception {
 		Gson gson = new Gson();
 		String json = gson.toJson(user);
 		System.out.println(json);
@@ -35,7 +35,7 @@ public class PostReqest {
 		client.addFilter(new HTTPBasicAuthFilter("adm", "ini"));
 		ClientResponse response = webResource.type(MediaType.APPLICATION_JSON)
 				.post(ClientResponse.class, json);
-		System.out.println(response.getStatus());
+		
+		return response.getStatus();
 	}
-
 }

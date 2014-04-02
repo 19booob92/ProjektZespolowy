@@ -1,4 +1,4 @@
-package UserRegistration;
+package Editor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,9 +6,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import UserRegistration.PostReqest;
+import UserRegistration.UserDTO;
 
 
 public class UserDataRegister extends JFrame {
@@ -56,13 +60,22 @@ public class UserDataRegister extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 				try {
-					User user = new User();
+					UserDTO user = new UserDTO();
 					user.setLogin(loginTxt.getText());
 					user.setPassword((passTxt.getText()));
 
 					postReqest = new PostReqest(user);
-					postReqest.sendData();
+					int status = postReqest.sendData();
+					loginTxt.setText("");
+					passTxt.setText("");
+					if (status == 201) {
+						new JOptionPane().showMessageDialog(null, "Success !");
+					}
+					else {
+						new JOptionPane().showMessageDialog(null, "Account could not been create !");
+					}
 				} catch (Exception ex) {
+					new JOptionPane().showMessageDialog(null, "Account could not been create !");
 					ex.printStackTrace();
 				}
 

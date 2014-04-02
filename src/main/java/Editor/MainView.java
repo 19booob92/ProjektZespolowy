@@ -1,9 +1,5 @@
 package Editor;
 
-import Map.GoogleMapPanel;
-import Quest.MapPoint;
-import UserRegistration.UserDataRegister;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -11,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -25,13 +22,16 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import Map.GoogleMapPanel;
+import Quest.MapPoint;
+
 public class MainView extends JFrame {
 
 	private JTextField nameOfGame = new JTextField("Name");
 	
 	private JPanel panel;
 	private GoogleMapPanel googlePanel;
-	private DetailsView detailsView;
+	private QuestDetailsView detailsView;
 	
 	//Lista byc moze do usuniecia
 	private static ArrayList<MapPoint> mPoints;
@@ -100,7 +100,7 @@ public class MainView extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						//detailsView = new DetailsView(pointName, QuestType);
-						detailsView = new DetailsView(temporaryMapPoint, QuestType);
+						detailsView = new QuestDetailsView(temporaryMapPoint, QuestType);
 						System.out.println(detailsView.getPointName());
 					}
 				});
@@ -273,6 +273,10 @@ public class MainView extends JFrame {
 		panel.add(googlePanel);
 		getContentPane().add(panel);
 		
+		JButton btnRanking = new JButton("Ranking");
+		btnRanking.setBounds(22, 372, 117, 25);
+		panel.add(btnRanking);
+		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(new Dimension(637, 451));
 		setVisible(true);
@@ -287,11 +291,11 @@ public class MainView extends JFrame {
 		});
 	}
 
-	public DetailsView getDetailsView() {
+	public QuestDetailsView getDetailsView() {
 		return detailsView;
 	}
 
-	public void setDetailsView(DetailsView detailsView) {
+	public void setDetailsView(QuestDetailsView detailsView) {
 		this.detailsView = detailsView;
 	}
 	

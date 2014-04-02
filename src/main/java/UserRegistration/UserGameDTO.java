@@ -35,4 +35,7 @@ public class UserGameDTO implements Serializable{
 		this.endTime = endTime;
 	}
 
+	public String[] toArray() {
+		return new String [] {String.valueOf(points), endTime.toString()} ;
+	}
 }
