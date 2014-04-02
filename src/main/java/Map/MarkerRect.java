@@ -41,7 +41,21 @@ public class MarkerRect {
     private int barWidth=10;
     private int barHeight=10;
     
+    public MarkerRect(double tLatitude, double tLongtitude)
+    {
+        latitude=tLatitude;
+        longtitude=tLongtitude;
+    }
     
+    public void select()
+    {
+        selected=true;
+    }
+    
+    public void unSelect()
+    {
+        selected=false;
+    }
     public boolean isSelectedDrag()
     {
         return selectedDrag;
@@ -120,11 +134,7 @@ public class MarkerRect {
     {
         return selected;
     }
-    public MarkerRect(double tLatitude, double tLongtitude)
-    {
-        latitude=tLatitude;
-        longtitude=tLongtitude;
-    }
+
     
     public void cleanUp()
     {

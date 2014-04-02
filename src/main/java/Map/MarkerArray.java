@@ -25,6 +25,67 @@ public class MarkerArray {
         maxMarkers=tMaxMarkers;
     }
     
+    public void select(int index)
+    {
+        for(int i=0;i<markers;i++)
+        {
+            if(i==index)
+            {
+                marker[i].select();
+            }
+            else
+            {
+                marker[i].unSelect();
+            }
+        }
+    }
+    
+    public double getLatitude(int index)
+    {
+        return marker[index].getLatitude();
+    }
+    
+    public double getLongtitude(int index)
+    {
+        return marker[index].getLongtitude();
+    }
+    
+    public double getLongtitude()
+    {
+        for(int i=0;i<markers;i++)
+        {
+            if(marker[i].isSelected())
+            {
+                return marker[i].getLongtitude();
+            }
+        }
+        return 0;
+    }
+    
+    public double getLatitude()
+    {
+        for(int i=0;i<markers;i++)
+        {
+            if(marker[i].isSelected())
+            {
+                return marker[i].getLatitude();
+            }
+        }
+        return 0;
+    }
+    
+    public int getSelectedIndex()
+    {
+        for(int i=0;i<markers;i++)
+        {
+            if(marker[i].isSelected())
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
     public void addMarker(double latitude,double longtitude)
     {
         if(markers<20)

@@ -152,6 +152,41 @@ public class MapGetter {
         return url;
     }
     
+        static public String createUrl(double tLongtitude, double tLatitude)
+    {
+        longtitude=tLongtitude;
+        latitude=tLatitude;
+        String url = "http://maps.googleapis.com/maps/api/staticmap?center=";
+        url+=Double.toString(latitude);
+        url+=",";
+        url+=Double.toString(longtitude);
+        url+="&zoom=";
+        url+=Integer.toString(zoom);
+        url+="&size=";
+        url+=Integer.toString(imageSizeW);
+        url+="x";
+        url+=Integer.toString(imageSizeH);
+        
+        /*if(markers!=0){
+        url+="&markers=color:blue%7Clabel:P%7C";
+        url+=Double.toString(marker_x);
+        url+=",";
+        url+=Double.toString(marker_y);
+        }*/
+        
+        for(int i=0;i<markers;i++)
+        {
+            url+=markersArray[i].toString();
+        }
+        
+        url+="&maptype=";
+        url+=mapType;
+        url+="&key=";
+        url+=googleKey;
+        //url+="&format=jpg";
+        return url;
+    }
+        
     static public void getMapImage(String imageUrl)
     {
          try {
