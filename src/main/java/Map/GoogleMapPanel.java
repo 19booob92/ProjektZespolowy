@@ -16,6 +16,8 @@ import static java.awt.event.MouseEvent.BUTTON2;
 import static java.awt.event.MouseEvent.BUTTON3;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +30,7 @@ import javax.swing.JPanel;
 
 
 
-public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotionListener, MouseListener, KeyListener{
+public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotionListener, MouseListener, MouseWheelListener, KeyListener{
 	private int mouseX=0;
     private int mouseY=0;
     private int mouseStartX=0;
@@ -47,6 +49,8 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
     private String[] viewMode = new String[4];
     private int viewModeCounter = 0;
     private JButton buttonViewMode = null;
+    private JButton buttonZoomIn = null;
+    private JButton buttonZoomOut = null;
     
     public GoogleMapPanel(int width, int height)
     {
@@ -61,8 +65,16 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         buttonViewMode = new JButton(viewMode[0].toUpperCase());
         buttonViewMode.addActionListener(this);
         buttonViewMode.setAlignmentX(RIGHT_ALIGNMENT);
-        
         add(buttonViewMode);
+        
+        buttonZoomIn = new JButton("Zoom +");
+        buttonZoomIn.addActionListener(this);
+        add(buttonZoomIn);
+        
+        buttonZoomOut = new JButton("Zoom -");
+        buttonZoomOut.addActionListener(this);
+        add(buttonZoomOut);
+        
         MapGetter.getMapImage(MapGetter.createUrl(0, 0));
         repaint();
     }
@@ -204,7 +216,8 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         
         //mouse_x=e.getX();
         //mouse_y=e.getY();
-        //System.out.println(mouse_x);
+        System.out.println("X:"+Integer.toString(e.getX()));
+        System.out.println("Y:"+Integer.toString(e.getY()));
         repaint();
 
 // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -263,6 +276,13 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
              MapGetter.getMapImage(MapGetter.createUrl(0, 0));
              repaint();
              break;
+         case KeyEvent.VK_PLUS:
+            zoomIn();
+            break;
+         case KeyEvent.VK_MINUS:
+             zoomOut();
+             break;
+             
      } 
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -277,13 +297,16 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         
         if(src==buttonViewMode)
         {
-            System.out.println("klik");
-            viewModeCounter++;
-            if(viewModeCounter==4){viewModeCounter=0;}
-            MapGetter.setMapType(viewMode[viewModeCounter]);
-            MapGetter.getMapImage(MapGetter.createUrl(0, 0));
-            buttonViewMode.setText(viewMode[viewModeCounter].toUpperCase());
-            repaint();
+            changeViewMode();
+        }
+        if(src==buttonZoomIn)
+        {
+            zoomIn();
+        }
+        
+        if(src==buttonZoomOut)
+        {
+            zoomOut();
         }
         
     }
@@ -296,5 +319,51 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
     public void selectMarker(int index)
     {
         markerArray.select(index);
+    }
+    
+    public void deleteMarker(int index)
+    {
+        markerArray.deleteMarker(index);
+        repaint();
+    }
+    
+    private void zoomIn()
+    {
+            markerArray.cleanUp();
+            MapGetter.zoomIn();
+            MapGetter.getMapImage(MapGetter.createUrl(0, 0));
+            markerArray.changeZoom();
+            repaint();
+    }
+    
+    private void zoomOut()
+    {
+            markerArray.cleanUp();
+            MapGetter.zoomOut();
+            MapGetter.getMapImage(MapGetter.createUrl(0, 0));
+            markerArray.changeZoom();
+            repaint();
+    }
+    
+    private void changeViewMode()
+    {
+        viewModeCounter++;
+            if(viewModeCounter==4){viewModeCounter=0;}
+            MapGetter.setMapType(viewMode[viewModeCounter]);
+            MapGetter.getMapImage(MapGetter.createUrl(0, 0));
+            buttonViewMode.setText(viewMode[viewModeCounter].toUpperCase());
+            repaint();
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        if(e.getWheelRotation()<0)
+        {
+            zoomIn();
+        }
+        else if(e.getWheelRotation()>0)
+        {
+            zoomOut();
+        }
     }
 }

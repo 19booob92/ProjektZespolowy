@@ -25,6 +25,23 @@ public class MarkerArray {
         maxMarkers=tMaxMarkers;
     }
     
+    public void deleteMarker(int index)
+    {
+        for(int i=index;i<markers-1;i++)
+        {
+            marker[i]=marker[i+1];
+        }
+        marker[markers-1]=null;
+        markers--;
+    }
+    public void changeZoom()
+    {
+        for(int i=0;i<markers;i++)
+        {
+            marker[i].changeZoom();
+        }
+    }
+    
     public void select(int index)
     {
         for(int i=0;i<markers;i++)

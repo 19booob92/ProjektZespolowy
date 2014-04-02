@@ -40,7 +40,7 @@ public class MainView extends JFrame {
 	private static JScrollPane scrollPane;
 	private static DefaultListModel listModel;
 	private static JList list;
-	
+        	
 	private int QuestType = 0;
 		
 	private String pointName;// = "default";
@@ -48,10 +48,12 @@ public class MainView extends JFrame {
 	private JLabel lblQuestName;
 	private JLabel lblNodeList;
 	
+        private JButton btnDeleteMarker = new JButton("Usuń");
 	private JButton btnCreate;
 	private JButton listBtn = new JButton("Details");
 	private JButton userDataBtn;
 	private ButtonGroup QuestGroup;
+        
 	
     private static int imageSizeW=640;
     private static int imageSizeH=640;
@@ -69,6 +71,7 @@ public class MainView extends JFrame {
 		//GoogleMap Listeners, labels etc
 		googlePanel.addMouseListener(googlePanel);
         googlePanel.addMouseMotionListener(googlePanel);
+        googlePanel.addMouseWheelListener(googlePanel);
         googlePanel.addKeyListener(googlePanel);
         googlePanel.setFocusable(true);
         googlePanel.setBounds(272, 32, 338, 329);
@@ -107,6 +110,18 @@ public class MainView extends JFrame {
 		panel.setLayout(null);
 		panel.add(listBtn);
 
+                
+                btnDeleteMarker.addActionListener(new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        googlePanel.deleteMarker(list.getSelectedIndex());
+                    }
+                });
+                btnDeleteMarker.setBounds(120, 372, 107, 25);
+                
+                //panel.add(btnDeleteMarker);
+                  
 		userDataBtn.setBounds(467, 372, 143, 25);
 		panel.add(userDataBtn);
 
@@ -282,7 +297,7 @@ public class MainView extends JFrame {
 	
 	public static void createPoint(double x, double y)
 	{
-		listModel.addElement(new MapPoint(x,y));                
+		listModel.addElement(new MapPoint(x,y));      
 	}
         
         public static void setPoint(int index, double x, double y)
