@@ -18,11 +18,12 @@ import java.net.URL;
  * @author Michał Sypniewski
  */
 public class MapGetter {
-    private static double step=0.003;
-    private static double xToMap=0.00004;
-    private static double yToMap=0.000026;
+    private static double step= 0.003;
+    private static double[] xToMap= {0.0001807692307692,0.00006184210526315736,0.000040869565217391,0.0000215596330275229};
+    private static double[] yToMap= {0.00011240625,0.000053686567164179,0.000025692857142857,0.00001327306273062};
     
     private static int zoom=15;
+    private static int zoomIndex=2;
     private static int imageSizeW=640;
     private static int imageSizeH=640;
     private static double latitude=51.110851;
@@ -32,6 +33,24 @@ public class MapGetter {
     
     public static Marker[] markersArray = new Marker[20];
     public static int markers=0;
+    
+    static public void zoomIn()
+    {
+        if(zoom<16)
+        {
+        zoom++;
+        zoomIndex++;
+        }
+    }
+    
+    static public void zoomOut()
+    {
+        if(zoom>13)
+        {
+        zoom--;
+        zoomIndex--;
+        }
+    }
     
     static public double getLatitude()
     {
@@ -45,12 +64,12 @@ public class MapGetter {
     
     static public double getXToMap()
     {
-        return xToMap;
+        return xToMap[zoomIndex];
     }
     
     static public double getYToMap()
     {
-        return yToMap;
+        return yToMap[zoomIndex];
     }
     
     static public int getImageSizeW()
@@ -88,19 +107,19 @@ public class MapGetter {
     
     static public double getLatitude(int y)
     {
-        return latitude - yToMap*y + imageSizeH/2*yToMap;
+        return latitude - yToMap[zoomIndex]*y + imageSizeH/2*yToMap[zoomIndex];
     }
     
     static public double getLongtitude(int x)
     {
-        return longtitude + xToMap*x - imageSizeW/2*xToMap;
+        return longtitude + xToMap[zoomIndex]*x - imageSizeW/2*xToMap[zoomIndex];
     }
     
     static public String addMarker(int x,int y)
     {
-        double lat = latitude - yToMap*y + imageSizeH/2*yToMap;
+        double lat = latitude - yToMap[zoomIndex]*y + imageSizeH/2*yToMap[zoomIndex];
         //double lat = 51.111565;
-        double lon = longtitude + xToMap*x - imageSizeW/2*xToMap;
+        double lon = longtitude + xToMap[zoomIndex]*x - imageSizeW/2*xToMap[zoomIndex];
         
         if(markers<20){
         markersArray[markers]=new Marker(lat,lon);
@@ -111,16 +130,16 @@ public class MapGetter {
     
     static public double[] getMarker(int x, int y)
     {
-    	double lat = latitude - yToMap*y + imageSizeH/2*yToMap;
-        double lon = longtitude + xToMap*x - imageSizeW/2*xToMap;    
+    	double lat = latitude - yToMap[zoomIndex]*y + imageSizeH/2*yToMap[zoomIndex];
+        double lon = longtitude + xToMap[zoomIndex]*x - imageSizeW/2*xToMap[zoomIndex];    
         double [] coords = {lat, lon};
         return coords;
     }
     
     static public String createUrl(int x,int y)
     {
-        longtitude+=xToMap*x;
-        latitude+=yToMap*y;
+        longtitude+=xToMap[zoomIndex]*x;
+        latitude+=yToMap[zoomIndex]*y;
         String url = "http://maps.googleapis.com/maps/api/staticmap?center=";
         url+=Double.toString(latitude);
         url+=",";
@@ -152,6 +171,41 @@ public class MapGetter {
         return url;
     }
     
+        static public String createUrl(double tLongtitude, double tLatitude)
+    {
+        longtitude=tLongtitude;
+        latitude=tLatitude;
+        String url = "http://maps.googleapis.com/maps/api/staticmap?center=";
+        url+=Double.toString(latitude);
+        url+=",";
+        url+=Double.toString(longtitude);
+        url+="&zoom=";
+        url+=Integer.toString(zoom);
+        url+="&size=";
+        url+=Integer.toString(imageSizeW);
+        url+="x";
+        url+=Integer.toString(imageSizeH);
+        
+        /*if(markers!=0){
+        url+="&markers=color:blue%7Clabel:P%7C";
+        url+=Double.toString(marker_x);
+        url+=",";
+        url+=Double.toString(marker_y);
+        }*/
+        
+        for(int i=0;i<markers;i++)
+        {
+            url+=markersArray[i].toString();
+        }
+        
+        url+="&maptype=";
+        url+=mapType;
+        url+="&key=";
+        url+=googleKey;
+        //url+="&format=jpg";
+        return url;
+    }
+        
     static public void getMapImage(String imageUrl)
     {
          try {

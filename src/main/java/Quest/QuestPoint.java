@@ -5,7 +5,16 @@ import java.util.ArrayList;
 
 public abstract class QuestPoint  implements DescribeQuest{
 	private ArrayList<String> PicturePaths;
+	public double getQuestTimeout() {
+		return QuestTimeout;
+	}
+
+	public void setQuestTimeout(double questTimeout) {
+		QuestTimeout = questTimeout;
+	}
+
 	private ArrayList<String> SoundPaths;
+	private double QuestTimeout;
 	
 	public QuestPoint()
 	{
@@ -15,6 +24,7 @@ public abstract class QuestPoint  implements DescribeQuest{
 		SoundPaths.add("");
 		QuestDescription = "";
 		QuestAnswer = "";
+		QuestTimeout = 0;
 	}
 	
 	public ArrayList<String> getPicturePaths() {

@@ -18,8 +18,11 @@ import static java.lang.Math.abs;
  */
 public class MarkerRect {
     
-    private double latitude;
-    private double longtitude;
+    private double leftUpperLatitude;
+    private double leftUpperLongtitude;
+
+    private double rightBottomLatitude;
+    private double rightBottomLongtitude;
     private double latitudeV=0;
     private double longtitudeV=0;
     
@@ -41,7 +44,27 @@ public class MarkerRect {
     private int barWidth=10;
     private int barHeight=10;
     
+    public MarkerRect(double tLatitude, double tLongtitude)
+    {
+        leftUpperLatitude=tLatitude;
+        leftUpperLongtitude=tLongtitude;
+    }
     
+    public void changeZoom()
+    {
+        width=abs((int)((leftUpperLongtitude-rightBottomLongtitude)/MapGetter.getXToMap()));
+        height=abs((int)((leftUpperLatitude-rightBottomLatitude)/MapGetter.getYToMap()));
+    }
+    
+    public void select()
+    {
+        selected=true;
+    }
+    
+    public void unSelect()
+    {
+        selected=false;
+    }
     public boolean isSelectedDrag()
     {
         return selectedDrag;
@@ -90,12 +113,12 @@ public class MarkerRect {
     
     public double getLatitude()
     {
-        return latitude;
+        return leftUpperLatitude;
     }
     
     public double getLongtitude()
     {
-        return longtitude;
+        return leftUpperLongtitude;
     }
     
     public void selectMarker(int tX,int tY)
@@ -120,11 +143,7 @@ public class MarkerRect {
     {
         return selected;
     }
-    public MarkerRect(double tLatitude, double tLongtitude)
-    {
-        latitude=tLatitude;
-        longtitude=tLongtitude;
-    }
+
     
     public void cleanUp()
     {
@@ -133,12 +152,15 @@ public class MarkerRect {
         width+=widthV;
         heightV=0;
         widthV=0;
-        if(width==0){width=60;}
-        if(height==0){height=60;}
-        latitude-=latitudeV;
+        //if(width==0){width=60;}
+        //if(height==0){height=60;}
+        leftUpperLatitude-=latitudeV;
         latitudeV=0;
-        longtitude+=longtitudeV;
+        leftUpperLongtitude+=longtitudeV;
         longtitudeV=0;
+        
+        rightBottomLongtitude=leftUpperLongtitude+width*MapGetter.getXToMap();
+        rightBottomLatitude=leftUpperLatitude-height*MapGetter.getYToMap();
     }
     public void setWidth(int tWidth)
     {
@@ -210,9 +232,9 @@ public class MarkerRect {
             g.setColor(Color.red);
         }
         //x = (int) (latitude - MapGetter.getLatitude() -MapGetter.getImageSizeH()/2*MapGetter.getYToMap());
-        x = ((longtitude+longtitudeV) - MapGetter.getLongtitude())/MapGetter.getXToMap() + MapGetter.getImageSizeW()/2;
+        x = ((leftUpperLongtitude+longtitudeV) - MapGetter.getLongtitude())/MapGetter.getXToMap() + MapGetter.getImageSizeW()/2;
         //y = (int) (longtitude - MapGetter.getLongtitude() - MapGetter.getImageSizeH()/2*MapGetter.getXToMap());
-        y = -((latitude-latitudeV) - MapGetter.getLatitude())/MapGetter.getYToMap() + MapGetter.getImageSizeH()/2;
+        y = -((leftUpperLatitude-latitudeV) - MapGetter.getLatitude())/MapGetter.getYToMap() + MapGetter.getImageSizeH()/2;
         
         g.drawRect((int) x, (int)y, width + widthV, height + heightV);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 18)); 
