@@ -24,7 +24,7 @@ public abstract class QuestPoint  implements DescribeQuest{
 		SoundPaths.add("");
 		QuestDescription = "";
 		QuestAnswer = "";
-		QuestTimeout = 0;
+		QuestTimeout = 10.0;
 	}
 	
 	public ArrayList<String> getPicturePaths() {

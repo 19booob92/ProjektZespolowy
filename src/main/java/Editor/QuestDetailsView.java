@@ -115,13 +115,9 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 		
 		btnApplySettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TO DO
-				//Wstawienie obrazkow i dzwiekow do ArrayList w obiekcie mapPoint 
-				//Tu trzeba wywolac funkcje w zaleznosci od typu zagadki - na razie prowizorycznie wpisano Stringi
-				//mapPoint.getQuest().setPicturePaths(paths);
-				//mapPoint.getQuest().setPicturePaths(pics);
 				mapPoint.getQuest().setQuestDescription("Description");
 				mapPoint.getQuest().setQuestAnswer("Answer");
+				mapPoint.getQuest().setQuestTimeout(Double.parseDouble(textFieldTimeout.getText()));
 			}
 		});
 				
@@ -129,7 +125,7 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 		for (String s : mapPoint.getQuest().getPicturePaths())
 			picsListModel.addElement(s);
 		for (String s : mapPoint.getQuest().getSoundPaths())
-			soundsListModel.addElement(s);
+			soundsListModel.addElement(s);		
 		
 		panel.add(choosePics);
 		panel.add(chooseSounds);
@@ -187,7 +183,7 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 		panel.add(textFieldAnswer);
 		textFieldAnswer.setColumns(10);*/
 		///////////////////////////////////////////
-		textFieldTimeout = new JTextField();
+		textFieldTimeout = new JTextField(Double.toString(mapPoint.getQuest().getQuestTimeout()));
 		textFieldTimeout.setBounds(121, 60, 117, 20);
 		panel.add(textFieldTimeout);
 		textFieldTimeout.setColumns(10);
