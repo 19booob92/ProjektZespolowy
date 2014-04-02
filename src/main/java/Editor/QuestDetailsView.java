@@ -102,14 +102,14 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 
 		chooseSounds.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				getPath(soundsListModel);
+				getSoundsPath(soundsListModel);
 			}
 		});
 		
 		
 		choosePics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				getPath(picsListModel);
+				getPicturesPath(picsListModel);
 			}
 		});
 		
@@ -248,7 +248,7 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 		//getContentPane().add(panel);
 	}
 	
-	private void getPath(DefaultListModel<String> list) {
+	private void getPicturesPath(DefaultListModel<String> list) {
 		JFileChooser chooser = new JFileChooser();
 		chooser.setCurrentDirectory(new java.io.File("."));
 		chooser.setDialogTitle("Chose JPEG file");
@@ -256,11 +256,28 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 		chooser.setAcceptAllFileFilterUsed(false);
 
 		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-			// short path looks better in GUI
 			String str = chooser.getSelectedFile().getName();
 			list.addElement(str);
 			mapPoint.getQuest().getPicturePaths().add(str);
-			// full path for creating package
+			setOfpath.add(chooser.getCurrentDirectory().toString()
+					+ chooser.getSelectedFile());
+			System.out.println(setOfpath);
+		} else {
+			System.out.println("No Selection ");
+		}
+	}
+
+	private void getSoundsPath(DefaultListModel<String> list) {
+		JFileChooser chooser = new JFileChooser();
+		chooser.setCurrentDirectory(new java.io.File("."));
+		chooser.setDialogTitle("Chose MP3 file");
+		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		chooser.setAcceptAllFileFilterUsed(false);
+
+		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+			String str = chooser.getSelectedFile().getName();
+			list.addElement(str);
+			mapPoint.getQuest().getSoundPaths().add(str);
 			setOfpath.add(chooser.getCurrentDirectory().toString()
 					+ chooser.getSelectedFile());
 			System.out.println(setOfpath);
