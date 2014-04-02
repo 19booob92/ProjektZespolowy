@@ -6,16 +6,16 @@ public class MapPoint {
 	private double yCoordinate;
 	private QuestPoint quest;
 	
-	public MapPoint()
+	public MapPoint(QuestType type)
 	{ 
-		quest= new TextQuest();
+		quest = QuestFactory.createQuest(type);
 		xCoordinate = 0;
 		yCoordinate = 0;
 	}
 	
-	public MapPoint(double x, double y)
+	public MapPoint(QuestType type, double x, double y)
 	{
-		quest = new TextQuest();
+		quest = QuestFactory.createQuest(type);
 		xCoordinate= x;
 		yCoordinate = y;
 	}

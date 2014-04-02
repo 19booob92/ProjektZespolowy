@@ -2,6 +2,11 @@ package Quest;
 
 public interface DescribeQuest {
 
-	public void method();
+	public String getQuestDescription();
 	
+	public String getQuestAnswer();
+	
+	public void setQuestDescription(String descript);
+	
+	public void setQuestAnswer(String answ);
 }

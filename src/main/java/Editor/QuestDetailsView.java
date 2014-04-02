@@ -24,6 +24,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import Quest.MapPoint;
+import Quest.QuestFactory;
+import Quest.QuestType;
 
 public class QuestDetailsView extends JFrame implements KeyListener {
 
@@ -32,6 +34,8 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 	
 	private JPanel panel;
 	private JTextField textFieldAnswer;
+	private JTextArea questContent;
+	private JLabel lblQuestAnswer;
 	
 	private JButton choosePics;
 	private JButton chooseSounds;
@@ -53,7 +57,7 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 	private JLabel lblTreasures;
 
 
-	public QuestDetailsView(MapPoint mP, int QuestType)
+	public QuestDetailsView(MapPoint mP, QuestType type)
 	{
 		super("Details view");
 		mapPoint = mP;
@@ -115,8 +119,8 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 		
 		btnApplySettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				mapPoint.getQuest().setQuestDescription("Description");
-				mapPoint.getQuest().setQuestAnswer("Answer");
+				mapPoint.getQuest().setQuestDescription(questContent.getText());
+				mapPoint.getQuest().setQuestAnswer(textFieldAnswer.getText());
 				mapPoint.getQuest().setQuestTimeout(Double.parseDouble(textFieldTimeout.getText()));
 			}
 		});
@@ -200,15 +204,16 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 		lblTreasures.setBounds(10, 147, 84, 14);
 		panel.add(lblTreasures);		
 		
-		switch(QuestType){
-			case 0:
+		switch(type){
+			case TEXTQUEST:
 				constructTextQuestFields();
 				break;
-			case 1:
+			case CHOICEQUEST:
 				constructRangeQuestFields();
 				break;
 			//Inne typy zagadek
 			default:
+				constructTextQuestFields();
 				break;
 		}
 		getContentPane().add(panel);
@@ -229,11 +234,11 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 	private void constructTextQuestFields()
 	{
 
-		JTextArea questContent = new JTextArea(mapPoint.getQuest().getQuestDescription());
+		questContent = new JTextArea(mapPoint.getQuest().getQuestDescription());
 		questContent.setBounds(12, 254, 477, 107);
 		panel.add(questContent);
 		
-		JLabel lblQuestAnswer = new JLabel("Quest Answer");
+		lblQuestAnswer = new JLabel("Quest Answer");
 		lblQuestAnswer.setBounds(10, 104, 117, 14);
 		panel.add(lblQuestAnswer);
 		

@@ -24,6 +24,7 @@ import javax.swing.event.ListSelectionListener;
 
 import Map.GoogleMapPanel;
 import Quest.MapPoint;
+import Quest.QuestType;
 
 public class MainView extends JFrame {
 
@@ -33,7 +34,6 @@ public class MainView extends JFrame {
 	private GoogleMapPanel googlePanel;
 	private QuestDetailsView detailsView;
 	
-	//Lista byc moze do usuniecia
 	private static ArrayList<MapPoint> mPoints;
 	private static MapPoint temporaryMapPoint;
 	
@@ -41,14 +41,14 @@ public class MainView extends JFrame {
 	private static DefaultListModel listModel;
 	private static JList list;
         	
-	private int QuestType = 0;
+	private static QuestType type = QuestType.TEXTQUEST;
 		
-	private String pointName;// = "default";
+	private String pointName;
 	
 	private JLabel lblQuestName;
 	private JLabel lblNodeList;
 	
-        private JButton btnDeleteMarker = new JButton("Usuń");
+    private JButton btnDeleteMarker = new JButton("Usuń");
 	private JButton btnCreate;
 	private JButton listBtn = new JButton("Details");
 	private JButton userDataBtn;
@@ -100,7 +100,7 @@ public class MainView extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						//detailsView = new DetailsView(pointName, QuestType);
-						detailsView = new QuestDetailsView(temporaryMapPoint, QuestType);
+						detailsView = new QuestDetailsView(temporaryMapPoint, type);
 						System.out.println(detailsView.getPointName());
 					}
 				});
@@ -211,7 +211,7 @@ public class MainView extends JFrame {
 		
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
-						QuestType = 0;
+						type = QuestType.TEXTQUEST;
 						System.out.println(detailsView.getPointName());
 					}
 				});
@@ -223,7 +223,7 @@ public class MainView extends JFrame {
 		
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
-						QuestType = 1;
+						type = QuestType.CHOICEQUEST;
 						System.out.println(detailsView.getPointName());
 					}
 				});
@@ -301,14 +301,14 @@ public class MainView extends JFrame {
 	
 	public static void createPoint(double x, double y)
 	{
-		mPoints.add(new MapPoint(x,y));
+		mPoints.add(new MapPoint(type,x,y));
 		listModel.addElement(mPoints.get(mPoints.size()-1));    
 		
 	}
         
     public static void setPoint(int index, double x, double y)
     {
-    	mPoints.add(new MapPoint(x,y));
+    	mPoints.add(new MapPoint(type, x,y));
         listModel.set(index, mPoints.get(mPoints.size()-1));
     }
 }

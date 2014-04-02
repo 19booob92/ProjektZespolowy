@@ -1,7 +1,7 @@
 package Quest;
 
 
-public class TextQuest extends QuestPoint{
+public class TextQuest extends QuestPoint implements DescribeQuest{
 
 	private String questAnswer;
 	private String questContent;
@@ -9,11 +9,11 @@ public class TextQuest extends QuestPoint{
 	
 	public TextQuest()
 	{
-		super();
+		super(QuestType.TEXTQUEST);
 	}
 	
 	public TextQuest(String answer, String content, double timeout){
-		super();
+		super(QuestType.TEXTQUEST);
 		questAnswer = answer;
 		questContent = content;
 		questTimeout = timeout;
@@ -27,26 +27,12 @@ public class TextQuest extends QuestPoint{
 		this.questAnswer = questAnswer;
 	}
 
-	public String getQuestContent() {
+	public String getQuestDescription() {
 		return questContent;
 	}
 
-	public void setQuestContent(String questContent) {
-		this.questContent = questContent;
-	}
-
-	public double getQuestTimeout() {
-		return questTimeout;
-	}
-
-	public void setQuestTimeout(double questTimeout) {
-		this.questTimeout = questTimeout;
-	}
-
-	@Override
-	public void method() {
-		// TODO Auto-generated method stub
-		
+	public void setQuestDescription(String descript) {
+			questContent = descript;	
 	}
 	
 }
