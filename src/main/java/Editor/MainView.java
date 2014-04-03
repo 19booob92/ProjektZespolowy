@@ -274,7 +274,7 @@ public class MainView extends JFrame {
 		getContentPane().add(panel);
 		
 		JButton btnRanking = new JButton("Ranking");
-		btnRanking.setBounds(22, 372, 117, 25);
+		btnRanking.setBounds(135, 372, 117, 25);
 		panel.add(btnRanking);
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
