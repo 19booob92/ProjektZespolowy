@@ -11,11 +11,14 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import UserRegistration.DeleteRequest;
+import UserRegistration.UpdateRequest;
+import UserRegistration.UserDTO;
 
 public class UserDetailsView extends JFrame {
 
 	private JPanel contentPane;
 	private DeleteRequest deleteRequest;
+	private UpdateRequest updateRequest;
 	private static volatile UserDetailsView userDetailsView;
 	private JTextField login;
 	private JTextField pass;
@@ -64,21 +67,29 @@ public class UserDetailsView extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				UserDTO userDTO = new UserDTO();
+				userDTO.setLogin(login.getText());
+				userDTO.setPassword(pass.getText());
+				try {
+					updateRequest = new UpdateRequest(userDTO);
+					updateRequest.update();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnUpdate.setBounds(0, 189, 117, 25);
 		contentPane.add(btnUpdate);
 
-		pass = new JTextField();
-		pass.setBounds(55, 91, 114, 19);
-		contentPane.add(pass);
-		pass.setColumns(10);
-
 		login = new JTextField();
 		login.setBounds(55, 29, 114, 19);
 		contentPane.add(login);
 		login.setColumns(10);
+
+		pass = new JTextField();
+		pass.setBounds(55, 91, 114, 19);
+		contentPane.add(pass);
+		pass.setColumns(10);
 
 		email = new JTextField();
 		email.setBounds(55, 158, 114, 19);
