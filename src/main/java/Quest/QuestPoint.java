@@ -54,24 +54,13 @@ public abstract class QuestPoint implements DescribeQuest{
 	public void setSoundPaths(ArrayList<String> soundPaths) {
 		SoundPaths = soundPaths;
 	}
-/*
-	public String getQuestDescription() {
-		return QuestDescription;
+	
+	public void setQuestName(String qName) {
+		QuestName = qName;
 	}
 
-	public void setQuestDescription(String questDescription) {
-		QuestDescription = questDescription;
+	public String getQuestName() {
+		return QuestName;
 	}
 
-	public String getQuestAnswer() {
-		return QuestAnswer;
-	}
-
-	public void setQuestAnswer(String questAnswer) {
-		QuestAnswer = questAnswer;
-	}
-
-	private String QuestDescription;
-	private String QuestAnswer;
-	*/
 }

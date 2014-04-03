@@ -138,7 +138,7 @@ public class MainView extends JFrame {
                         
                     if(!list.isSelectionEmpty()){
                             
-                    String fileDirectory = JOptionPane.showInputDialog("Podaj nazwę pliku.");
+                    String fileDirectory = JOptionPane.showInputDialog("Podaj nazwÄ™ pliku.");
                     if(!fileDirectory.endsWith(".zip"))
                     {
                         fileDirectory+=".zip";
@@ -222,7 +222,7 @@ public class MainView extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 
 					public void run() {
-						
+						new UserIntroOutroView();
 					}
 				});
 			}

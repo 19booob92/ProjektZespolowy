@@ -1,7 +1,9 @@
 package Editor;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -38,6 +40,10 @@ public class UserProperties extends JFrame {
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		Toolkit toolkt = Toolkit.getDefaultToolkit();
+		Dimension screenSize = toolkt.getScreenSize();
+		this.setLocation(screenSize.width/4, screenSize.height/4);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
