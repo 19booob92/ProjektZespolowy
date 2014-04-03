@@ -71,8 +71,8 @@ public class UserDetailsView extends JFrame {
 				userDTO.setLogin(login.getText());
 				userDTO.setPassword(pass.getText());
 				try {
-					updateRequest = new UpdateRequest(userDTO);
-					updateRequest.update();
+						updateRequest = new UpdateRequest(userDTO);
+						updateRequest.update(value);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
