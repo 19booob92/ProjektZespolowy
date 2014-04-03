@@ -1,19 +1,26 @@
 package Editor;
 
+import Map.GoogleMapPanel;
+import Quest.MapPoint;
+import Quest.QuestPoint;
+import Quest.QuestType;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -21,10 +28,6 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
-import Map.GoogleMapPanel;
-import Quest.MapPoint;
-import Quest.QuestType;
 
 public class MainView extends JFrame {
 
@@ -59,11 +62,11 @@ public class MainView extends JFrame {
     private static int imageSizeH=640;
 
 	public MainView() 
-	{
+	{        
 		super("Editor");
 		this.setBounds(0, 0, 600, 600);
 		setLocationRelativeTo(null);
-		
+            
 		mPoints = new ArrayList<>();
 		panel = new JPanel();
 		googlePanel = new GoogleMapPanel(338,329);
@@ -127,6 +130,55 @@ public class MainView extends JFrame {
 
 		btnCreate = new JButton("Generate Package");
 		btnCreate.setBounds(276, 372, 181, 25);
+                btnCreate.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        
+                    if(!list.isSelectionEmpty()){
+                            
+                    String fileDirectory = JOptionPane.showInputDialog("Podaj nazwę pliku.");
+                    if(!fileDirectory.endsWith(".zip"))
+                    {
+                        fileDirectory+=".zip";
+                    }
+                    
+                    ZipPacker zipPacker = new ZipPacker(fileDirectory);
+                    
+                    MapPoint tempPoint = (MapPoint) listModel.getElementAt(list.getSelectedIndex());
+                    QuestPoint tempQuest = tempPoint.getQuest();
+                    ArrayList <String> tempLista = tempQuest.getPicturePaths();
+                    
+                    for(int i=0;i<tempLista.size();i++)
+                    {
+                        try {
+                            zipPacker.addFile(tempLista.get(i));
+                        } catch (IOException ex) {
+                            Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    
+                    tempLista = tempQuest.getSoundPaths();
+                    
+                    for(int i=0;i<tempLista.size();i++)
+                    {
+                        try {
+                            zipPacker.addFile(tempLista.get(i));
+                        } catch (IOException ex) {
+                            Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    
+                    zipPacker.closeZip();
+                    }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null, "Brak wybranego zadania");
+                        }
+                    }
+                    
+                });
+                
 		panel.add(btnCreate);
 		
 		QuestGroup = new ButtonGroup();
@@ -233,7 +285,7 @@ public class MainView extends JFrame {
 		list.addListSelectionListener(new ListSelectionListener() {
 
 			public void valueChanged(ListSelectionEvent event) {
-				pointName = list.getSelectedValue().toString();
+				pointName = list.getSelectedValue().toString();                              
 				temporaryMapPoint = (MapPoint) list.getSelectedValue();
 			}
                         
@@ -310,5 +362,10 @@ public class MainView extends JFrame {
     {
     	mPoints.add(new MapPoint(type, x,y));
         listModel.set(index, mPoints.get(mPoints.size()-1));
+    }
+    
+    public static void setSelectedListItem(int index)
+    {
+        list.setSelectedIndex(index);
     }
 }

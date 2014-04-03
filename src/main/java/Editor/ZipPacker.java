@@ -60,6 +60,7 @@ public class ZipPacker {
         int bytesRead=0;
         CRC32 crc = new CRC32();        
         File tempFile = new File(directory);
+        if(tempFile.exists()){
         BufferedInputStream bufferedInput = new BufferedInputStream(new FileInputStream(tempFile));
         
         
@@ -82,7 +83,7 @@ public class ZipPacker {
         }
         bufferedInput.close();
 
-        output.closeEntry();
+        output.closeEntry();}
 
     }
     

@@ -6,6 +6,7 @@
 
 package Map;
 
+import Editor.MainView;
 import java.awt.Graphics;
 
 /**
@@ -143,6 +144,10 @@ public class MarkerArray {
         for(int i=0;i<markers;i++)
         {
             marker[i].selectMarker(x, y);
+            if(marker[i].isSelected())
+            {
+                MainView.setSelectedListItem(i);
+            }
         }
     }
     
