@@ -14,14 +14,15 @@ public class UpdateRequest {
 		
 		private WebResource webResource;
 		private Client client;
-		private static final String BASE_URI = "http://virt2.iiar.pwr.edu.pl:8080/register/adminPanel/updateUser";
+		private String BASE_URI = "http://virt2.iiar.pwr.edu.pl:8080/register/adminPanel/updateUser/";
 		private UserDTO user;
 
 		public UpdateRequest(UserDTO userDTO) {
 			this.user = userDTO;
 		}
 		
-		public void update() throws Exception {
+		public void update(String login) throws Exception {
+			BASE_URI += login;
 			Gson gson = new Gson();
 			String json = gson.toJson(user);
 			System.out.println(json);
