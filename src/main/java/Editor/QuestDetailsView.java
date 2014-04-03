@@ -1,5 +1,6 @@
 package Editor;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -272,7 +273,6 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 		
 		questionsTable = new JTable(tableModel);
 		questionsTable.setBounds(12, 283, 500, 86);
-		generalPanel.add(questionsTable);
 		
 		questionsTable.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -290,7 +290,8 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 				}
 			}
 		});
-		
+		generalPanel.add(questionsTable.getTableHeader(), BorderLayout.NORTH);
+		generalPanel.add(questionsTable);
 		getContentPane().add(generalPanel);
 		
 	}
