@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -253,8 +254,11 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 			}
 		});
 
-
+		Toolkit toolkt = Toolkit.getDefaultToolkit();
+		Dimension screenSize = toolkt.getScreenSize();
+		
 		setSize(new Dimension(802, 499));
+		setLocation(screenSize.width/4, screenSize.height/4);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 	}

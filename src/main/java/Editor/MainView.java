@@ -222,7 +222,7 @@ public class MainView extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 
 					public void run() {
-						
+						new UserIntroOutroView();
 					}
 				});
 			}
