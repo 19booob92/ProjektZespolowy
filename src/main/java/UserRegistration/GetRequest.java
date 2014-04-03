@@ -11,6 +11,7 @@ import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 
 public class GetRequest {
 	private WebResource webResource;
@@ -22,7 +23,8 @@ public class GetRequest {
 		ClientConfig clientConfig = new DefaultClientConfig();
 		clientConfig.getClasses().add(JacksonJsonProvider.class);
 		Client client = Client.create(clientConfig);
-
+		client.addFilter(new HTTPBasicAuthFilter("adm", "ini"));
+		
 		return client
 		    .resource(BASE_URI)
 		    .type(MediaType.APPLICATION_JSON)
