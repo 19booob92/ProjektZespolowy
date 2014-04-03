@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,11 +24,13 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 import Quest.MapPoint;
 import Quest.QuestFactory;
 import Quest.QuestType;
 import javax.swing.border.EtchedBorder;
+import javax.swing.JTable;
 
 public class QuestDetailsView extends JFrame implements KeyListener {
 
@@ -35,6 +39,7 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 	
 	private JPanel generalPanel;
 	private JPanel optionsPanel;
+	private DefaultTableModel tableModel;
 	
 	private JTextField textFieldAnswer;
 	private JTextArea questContent;
@@ -58,8 +63,11 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 	private JTextField textFieldTimeout;
 	private JList listTreasures;
 	private JLabel lblTreasures;
-	private JTextField textField;
-
+	private JTextField questNameField;
+	
+	private JTable questionsTable;
+	private JLabel lblMultipleChoiceQuestions;
+	private int rowNum;
 
 	public QuestDetailsView(MapPoint mP, QuestType type)
 	{
@@ -167,28 +175,29 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 		////////////////////////////////////////////
 		/*
 		JTextArea questContent = new JTextArea(mapPoint.getQuest().getQuestDescription());
-		questContent.setBounds(12, 190, 500, 107);
+		questContent.setBounds(12, 283, 500, 107);
 		generalPanel.add(questContent);
 		
 		JLabel lblQuestAnswer = new JLabel("Quest Answer");
-		lblQuestAnswer.setBounds(12, 324, 117, 14);
+		lblQuestAnswer.setBounds(12, 409, 117, 14);
 		generalPanel.add(lblQuestAnswer);
 		
 		textFieldAnswer = new JTextField(mapPoint.getQuest().getQuestAnswer());
-		textFieldAnswer.setBounds(141, 321, 371, 20);
+		textFieldAnswer.setBounds(141, 406, 371, 20);
 		generalPanel.add(textFieldAnswer);
 		textFieldAnswer.setColumns(10);
 		
 		JLabel lblQuestContent = new JLabel("Quest Content");
-		lblQuestContent.setBounds(12, 165, 102, 14);
+		lblQuestContent.setBounds(12, 258, 102, 14);
 		generalPanel.add(lblQuestContent);
 		*/
+		//////////////////////////////////////////////////
 		listTreasures = new JList();
-		listTreasures.setBounds(12, 393, 241, 56);
+		listTreasures.setBounds(12, 191, 241, 56);
 		generalPanel.add(listTreasures);
 		
 		lblTreasures = new JLabel("Treasures");
-		lblTreasures.setBounds(12, 368, 84, 14);
+		lblTreasures.setBounds(10, 165, 84, 14);
 		generalPanel.add(lblTreasures);		
 		
 		switch(type){
@@ -196,7 +205,7 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 				constructTextQuestFields();
 				break;
 			case CHOICEQUEST:
-				constructRangeQuestFields();
+				constructChoiceQuestFields();
 				break;
 			//Inne typy zagadek
 			default:
@@ -207,16 +216,16 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 		
 		optionsPanel = new JPanel();
 		optionsPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		optionsPanel.setBounds(529, 62, 213, 374);
+		optionsPanel.setBounds(529, 62, 247, 374);
 		generalPanel.add(optionsPanel);
 		optionsPanel.setLayout(null);
 		
 		JLabel lblQuestTimeout = new JLabel("Quest Timeout");
 		lblQuestTimeout.setBounds(10, 44, 70, 14);
 		optionsPanel.add(lblQuestTimeout);
-		///////////////////////////////////////////
+
 		textFieldTimeout = new JTextField(Double.toString(mapPoint.getQuest().getQuestTimeout()));
-		textFieldTimeout.setBounds(117, 41, 86, 20);
+		textFieldTimeout.setBounds(117, 41, 120, 20);
 		optionsPanel.add(textFieldTimeout);
 		textFieldTimeout.setColumns(10);
 
@@ -224,25 +233,25 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 		btnApplySettings.setBounds(57, 340, 119, 23);
 		optionsPanel.add(btnApplySettings);
 		
-		textField = new JTextField();
-		textField.setBounds(117, 11, 86, 20);
-		optionsPanel.add(textField);
-		textField.setColumns(10);
+		questNameField = new JTextField("Quest Name");
+		questNameField.setBounds(117, 11, 120, 20);
+		optionsPanel.add(questNameField);
+		questNameField.setColumns(10);
 		
 		JLabel lblQuestName = new JLabel("Quest Name");
 		lblQuestName.setBounds(10, 14, 70, 14);
 		optionsPanel.add(lblQuestName);
-		
+				
 		btnApplySettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//mapPoint.getQuest().setQuestDescription(questContent.getText());
+				mapPoint.getQuest().setQuestDescription(questContent.getText());
 				mapPoint.getQuest().setQuestAnswer(textFieldAnswer.getText());
 				mapPoint.getQuest().setQuestTimeout(Double.parseDouble(textFieldTimeout.getText()));
 			}
 		});
 
 
-		setSize(new Dimension(768, 499));
+		setSize(new Dimension(802, 499));
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 	}
@@ -252,26 +261,61 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 		// TODO Auto-generated method stub
 		getContentPane().add(generalPanel);
 	}
+	
+	private void constructChoiceQuestFields()
+	{		
+		tableModel = new DefaultTableModel(new String[] {"Nr", "Treść pytania", "Odpowiedź", "Liczba podpunktów"},0);
+		
+		lblMultipleChoiceQuestions = new JLabel("Multiple Choice Questions");
+		lblMultipleChoiceQuestions.setBounds(12, 258, 156, 14);
+		generalPanel.add(lblMultipleChoiceQuestions);
+		
+		questionsTable = new JTable(tableModel);
+		questionsTable.setBounds(12, 283, 500, 86);
+		generalPanel.add(questionsTable);
+		
+		questionsTable.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 1) {
+					JTable target = (JTable) e.getSource();
+					rowNum = target.getSelectedRow();
+					EventQueue.invokeLater(new Runnable() {
+
+						@Override
+						public void run() {
+							
+						}
+
+					});
+				}
+			}
+		});
+		
+		getContentPane().add(generalPanel);
+		
+	}
 
 	//Tworz pola zagadki tekstowej
 	private void constructTextQuestFields()
 	{
-		JTextArea questContent = new JTextArea(mapPoint.getQuest().getQuestDescription());
-		questContent.setBounds(12, 190, 500, 107);
+		
+		questContent = new JTextArea(mapPoint.getQuest().getQuestDescription());
+		questContent.setBounds(12, 283, 500, 107);
 		generalPanel.add(questContent);
 		
-		JLabel lblQuestAnswer = new JLabel("Quest Answer");
-		lblQuestAnswer.setBounds(12, 324, 117, 14);
+		lblQuestAnswer = new JLabel("Quest Answer");
+		lblQuestAnswer.setBounds(12, 409, 117, 14);
 		generalPanel.add(lblQuestAnswer);
 		
 		textFieldAnswer = new JTextField(mapPoint.getQuest().getQuestAnswer());
-		textFieldAnswer.setBounds(141, 321, 371, 20);
+		textFieldAnswer.setBounds(141, 406, 371, 20);
 		generalPanel.add(textFieldAnswer);
 		textFieldAnswer.setColumns(10);
 		
 		JLabel lblQuestContent = new JLabel("Quest Content");
-		lblQuestContent.setBounds(12, 165, 102, 14);
+		lblQuestContent.setBounds(12, 258, 102, 14);
 		generalPanel.add(lblQuestContent);
+		
 	}
 	
 	private void getPicturesPath(DefaultListModel<String> list) {
