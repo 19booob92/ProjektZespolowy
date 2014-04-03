@@ -25,6 +25,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 import Quest.MapPoint;
@@ -54,7 +55,7 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 	private JList<String> sounds;
 	private DefaultListModel<String> picsListModel;
 	private DefaultListModel<String> soundsListModel;
-	
+	private FileNameExtensionFilter filter;
 	private String pointName;
 	
 	private JLabel pointNameLbl;
@@ -234,7 +235,7 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 		btnApplySettings.setBounds(57, 340, 119, 23);
 		optionsPanel.add(btnApplySettings);
 		
-		questNameField = new JTextField("Quest Name");
+		questNameField = new JTextField(mapPoint.getQuest().getQuestName());
 		questNameField.setBounds(117, 11, 120, 20);
 		optionsPanel.add(questNameField);
 		questNameField.setColumns(10);
@@ -248,6 +249,7 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 				mapPoint.getQuest().setQuestDescription(questContent.getText());
 				mapPoint.getQuest().setQuestAnswer(textFieldAnswer.getText());
 				mapPoint.getQuest().setQuestTimeout(Double.parseDouble(textFieldTimeout.getText()));
+				mapPoint.getQuest().setQuestName(questNameField.getText());
 			}
 		});
 
@@ -321,6 +323,8 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 	
 	private void getPicturesPath(DefaultListModel<String> list) {
 		JFileChooser chooser = new JFileChooser();
+		filter = new FileNameExtensionFilter("JPEG Files", "jpg");
+		chooser.setFileFilter(filter);
 		chooser.setCurrentDirectory(new java.io.File("."));
 		chooser.setDialogTitle("Chose JPEG file");
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -340,6 +344,8 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 
 	private void getSoundsPath(DefaultListModel<String> list) {
 		JFileChooser chooser = new JFileChooser();
+		filter = new FileNameExtensionFilter("MP3 Files", "mp3");
+		chooser.setFileFilter(filter);
 		chooser.setCurrentDirectory(new java.io.File("."));
 		chooser.setDialogTitle("Chose MP3 file");
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
