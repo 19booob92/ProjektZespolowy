@@ -26,13 +26,16 @@ import javax.swing.event.ListSelectionListener;
 import Quest.MapPoint;
 import Quest.QuestFactory;
 import Quest.QuestType;
+import javax.swing.border.EtchedBorder;
 
 public class QuestDetailsView extends JFrame implements KeyListener {
 
 	private Set<String> setOfpath;
 	private MapPoint mapPoint;
 	
-	private JPanel panel;
+	private JPanel generalPanel;
+	private JPanel optionsPanel;
+	
 	private JTextField textFieldAnswer;
 	private JTextArea questContent;
 	private JLabel lblQuestAnswer;
@@ -55,6 +58,7 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 	private JTextField textFieldTimeout;
 	private JList listTreasures;
 	private JLabel lblTreasures;
+	private JTextField textField;
 
 
 	public QuestDetailsView(MapPoint mP, QuestType type)
@@ -64,16 +68,13 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 		this.pointName = mapPoint.toString();
 
 		chooseSounds = new JButton("Choose sounds");
-		chooseSounds.setBounds(377, 143, 112, 23);
-
-		btnApplySettings = new JButton("Apply settings");
-		btnApplySettings.setBounds(10, 375, 119, 23);
+		chooseSounds.setBounds(400, 63, 112, 23);
 
 		choosePics = new JButton("Choose files");
-		choosePics.setBounds(377, 32, 112, 25);
+		choosePics.setBounds(141, 62, 112, 25);
 
-		panel = new JPanel();
-		panel.setLayout(null);
+		generalPanel = new JPanel();
+		generalPanel.setLayout(null);
 
 		setOfpath = new HashSet<>();
 		picsListModel = new DefaultListModel<String>();
@@ -83,15 +84,15 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 		pics.setFocusable(true);
 		lblListOfPics = new JLabel("List of pic's");
 
-		pics.setBounds(248, 62, 241, 56);
+		pics.setBounds(12, 98, 241, 56);
 		pics.setPreferredSize(new Dimension(70, 100));
-		lblListOfPics.setBounds(248, 11, 102, 15);
+		lblListOfPics.setBounds(12, 37, 102, 15);
 
 		sounds = new JList(soundsListModel);
 		lblListOfSounds = new JLabel("List of sounds");
 
-		sounds.setBounds(248, 172, 241, 56);
-		lblListOfSounds.setBounds(246, 129, 71, 14);
+		sounds.setBounds(271, 97, 241, 56);
+		lblListOfSounds.setBounds(271, 37, 71, 14);
 		
 		setLocationRelativeTo(null);
 		
@@ -116,14 +117,6 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 				getPicturesPath(picsListModel);
 			}
 		});
-		
-		btnApplySettings.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				mapPoint.getQuest().setQuestDescription(questContent.getText());
-				mapPoint.getQuest().setQuestAnswer(textFieldAnswer.getText());
-				mapPoint.getQuest().setQuestTimeout(Double.parseDouble(textFieldTimeout.getText()));
-			}
-		});
 				
 		//Wyswietl dane dla wybranego punktu
 		for (String s : mapPoint.getQuest().getPicturePaths())
@@ -131,14 +124,13 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 		for (String s : mapPoint.getQuest().getSoundPaths())
 			soundsListModel.addElement(s);		
 		
-		panel.add(choosePics);
-		panel.add(chooseSounds);
-		panel.add(pics);
-		panel.add(sounds);
-		panel.add(pointNameLbl);
-		panel.add(lblListOfSounds);
-		panel.add(lblListOfPics);
-		panel.add(btnApplySettings);
+		generalPanel.add(choosePics);
+		generalPanel.add(chooseSounds);
+		generalPanel.add(pics);
+		generalPanel.add(sounds);
+		generalPanel.add(pointNameLbl);
+		generalPanel.add(lblListOfSounds);
+		generalPanel.add(lblListOfPics);
 		
 		//Listenery usuwania
 		JButton btnDelete = new JButton("Delete");
@@ -154,8 +146,8 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 			}
 		});
 		
-		btnDelete.setBounds(248, 33, 112, 23);
-		panel.add(btnDelete);
+		btnDelete.setBounds(12, 63, 112, 23);
+		generalPanel.add(btnDelete);
 		
 		btnDelete2 = new JButton("Delete");
 		btnDelete2.addActionListener(new ActionListener() {
@@ -169,40 +161,35 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 					}
 			}
 		});
-		btnDelete2.setBounds(248, 143, 112, 23);
-		panel.add(btnDelete2);
+		btnDelete2.setBounds(270, 63, 112, 23);
+		generalPanel.add(btnDelete2);
 		
 		////////////////////////////////////////////
 		/*
 		JTextArea questContent = new JTextArea(mapPoint.getQuest().getQuestDescription());
-		questContent.setBounds(12, 254, 477, 107);
-		panel.add(questContent);
+		questContent.setBounds(12, 190, 500, 107);
+		generalPanel.add(questContent);
 		
 		JLabel lblQuestAnswer = new JLabel("Quest Answer");
-		lblQuestAnswer.setBounds(10, 104, 117, 14);
-		panel.add(lblQuestAnswer);
+		lblQuestAnswer.setBounds(12, 324, 117, 14);
+		generalPanel.add(lblQuestAnswer);
 		
 		textFieldAnswer = new JTextField(mapPoint.getQuest().getQuestAnswer());
-		textFieldAnswer.setBounds(121, 101, 117, 20);
-		panel.add(textFieldAnswer);
-		textFieldAnswer.setColumns(10);*/
-		///////////////////////////////////////////
-		textFieldTimeout = new JTextField(Double.toString(mapPoint.getQuest().getQuestTimeout()));
-		textFieldTimeout.setBounds(121, 60, 117, 20);
-		panel.add(textFieldTimeout);
-		textFieldTimeout.setColumns(10);
+		textFieldAnswer.setBounds(141, 321, 371, 20);
+		generalPanel.add(textFieldAnswer);
+		textFieldAnswer.setColumns(10);
 		
-		JLabel lblQuestTimeout = new JLabel("Quest Timeout");
-		lblQuestTimeout.setBounds(10, 63, 94, 14);
-		panel.add(lblQuestTimeout);
-		
+		JLabel lblQuestContent = new JLabel("Quest Content");
+		lblQuestContent.setBounds(12, 165, 102, 14);
+		generalPanel.add(lblQuestContent);
+		*/
 		listTreasures = new JList();
-		listTreasures.setBounds(12, 172, 223, 56);
-		panel.add(listTreasures);
+		listTreasures.setBounds(12, 393, 241, 56);
+		generalPanel.add(listTreasures);
 		
 		lblTreasures = new JLabel("Treasures");
-		lblTreasures.setBounds(10, 147, 84, 14);
-		panel.add(lblTreasures);		
+		lblTreasures.setBounds(12, 368, 84, 14);
+		generalPanel.add(lblTreasures);		
 		
 		switch(type){
 			case TEXTQUEST:
@@ -216,10 +203,46 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 				constructTextQuestFields();
 				break;
 		}
-		getContentPane().add(panel);
+		getContentPane().add(generalPanel);
 		
+		optionsPanel = new JPanel();
+		optionsPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		optionsPanel.setBounds(529, 62, 213, 374);
+		generalPanel.add(optionsPanel);
+		optionsPanel.setLayout(null);
+		
+		JLabel lblQuestTimeout = new JLabel("Quest Timeout");
+		lblQuestTimeout.setBounds(10, 44, 70, 14);
+		optionsPanel.add(lblQuestTimeout);
+		///////////////////////////////////////////
+		textFieldTimeout = new JTextField(Double.toString(mapPoint.getQuest().getQuestTimeout()));
+		textFieldTimeout.setBounds(117, 41, 86, 20);
+		optionsPanel.add(textFieldTimeout);
+		textFieldTimeout.setColumns(10);
 
-		setSize(new Dimension(515, 448));
+		btnApplySettings = new JButton("Apply settings");
+		btnApplySettings.setBounds(57, 340, 119, 23);
+		optionsPanel.add(btnApplySettings);
+		
+		textField = new JTextField();
+		textField.setBounds(117, 11, 86, 20);
+		optionsPanel.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblQuestName = new JLabel("Quest Name");
+		lblQuestName.setBounds(10, 14, 70, 14);
+		optionsPanel.add(lblQuestName);
+		
+		btnApplySettings.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//mapPoint.getQuest().setQuestDescription(questContent.getText());
+				mapPoint.getQuest().setQuestAnswer(textFieldAnswer.getText());
+				mapPoint.getQuest().setQuestTimeout(Double.parseDouble(textFieldTimeout.getText()));
+			}
+		});
+
+
+		setSize(new Dimension(768, 499));
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 	}
@@ -227,26 +250,28 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 	//Tworz pola zagadki dotyczacej zasiegu
 	private void constructRangeQuestFields() {
 		// TODO Auto-generated method stub
-		getContentPane().add(panel);
+		getContentPane().add(generalPanel);
 	}
 
 	//Tworz pola zagadki tekstowej
 	private void constructTextQuestFields()
 	{
-
-		questContent = new JTextArea(mapPoint.getQuest().getQuestDescription());
-		questContent.setBounds(12, 254, 477, 107);
-		panel.add(questContent);
+		JTextArea questContent = new JTextArea(mapPoint.getQuest().getQuestDescription());
+		questContent.setBounds(12, 190, 500, 107);
+		generalPanel.add(questContent);
 		
-		lblQuestAnswer = new JLabel("Quest Answer");
-		lblQuestAnswer.setBounds(10, 104, 117, 14);
-		panel.add(lblQuestAnswer);
+		JLabel lblQuestAnswer = new JLabel("Quest Answer");
+		lblQuestAnswer.setBounds(12, 324, 117, 14);
+		generalPanel.add(lblQuestAnswer);
 		
 		textFieldAnswer = new JTextField(mapPoint.getQuest().getQuestAnswer());
-		textFieldAnswer.setBounds(121, 101, 117, 20);
-		panel.add(textFieldAnswer);
+		textFieldAnswer.setBounds(141, 321, 371, 20);
+		generalPanel.add(textFieldAnswer);
 		textFieldAnswer.setColumns(10);
-		//getContentPane().add(panel);
+		
+		JLabel lblQuestContent = new JLabel("Quest Content");
+		lblQuestContent.setBounds(12, 165, 102, 14);
+		generalPanel.add(lblQuestContent);
 	}
 	
 	private void getPicturesPath(DefaultListModel<String> list) {

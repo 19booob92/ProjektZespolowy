@@ -7,7 +7,7 @@ public abstract class QuestPoint implements DescribeQuest{
 	
 	private ArrayList<String> PicturePaths;
 	private ArrayList<String> SoundPaths;
-	
+	private String QuestName;
 	private double QuestTimeout;
 	
 	private QuestType type = null;
@@ -15,6 +15,7 @@ public abstract class QuestPoint implements DescribeQuest{
 	public QuestPoint(QuestType type)
 	{
 		this.type = type;
+		QuestName = "";
 		PicturePaths = new ArrayList<String>();
 		PicturePaths.add("");
 		SoundPaths = new ArrayList<String>();

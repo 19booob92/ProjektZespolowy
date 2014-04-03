@@ -25,7 +25,7 @@ public class UserDetailsView extends JFrame {
 	private JTextField email;
 
 	private UserDetailsView(final String value) {
-		setBounds(100, 100, 250, 300);
+		setBounds(100, 100, 293, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -43,7 +43,7 @@ public class UserDetailsView extends JFrame {
 				}
 			}
 		});
-		btnDeleteUser.setBounds(121, 226, 117, 25);
+		btnDeleteUser.setBounds(17, 156, 117, 25);
 		contentPane.add(btnDeleteUser);
 
 		JButton btnDeleteGame = new JButton("Delete game");
@@ -59,7 +59,7 @@ public class UserDetailsView extends JFrame {
 				}
 			}
 		});
-		btnDeleteGame.setBounds(121, 189, 117, 25);
+		btnDeleteGame.setBounds(17, 192, 117, 25);
 		contentPane.add(btnDeleteGame);
 
 		JButton btnUpdate = new JButton("Update");
@@ -78,34 +78,34 @@ public class UserDetailsView extends JFrame {
 				}
 			}
 		});
-		btnUpdate.setBounds(0, 189, 117, 25);
+		btnUpdate.setBounds(17, 120, 117, 25);
 		contentPane.add(btnUpdate);
 
 		login = new JTextField();
-		login.setBounds(55, 29, 114, 19);
+		login.setBounds(20, 30, 114, 19);
 		contentPane.add(login);
 		login.setColumns(10);
 
 		pass = new JTextField();
-		pass.setBounds(55, 91, 114, 19);
+		pass.setBounds(144, 30, 114, 19);
 		contentPane.add(pass);
 		pass.setColumns(10);
 
 		email = new JTextField();
-		email.setBounds(55, 158, 114, 19);
+		email.setBounds(20, 75, 114, 19);
 		contentPane.add(email);
 		email.setColumns(10);
 
 		JLabel lblLogin = new JLabel("Login");
-		lblLogin.setBounds(51, 12, 70, 15);
+		lblLogin.setBounds(20, 11, 70, 15);
 		contentPane.add(lblLogin);
 
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(52, 77, 70, 15);
+		lblPassword.setBounds(143, 11, 70, 15);
 		contentPane.add(lblPassword);
 
 		JLabel lblEmail = new JLabel("E-Mail");
-		lblEmail.setBounds(52, 140, 70, 15);
+		lblEmail.setBounds(20, 60, 70, 15);
 		contentPane.add(lblEmail);
 		setVisible(true);
 	}

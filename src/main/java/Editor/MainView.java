@@ -48,13 +48,14 @@ public class MainView extends JFrame {
 		
 	private String pointName;
 	
-	private JLabel lblQuestName;
+	private JLabel lblGameName;
 	private JLabel lblNodeList;
 	
     private JButton btnDeleteMarker = new JButton("Usuń");
 	private JButton btnCreate;
 	private JButton listBtn = new JButton("Details");
 	private JButton userDataBtn;
+	private JButton btnIntroOutro;
 	private ButtonGroup QuestGroup;
         
 	
@@ -200,34 +201,33 @@ public class MainView extends JFrame {
 		nameOfGame.setBounds(101, 23, 139, 20);
 		controlsPanel.add(nameOfGame);
 		
-		lblQuestName = new JLabel("Name of Game");
-		lblQuestName.setBounds(20, 26, 71, 14);
+		lblGameName = new JLabel("Name of Game");
+		lblGameName.setBounds(20, 26, 71, 14);
 		
-		controlsPanel.add(lblQuestName);
+		controlsPanel.add(lblGameName);
 		
 		listModel = new DefaultListModel();
 		list = new JList(listModel);
-		
-		//Testowe punkty
-		//MapPoint testOne = new MapPoint(5.0, 3.0);
-		//MapPoint testTwo = new MapPoint(3.0, 4.0);
-		//listModel.addElement(testOne);
-		//listModel.addElement(testTwo);
-		ArrayList testOnePaths = new ArrayList<String>();
-		ArrayList testTwoPaths = new ArrayList<String>();
-		testOnePaths.add("asd");
-		testOnePaths.add("zxc");
-		testOnePaths.add("cvb");
-		
-		testTwoPaths.add("qwe");
-		testTwoPaths.add("rty");
-		//testOne.getQuest().setSoundPaths(testOnePaths);
-		//testOne.getQuest().setPicturePaths(testTwoPaths);
 		
 		//scrollPane =  new JScrollPane(list);
 		//scrollPane.setViewportView(list);
 		list.setBounds(20, 225, 220, 93);
 		controlsPanel.add(list);
+		
+		btnIntroOutro = new JButton("Intro/Outro");
+		btnIntroOutro.setBounds(141, 196, 99, 23);
+		btnIntroOutro.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				EventQueue.invokeLater(new Runnable() {
+
+					public void run() {
+						
+					}
+				});
+			}
+		});
+		controlsPanel.add(btnIntroOutro);
 		
 		//Pogrupowane typy zagadek + listenery
 		JRadioButton rdbtnRangeQuest = new JRadioButton("Zagadka ...");
@@ -322,11 +322,12 @@ public class MainView extends JFrame {
                     
                 });
 		panel.add(controlsPanel);
+				
 		panel.add(googlePanel);
 		getContentPane().add(panel);
 		
 		JButton btnRanking = new JButton("Ranking");
-		btnRanking.setBounds(22, 372, 117, 25);
+		btnRanking.setBounds(149, 372, 107, 25);
 		panel.add(btnRanking);
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
