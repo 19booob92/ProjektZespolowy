@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -26,7 +25,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 import Quest.MapPoint;
@@ -56,9 +54,9 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 	private JList<String> sounds;
 	private DefaultListModel<String> picsListModel;
 	private DefaultListModel<String> soundsListModel;
-	private FileNameExtensionFilter filter;
+	
 	private String pointName;
-	private JPanel panel;
+	
 	private JLabel pointNameLbl;
 	private JLabel lblListOfPics;
 	private JLabel lblListOfSounds;
@@ -72,8 +70,6 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 	private JLabel lblMultipleChoiceQuestions;
 	private int rowNum;
 
-	private int rowCount;
-	
 	public QuestDetailsView(MapPoint mP, QuestType type)
 	{
 		super("Details view");
@@ -238,7 +234,7 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 		btnApplySettings.setBounds(57, 340, 119, 23);
 		optionsPanel.add(btnApplySettings);
 		
-		questNameField = new JTextField(mapPoint.getQuest().getQuestName());
+		questNameField = new JTextField("Quest Name");
 		questNameField.setBounds(117, 11, 120, 20);
 		optionsPanel.add(questNameField);
 		questNameField.setColumns(10);
@@ -246,37 +242,17 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 		JLabel lblQuestName = new JLabel("Quest Name");
 		lblQuestName.setBounds(10, 14, 70, 14);
 		optionsPanel.add(lblQuestName);
-		
-		final JButton btnAddRow = new JButton("Add Row");
-		btnAddRow.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent arg0) {
-				if (rowCount >= 4) {
-					btnAddRow.disable();
-				} else {
-					tableModel.addRow(new String[] {String.valueOf(++rowCount)});
-				}
-			}
-		});
-		btnAddRow.setBounds(427, 454, 102, 25);
-		generalPanel.add(btnAddRow);
-		
-		panel.setBounds(12, 290, 477, 154);
 				
 		btnApplySettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				mapPoint.getQuest().setQuestDescription(questContent.getText());
 				mapPoint.getQuest().setQuestAnswer(textFieldAnswer.getText());
 				mapPoint.getQuest().setQuestTimeout(Double.parseDouble(textFieldTimeout.getText()));
-				mapPoint.getQuest().setQuestName(questNameField.getText());
 			}
 		});
 
-		Toolkit toolkt = Toolkit.getDefaultToolkit();
-		Dimension screenSize = toolkt.getScreenSize();
-		
+
 		setSize(new Dimension(802, 499));
-		setLocation(screenSize.width/4, screenSize.height/4);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 	}
@@ -314,12 +290,10 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 				}
 			}
 		});
-		panel=new JPanel();
-		panel.setLayout(new BorderLayout());
-		panel.add(questionsTable.getTableHeader(), BorderLayout.NORTH);
-		panel.add(questionsTable, BorderLayout.CENTER);
-		generalPanel.add(panel);
+		generalPanel.add(questionsTable.getTableHeader(), BorderLayout.NORTH);
+		generalPanel.add(questionsTable);
 		getContentPane().add(generalPanel);
+		
 	}
 
 	//Tworz pola zagadki tekstowej
@@ -347,8 +321,6 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 	
 	private void getPicturesPath(DefaultListModel<String> list) {
 		JFileChooser chooser = new JFileChooser();
-		filter = new FileNameExtensionFilter("JPEG Files", "jpg");
-		chooser.setFileFilter(filter);
 		chooser.setCurrentDirectory(new java.io.File("."));
 		chooser.setDialogTitle("Chose JPEG file");
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -368,8 +340,6 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 
 	private void getSoundsPath(DefaultListModel<String> list) {
 		JFileChooser chooser = new JFileChooser();
-		filter = new FileNameExtensionFilter("MP3 Files", "mp3");
-		chooser.setFileFilter(filter);
 		chooser.setCurrentDirectory(new java.io.File("."));
 		chooser.setDialogTitle("Chose MP3 file");
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
