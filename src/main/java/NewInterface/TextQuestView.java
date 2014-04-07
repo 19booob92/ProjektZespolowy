@@ -6,13 +6,13 @@ import Quest.QuestFactory;
 import Quest.QuestPoint;
 import Quest.QuestType;
 
-public class OrderQuestView extends QuestView {
+public class TextQuestView extends QuestView {
 
 	private QuestPoint quest;
 
-	public OrderQuestView() {
+	public TextQuestView() {
 		super();
-		quest = QuestFactory.createQuest(QuestType.ORDERQUEST);
+		quest = QuestFactory.createQuest(QuestType.TEXTQUEST);
 	}
 
 }

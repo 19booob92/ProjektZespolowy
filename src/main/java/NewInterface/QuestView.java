@@ -2,6 +2,6 @@ package NewInterface;
 
 import javax.swing.JPanel;
 
-public class MultipleChoiceView extends JPanel {
+public class QuestView extends JPanel{
 
 }

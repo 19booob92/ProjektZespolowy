@@ -2,6 +2,8 @@ package NewInterface;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,6 +11,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import java.awt.CardLayout;
 
 public class NewQuizView extends JFrame {
 
@@ -29,12 +32,11 @@ public class NewQuizView extends JFrame {
 				rightSidePanel);
 
 		leftSidePanel.setLayout(null);
-		rightSidePanel.setLayout(null);
 
 		createLeftSidePanel();
 		createRightSidePanel();
 
-		splitPane.setResizeWeight(0.3);
+		splitPane.setResizeWeight(1.0);
 		splitPane.setBounds(10, 11, 764, 418);
 		getContentPane().add(splitPane);
 		setVisible(true);
@@ -54,9 +56,9 @@ public class NewQuizView extends JFrame {
 		leftSidePanel.add(textField);
 		textField.setColumns(10);
 
-		String[] quizTypes = { "Zagadka terenowa",
-				"Zagadka wielokrotnego wyboru", "Zagadka uporządkowania",
-				"Zagadka tekstowa" };
+		String[] quizTypes = { "Zagadka terenowa", "Zagadka tekstowa",
+				"Zagadka wielokrotnego wyboru", "Zagadka uporządkowania", "Zagadka zasięgu"
+				 };
 		final JComboBox questTypeCombo = new JComboBox(quizTypes);
 		questTypeCombo.setBounds(63, 70, 154, 20);
 		leftSidePanel.add(questTypeCombo);
@@ -69,34 +71,46 @@ public class NewQuizView extends JFrame {
 		lblOpcjeQuizu.setBounds(72, 149, 126, 14);
 		leftSidePanel.add(lblOpcjeQuizu);
 
-		questTypeCombo.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				int choice = questTypeCombo.getSelectedIndex();
-				switch (choice) {
-				case 0:
-					rightSidePanel.add(new FieldQuestView());
-					break;
-				case 1:
-					break;
-				case 2:
-					break;
-				case 3:
-					break;
-				case 4:
-					break;
-				default:
-					break;
-				}
+		rightSidePanel.add(new FieldQuestView(), "FieldQuest");
+		rightSidePanel.add(new TextQuestView(), "TextQuestView");
+		rightSidePanel.add(new MultipleChoiceQuestView(), "MultipleChoiceQuestView");
+		rightSidePanel.add(new OrderQuestView(), "OrderQuestView");
+		rightSidePanel.add(new RangeQuestView(), "RangeQuestView");
+		
+		questTypeCombo.addItemListener(new ItemListener() {
+			
+			public void itemStateChanged(ItemEvent e) {
+				CardLayout cl = (CardLayout)(rightSidePanel.getLayout());
+			    cl.show(rightSidePanel, (String)e.getItem());
 			}
-
 		});
+
 	}
 
 	private void createRightSidePanel() {
+		rightSidePanel.setLayout(new CardLayout(0, 0));
 		JLabel lblWidokOpcjiW = new JLabel(
 				"Widok opcji w zaleznosci od wybranego quizu, czyli test wyboru, google mapa, porzadkowanie, tekst");
-		lblWidokOpcjiW.setBounds(10, 68, 510, 14);
-		rightSidePanel.add(lblWidokOpcjiW);
+		rightSidePanel.add(lblWidokOpcjiW, "name_85714711365735");
+	}
+
+	private void createTabPage1() {
+
+	}
+
+	private void createTabPage2() {
+
+	}
+
+	private void createTabPage3() {
+
+	}
+
+	private void createTabPage4() {
+
+	}
+
+	private void createTabPage5() {
+
 	}
 }
