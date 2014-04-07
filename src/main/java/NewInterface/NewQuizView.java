@@ -1,5 +1,8 @@
 package NewInterface;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
@@ -26,7 +29,18 @@ public class NewQuizView extends JFrame {
 				rightSidePanel);
 
 		leftSidePanel.setLayout(null);
+		rightSidePanel.setLayout(null);
 
+		createLeftSidePanel();
+		createRightSidePanel();
+
+		splitPane.setResizeWeight(0.3);
+		splitPane.setBounds(10, 11, 764, 418);
+		getContentPane().add(splitPane);
+		setVisible(true);
+	}
+
+	private void createLeftSidePanel() {
 		JLabel lblNewQuiz = new JLabel("Nowy Quiz");
 		lblNewQuiz.setBounds(10, 11, 207, 14);
 		leftSidePanel.add(lblNewQuiz);
@@ -43,9 +57,9 @@ public class NewQuizView extends JFrame {
 		String[] quizTypes = { "Zagadka terenowa",
 				"Zagadka wielokrotnego wyboru", "Zagadka uporządkowania",
 				"Zagadka tekstowa" };
-		JComboBox comboBox = new JComboBox(quizTypes);
-		comboBox.setBounds(63, 70, 154, 20);
-		leftSidePanel.add(comboBox);
+		final JComboBox questTypeCombo = new JComboBox(quizTypes);
+		questTypeCombo.setBounds(63, 70, 154, 20);
+		leftSidePanel.add(questTypeCombo);
 
 		JLabel lblOpcje = new JLabel("Typ");
 		lblOpcje.setBounds(20, 73, 46, 14);
@@ -54,15 +68,35 @@ public class NewQuizView extends JFrame {
 		JLabel lblOpcjeQuizu = new JLabel("Opcje quizu");
 		lblOpcjeQuizu.setBounds(72, 149, 126, 14);
 		leftSidePanel.add(lblOpcjeQuizu);
-		rightSidePanel.setLayout(null);
 
+		questTypeCombo.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				int choice = questTypeCombo.getSelectedIndex();
+				switch (choice) {
+				case 0:
+					rightSidePanel.add(new FieldQuestView());
+					break;
+				case 1:
+					break;
+				case 2:
+					break;
+				case 3:
+					break;
+				case 4:
+					break;
+				default:
+					break;
+				}
+			}
+
+		});
+	}
+
+	private void createRightSidePanel() {
 		JLabel lblWidokOpcjiW = new JLabel(
 				"Widok opcji w zaleznosci od wybranego quizu, czyli test wyboru, google mapa, porzadkowanie, tekst");
 		lblWidokOpcjiW.setBounds(10, 68, 510, 14);
 		rightSidePanel.add(lblWidokOpcjiW);
-		splitPane.setResizeWeight(0.3);
-		splitPane.setBounds(10, 11, 764, 418);
-		getContentPane().add(splitPane);
-		setVisible(true);
 	}
 }

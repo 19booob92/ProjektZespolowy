@@ -12,7 +12,11 @@ import javax.swing.JButton;
 import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+
 import javax.swing.JLabel;
+
+import Quest.QuestPoint;
 
 public class ProjectMainView extends JFrame {
 
@@ -29,15 +33,19 @@ public class ProjectMainView extends JFrame {
 	private JMenu mnProject;
 
 	private JButton btnNewQuiz;
+
 	private JLabel lblOpcjeProjektu;
 	private JLabel lblOpcjeUserow;
 	private JLabel lblOperacjeNaProjekcie;
+
+	private static ArrayList<QuestPoint> quest;
 
 	public ProjectMainView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 
 		setSize(800, 500);
+
 		leftSidePanel = new JPanel();
 		rightSidePanel = new JPanel();
 		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftSidePanel,
@@ -46,6 +54,22 @@ public class ProjectMainView extends JFrame {
 		leftSidePanel.setLayout(null);
 		rightSidePanel.setLayout(null);
 
+		lblOperacjeNaProjekcie = new JLabel("Operacje na projekcie");
+		lblOperacjeNaProjekcie.setBounds(53, 104, 164, 14);
+		leftSidePanel.add(lblOperacjeNaProjekcie);
+
+		createLeftSidePanel();
+		createRightSidePanel();
+
+		splitPane.setResizeWeight(0.3);
+		splitPane.setBounds(10, 11, 764, 418);
+		getContentPane().add(splitPane);
+		createMenu();
+
+		setVisible(true);
+	}
+
+	private void createLeftSidePanel() {
 		btnNewQuiz = new JButton("Nowy Quiz");
 		btnNewQuiz.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -58,11 +82,9 @@ public class ProjectMainView extends JFrame {
 		});
 		btnNewQuiz.setBounds(10, 11, 207, 23);
 		leftSidePanel.add(btnNewQuiz);
+	}
 
-		lblOperacjeNaProjekcie = new JLabel("Operacje na projekcie");
-		lblOperacjeNaProjekcie.setBounds(53, 104, 164, 14);
-		leftSidePanel.add(lblOperacjeNaProjekcie);
-
+	private void createRightSidePanel() {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 0, 530, 416);
 
@@ -73,13 +95,6 @@ public class ProjectMainView extends JFrame {
 		tabbedPane.addTab("User", userTabPane);
 
 		rightSidePanel.add(tabbedPane);
-
-		splitPane.setResizeWeight(0.3);
-		splitPane.setBounds(10, 11, 764, 418);
-		getContentPane().add(splitPane);
-		createMenu();
-
-		setVisible(true);
 	}
 
 	private void createMenu() {
