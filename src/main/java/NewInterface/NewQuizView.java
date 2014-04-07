@@ -7,6 +7,7 @@ import java.awt.event.ItemListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -18,8 +19,8 @@ public class NewQuizView extends JFrame {
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
 	private JSplitPane splitPane;
-	private JTextField textField;
-
+	private JScrollPane scroll;
+	
 	public NewQuizView() {
 		super();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -51,11 +52,6 @@ public class NewQuizView extends JFrame {
 		lblTitle.setBounds(20, 39, 46, 14);
 		leftSidePanel.add(lblTitle);
 
-		textField = new JTextField();
-		textField.setBounds(63, 36, 154, 20);
-		leftSidePanel.add(textField);
-		textField.setColumns(10);
-
 		String[] quizTypes = { "Zagadka terenowa", "Zagadka tekstowa",
 				"Zagadka wielokrotnego wyboru", "Zagadka uporządkowania", "Zagadka zasięgu"
 				 };
@@ -70,9 +66,8 @@ public class NewQuizView extends JFrame {
 		JLabel lblOpcjeQuizu = new JLabel("Opcje quizu");
 		lblOpcjeQuizu.setBounds(72, 149, 126, 14);
 		leftSidePanel.add(lblOpcjeQuizu);
-
-		rightSidePanel.add(new FieldQuestView(), "FieldQuest");
-		rightSidePanel.add(new TextQuestView(), "TextQuestView");
+		
+		rightSidePanel.add(new FieldQuestView(), "RangeQuestView");
 		rightSidePanel.add(new MultipleChoiceQuestView(), "MultipleChoiceQuestView");
 		rightSidePanel.add(new OrderQuestView(), "OrderQuestView");
 		rightSidePanel.add(new RangeQuestView(), "RangeQuestView");
