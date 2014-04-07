@@ -27,6 +27,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
 
 
 
@@ -54,6 +55,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
     
     public GoogleMapPanel(int width, int height)
     {
+    	setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
         imageWidth=width;
         imageHeight=height;
         MapGetter.setImageSizeH(imageHeight);

@@ -44,7 +44,7 @@ public class NewQuizView extends JFrame {
 		createLeftSidePanel();
 		createRightSidePanel();
 
-		splitPane.setResizeWeight(1.0);
+		splitPane.setResizeWeight(0.3);
 		splitPane.setBounds(10, 11, 764, 418);
 		getContentPane().add(splitPane);
 		setVisible(true);
@@ -74,8 +74,8 @@ public class NewQuizView extends JFrame {
 		lblOpcjeQuizu.setBounds(72, 149, 126, 14);
 		leftSidePanel.add(lblOpcjeQuizu);
 
-		rightSidePanel.add(new TextQuestView(), "TextQuestView");
 		rightSidePanel.add(new FieldQuestView(), "FieldQuestView");
+		rightSidePanel.add(new TextQuestView(), "TextQuestView");
 		rightSidePanel.add(new MultipleChoiceQuestView(), "MultipleChoiceQuestView");
 		rightSidePanel.add(new OrderQuestView(), "OrderQuestView");
 		rightSidePanel.add(new RangeQuestView(), "RangeQuestView");
@@ -92,8 +92,5 @@ public class NewQuizView extends JFrame {
 
 	private void createRightSidePanel() {
 		rightSidePanel.setLayout(new CardLayout(0, 0));
-		JLabel lblWidokOpcjiW = new JLabel(
-				"Widok opcji w zaleznosci od wybranego quizu, czyli test wyboru, google mapa, porzadkowanie, tekst");
-		rightSidePanel.add(lblWidokOpcjiW, "name_85714711365735");
 	}
 }

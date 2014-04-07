@@ -16,7 +16,7 @@ public class QuestView extends JPanel {
 	private JList<String> sounds;
 	private DefaultListModel<String> picsListModel;
 	private DefaultListModel<String> soundsListModel;
-	private JTextField textField;
+	private JTextField timeoutField;
 
 	public QuestView() {
 		setLayout(null);
@@ -55,10 +55,10 @@ public class QuestView extends JPanel {
 		lblTimeout.setBounds(24, 62, 46, 14);
 		add(lblTimeout);
 		
-		textField = new JTextField();
-		textField.setBounds(187, 59, 253, 20);
-		add(textField);
-		textField.setColumns(10);
+		timeoutField = new JTextField();
+		timeoutField.setBounds(187, 59, 253, 20);
+		add(timeoutField);
+		timeoutField.setColumns(10);
 
 	}
 }
