@@ -16,12 +16,13 @@ public class QuestView extends JPanel {
 	private JList<String> sounds;
 	private DefaultListModel<String> picsListModel;
 	private DefaultListModel<String> soundsListModel;
+	private JTextField textField;
 
 	public QuestView() {
 		setLayout(null);
 
 		JLabel lblNazwaQuizu = new JLabel("Nazwa quizu");
-		lblNazwaQuizu.setBounds(27, 31, 76, 14);
+		lblNazwaQuizu.setBounds(24, 31, 76, 14);
 		add(lblNazwaQuizu);
 
 		picsListModel = new DefaultListModel<String>();
@@ -34,21 +35,30 @@ public class QuestView extends JPanel {
 		
 		JList sounds = new JList(soundsListModel);
 		sounds.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		sounds.setBounds(187, 59, 253, 60);
+		sounds.setBounds(187, 93, 253, 60);
 		add(sounds);
 		
 		JLabel lblPics = new JLabel("Obrazy");
-		lblPics.setBounds(27, 62, 76, 14);
+		lblPics.setBounds(24, 96, 76, 14);
 		add(lblPics);
 		
 		JList pics = new JList(picsListModel);
 		pics.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		pics.setBounds(187, 130, 253, 60);
+		pics.setBounds(187, 164, 253, 60);
 		add(pics);
 		
 		JLabel lblSounds = new JLabel("D\u017Awi\u0119ki");
-		lblSounds.setBounds(27, 133, 76, 14);
+		lblSounds.setBounds(24, 167, 76, 14);
 		add(lblSounds);
+		
+		JLabel lblTimeout = new JLabel("Timeout");
+		lblTimeout.setBounds(24, 62, 46, 14);
+		add(lblTimeout);
+		
+		textField = new JTextField();
+		textField.setBounds(187, 59, 253, 20);
+		add(textField);
+		textField.setColumns(10);
 
 	}
 }

@@ -13,14 +13,16 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.CardLayout;
+import javax.swing.ScrollPaneConstants;
 
 public class NewQuizView extends JFrame {
 
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
 	private JSplitPane splitPane;
-	private JScrollPane scroll;
-	
+	private JScrollPane leftScroll;
+	private JScrollPane rightScroll;
+
 	public NewQuizView() {
 		super();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -29,8 +31,13 @@ public class NewQuizView extends JFrame {
 		setSize(800, 478);
 		leftSidePanel = new JPanel();
 		rightSidePanel = new JPanel();
-		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftSidePanel,
-				rightSidePanel);
+		rightSidePanel.setBorder(null);
+		leftScroll = new JScrollPane(leftSidePanel);
+		rightScroll = new JScrollPane(rightSidePanel);
+		rightScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftScroll,
+				rightScroll);
 
 		leftSidePanel.setLayout(null);
 
@@ -52,9 +59,9 @@ public class NewQuizView extends JFrame {
 		lblTitle.setBounds(20, 39, 46, 14);
 		leftSidePanel.add(lblTitle);
 
-		String[] quizTypes = { "Zagadka terenowa", "Zagadka tekstowa",
-				"Zagadka wielokrotnego wyboru", "Zagadka uporządkowania", "Zagadka zasięgu"
-				 };
+		String[] quizTypes = { "Zagadka tekstowa", "Zagadka terenowa",
+				"Zagadka wielokrotnego wyboru", "Zagadka uporządkowania",
+				"Zagadka zasięgu" };
 		final JComboBox questTypeCombo = new JComboBox(quizTypes);
 		questTypeCombo.setBounds(63, 70, 154, 20);
 		leftSidePanel.add(questTypeCombo);
@@ -66,17 +73,18 @@ public class NewQuizView extends JFrame {
 		JLabel lblOpcjeQuizu = new JLabel("Opcje quizu");
 		lblOpcjeQuizu.setBounds(72, 149, 126, 14);
 		leftSidePanel.add(lblOpcjeQuizu);
-		
-		rightSidePanel.add(new FieldQuestView(), "RangeQuestView");
+
+		rightSidePanel.add(new TextQuestView(), "TextQuestView");
+		rightSidePanel.add(new FieldQuestView(), "FieldQuestView");
 		rightSidePanel.add(new MultipleChoiceQuestView(), "MultipleChoiceQuestView");
 		rightSidePanel.add(new OrderQuestView(), "OrderQuestView");
 		rightSidePanel.add(new RangeQuestView(), "RangeQuestView");
-		
+
 		questTypeCombo.addItemListener(new ItemListener() {
-			
+
 			public void itemStateChanged(ItemEvent e) {
-				CardLayout cl = (CardLayout)(rightSidePanel.getLayout());
-			    cl.show(rightSidePanel, (String)e.getItem());
+				CardLayout cl = (CardLayout) (rightSidePanel.getLayout());
+				cl.show(rightSidePanel, (String) e.getItem());
 			}
 		});
 
@@ -87,25 +95,5 @@ public class NewQuizView extends JFrame {
 		JLabel lblWidokOpcjiW = new JLabel(
 				"Widok opcji w zaleznosci od wybranego quizu, czyli test wyboru, google mapa, porzadkowanie, tekst");
 		rightSidePanel.add(lblWidokOpcjiW, "name_85714711365735");
-	}
-
-	private void createTabPage1() {
-
-	}
-
-	private void createTabPage2() {
-
-	}
-
-	private void createTabPage3() {
-
-	}
-
-	private void createTabPage4() {
-
-	}
-
-	private void createTabPage5() {
-
 	}
 }
