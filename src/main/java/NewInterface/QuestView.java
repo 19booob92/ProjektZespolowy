@@ -1,11 +1,9 @@
 package NewInterface;
 
-import java.awt.Dimension;
-
 import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
@@ -17,7 +15,7 @@ public class QuestView extends JPanel {
 	private DefaultListModel<String> picsListModel;
 	private DefaultListModel<String> soundsListModel;
 	private JTextField timeoutField;
-
+	
 	public QuestView() {
 		setLayout(null);
 

@@ -1,7 +1,5 @@
 package NewInterface;
 
-import javax.swing.JPanel;
-
 import Map.GoogleMapPanel;
 import Quest.QuestFactory;
 import Quest.QuestPoint;
@@ -16,7 +14,6 @@ public class FieldQuestView extends QuestView {
 		super();
 		
 		googlePanel = new GoogleMapPanel(338,329);
-		
 		//GoogleMap Listeners, labels etc
 		googlePanel.addMouseListener(googlePanel);
         googlePanel.addMouseMotionListener(googlePanel);
