@@ -20,7 +20,7 @@ public class FieldQuestView extends QuestView {
         googlePanel.addMouseWheelListener(googlePanel);
         googlePanel.addKeyListener(googlePanel);
         googlePanel.setFocusable(true);
-        googlePanel.setBounds(26, 269, 570, 329);
+        googlePanel.setBounds(26, 269, 616, 329);
         
 	    //endof
 		add(googlePanel);

@@ -22,6 +22,8 @@ public class NewQuizView extends JFrame {
 	private JScrollPane leftScroll;
 	private JScrollPane rightScroll;
 	
+	private JLabel lblType;
+	
 	private static final int panelWidth=800;
 	private static final int panelHeight=800;
 	
@@ -39,9 +41,11 @@ public class NewQuizView extends JFrame {
 		leftSidePanel.setPreferredSize(new Dimension(320,panelHeight));
 		rightSidePanel = new JPanel(new CardLayout());
 		rightSidePanel.setPreferredSize(new Dimension(panelWidth,panelHeight));
+		
 		leftScroll = new JScrollPane(leftSidePanel);
 		rightScroll = new JScrollPane(rightSidePanel);
 		rightScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		
 		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftScroll, rightScroll);
 
 		leftSidePanel.setLayout(null);
@@ -63,7 +67,7 @@ public class NewQuizView extends JFrame {
 		lblTitle.setBounds(20, 39, 46, 14);
 		leftSidePanel.add(lblTitle);
 
-		String[] quizTypes = { "Zagadka tekstowa", "Zagadka terenowa",
+		String[] quizTypes = { "Zagadka terenowa", "Zagadka tekstowa",
 				"Zagadka wielokrotnego wyboru", "Zagadka uporządkowania",
 				"Zagadka zasięgu" };
 
@@ -71,9 +75,9 @@ public class NewQuizView extends JFrame {
 		questTypeCombo.setBounds(63, 82, 154, 20);
 		leftSidePanel.add(questTypeCombo);
 
-		JLabel lblOpcje = new JLabel("Typ");
-		lblOpcje.setBounds(20, 85, 46, 14);
-		leftSidePanel.add(lblOpcje);
+		lblType = new JLabel("Typ");
+		lblType.setBounds(20, 85, 46, 14);
+		leftSidePanel.add(lblType);
 
 		JLabel lblOpcjeQuizu = new JLabel("Opcje quizu");
 		lblOpcjeQuizu.setBounds(72, 149, 126, 14);

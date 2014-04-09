@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -11,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -24,6 +26,7 @@ public class ProjectMainView extends JFrame {
 
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
+	private JScrollPane rightScroll;
 
 	private JPanel projectTabPane;
 	private JPanel userTabPane;
@@ -53,8 +56,10 @@ public class ProjectMainView extends JFrame {
 
 		leftSidePanel = new JPanel();
 		rightSidePanel = new JPanel();
+		rightSidePanel.setPreferredSize(new Dimension(800,500));
+		rightScroll = new JScrollPane(rightSidePanel);
 		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftSidePanel,
-				rightSidePanel);
+				rightScroll);
 
 		leftSidePanel.setLayout(null);
 		rightSidePanel.setLayout(null);
@@ -91,7 +96,7 @@ public class ProjectMainView extends JFrame {
 
 	private void createRightSidePanel() {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 530, 416);
+		tabbedPane.setBounds(0, 0, 1000, 816);
 
 		createTabPage1();
 		createTabPage2();

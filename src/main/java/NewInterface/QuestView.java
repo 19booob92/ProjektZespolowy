@@ -58,7 +58,7 @@ public class QuestView extends JPanel {
 
 		sounds = new JList(soundsListModel);
 		sounds.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		sounds.setBounds(341, 73, 253, 60);
+		sounds.setBounds(341, 73, 302, 60);
 		add(sounds);
 
 		lblPics = new JLabel("Obrazy");
@@ -67,7 +67,7 @@ public class QuestView extends JPanel {
 
 		pics = new JList(picsListModel);
 		pics.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		pics.setBounds(341, 169, 253, 60);
+		pics.setBounds(341, 169, 302, 60);
 		add(pics);
 
 		lblSounds = new JLabel("D\u017Awi\u0119ki");
@@ -75,28 +75,28 @@ public class QuestView extends JPanel {
 		add(lblSounds);
 
 		lblTimeout = new JLabel("Timeout");
-		lblTimeout.setBounds(24, 144, 46, 14);
+		lblTimeout.setBounds(24, 113, 46, 14);
 		add(lblTimeout);
 
 		timeoutField = new JTextField();
-		timeoutField.setBounds(24, 169, 253, 29);
+		timeoutField.setBounds(24, 138, 253, 29);
 		add(timeoutField);
 		timeoutField.setColumns(10);
 
 		btnAddPics = new JButton("Dodaj");
-		btnAddPics.setBounds(607, 72, 89, 23);
+		btnAddPics.setBounds(444, 44, 89, 23);
 		add(btnAddPics);
 
 		btnDelPics = new JButton("Usun");
-		btnDelPics.setBounds(607, 112, 89, 23);
+		btnDelPics.setBounds(554, 44, 89, 23);
 		add(btnDelPics);
 
 		btnAddSounds = new JButton("Dodaj");
-		btnAddSounds.setBounds(607, 168, 89, 23);
+		btnAddSounds.setBounds(444, 140, 89, 23);
 		add(btnAddSounds);
 
 		btnDelSounds = new JButton("Usun");
-		btnDelSounds.setBounds(607, 206, 89, 23);
+		btnDelSounds.setBounds(554, 140, 89, 23);
 		add(btnDelSounds);
 
 		addButtonsListeners();

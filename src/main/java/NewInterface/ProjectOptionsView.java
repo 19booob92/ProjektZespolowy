@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JList;
 import javax.swing.border.EtchedBorder;
+import javax.swing.JButton;
 
 public class ProjectOptionsView extends JPanel {
 
@@ -18,6 +19,10 @@ public class ProjectOptionsView extends JPanel {
 
 	private JList introPics;
 	private JList outroPics;
+	private JButton btnDodaj;
+	private JButton btnUsun;
+	private JButton btnDodaj_1;
+	private JButton btnUsun_1;
 	
 	public ProjectOptionsView() {
 		this.setSize(panelWidth, panelHeight);
@@ -32,27 +37,43 @@ public class ProjectOptionsView extends JPanel {
 		add(tfGameTitle);
 		tfGameTitle.setColumns(10);
 
-		lblIntroModulePics = new JLabel("Modu\u0142 intra");
-		lblIntroModulePics.setBounds(10, 101, 81, 14);
+		lblIntroModulePics = new JLabel("Obrazy Intra");
+		lblIntroModulePics.setBounds(10, 210, 81, 14);
 		add(lblIntroModulePics);
 
-		lblOutroModulePics = new JLabel("Modu\u0142 outra");
-		lblOutroModulePics.setBounds(10, 215, 81, 14);
+		lblOutroModulePics = new JLabel("Obrazy Outra");
+		lblOutroModulePics.setBounds(10, 317, 81, 14);
 		add(lblOutroModulePics);
 
 		introPics = new JList();
 		introPics.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		introPics.setBounds(10, 124, 290, 69);
+		introPics.setBounds(10, 233, 290, 69);
 		add(introPics);
 
 		outroPics = new JList();
 		outroPics.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		outroPics.setBounds(10, 240, 290, 69);
+		outroPics.setBounds(10, 342, 290, 69);
 		add(outroPics);
 
 		JLabel lblMiejsceNaGraf = new JLabel(
 				"Miejsce na graf kampanii, t.j list\u0119 quiz\u00F3w + graficzn\u0105 reprezentacj\u0119 gry. Tu mo\u017Cna wstawi\u0107 te\u017C wiele innych rzeczy");
-		lblMiejsceNaGraf.setBounds(378, 114, 565, 14);
+		lblMiejsceNaGraf.setBounds(314, 60, 565, 14);
 		add(lblMiejsceNaGraf);
+		
+		btnDodaj = new JButton("Dodaj");
+		btnDodaj.setBounds(101, 206, 89, 23);
+		add(btnDodaj);
+		
+		btnUsun = new JButton("Usun");
+		btnUsun.setBounds(211, 206, 89, 23);
+		add(btnUsun);
+		
+		btnDodaj_1 = new JButton("Dodaj");
+		btnDodaj_1.setBounds(101, 313, 89, 23);
+		add(btnDodaj_1);
+		
+		btnUsun_1 = new JButton("Usun");
+		btnUsun_1.setBounds(211, 313, 89, 23);
+		add(btnUsun_1);
 	}
 }
