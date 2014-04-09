@@ -68,11 +68,11 @@ public class NewQuizView extends JFrame {
 				"Zagadka zasięgu" };
 
 		final JComboBox questTypeCombo = new JComboBox(quizTypes);
-		questTypeCombo.setBounds(63, 70, 154, 20);
+		questTypeCombo.setBounds(63, 82, 154, 20);
 		leftSidePanel.add(questTypeCombo);
 
 		JLabel lblOpcje = new JLabel("Typ");
-		lblOpcje.setBounds(20, 73, 46, 14);
+		lblOpcje.setBounds(20, 85, 46, 14);
 		leftSidePanel.add(lblOpcje);
 
 		JLabel lblOpcjeQuizu = new JLabel("Opcje quizu");
@@ -80,14 +80,13 @@ public class NewQuizView extends JFrame {
 		leftSidePanel.add(lblOpcjeQuizu);
 		
 		textField = new JTextField();
-		textField.setBounds(63, 36, 154, 20);
+		textField.setBounds(63, 36, 154, 27);
 		leftSidePanel.add(textField);
 		textField.setColumns(10);
 
 		rightSidePanel.add(new FieldQuestView(), "Zagadka terenowa");
 		rightSidePanel.add(new TextQuestView(), "Zagadka tekstowa");
-		rightSidePanel.add(new MultipleChoiceQuestView(),
-				"Zagadka wielokrotnego wyboru");
+		rightSidePanel.add(new MultipleChoiceQuestView(),"Zagadka wielokrotnego wyboru");
 		rightSidePanel.add(new OrderQuestView(), "Zagadka uporządkowania");
 		rightSidePanel.add(new RangeQuestView(), "Zagadka zasięgu");
 
