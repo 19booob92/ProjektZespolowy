@@ -19,11 +19,11 @@ public class ProjectOptionsView extends JPanel {
 
 	private JList introPics;
 	private JList outroPics;
-	private JButton btnDodaj;
-	private JButton btnUsun;
-	private JButton btnDodaj_1;
-	private JButton btnUsun_1;
-	
+	private JButton btnAddIntro;
+	private JButton btnDelIntro;
+	private JButton btnAddOutro;
+	private JButton btnDelOutro;
+
 	public ProjectOptionsView() {
 		this.setSize(panelWidth, panelHeight);
 		setLayout(null);
@@ -59,21 +59,26 @@ public class ProjectOptionsView extends JPanel {
 				"Miejsce na graf kampanii, t.j list\u0119 quiz\u00F3w + graficzn\u0105 reprezentacj\u0119 gry. Tu mo\u017Cna wstawi\u0107 te\u017C wiele innych rzeczy");
 		lblMiejsceNaGraf.setBounds(314, 60, 565, 14);
 		add(lblMiejsceNaGraf);
-		
-		btnDodaj = new JButton("Dodaj");
-		btnDodaj.setBounds(101, 206, 89, 23);
-		add(btnDodaj);
-		
-		btnUsun = new JButton("Usun");
-		btnUsun.setBounds(211, 206, 89, 23);
-		add(btnUsun);
-		
-		btnDodaj_1 = new JButton("Dodaj");
-		btnDodaj_1.setBounds(101, 313, 89, 23);
-		add(btnDodaj_1);
-		
-		btnUsun_1 = new JButton("Usun");
-		btnUsun_1.setBounds(211, 313, 89, 23);
-		add(btnUsun_1);
+
+		addIntroOutroButtons();
 	}
+
+	public void addIntroOutroButtons() {
+		btnAddIntro = new JButton("Dodaj");
+		btnAddIntro.setBounds(101, 206, 89, 23);
+		add(btnAddIntro);
+
+		btnDelIntro = new JButton("Usun");
+		btnDelIntro.setBounds(211, 206, 89, 23);
+		add(btnDelIntro);
+
+		btnAddOutro = new JButton("Dodaj");
+		btnAddOutro.setBounds(101, 313, 89, 23);
+		add(btnAddOutro);
+
+		btnDelOutro = new JButton("Usun");
+		btnDelOutro.setBounds(211, 313, 89, 23);
+		add(btnDelOutro);
+	}
+
 }
