@@ -39,14 +39,17 @@ public class ProjectMainView extends JFrame {
 	private JLabel lblOpcjeProjektu;
 	private JLabel lblOpcjeUserow;
 	private JLabel lblOperacjeNaProjekcie;
-
+	
+	private static int windowWidth=800;
+	private static int windowHeight=500;
+	
 	private static ArrayList<QuestPoint> quest;
 
 	public ProjectMainView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 
-		setSize(800, 500);
+		setSize(windowWidth, windowHeight);
 
 		leftSidePanel = new JPanel();
 		rightSidePanel = new JPanel();
