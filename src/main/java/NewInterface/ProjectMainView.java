@@ -142,7 +142,7 @@ public class ProjectMainView extends JFrame {
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 
 		try {
-            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (UnsupportedLookAndFeelException ex) {
             ex.printStackTrace();
         } catch (IllegalAccessException ex) {

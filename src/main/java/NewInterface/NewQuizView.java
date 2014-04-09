@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.JTextField;
 
 public class NewQuizView extends JFrame {
 
@@ -20,14 +21,20 @@ public class NewQuizView extends JFrame {
 	private JSplitPane splitPane;
 	private JScrollPane leftScroll;
 	private JScrollPane rightScroll;
+	
 	private static final int panelWidth=800;
-	private static final int panelHeight=500;
+	private static final int panelHeight=800;
+	
+	private static final int windowWidth=1000;
+	private static final int windowHeight=500;
+	private JTextField textField;
+	
 	public NewQuizView() {
 		super();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
-
-		setSize(panelWidth, panelHeight);
+		
+		setSize(windowWidth, windowHeight);
 		leftSidePanel = new JPanel();
 		leftSidePanel.setPreferredSize(new Dimension(320,panelHeight));
 		rightSidePanel = new JPanel(new CardLayout());
@@ -71,6 +78,11 @@ public class NewQuizView extends JFrame {
 		JLabel lblOpcjeQuizu = new JLabel("Opcje quizu");
 		lblOpcjeQuizu.setBounds(72, 149, 126, 14);
 		leftSidePanel.add(lblOpcjeQuizu);
+		
+		textField = new JTextField();
+		textField.setBounds(63, 36, 154, 20);
+		leftSidePanel.add(textField);
+		textField.setColumns(10);
 
 		rightSidePanel.add(new FieldQuestView(), "Zagadka terenowa");
 		rightSidePanel.add(new TextQuestView(), "Zagadka tekstowa");
@@ -89,5 +101,4 @@ public class NewQuizView extends JFrame {
 		});
 
 	}
-
 }

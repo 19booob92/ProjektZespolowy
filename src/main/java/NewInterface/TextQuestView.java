@@ -20,22 +20,22 @@ public class TextQuestView extends QuestView {
 	public TextQuestView() {
 		super();		
 		this.add(new JLabel("Field"));
-		
+		setSize(panelWidth, panelHeight);
 		JLabel lblQuestContent = new JLabel("Tre\u015B\u0107 Quizu");
-		lblQuestContent.setBounds(26, 249, 75, 14);
+		lblQuestContent.setBounds(26, 239, 75, 14);
 		add(lblQuestContent);
 		
 		JTextArea questContent = new JTextArea();
 		questContent.setLineWrap(true);
-		questContent.setBounds(188, 244, 252, 61);
+		questContent.setBounds(26, 264, 252, 61);
 		add(questContent);
 		
 		JLabel lblAnswer = new JLabel("Odpowied\u017A");
-		lblAnswer.setBounds(26, 335, 87, 14);
+		lblAnswer.setBounds(26, 353, 87, 14);
 		add(lblAnswer);
 		
 		textField = new JTextField();
-		textField.setBounds(188, 332, 252, 20);
+		textField.setBounds(26, 378, 252, 29);
 		add(textField);
 		textField.setColumns(10);
 		quest = QuestFactory.createQuest(QuestType.FIELDQUEST);

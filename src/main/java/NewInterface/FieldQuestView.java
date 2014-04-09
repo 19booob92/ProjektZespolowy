@@ -12,15 +12,15 @@ public class FieldQuestView extends QuestView {
 	
 	public FieldQuestView() {
 		super();
-		
-		googlePanel = new GoogleMapPanel(338,329);
+		setSize(panelWidth, panelHeight);
+		googlePanel = new GoogleMapPanel(800,359);
 		//GoogleMap Listeners, labels etc
 		googlePanel.addMouseListener(googlePanel);
         googlePanel.addMouseMotionListener(googlePanel);
         googlePanel.addMouseWheelListener(googlePanel);
         googlePanel.addKeyListener(googlePanel);
         googlePanel.setFocusable(true);
-        googlePanel.setBounds(101, 231, 338, 329);
+        googlePanel.setBounds(26, 269, 570, 329);
         
 	    //endof
 		add(googlePanel);
