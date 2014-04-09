@@ -1,6 +1,7 @@
 package NewInterface;
 
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -19,22 +20,22 @@ public class NewQuizView extends JFrame {
 	private JSplitPane splitPane;
 	private JScrollPane leftScroll;
 	private JScrollPane rightScroll;
-
+	private static final int panelWidth=800;
+	private static final int panelHeight=500;
 	public NewQuizView() {
 		super();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 
-		setSize(800, 478);
+		setSize(panelWidth, panelHeight);
 		leftSidePanel = new JPanel();
+		leftSidePanel.setPreferredSize(new Dimension(320,panelHeight));
 		rightSidePanel = new JPanel(new CardLayout());
+		rightSidePanel.setPreferredSize(new Dimension(panelWidth,panelHeight));
 		leftScroll = new JScrollPane(leftSidePanel);
 		rightScroll = new JScrollPane(rightSidePanel);
-		rightScroll
-				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftScroll,
-				rightScroll);
+		rightScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftScroll, rightScroll);
 
 		leftSidePanel.setLayout(null);
 

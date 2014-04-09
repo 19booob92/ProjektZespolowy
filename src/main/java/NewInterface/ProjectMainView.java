@@ -126,14 +126,14 @@ public class ProjectMainView extends JFrame {
 	}
 
 	private void createTabPage1() {
-		projectTabPane = new JPanel();
+		projectTabPane = new ProjectOptionsView();
 		lblOpcjeProjektu = new JLabel(
 				"Opcje projektu, nazwa, liczba quizow, byc moze graf lub lista punktow");
 		projectTabPane.add(lblOpcjeProjektu);
 	}
 
 	private void createTabPage2() {
-		userTabPane = new JPanel();
+		userTabPane = new UserOptionsView();
 		lblOpcjeUserow = new JLabel("Opcje uzytkownikow, listy, dodawanie itd.");
 		userTabPane.add(lblOpcjeUserow);
 
