@@ -12,13 +12,16 @@ public class ProjectOptionsView extends JPanel {
 	private static final int panelWidth = 1000;
 	private static final int panelHeight = 800;
 	private JTextField tfGameTitle;
+	private JTextField tfStartDate;
 
 	private JLabel lblGameTitle;
 	private JLabel lblIntroModulePics;
 	private JLabel lblOutroModulePics;
+	private JLabel lblStartDate;
 
 	private JList introPics;
 	private JList outroPics;
+	
 	private JButton btnAddIntro;
 	private JButton btnDelIntro;
 	private JButton btnAddOutro;
@@ -79,6 +82,15 @@ public class ProjectOptionsView extends JPanel {
 		btnDelOutro = new JButton("Usun");
 		btnDelOutro.setBounds(211, 313, 89, 23);
 		add(btnDelOutro);
+		
+		lblStartDate = new JLabel("Data startu");
+		lblStartDate.setBounds(10, 93, 81, 14);
+		add(lblStartDate);
+		
+		tfStartDate = new JTextField();
+		tfStartDate.setBounds(10, 125, 290, 28);
+		add(tfStartDate);
+		tfStartDate.setColumns(10);
 	}
 
 }
