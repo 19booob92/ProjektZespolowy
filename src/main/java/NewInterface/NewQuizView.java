@@ -148,7 +148,6 @@ public class NewQuizView extends JFrame {
 			public void itemStateChanged(ItemEvent aE) {
 				CardLayout cl = (CardLayout) rightSidePanel.getLayout();
 				cl.show(rightSidePanel, aE.getItem().toString());
-				selectedCard = (JPanel) aE.getItem();
 			}
 		});
 
