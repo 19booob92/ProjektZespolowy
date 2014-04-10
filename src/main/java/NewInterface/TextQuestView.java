@@ -19,32 +19,32 @@ public class TextQuestView extends QuestView {
 	private QuestPoint quest;
 	private JTextArea questContent;
 	private JTextField textField;
-	
+
 	private JLabel lblAnswer;
 	private JLabel lblQuestContent;
 	private Border border = BorderFactory.createLineBorder(Color.BLACK);
-	
+
 	public TextQuestView() {
-		super();		
+		super();
 		this.add(new JLabel("Field"));
 		setSize(panelWidth, panelHeight);
 		lblQuestContent = new JLabel("Tre\u015B\u0107 Quizu");
-		lblQuestContent.setBounds(26, 239, 75, 14);
+		lblQuestContent.setBounds(23, 239, 75, 14);
 		add(lblQuestContent);
-		
+
 		questContent = new JTextArea();
-		questContent.setBorder(BorderFactory.createCompoundBorder(border, 
-	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+		questContent.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		questContent.setLineWrap(true);
-		questContent.setBounds(26, 264, 567, 61);
+		questContent.setBounds(23, 264, 567, 61);
 		add(questContent);
-		
+
 		lblAnswer = new JLabel("Odpowied\u017A");
-		lblAnswer.setBounds(26, 353, 87, 14);
+		lblAnswer.setBounds(23, 353, 87, 14);
 		add(lblAnswer);
-		
+
 		textField = new JTextField();
-		textField.setBounds(26, 378, 567, 29);
+		textField.setBounds(23, 378, 567, 29);
 		add(textField);
 		textField.setColumns(10);
 		quest = QuestFactory.createQuest(QuestType.FIELDQUEST);

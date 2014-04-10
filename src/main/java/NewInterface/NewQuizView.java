@@ -2,6 +2,9 @@ package NewInterface;
 
 import java.awt.CardLayout;
 import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -13,14 +16,22 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextField;
+import javax.swing.JButton;
+
+import Quest.Campaign;
+import Quest.QuestFactory;
+import Quest.QuestType;
 
 public class NewQuizView extends JFrame {
 
+	//GUI Interface vars
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
 	private JSplitPane splitPane;
 	private JScrollPane leftScroll;
 	private JScrollPane rightScroll;
+	
+	private JButton btnSafeQuiz;
 	
 	private JLabel lblTimeout;
 	private JLabel lblType;
@@ -34,8 +45,12 @@ public class NewQuizView extends JFrame {
 	private JTextField timeoutField;
 	private JTextField tfQuizName;
 	
-	public NewQuizView() {
+	//Quest vars
+	private Campaign campaignRef;
+	
+	public NewQuizView(Campaign campaign) {
 		super();
+		campaignRef = campaign;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
@@ -87,14 +102,30 @@ public class NewQuizView extends JFrame {
 		leftSidePanel.add(tfQuizName);
 		tfQuizName.setColumns(10);
 		
-				timeoutField = new JTextField();
-				timeoutField.setBounds(76, 74, 154, 27);
-				leftSidePanel.add(timeoutField);
-				timeoutField.setColumns(10);
+		timeoutField = new JTextField();
+		timeoutField.setBounds(76, 74, 154, 27);
+		leftSidePanel.add(timeoutField);
+		timeoutField.setColumns(10);
 
 		lblTimeout = new JLabel("Timeout");
 		lblTimeout.setBounds(10, 80, 46, 14);
 		leftSidePanel.add(lblTimeout);
+		
+		btnSafeQuiz = new JButton("Zapisz quiz");
+		btnSafeQuiz.setBounds(0, 239, 320, 23);
+		leftSidePanel.add(btnSafeQuiz);
+		
+		btnSafeQuiz.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						campaignRef.addQuiz(QuestFactory.createQuest(QuestType.TEXTQUEST));
+						dispose();
+					}
+				});
+			}
+		});
+		
 		
 		rightSidePanel.add(new FieldQuestView(), "Zagadka terenowa");
 		rightSidePanel.add(new TextQuestView(), "Zagadka tekstowa");

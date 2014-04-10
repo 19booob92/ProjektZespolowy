@@ -20,10 +20,12 @@ import java.util.ArrayList;
 
 import javax.swing.JLabel;
 
+import Quest.Campaign;
 import Quest.QuestPoint;
 
 public class ProjectMainView extends JFrame {
 
+	//GUI interface vars
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
 	private JScrollPane rightScroll;
@@ -46,9 +48,13 @@ public class ProjectMainView extends JFrame {
 	private static int windowWidth=800;
 	private static int windowHeight=500;
 	
+	//Campaign vars
+	private Campaign campaign;
 	private static ArrayList<QuestPoint> quest;
 
 	public ProjectMainView() {
+		campaign = new Campaign();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 
@@ -65,7 +71,7 @@ public class ProjectMainView extends JFrame {
 		rightSidePanel.setLayout(null);
 
 		lblOperacjeNaProjekcie = new JLabel("Operacje na projekcie");
-		lblOperacjeNaProjekcie.setBounds(53, 104, 164, 14);
+		lblOperacjeNaProjekcie.setBounds(35, 6, 164, 14);
 		leftSidePanel.add(lblOperacjeNaProjekcie);
 
 		createLeftSidePanel();
@@ -85,13 +91,21 @@ public class ProjectMainView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
-						new NewQuizView();
+						new NewQuizView(campaign);
 					}
 				});
 			}
 		});
-		btnNewQuiz.setBounds(10, 11, 207, 23);
+		btnNewQuiz.setBounds(6, 112, 207, 28);
 		leftSidePanel.add(btnNewQuiz);
+		
+		JButton btnZapiszUstawieniaGry = new JButton("Zapisz ustawienia gry");
+		btnZapiszUstawieniaGry.setBounds(6, 72, 207, 28);
+		leftSidePanel.add(btnZapiszUstawieniaGry);
+		
+		JButton btnNowaGra = new JButton("Nowa gra");
+		btnNowaGra.setBounds(6, 32, 206, 28);
+		leftSidePanel.add(btnNowaGra);
 	}
 
 	private void createRightSidePanel() {

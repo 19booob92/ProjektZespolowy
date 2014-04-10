@@ -18,7 +18,7 @@ public class QuestView extends JPanel {
 	private JList<String> pics;
 	private JList<String> sounds;
 	private Set<String> setOfpath;
-	
+
 	private DefaultListModel<String> picsListModel;
 	private DefaultListModel<String> soundsListModel;
 
@@ -36,44 +36,44 @@ public class QuestView extends JPanel {
 	public QuestView() {
 		setLayout(null);
 		setSize(panelWidth, panelHeight);
-		
+
 		setOfpath = new HashSet<>();
-		
+
 		picsListModel = new DefaultListModel<String>();
 		soundsListModel = new DefaultListModel<String>();
 
 		sounds = new JList(soundsListModel);
 		sounds.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		sounds.setBounds(10, 67, 302, 60);
+		sounds.setBounds(23, 67, 302, 60);
 		add(sounds);
 
 		lblPics = new JLabel("Obrazy");
-		lblPics.setBounds(10, 42, 76, 14);
+		lblPics.setBounds(23, 42, 76, 14);
 		add(lblPics);
 
 		pics = new JList(picsListModel);
 		pics.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		pics.setBounds(10, 163, 302, 60);
+		pics.setBounds(23, 163, 302, 60);
 		add(pics);
 
 		lblSounds = new JLabel("D\u017Awi\u0119ki");
-		lblSounds.setBounds(10, 138, 76, 14);
+		lblSounds.setBounds(23, 138, 76, 14);
 		add(lblSounds);
 
 		btnAddPics = new JButton("Dodaj");
-		btnAddPics.setBounds(113, 38, 89, 23);
+		btnAddPics.setBounds(126, 38, 89, 23);
 		add(btnAddPics);
 
 		btnDelPics = new JButton("Usun");
-		btnDelPics.setBounds(223, 38, 89, 23);
+		btnDelPics.setBounds(236, 38, 89, 23);
 		add(btnDelPics);
 
 		btnAddSounds = new JButton("Dodaj");
-		btnAddSounds.setBounds(113, 134, 89, 23);
+		btnAddSounds.setBounds(126, 134, 89, 23);
 		add(btnAddSounds);
 
 		btnDelSounds = new JButton("Usun");
-		btnDelSounds.setBounds(223, 134, 89, 23);
+		btnDelSounds.setBounds(236, 134, 89, 23);
 		add(btnDelSounds);
 
 		addButtonsListeners();
@@ -95,29 +95,28 @@ public class QuestView extends JPanel {
 		btnDelPics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int selectedIndex = pics.getSelectedIndex();
-				/*for (String s : mapPoint.getQuest().getPicturePaths())
-					if (s == pics.getSelectedValue()) {
-						mapPoint.getQuest().getPicturePaths()
-								.remove(selectedIndex);
-						picsListModel.remove(selectedIndex);
-					}
-					*/
+				/*
+				 * for (String s : mapPoint.getQuest().getPicturePaths()) if (s
+				 * == pics.getSelectedValue()) {
+				 * mapPoint.getQuest().getPicturePaths() .remove(selectedIndex);
+				 * picsListModel.remove(selectedIndex); }
+				 */
 			}
 		});
 
 		btnDelSounds.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int selectedIndex = sounds.getSelectedIndex();
-				/*for (String s : mapPoint.getQuest().getSoundPaths())
-					if (s == sounds.getSelectedValue()) {
-						mapPoint.getQuest().getSoundPaths()
-								.remove(selectedIndex);
-						soundsListModel.remove(selectedIndex);
-					}*/
+				/*
+				 * for (String s : mapPoint.getQuest().getSoundPaths()) if (s ==
+				 * sounds.getSelectedValue()) {
+				 * mapPoint.getQuest().getSoundPaths() .remove(selectedIndex);
+				 * soundsListModel.remove(selectedIndex); }
+				 */
 			}
 		});
 	}
-	
+
 	private void getPicturesPath(DefaultListModel<String> list) {
 		JFileChooser chooser = new JFileChooser();
 		chooser.setCurrentDirectory(new java.io.File("."));
@@ -135,7 +134,7 @@ public class QuestView extends JPanel {
 			System.out.println("No Selection ");
 		}
 	}
-	
+
 	private void getSoundsPath(DefaultListModel<String> list) {
 		JFileChooser chooser = new JFileChooser();
 		chooser.setCurrentDirectory(new java.io.File("."));
