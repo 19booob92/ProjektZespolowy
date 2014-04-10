@@ -6,7 +6,7 @@
 
 package Map;
 
-import Editor.MainView;
+//import Editor.MainView;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;

@@ -1,6 +1,5 @@
 package Map;
 
-import Editor.MainView;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -32,7 +31,7 @@ import javax.swing.border.EtchedBorder;
 
 
 public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotionListener, MouseListener, MouseWheelListener, KeyListener{
-	private int mouseX=0;
+    private int mouseX=0;
     private int mouseY=0;
     private int mouseStartX=0;
     private int mouseStartY=0;
@@ -210,7 +209,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         if((e.isControlDown())&&(e.getButton()==BUTTON1))
         {
             markerArray.addMarker(MapGetter.getLatitude(e.getY()),MapGetter.getLongtitude(e.getX()));
-            MainView.createPoint(MapGetter.getLongtitude(e.getX()), MapGetter.getLatitude(e.getY()));
+            //MainView.createPoint(MapGetter.getLongtitude(e.getX()), MapGetter.getLatitude(e.getY()));
         }
         markerArray.selectSize(e.getX(), e.getY());
         mouseStartX=e.getX();
@@ -236,7 +235,8 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         {
             int index = markerArray.getSelectedIndex();
             if(index!=-1){
-            MainView.setPoint(index,markerArray.getLongtitude(),markerArray.getLatitude());}
+            //MainView.setPoint(index,markerArray.getLongtitude(),markerArray.getLatitude());}
+            }
         }
         else
         {

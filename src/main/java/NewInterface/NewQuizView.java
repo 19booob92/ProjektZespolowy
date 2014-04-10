@@ -38,8 +38,7 @@ public class NewQuizView extends JFrame {
 		
 		setSize(windowWidth, windowHeight);
 		leftSidePanel = new JPanel();
-		leftSidePanel.setPreferredSize(new Dimension(320,panelHeight));
-		rightSidePanel = new JPanel(new CardLayout());
+		leftSidePanel.setPreferredSize(new Dimension(320,panelHeight));		rightSidePanel = new JPanel(new CardLayout());
 		rightSidePanel.setPreferredSize(new Dimension(panelWidth,panelHeight));
 		
 		leftScroll = new JScrollPane(leftSidePanel);
