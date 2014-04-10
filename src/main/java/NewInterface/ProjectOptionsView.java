@@ -21,11 +21,12 @@ public class ProjectOptionsView extends JPanel {
 
 	private JList introPics;
 	private JList outroPics;
-	
+
 	private JButton btnAddIntro;
 	private JButton btnDelIntro;
 	private JButton btnAddOutro;
 	private JButton btnDelOutro;
+	private JList listOfQuizes;
 
 	public ProjectOptionsView() {
 		this.setSize(panelWidth, panelHeight);
@@ -82,15 +83,21 @@ public class ProjectOptionsView extends JPanel {
 		btnDelOutro = new JButton("Usun");
 		btnDelOutro.setBounds(211, 313, 89, 23);
 		add(btnDelOutro);
-		
+
 		lblStartDate = new JLabel("Data startu");
 		lblStartDate.setBounds(10, 93, 81, 14);
 		add(lblStartDate);
-		
+
 		tfStartDate = new JTextField();
 		tfStartDate.setBounds(10, 125, 290, 28);
 		add(tfStartDate);
 		tfStartDate.setColumns(10);
+
+		listOfQuizes = new JList();
+		listOfQuizes.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null,
+				null));
+		listOfQuizes.setBounds(326, 125, 406, 286);
+		add(listOfQuizes);
 	}
 
 }

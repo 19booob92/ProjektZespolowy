@@ -117,14 +117,6 @@ public class QuestView extends JPanel {
 		});
 	}
 
-	public void getSoundsListContent() {
-
-	}
-	
-	public void getPicsListContent() {
-		
-	}
-
 	private void getPicturesPath(DefaultListModel<String> list) {
 		JFileChooser chooser = new JFileChooser();
 		chooser.setCurrentDirectory(new java.io.File("."));

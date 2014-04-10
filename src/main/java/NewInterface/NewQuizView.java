@@ -8,10 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -26,47 +28,50 @@ import Quest.QuestType;
 
 public class NewQuizView extends JFrame {
 
-	//GUI Interface vars
+	// GUI Interface vars
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
 	private JSplitPane splitPane;
 	private JScrollPane leftScroll;
 	private JScrollPane rightScroll;
-	
+
 	private JButton btnSafeQuiz;
-	
+
 	private JLabel lblTimeout;
 	private JLabel lblType;
-	
-	private static final int panelWidth=800;
-	private static final int panelHeight=800;
-	
-	private static final int windowWidth=1000;
-	private static final int windowHeight=500;
-	
+
+	private static final int panelWidth = 800;
+	private static final int panelHeight = 800;
+
+	private static final int windowWidth = 1000;
+	private static final int windowHeight = 500;
+
 	private JTextField timeoutField;
 	private JTextField tfQuizName;
 	private QuestView selectedCard;
-	
-	//Quest vars
+
+	// Quest vars
 	private Campaign campaignRef;
-	
+
 	public NewQuizView(Campaign campaign) {
 		super();
 		campaignRef = campaign;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
-		
+
 		setSize(windowWidth, windowHeight);
 		leftSidePanel = new JPanel();
-		leftSidePanel.setPreferredSize(new Dimension(320,panelHeight));		rightSidePanel = new JPanel(new CardLayout());
-		rightSidePanel.setPreferredSize(new Dimension(panelWidth,panelHeight));
-		
+		leftSidePanel.setPreferredSize(new Dimension(320, panelHeight));
+		rightSidePanel = new JPanel(new CardLayout());
+		rightSidePanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
+
 		leftScroll = new JScrollPane(leftSidePanel);
 		rightScroll = new JScrollPane(rightSidePanel);
-		rightScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		
-		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftScroll, rightScroll);
+		rightScroll
+				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftScroll,
+				rightScroll);
 
 		leftSidePanel.setLayout(null);
 
@@ -105,7 +110,7 @@ public class NewQuizView extends JFrame {
 		leftSidePanel.add(tfQuizName);
 		tfQuizName.setColumns(10);
 		
-		timeoutField = new JTextField();
+		timeoutField = new JTextField("0.0");
 		timeoutField.setBounds(76, 74, 154, 27);
 		leftSidePanel.add(timeoutField);
 		timeoutField.setColumns(10);
@@ -130,13 +135,18 @@ public class NewQuizView extends JFrame {
 							}
 						}
 						
-						//newQuest.setPicturePaths(selectedCard);
-						//newQuest.setSoundPaths(soundPaths);
-						//newQuest.setQuestName(qName);
-						//newQuest.setQuestTimeout(questTimeout);
+						newQuest.getPicturePaths().addAll(rewriteJListToArrayList(selectedCard.pics));
+						newQuest.getSoundPaths().addAll(rewriteJListToArrayList(selectedCard.sounds));;
+						newQuest.setQuestName(tfQuizName.getText());
+						newQuest.setQuestTimeout(Double.parseDouble(timeoutField.getText()));
 						//dodac pola w zaleznosci od innych typow
 						
 						campaignRef.addQuiz(newQuest);
+						
+						System.out.println(campaignRef.getQuizes().get(0).getQuestName());
+						System.out.println(campaignRef.getQuizes().get(0).getSoundPaths().get(0));
+						System.out.println(campaignRef.getQuizes().get(0).getPicturePaths().get(0));
+						
 						dispose();
 					}
 				});
@@ -158,6 +168,16 @@ public class NewQuizView extends JFrame {
 				cl.show(rightSidePanel, aE.getItem().toString());
 			}
 		});
+
+	}
+
+	private ArrayList rewriteJListToArrayList(JList list) {
+		ArrayList newList = new ArrayList();
+		for (int i = 0; i < list.getModel().getSize(); i++)
+		{
+			newList.add(list.getModel().getElementAt(i));
+		}
+		return newList;
 
 	}
 }

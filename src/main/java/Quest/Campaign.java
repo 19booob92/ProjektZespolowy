@@ -32,4 +32,11 @@ public class Campaign {
 		return null;
 	}
 
+	public ArrayList<QuestPoint> getQuizes() {
+		return quests;
+	}
+
+	public ArrayList<TreasureBox> getTreasureBoxes() {
+		return boxes;
+	}
 }

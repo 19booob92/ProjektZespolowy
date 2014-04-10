@@ -1,6 +1,7 @@
 package NewInterface;
 
 import Map.GoogleMapPanel;
+import Quest.Campaign;
 import Quest.QuestFactory;
 import Quest.QuestPoint;
 import Quest.QuestType;
