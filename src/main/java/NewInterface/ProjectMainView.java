@@ -26,6 +26,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 
 import Editor.UserDetailsView;
+import Quest.Campaign;
 import Quest.QuestPoint;
 import UserRegistration.GetRequest;
 import UserRegistration.UserDTO;
@@ -59,11 +60,15 @@ public class ProjectMainView extends JFrame {
 
 	private int colNum, rowNum;
 	
+	//Campaign vars
+	private Campaign campaign;
 	private static ArrayList<QuestPoint> quest;
 
 	private GetRequest getRequest;
 	
 	public ProjectMainView() {
+		campaign = new Campaign();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 
@@ -100,13 +105,21 @@ public class ProjectMainView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
-						new NewQuizView();
+						new NewQuizView(campaign);
 					}
 				});
 			}
 		});
 		btnNewQuiz.setBounds(10, 11, 207, 23);
 		leftSidePanel.add(btnNewQuiz);
+		
+		JButton btnZapiszUstawieniaGry = new JButton("Zapisz ustawienia gry");
+		btnZapiszUstawieniaGry.setBounds(6, 72, 207, 28);
+		leftSidePanel.add(btnZapiszUstawieniaGry);
+		
+		JButton btnNowaGra = new JButton("Nowa gra");
+		btnNowaGra.setBounds(6, 32, 206, 28);
+		leftSidePanel.add(btnNowaGra);
 	}
 
 	private void createRightSidePanel() {

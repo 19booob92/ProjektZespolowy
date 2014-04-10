@@ -1,19 +1,20 @@
 package Quest;
 
 import java.util.ArrayList;
-import Quest.QuestType;;
+import Quest.QuestType;
 
-public abstract class QuestPoint implements DescribeQuest{
-	
+;
+
+public abstract class QuestPoint implements DescribeQuest {
+
 	private ArrayList<String> PicturePaths;
 	private ArrayList<String> SoundPaths;
 	private String QuestName;
 	private double QuestTimeout;
-	
+
 	private QuestType type = null;
-	
-	public QuestPoint(QuestType type)
-	{
+
+	public QuestPoint(QuestType type) {
 		this.type = type;
 		QuestName = "";
 		PicturePaths = new ArrayList<String>();
@@ -22,15 +23,15 @@ public abstract class QuestPoint implements DescribeQuest{
 		SoundPaths.add("");
 		QuestTimeout = 10.0;
 	}
-		
-	public QuestType getQuestType(){
+
+	public QuestType getQuestType() {
 		return type;
 	}
-	
-	public void setQuestType(QuestType type){
+
+	public void setQuestType(QuestType type) {
 		this.type = type;
 	}
-	
+
 	public ArrayList<String> getPicturePaths() {
 		return PicturePaths;
 	}
@@ -42,7 +43,7 @@ public abstract class QuestPoint implements DescribeQuest{
 	public void setQuestTimeout(double questTimeout) {
 		QuestTimeout = questTimeout;
 	}
-	
+
 	public void setPicturePaths(ArrayList<String> picturePaths) {
 		PicturePaths = picturePaths;
 	}
@@ -54,7 +55,7 @@ public abstract class QuestPoint implements DescribeQuest{
 	public void setSoundPaths(ArrayList<String> soundPaths) {
 		SoundPaths = soundPaths;
 	}
-	
+
 	public void setQuestName(String qName) {
 		QuestName = qName;
 	}
