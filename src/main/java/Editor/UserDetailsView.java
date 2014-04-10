@@ -121,7 +121,7 @@ public class UserDetailsView extends JFrame {
 	}
 
 	public static UserDetailsView getUserDetailsViewInstance(String value, ProjectMainView projectMainView) {
-		UserDetailsView.projectMainView = projectMainView;	// to te¿ powinno by zrobione przez Spring
+		UserDetailsView.projectMainView = projectMainView;	// to tez powinno by zrobione przez Spring
 		
 		if (userDetailsView == null || !userDetailsView.isDisplayable()) {
 			userDetailsView = new UserDetailsView(value);

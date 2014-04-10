@@ -176,7 +176,7 @@ public class MarkerRect {
         }
     }
     
-    public void setheight(int tHeight)
+    public void setHeight(int tHeight)
     {
         if(tHeight>=0)
         {
