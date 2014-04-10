@@ -1,7 +1,9 @@
 package UserRegistration;
 
-import javax.ws.rs.core.MediaType;
+import java.io.FileInputStream;
+import java.util.Properties;
 
+import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 import com.sun.jersey.api.client.Client;
@@ -15,11 +17,19 @@ import com.sun.jersey.api.client.filter.LoggingFilter;
 public class PostReqest {
 	private WebResource webResource;
 	private Client client;
-	private static final String BASE_URI = "http://virt2.iiar.pwr.edu.pl:8080/register/adminPanel";
+	private String base_uri;
 	private UserDTO user;
+	private Properties properties;
 
 	public PostReqest(UserDTO user) {
 		this.user = user;
+		properties = new Properties();
+		try {
+			properties.load(new FileInputStream("properties.properties"));
+		} catch (Exception e) {
+			System.err.println(e);
+		}
+		base_uri = properties.getProperty("address") + "/adminPanel/createUser/";
 	}
 
 	public int sendData() throws Exception {
@@ -30,7 +40,7 @@ public class PostReqest {
 		ClientConfig config = new DefaultClientConfig();
 		client = Client.create(config);
 		client.addFilter(new LoggingFilter());
-		webResource = client.resource(BASE_URI);
+		webResource = client.resource(base_uri);
 
 		client.addFilter(new HTTPBasicAuthFilter("adm", "ini"));
 		ClientResponse response = webResource.type(MediaType.APPLICATION_JSON)

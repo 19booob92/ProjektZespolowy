@@ -26,7 +26,8 @@ public class UserDetailsView extends JFrame {
 	private JTextField login;
 	private JTextField pass;
 	private JTextField email;
-	private static ProjectMainView projectMainView; 
+	private static ProjectMainView projectMainView;
+
 	private UserDetailsView(final String value) {
 		setBounds(100, 100, 293, 300);
 		Toolkit toolkt = Toolkit.getDefaultToolkit();
@@ -46,6 +47,7 @@ public class UserDetailsView extends JFrame {
 				try {
 					deleteRequest.deleteUser(value, "/deleteUser");
 					projectMainView.updateTable();
+					UserDetailsView.this.dispose();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -121,7 +123,7 @@ public class UserDetailsView extends JFrame {
 	}
 
 	public static UserDetailsView getUserDetailsViewInstance(String value, ProjectMainView projectMainView) {
-		UserDetailsView.projectMainView = projectMainView;	// to te¿ powinno by zrobione przez Spring
+		UserDetailsView.projectMainView = projectMainView;	// to tez powinno by zrobione przez Spring
 		
 		if (userDetailsView == null || !userDetailsView.isDisplayable()) {
 			userDetailsView = new UserDetailsView(value);

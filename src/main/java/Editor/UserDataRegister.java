@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import NewInterface.ProjectMainView;
 import UserRegistration.PostReqest;
 import UserRegistration.UserDTO;
 
@@ -23,16 +24,19 @@ public class UserDataRegister extends JFrame {
 	private JTextField loginTxt;
 	private JTextField passTxt;
 	private final JLabel lblUserLogin = new JLabel("User login");
+	private static ProjectMainView projectMainView; 
+	
+	private static volatile UserDataRegister userDataRegister = null;
 
-	UserDataRegister() {
+	private UserDataRegister(final ProjectMainView projectMainView) {
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setBounds(100, 100, 290, 170);
 		Toolkit toolkt = Toolkit.getDefaultToolkit();
 		Dimension screenSize = toolkt.getScreenSize();
-		this.setLocation(screenSize.width/4, screenSize.height/4);
-		
+		this.setLocation(screenSize.width / 4, screenSize.height / 4);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -75,6 +79,7 @@ public class UserDataRegister extends JFrame {
 					passTxt.setText("");
 					if (status == 201) {
 						new JOptionPane().showMessageDialog(null, "Success !");
+						projectMainView.updateTable();
 					} else {
 						new JOptionPane().showMessageDialog(null,
 								"Account could not been create !");
@@ -86,5 +91,16 @@ public class UserDataRegister extends JFrame {
 				}
 			}
 		});
+	}
+
+	public static UserDataRegister getInstance(ProjectMainView projectMainView) {
+		UserDataRegister.projectMainView = projectMainView; // to te¿ powinno byc zrobione przez Spring
+
+		if (userDataRegister == null || !userDataRegister.isDisplayable()) {
+			userDataRegister = new UserDataRegister(projectMainView);
+			return userDataRegister;
+		} else {
+			return null;
+		}
 	}
 }
