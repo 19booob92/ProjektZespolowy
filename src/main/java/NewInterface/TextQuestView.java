@@ -64,14 +64,12 @@ quest = QuestFactory.createQuest(QuestType.FIELDQUEST);
                     @Override
                     public void actionPerformed(ActionEvent e) {
                     quest.setQuestAnswer(textField.getText());
-                    quest.setQuestDescription(questContent.getText());
+                    quest.addQuestDescription(questContent.getText());
                     quest.setQuestName("Zagadka1");
                     quest.setQuestTimeout(0);
                     String s = quest.getPicturePaths().get(0);
                     XmlBuilder xml = new XmlBuilder("Tytul");
-                    ArrayList<String> list = new ArrayList<String>();
-                    list.add(quest.getQuestDescription());
-                    xml.addQuizText(quest.getQuestName(), quest.getPicturePaths(), quest.getSoundPaths(), list, "prenote", "postnote", "1", 10, "06-08-1992 15:13", quest.getQuestAnswer(), (int) quest.getQuestTimeout(), null);
+                    xml.addQuizText(quest.getQuestName(), quest.getPicturePaths(), quest.getSoundPaths(), quest.getQuestDescription(), "prenote", "postnote", "1", 10, "06-08-1992 15:13", quest.getQuestAnswer(), (int) quest.getQuestTimeout(), null);
                         try {
                             xml.saveXml();
                         } catch (TransformerException ex) {

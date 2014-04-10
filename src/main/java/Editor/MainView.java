@@ -358,14 +358,14 @@ public class MainView extends JFrame {
 	
 	public static void createPoint(double x, double y)
 	{
-		mPoints.add(new MapPoint(x,y));
+		//mPoints.add(new MapPoint(type,x,y));
 		listModel.addElement(mPoints.get(mPoints.size()-1));    
 		
 	}
         
     public static void setPoint(int index, double x, double y)
     {
-    	mPoints.add(new MapPoint(x,y));
+    	//mPoints.add(new MapPoint(type, x,y));
         listModel.set(index, mPoints.get(mPoints.size()-1));
     }
     

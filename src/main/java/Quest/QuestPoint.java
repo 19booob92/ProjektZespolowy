@@ -10,7 +10,11 @@ public abstract class QuestPoint implements DescribeQuest {
 	private ArrayList<String> PicturePaths;
 	private ArrayList<String> SoundPaths;
 	private String QuestName;
-	private double QuestTimeout;
+	private int QuestTimeout;
+        private int points;
+        private String preNote;
+        private String postNote;
+        private String date;
 
 	private QuestType type = null;
 
@@ -21,13 +25,50 @@ public abstract class QuestPoint implements DescribeQuest {
 		PicturePaths.add("");
 		SoundPaths = new ArrayList<String>();
 		SoundPaths.add("");
-		QuestTimeout = 10.0;
+		QuestTimeout = 0;
+                date="10-03-2014 14:33";
 	}
 
 	public QuestType getQuestType() {
 		return type;
 	}
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+        
+        
+    public String getPreNote() {
+        return preNote;
+    }
+
+    public void setPreNote(String preNote) {
+        this.preNote = preNote;
+    }
+
+    public String getPostNote() {
+        return postNote;
+    }
+
+    public void setPostNote(String postNote) {
+        this.postNote = postNote;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+        
+        
 	public void setQuestType(QuestType type) {
 		this.type = type;
 	}
@@ -40,7 +81,7 @@ public abstract class QuestPoint implements DescribeQuest {
 		return QuestTimeout;
 	}
 
-	public void setQuestTimeout(double questTimeout) {
+	public void setQuestTimeout(int questTimeout) {
 		QuestTimeout = questTimeout;
 	}
 
