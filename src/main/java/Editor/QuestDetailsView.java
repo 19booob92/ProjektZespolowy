@@ -244,9 +244,9 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 				
 		btnApplySettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				mapPoint.getQuest().setQuestDescription(questContent.getText());
+				mapPoint.getQuest().addQuestDescription(questContent.getText());
 				mapPoint.getQuest().setQuestAnswer(textFieldAnswer.getText());
-				mapPoint.getQuest().setQuestTimeout(Double.parseDouble(textFieldTimeout.getText()));
+				mapPoint.getQuest().setQuestTimeout(Integer.parseInt(textFieldTimeout.getText()));
 			}
 		});
 
@@ -299,7 +299,7 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 	private void constructTextQuestFields()
 	{
 		
-		questContent = new JTextArea(mapPoint.getQuest().getQuestDescription());
+		questContent = new JTextArea(mapPoint.getQuest().getQuestDescription().get(0));
 		questContent.setBounds(12, 283, 500, 107);
 		generalPanel.add(questContent);
 		

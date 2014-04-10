@@ -1,10 +1,13 @@
 package Quest;
 
+import java.util.ArrayList;
+
 
 public class TextQuest extends QuestPoint implements DescribeQuest{
 
+        private String goTo;
 	private String questAnswer;
-	private String questContent;
+	private ArrayList<String> questContent = new ArrayList<String>();
 	private double questTimeout;
 	
 	public TextQuest()
@@ -15,7 +18,7 @@ public class TextQuest extends QuestPoint implements DescribeQuest{
 	public TextQuest(String answer, String content, double timeout){
 		super(QuestType.TEXTQUEST);
 		questAnswer = answer;
-		questContent = content;
+		//questContent = content;
 		questTimeout = timeout;
 	}
 
@@ -27,12 +30,34 @@ public class TextQuest extends QuestPoint implements DescribeQuest{
 		this.questAnswer = questAnswer;
 	}
 
-	public String getQuestDescription() {
-		return questContent;
-	}
 
-	public void setQuestDescription(String descript) {
-			questContent = descript;	
-	}
-	
+    @Override
+    public ArrayList<String> getQuestDescription() {
+        return questContent;
+    }
+
+    @Override
+    public void setQuestDescription(ArrayList<String> descript) {
+        questContent=descript;
+    }
+
+    @Override
+    public void addQuestDescription(String descript) {
+        questContent.add(descript);
+    }
+
+    public String getGoTo() {
+        return goTo;
+    }
+
+        @Override
+    public void setGoTo(String goTo) {
+        this.goTo = goTo;
+    }
+    
+    public void nic()
+    {
+    }
+    
+
 }
