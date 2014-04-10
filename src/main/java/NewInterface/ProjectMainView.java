@@ -85,7 +85,7 @@ public class ProjectMainView extends JFrame {
 		rightSidePanel.setLayout(null);
 
 		lblOperacjeNaProjekcie = new JLabel("Operacje na projekcie");
-		lblOperacjeNaProjekcie.setBounds(35, 6, 164, 14);
+		lblOperacjeNaProjekcie.setBounds(53, 104, 164, 14);
 		leftSidePanel.add(lblOperacjeNaProjekcie);
 
 		createLeftSidePanel();
@@ -110,7 +110,7 @@ public class ProjectMainView extends JFrame {
 				});
 			}
 		});
-		btnNewQuiz.setBounds(6, 112, 207, 28);
+		btnNewQuiz.setBounds(10, 11, 207, 23);
 		leftSidePanel.add(btnNewQuiz);
 		
 		JButton btnZapiszUstawieniaGry = new JButton("Zapisz ustawienia gry");
