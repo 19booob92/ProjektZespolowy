@@ -15,7 +15,7 @@ public abstract class QuestPoint implements DescribeQuest {
         private String preNote;
         private String postNote;
         private String date;
-
+        private String wrong;
 	private QuestType type = null;
 
 	public QuestPoint(QuestType type) {
@@ -33,6 +33,14 @@ public abstract class QuestPoint implements DescribeQuest {
 		return type;
 	}
 
+    public String getWrong() {
+        return wrong;
+    }
+
+    public void setWrong(String wrong) {
+        this.wrong = wrong;
+    }
+    
     public String getDate() {
         return date;
     }

@@ -4,20 +4,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
-import javax.swing.JButton;
 
 public class QuestView extends JPanel {
 	protected JList<String> pics;
 	protected JList<String> sounds;
 	protected Set<String> setOfpath;
+        
 
 	protected DefaultListModel<String> picsListModel;
 	protected DefaultListModel<String> soundsListModel;
@@ -27,9 +28,22 @@ public class QuestView extends JPanel {
 	private JButton btnDelPics;
 	private JButton btnDelSounds;
 
+        protected JTextArea preNote;
+        protected JTextArea postNote;
+        protected JTextField points;
+        protected JTextField goTo;
+        protected JTextField wrong;
+        protected JTextField date;
+        
 	private JLabel lblPics;
 	private JLabel lblSounds;
-
+        private JLabel lblPreNote;
+        private JLabel lblPostNote;
+        private JLabel lblPoints;
+        private JLabel lblGoTo;
+        private JLabel lblWrong;
+        private JLabel lblDate;
+        
 	protected final static int panelWidth = 800;
 	protected final static int panelHeight = 800;
 
@@ -75,6 +89,57 @@ public class QuestView extends JPanel {
 		btnDelSounds = new JButton("Usun");
 		btnDelSounds.setBounds(236, 134, 89, 23);
 		add(btnDelSounds);
+                
+        
+                lblPreNote = new JLabel("Notka początkowa");
+                lblPreNote.setBounds(345, 38, 120, 23);
+                add(lblPreNote);
+                
+                preNote = new JTextArea();
+                preNote.setBounds(345, 67, 302, 60);
+                preNote.setLineWrap(true);
+                add(preNote);
+                
+                lblPostNote = new JLabel("Notka końcowa");
+                lblPostNote.setBounds(345,138,120,23);
+                add(lblPostNote);
+                
+                postNote = new JTextArea();
+                postNote.setBounds(345, 163, 302, 60);
+                postNote.setLineWrap(true);
+                add(postNote);
+                
+                lblPoints = new JLabel("Punkty");
+                lblPoints.setBounds(667,38,120,30);
+                add(lblPoints);
+                
+                points = new JTextField();
+                points.setBounds(667, 68, 120, 30);
+                add(points);
+                
+                lblGoTo = new JLabel("Następna zagadka");
+                lblGoTo.setBounds(667, 88, 120, 30);
+                add(lblGoTo);
+                
+                goTo = new JTextField();
+                goTo.setBounds(667, 118, 120, 30);
+                add(goTo);
+                
+                lblWrong = new JLabel("Zagadka przy błędnej odpowiedzi");
+                lblWrong.setBounds(667,138,200,30);
+                add(lblWrong);
+                
+                wrong = new JTextField();
+                wrong.setBounds(667,168,120,30);
+                add(wrong);
+                
+                lblDate = new JLabel("Data");
+                lblDate.setBounds(667,188,120,30);
+                add(lblDate);
+                
+                date = new JTextField();
+                date.setBounds(667,218,120,30);
+                add(date);
 
 		addButtonsListeners();
 	}

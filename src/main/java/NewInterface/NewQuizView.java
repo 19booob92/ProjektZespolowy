@@ -1,5 +1,11 @@
 package NewInterface;
 
+import Editor.XmlBuilder;
+import Editor.ZipPacker;
+import Quest.Campaign;
+import Quest.QuestFactory;
+import Quest.QuestPoint;
+import Quest.QuestType;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -8,8 +14,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,14 +26,9 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextField;
-import javax.swing.JButton;
-
-import Quest.Campaign;
-import Quest.QuestFactory;
-import Quest.QuestPoint;
-import Quest.QuestType;
+import javax.swing.ScrollPaneConstants;
+import javax.xml.transform.TransformerException;
 
 public class NewQuizView extends JFrame {
 
@@ -127,10 +131,12 @@ public class NewQuizView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
+                                                TextQuestView t=null;
 						QuestPoint newQuest = QuestFactory.createQuest(QuestType.TEXTQUEST);
 						for (Component component : rightSidePanel.getComponents())
 						{
 							if (component.isVisible() == true) {
+                                                            t = (TextQuestView) component;
 						        selectedCard = (QuestView) component;
 							}
 						}
@@ -139,8 +145,52 @@ public class NewQuizView extends JFrame {
 						newQuest.getSoundPaths().addAll(rewriteJListToArrayList(selectedCard.sounds));;
 						newQuest.setQuestName(tfQuizName.getText());
 						newQuest.setQuestTimeout(Integer.parseInt(timeoutField.getText()));
-						//dodac pola w zaleznosci od innych typow
-						
+                                                newQuest.setPoints(Integer.parseInt(selectedCard.points.getText()));
+                                                newQuest.setGoTo(selectedCard.goTo.getText());
+                                                newQuest.setPostNote(selectedCard.postNote.getText());
+                                                newQuest.setPreNote(selectedCard.preNote.getText());
+                                                newQuest.setDate(selectedCard.date.getText());
+                                                newQuest.setWrong(selectedCard.wrong.getText());
+                                                
+                                                newQuest.setQuestAnswer(t.textAnswer.getText());
+                                                newQuest.addQuestDescription(t.questContent.getText());
+                                                
+                                                XmlBuilder xml = new XmlBuilder("tytul");
+                                                
+                                                xml.addQuizText(newQuest.getQuestName(),  newQuest.getSoundPaths(),newQuest.getPicturePaths(), newQuest.getQuestDescription(), newQuest.getPreNote(),
+                                                        newQuest.getPostNote(), newQuest.getGoTo(), newQuest.getPoints(), newQuest.getDate(), newQuest.getQuestAnswer(), newQuest.getQuestTimeout(), newQuest.getWrong());
+                                            try {
+                                                xml.saveXml();
+                                                //dodac pola w zaleznosci od innych typow
+                                            } catch (TransformerException ex) {
+                                                Logger.getLogger(NewQuizView.class.getName()).log(Level.SEVERE, null, ex);
+                                            }
+						ZipPacker zip = new ZipPacker("paczka.zip");
+                                                for(int i=0;i<newQuest.getPicturePaths().size();i++)
+                                                {
+                                                    try {
+                                                        zip.addFile(newQuest.getPicturePaths().get(i));
+                                                    } catch (IOException ex) {
+                                                        Logger.getLogger(NewQuizView.class.getName()).log(Level.SEVERE, null, ex);
+                                                    }
+                                                }
+                                                
+                                                for(int i=0;i<newQuest.getSoundPaths().size();i++)
+                                                {
+                                                    try {
+                                                        zip.addFile(newQuest.getSoundPaths().get(i));
+                                                    } catch (IOException ex) {
+                                                        Logger.getLogger(NewQuizView.class.getName()).log(Level.SEVERE, null, ex);
+                                                    }
+                                                }
+                                                
+                                            try {
+                                                zip.addFile("Config.xml");
+                                            } catch (IOException ex) {
+                                                Logger.getLogger(NewQuizView.class.getName()).log(Level.SEVERE, null, ex);
+                                            }
+                                                zip.closeZip();
+                                                
 						campaignRef.addQuiz(newQuest);
 						
 						System.out.println(campaignRef.getQuizes().get(0).getQuestName());

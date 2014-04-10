@@ -24,11 +24,14 @@ import javax.xml.transform.TransformerException;
 public class TextQuestView extends QuestView {
 
 private QuestPoint quest;
-private JTextArea questContent;
-private JTextField textField;
+protected JTextArea questContent;
+protected JTextField textAnswer;
+
 
 private JLabel lblAnswer;
 private JLabel lblQuestContent;
+
+
 private Border border = BorderFactory.createLineBorder(Color.BLACK);
         
         private JButton btnCreateQuest;
@@ -52,10 +55,10 @@ public TextQuestView() {
             lblAnswer.setBounds(26, 353, 87, 14);
             add(lblAnswer);
 
-            textField = new JTextField();
-            textField.setBounds(26, 378, 567, 29);
-            add(textField);
-            textField.setColumns(10);
+            textAnswer = new JTextField();
+            textAnswer.setBounds(26, 378, 567, 29);
+            add(textAnswer);
+            textAnswer.setColumns(10);
             quest = QuestFactory.createQuest(QuestType.FIELDQUEST);
                 
                 btnCreateQuest =new JButton("Dodaj zagadke");
@@ -64,7 +67,7 @@ public TextQuestView() {
 
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                    quest.setQuestAnswer(textField.getText());
+                    quest.setQuestAnswer(textAnswer.getText());
                     quest.addQuestDescription(questContent.getText());
                     quest.setQuestName("Zagadka1");
                     quest.setQuestTimeout(0);

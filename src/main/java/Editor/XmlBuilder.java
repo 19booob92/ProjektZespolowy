@@ -294,9 +294,10 @@ public class XmlBuilder {
             Element imageElement = doc.createElement("image");
             attr = doc.createAttribute("src");
             Path path = Paths.get(imageList.get(i));
+            if(!path.getFileName().toString().equals("")){
             attr.setValue(path.getFileName().toString());
             imageElement.setAttributeNode(attr);
-            imageModule.appendChild(imageElement);
+            imageModule.appendChild(imageElement);}
         }
         
         Element questionmoduleElement = doc.createElement("questionmodule");
@@ -318,8 +319,11 @@ public class XmlBuilder {
             Element soundElement = doc.createElement("sound");
             attr = doc.createAttribute("src");
             attr.setValue(soundList.get(i));
+            Path path = Paths.get(soundList.get(i));
+            if(!path.getFileName().toString().equals("")){
+            attr.setValue(path.getFileName().toString());
             soundElement.setAttributeNode(attr);
-            soundModule.appendChild(soundElement);
+            soundModule.appendChild(soundElement);}
         }
         
         Element preNoteModule = doc.createElement("prenote");
