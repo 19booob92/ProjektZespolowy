@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import NewInterface.ProjectMainView;
 import UserRegistration.DeleteRequest;
 import UserRegistration.UpdateRequest;
 import UserRegistration.UserDTO;
@@ -25,7 +26,7 @@ public class UserDetailsView extends JFrame {
 	private JTextField login;
 	private JTextField pass;
 	private JTextField email;
-
+	private static ProjectMainView projectMainView; 
 	private UserDetailsView(final String value) {
 		setBounds(100, 100, 293, 300);
 		Toolkit toolkt = Toolkit.getDefaultToolkit();
@@ -44,6 +45,7 @@ public class UserDetailsView extends JFrame {
 				deleteRequest = new DeleteRequest();
 				try {
 					deleteRequest.deleteUser(value, "/deleteUser");
+					projectMainView.updateTable();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -60,6 +62,7 @@ public class UserDetailsView extends JFrame {
 				deleteRequest = new DeleteRequest();
 				try {
 					deleteRequest.deleteUser(value, "/deleteGame");
+					projectMainView.updateTable();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -79,6 +82,7 @@ public class UserDetailsView extends JFrame {
 				try {
 						updateRequest = new UpdateRequest(userDTO);
 						updateRequest.update(value);
+						projectMainView.updateTable();
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -116,7 +120,9 @@ public class UserDetailsView extends JFrame {
 		setVisible(true);
 	}
 
-	public static UserDetailsView getUserDetailsViewInstance(String value) {
+	public static UserDetailsView getUserDetailsViewInstance(String value, ProjectMainView projectMainView) {
+		UserDetailsView.projectMainView = projectMainView;	// to te¿ powinno by zrobione przez Spring
+		
 		if (userDetailsView == null || !userDetailsView.isDisplayable()) {
 			userDetailsView = new UserDetailsView(value);
 			return userDetailsView;
@@ -124,4 +130,5 @@ public class UserDetailsView extends JFrame {
 			return null;
 		}
 	}
+
 }

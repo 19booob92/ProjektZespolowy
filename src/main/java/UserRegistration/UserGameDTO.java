@@ -2,6 +2,7 @@ package UserRegistration;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -14,6 +15,7 @@ public class UserGameDTO implements Serializable{
 	private String user;
 	private int points;
 	private Date endTime;
+	private List<DoneQuestDTO> setDoneQuestDTO;
 	
 	
 	public String getUser() {
@@ -37,5 +39,11 @@ public class UserGameDTO implements Serializable{
 
 	public String[] toArray() {
 		return new String [] {String.valueOf(points), endTime.toString()} ;
+	}
+	public List<DoneQuestDTO> getSetDoneQuestDTO() {
+		return setDoneQuestDTO;
+	}
+	public void setSetDoneQuestDTO(List<DoneQuestDTO> setDoneQuestDTO) {
+		this.setDoneQuestDTO = setDoneQuestDTO;
 	}
 }

@@ -20,6 +20,7 @@ import javax.swing.JButton;
 
 import Quest.Campaign;
 import Quest.QuestFactory;
+import Quest.QuestPoint;
 import Quest.QuestType;
 
 public class NewQuizView extends JFrame {
@@ -44,6 +45,7 @@ public class NewQuizView extends JFrame {
 	
 	private JTextField timeoutField;
 	private JTextField tfQuizName;
+	private JPanel selectedCard;
 	
 	//Quest vars
 	private Campaign campaignRef;
@@ -119,7 +121,14 @@ public class NewQuizView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
-						campaignRef.addQuiz(QuestFactory.createQuest(QuestType.TEXTQUEST));
+						QuestPoint newQuest = QuestFactory.createQuest(QuestType.TEXTQUEST);
+						//newQuest.setPicturePaths(selectedCard);
+						//newQuest.setSoundPaths(soundPaths);
+						//newQuest.setQuestName(qName);
+						//newQuest.setQuestTimeout(questTimeout);
+						//dodac pola w zaleznosci od innych typow
+						
+						campaignRef.addQuiz(newQuest);
 						dispose();
 					}
 				});
@@ -139,6 +148,7 @@ public class NewQuizView extends JFrame {
 			public void itemStateChanged(ItemEvent aE) {
 				CardLayout cl = (CardLayout) rightSidePanel.getLayout();
 				cl.show(rightSidePanel, aE.getItem().toString());
+				selectedCard = (JPanel) aE.getItem();
 			}
 		});
 
