@@ -1,7 +1,5 @@
 package Quest;
 
-import java.util.ArrayList;
-
 public class FieldQuest extends QuestPoint implements DescribeQuest {
 	private double xCoordinate;
 	private double yCoordinate;
@@ -17,6 +15,11 @@ public class FieldQuest extends QuestPoint implements DescribeQuest {
 		return xCoordinate+", "+yCoordinate;
 	}
 	
+	@Override
+	public String getQuestDescription() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public String getQuestAnswer() {
@@ -24,25 +27,15 @@ public class FieldQuest extends QuestPoint implements DescribeQuest {
 		return null;
 	}
 
+	@Override
+	public void setQuestDescription(String descript) {
+		// TODO Auto-generated method stub
+
+	}
 
 	@Override
 	public void setQuestAnswer(String answ) {
 		// TODO Auto-generated method stub
 
 	}
-
-    @Override
-    public ArrayList<String> getQuestDescription() {
-        return null;
-    }
-
-    @Override
-    public void setQuestDescription(ArrayList<String> descript) {
-       
-    }
-
-    @Override
-    public void addQuestDescription(String descript) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
