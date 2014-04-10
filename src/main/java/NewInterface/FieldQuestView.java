@@ -13,7 +13,7 @@ public class FieldQuestView extends QuestView {
 	public FieldQuestView() {
 		super();
 		setSize(panelWidth, panelHeight);
-		googlePanel = new GoogleMapPanel(800,359);
+		googlePanel = new GoogleMapPanel(616,329);
 		//GoogleMap Listeners, labels etc
 		googlePanel.addMouseListener(googlePanel);
         googlePanel.addMouseMotionListener(googlePanel);
