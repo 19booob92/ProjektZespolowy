@@ -22,6 +22,7 @@ public class NewQuizView extends JFrame {
 	private JScrollPane leftScroll;
 	private JScrollPane rightScroll;
 	
+	private JLabel lblTimeout;
 	private JLabel lblType;
 	
 	private static final int panelWidth=800;
@@ -29,7 +30,9 @@ public class NewQuizView extends JFrame {
 	
 	private static final int windowWidth=1000;
 	private static final int windowHeight=500;
-	private JTextField textField;
+	
+	private JTextField timeoutField;
+	private JTextField tfQuizName;
 	
 	public NewQuizView() {
 		super();
@@ -58,12 +61,9 @@ public class NewQuizView extends JFrame {
 	}
 
 	private void createLeftSidePanel() {
-		JLabel lblNewQuiz = new JLabel("Nowy Quiz");
-		lblNewQuiz.setBounds(10, 11, 207, 14);
-		leftSidePanel.add(lblNewQuiz);
 
 		JLabel lblTitle = new JLabel("Tytu\u0142");
-		lblTitle.setBounds(20, 39, 46, 14);
+		lblTitle.setBounds(10, 42, 46, 14);
 		leftSidePanel.add(lblTitle);
 
 		String[] quizTypes = { "Zagadka terenowa", "Zagadka tekstowa",
@@ -71,22 +71,31 @@ public class NewQuizView extends JFrame {
 				"Zagadka zasięgu" };
 
 		final JComboBox questTypeCombo = new JComboBox(quizTypes);
-		questTypeCombo.setBounds(63, 82, 154, 20);
+		questTypeCombo.setBounds(76, 112, 154, 27);
 		leftSidePanel.add(questTypeCombo);
 
 		lblType = new JLabel("Typ");
-		lblType.setBounds(20, 85, 46, 14);
+		lblType.setBounds(10, 118, 46, 14);
 		leftSidePanel.add(lblType);
 
 		JLabel lblOpcjeQuizu = new JLabel("Opcje quizu");
-		lblOpcjeQuizu.setBounds(72, 149, 126, 14);
+		lblOpcjeQuizu.setBounds(10, 11, 126, 14);
 		leftSidePanel.add(lblOpcjeQuizu);
 		
-		textField = new JTextField();
-		textField.setBounds(63, 36, 154, 27);
-		leftSidePanel.add(textField);
-		textField.setColumns(10);
+		tfQuizName = new JTextField();
+		tfQuizName.setBounds(76, 36, 154, 27);
+		leftSidePanel.add(tfQuizName);
+		tfQuizName.setColumns(10);
+		
+				timeoutField = new JTextField();
+				timeoutField.setBounds(76, 74, 154, 27);
+				leftSidePanel.add(timeoutField);
+				timeoutField.setColumns(10);
 
+		lblTimeout = new JLabel("Timeout");
+		lblTimeout.setBounds(10, 80, 46, 14);
+		leftSidePanel.add(lblTimeout);
+		
 		rightSidePanel.add(new FieldQuestView(), "Zagadka terenowa");
 		rightSidePanel.add(new TextQuestView(), "Zagadka tekstowa");
 		rightSidePanel.add(new MultipleChoiceQuestView(),"Zagadka wielokrotnego wyboru");
