@@ -120,7 +120,7 @@ public class MarkerArray {
     
     public void setHeight(int height)
     {
-        marker[markers-1].setheight(height);
+        marker[markers-1].setHeight(height);
     }
     
     public void doDrawing(Graphics g)

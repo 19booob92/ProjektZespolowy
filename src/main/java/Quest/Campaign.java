@@ -1,5 +1,7 @@
 package Quest;
 
+import Editor.XmlBuilder;
+import static Quest.QuestType.TEXTQUEST;
 import java.util.ArrayList;
 
 public class Campaign {
@@ -31,6 +33,8 @@ public class Campaign {
 	public TreasureBox getTreasureBox() {
 		return null;
 	}
+        
+
 
 	public ArrayList<QuestPoint> getQuizes() {
 		return quests;

@@ -23,8 +23,11 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
+import Editor.UserDataRegister;
 import Editor.UserDetailsView;
 import Quest.Campaign;
 import Quest.QuestPoint;
@@ -47,7 +50,11 @@ public class ProjectMainView extends JFrame {
 	private JMenu mnProject;
 
 	private JButton btnNewQuiz;
-
+	private JButton btnZapiszUstawieniaGry;
+	private JButton btnNowaGra;
+	
+	private JButton btnNewUser;
+	
 	private JLabel lblOpcjeProjektu;
 	private JLabel lblOpcjeUserow;
 	private JLabel lblOperacjeNaProjekcie;
@@ -85,10 +92,10 @@ public class ProjectMainView extends JFrame {
 		rightSidePanel.setLayout(null);
 
 		lblOperacjeNaProjekcie = new JLabel("Operacje na projekcie");
-		lblOperacjeNaProjekcie.setBounds(35, 6, 164, 14);
+		lblOperacjeNaProjekcie.setBounds(53, 104, 164, 14);
 		leftSidePanel.add(lblOperacjeNaProjekcie);
 
-		createLeftSidePanel();
+		createLeftSidePanelForProject();
 		createRightSidePanel();
 
 		splitPane.setResizeWeight(0.3);
@@ -96,10 +103,47 @@ public class ProjectMainView extends JFrame {
 		getContentPane().add(splitPane);
 		createMenu();
 
+		addListenerForTabbedPane();
+		
 		setVisible(true);
 	}
 
-	private void createLeftSidePanel() {
+	private void addListenerForTabbedPane() {
+		tabbedPane.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				if (tabbedPane.getSelectedIndex() == 1) {
+					leftSidePanel.removeAll();
+					createLeftSidePanelForUserSettings();
+					repaint();
+				}
+				else if (tabbedPane.getSelectedIndex() == 0) {
+					leftSidePanel.removeAll();
+					createLeftSidePanelForProject();
+					repaint();
+				}
+			}
+		});
+	}
+
+	private void createLeftSidePanelForUserSettings() {
+		btnNewUser = new JButton("Dodaj u¿ytkownika");
+		btnNewUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						UserDataRegister.getInstance(ProjectMainView.this);
+					}
+				});
+			}
+		});
+		
+		btnNewUser.setBounds(10, 11, 207, 23);
+		leftSidePanel.add(btnNewUser);
+	}
+	
+	private void createLeftSidePanelForProject() {
 		btnNewQuiz = new JButton("Nowy Quiz");
 		btnNewQuiz.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -110,7 +154,8 @@ public class ProjectMainView extends JFrame {
 				});
 			}
 		});
-		btnNewQuiz.setBounds(6, 112, 207, 28);
+		
+		btnNewQuiz.setBounds(10, 11, 207, 23);
 		leftSidePanel.add(btnNewQuiz);
 		
 		JButton btnZapiszUstawieniaGry = new JButton("Zapisz ustawienia gry");
@@ -131,7 +176,6 @@ public class ProjectMainView extends JFrame {
 
 		tabbedPane.addTab("Project", projectTabPane);
 		tabbedPane.addTab("User", userTabPane);
-
 		rightSidePanel.add(tabbedPane);
 	}
 
@@ -210,7 +254,6 @@ public class ProjectMainView extends JFrame {
 									.getUserDetailsViewInstance((String) tableModel
 											.getValueAt(rowNum, 0), ProjectMainView.this);
 						}
-
 					});
 				}
 			}
@@ -231,6 +274,11 @@ public class ProjectMainView extends JFrame {
 		}
 	}
 
+	public void updateTable() {
+		tableModel.setRowCount(0);
+		addRowToTable(getDataToTable());
+	}
+	
 	public static void main(String[] args) throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException,
 			UnsupportedLookAndFeelException {
@@ -251,8 +299,4 @@ public class ProjectMainView extends JFrame {
 		new ProjectMainView();
 	}
 	
-	public void updateTable() {
-		tableModel.setRowCount(0);
-		addRowToTable(getDataToTable());
-	}
 }

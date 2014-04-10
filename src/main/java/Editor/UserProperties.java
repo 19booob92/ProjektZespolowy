@@ -57,7 +57,7 @@ public class UserProperties extends JFrame {
 
 					@Override
 					public void run() {
-						new UserDataRegister();
+//						new UserDataRegister();
 					}
 				});
 			}
