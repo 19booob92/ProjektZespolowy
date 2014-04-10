@@ -110,7 +110,7 @@ public class NewQuizView extends JFrame {
 		leftSidePanel.add(tfQuizName);
 		tfQuizName.setColumns(10);
 		
-		timeoutField = new JTextField("0.0");
+		timeoutField = new JTextField("0");
 		timeoutField.setBounds(76, 74, 154, 27);
 		leftSidePanel.add(timeoutField);
 		timeoutField.setColumns(10);
@@ -138,7 +138,7 @@ public class NewQuizView extends JFrame {
 						newQuest.getPicturePaths().addAll(rewriteJListToArrayList(selectedCard.pics));
 						newQuest.getSoundPaths().addAll(rewriteJListToArrayList(selectedCard.sounds));;
 						newQuest.setQuestName(tfQuizName.getText());
-						newQuest.setQuestTimeout(Double.parseDouble(timeoutField.getText()));
+						newQuest.setQuestTimeout(Integer.parseInt(timeoutField.getText()));
 						//dodac pola w zaleznosci od innych typow
 						
 						campaignRef.addQuiz(newQuest);
