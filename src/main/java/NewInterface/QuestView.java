@@ -15,12 +15,12 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.JButton;
 
 public class QuestView extends JPanel {
-	private JList<String> pics;
-	private JList<String> sounds;
-	private Set<String> setOfpath;
+	protected JList<String> pics;
+	protected JList<String> sounds;
+	protected Set<String> setOfpath;
 
-	private DefaultListModel<String> picsListModel;
-	private DefaultListModel<String> soundsListModel;
+	protected DefaultListModel<String> picsListModel;
+	protected DefaultListModel<String> soundsListModel;
 
 	private JButton btnAddPics;
 	private JButton btnAddSounds;
@@ -115,6 +115,14 @@ public class QuestView extends JPanel {
 				 */
 			}
 		});
+	}
+
+	public void getSoundsListContent() {
+
+	}
+	
+	public void getPicsListContent() {
+		
 	}
 
 	private void getPicturesPath(DefaultListModel<String> list) {

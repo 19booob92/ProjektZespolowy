@@ -1,6 +1,7 @@
 package NewInterface;
 
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -45,7 +46,7 @@ public class NewQuizView extends JFrame {
 	
 	private JTextField timeoutField;
 	private JTextField tfQuizName;
-	private JPanel selectedCard;
+	private QuestView selectedCard;
 	
 	//Quest vars
 	private Campaign campaignRef;
@@ -122,6 +123,13 @@ public class NewQuizView extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						QuestPoint newQuest = QuestFactory.createQuest(QuestType.TEXTQUEST);
+						for (Component component : rightSidePanel.getComponents())
+						{
+							if (component.isVisible() == true) {
+						        selectedCard = (QuestView) component;
+							}
+						}
+						
 						//newQuest.setPicturePaths(selectedCard);
 						//newQuest.setSoundPaths(soundPaths);
 						//newQuest.setQuestName(qName);
