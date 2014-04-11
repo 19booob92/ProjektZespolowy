@@ -54,6 +54,7 @@ public class ProjectMainView extends JFrame {
 	private JButton btnNowaGra;
 	
 	private JButton btnNewUser;
+	private JButton btnDeleteAllDoneQuests;
 	
 	private JLabel lblOpcjeProjektu;
 	private JLabel lblOpcjeUserow;
@@ -128,7 +129,8 @@ public class ProjectMainView extends JFrame {
 	}
 
 	private void createLeftSidePanelForUserSettings() {
-		btnNewUser = new JButton("Dodaj u¿ytkownika");
+		btnNewUser = new JButton("Dodaj uÅ¼ytkownika");
+		
 		btnNewUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -159,6 +161,10 @@ public class ProjectMainView extends JFrame {
 		leftSidePanel.add(btnNewQuiz);
 		
 		JButton btnZapiszUstawieniaGry = new JButton("Zapisz ustawienia gry");
+		btnZapiszUstawieniaGry.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnZapiszUstawieniaGry.setBounds(6, 72, 207, 28);
 		leftSidePanel.add(btnZapiszUstawieniaGry);
 		
@@ -217,7 +223,7 @@ public class ProjectMainView extends JFrame {
 		lblOpcjeUserow = new JLabel("Opcje uzytkownikow, listy, dodawanie itd.");
 		userTabPane.add(lblOpcjeUserow);
 
-		getRequest = new GetRequest();	// kiedy bedzie wdro¿ony Spring (z drugiego brancha to nie bedzie potrzebne)
+		getRequest = new GetRequest();	// kiedy bedzie wdroï¿½ony Spring (z drugiego brancha to nie bedzie potrzebne)
 		getDataToTable();
 		
 		addTable();

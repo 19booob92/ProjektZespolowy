@@ -27,8 +27,10 @@ public class UserDetailsView extends JFrame {
 	private JTextField pass;
 	private JTextField email;
 	private static ProjectMainView projectMainView;
-
-	private UserDetailsView(final String value) {
+	private JButton btnDeleteAllDoneQuests;
+	private JButton btnDeleteUser;
+	
+	private UserDetailsView(final String userName) {
 		setBounds(100, 100, 293, 300);
 		Toolkit toolkt = Toolkit.getDefaultToolkit();
 		Dimension screenSize = toolkt.getScreenSize();
@@ -40,12 +42,28 @@ public class UserDetailsView extends JFrame {
 		contentPane.setLayout(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		JButton btnDeleteUser = new JButton("Delete user");
+		btnDeleteUser = new JButton("Delete user");
+		btnDeleteAllDoneQuests = new JButton("Usun wszystkie zakonczone questy");
+		
+		btnDeleteAllDoneQuests.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				deleteRequest = new DeleteRequest();
+				try {
+					deleteRequest.deleteUser(userName, "/doneQuest/");
+					projectMainView.updateTable();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
+		
 		btnDeleteUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				deleteRequest = new DeleteRequest();
 				try {
-					deleteRequest.deleteUser(value, "/deleteUser");
+					deleteRequest.deleteUser(userName, "/deleteUser");
 					projectMainView.updateTable();
 					UserDetailsView.this.dispose();
 				} catch (Exception e) {
@@ -54,7 +72,9 @@ public class UserDetailsView extends JFrame {
 			}
 		});
 		btnDeleteUser.setBounds(17, 156, 117, 25);
+		btnDeleteAllDoneQuests.setBounds(162, 120, 117, 25);
 		contentPane.add(btnDeleteUser);
+		contentPane.add(btnDeleteAllDoneQuests);
 
 		JButton btnDeleteGame = new JButton("Delete game");
 		btnDeleteGame.addActionListener(new ActionListener() {
@@ -63,7 +83,7 @@ public class UserDetailsView extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				deleteRequest = new DeleteRequest();
 				try {
-					deleteRequest.deleteUser(value, "/deleteGame");
+					deleteRequest.deleteUser(userName, "/deleteGame");
 					projectMainView.updateTable();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -83,7 +103,7 @@ public class UserDetailsView extends JFrame {
 				userDTO.setPassword(pass.getText());
 				try {
 						updateRequest = new UpdateRequest(userDTO);
-						updateRequest.update(value);
+						updateRequest.update(userName);
 						projectMainView.updateTable();
 				} catch (Exception e1) {
 					e1.printStackTrace();

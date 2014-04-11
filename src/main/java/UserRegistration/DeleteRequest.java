@@ -33,7 +33,7 @@ public class DeleteRequest {
 		ClientConfig config = new DefaultClientConfig();
 		client = Client.create(config);
 		client.addFilter(new LoggingFilter());
-		webResource = client.resource(base_uri + extend_uri + "/" + value);
+		webResource = client.resource(base_uri + extend_uri + value);
 
 		client.addFilter(new HTTPBasicAuthFilter("adm", "ini"));
 		ClientResponse response = webResource.type(MediaType.APPLICATION_JSON)
