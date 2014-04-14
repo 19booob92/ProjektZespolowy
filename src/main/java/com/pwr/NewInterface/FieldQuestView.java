@@ -12,7 +12,7 @@ import com.pwr.Quest.QuestFactory;
 import com.pwr.Quest.QuestPoint;
 import com.pwr.Quest.QuestType;
 
-public class FieldQuestView extends QuestView implements MouseListener {
+public class FieldQuestView extends QuestView implements MouseListener, DescribeView {
 
 	private QuestPoint quest;
 	protected GoogleMapPanel googlePanel;
@@ -104,6 +104,11 @@ public class FieldQuestView extends QuestView implements MouseListener {
     public void mouseExited(MouseEvent e) {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+	@Override
+	public String introduceYourself() {
+		return "FieldQuest";
+	}
 
 
 }

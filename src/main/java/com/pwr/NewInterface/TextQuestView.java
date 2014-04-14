@@ -18,7 +18,7 @@ import com.pwr.Quest.QuestFactory;
 import com.pwr.Quest.QuestPoint;
 import com.pwr.Quest.QuestType;
 
-public class TextQuestView extends QuestView {
+public class TextQuestView extends QuestView implements DescribeView{
 
 private QuestPoint quest;
 protected JTextField textGoTo;
@@ -49,7 +49,7 @@ public TextQuestView() {
             textGoTo.setBounds(26,308,60,29);
             add(textGoTo);
 
-            lblAnswer = new JLabel("Odpowied\u017A");
+            lblAnswer = new JLabel("Odpowiedź");
             lblAnswer.setBounds(26, 353, 87, 14);
             add(lblAnswer);
             
@@ -81,7 +81,7 @@ public TextQuestView() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                textAnswer.add(JOptionPane.showInputDialog("Podaj odpowiedź"));
+                textAnswer.add(JOptionPane.showInputDialog("Podaj odpowiedÅº"));
                 answers.addElement(textAnswer.get(answerTrigger));
                 answersComboBox.setSelectedIndex(answerTrigger);
                 answerTrigger++;
@@ -118,4 +118,8 @@ public TextQuestView() {
             }
         });
     }
+	@Override
+	public String introduceYourself() {
+		return "TextQuest";
+	}
 }

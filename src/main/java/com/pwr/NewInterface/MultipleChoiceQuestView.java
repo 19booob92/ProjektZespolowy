@@ -8,7 +8,7 @@ import com.pwr.Quest.QuestFactory;
 import com.pwr.Quest.QuestPoint;
 import com.pwr.Quest.QuestType;
 
-public class MultipleChoiceQuestView extends QuestView {
+public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 
 	private QuestPoint quest;
 
@@ -16,6 +16,11 @@ public class MultipleChoiceQuestView extends QuestView {
 		super();
 		this.add(new JLabel("Multi"));
 		quest = QuestFactory.createQuest(QuestType.CHOICEQUEST);
+	}
+
+	@Override
+	public String introduceYourself() {
+		return "MultipleChoiceQuest";
 	}
 
 }
