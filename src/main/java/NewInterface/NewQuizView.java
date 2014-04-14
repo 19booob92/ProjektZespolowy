@@ -140,7 +140,7 @@ public class NewQuizView extends JFrame {
 						        selectedCard = (QuestView) component;
 							}
 						}
-						
+						/*
 						newQuest.getPicturePaths().addAll(rewriteJListToArrayList(selectedCard.pics));
 						newQuest.getSoundPaths().addAll(rewriteJListToArrayList(selectedCard.sounds));;
 						newQuest.setQuestName(tfQuizName.getText());
@@ -164,7 +164,7 @@ public class NewQuizView extends JFrame {
                                                 //dodac pola w zaleznosci od innych typow
                                             } catch (TransformerException ex) {
                                                 Logger.getLogger(NewQuizView.class.getName()).log(Level.SEVERE, null, ex);
-                                            }
+                                            }*/
 						ZipPacker zip = new ZipPacker("paczka.zip");
                                                 for(int i=0;i<newQuest.getPicturePaths().size();i++)
                                                 {

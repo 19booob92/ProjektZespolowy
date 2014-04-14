@@ -32,11 +32,11 @@ public class UserProperties extends JFrame {
 
 		GetRequest getRequest = new GetRequest();
 		List<UserDTO> usersList = null;
-		try {
+	/*	try {
 			usersList = getRequest.getData();
 		} catch (Exception e1) {
 			e1.printStackTrace();
-		}
+		}*/
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

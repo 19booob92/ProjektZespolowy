@@ -34,7 +34,6 @@ private JLabel lblQuestContent;
 
 private Border border = BorderFactory.createLineBorder(Color.BLACK);
         
-        private JButton btnCreateQuest;
 
 public TextQuestView() {
             super();	
@@ -61,29 +60,5 @@ public TextQuestView() {
             textAnswer.setColumns(10);
             quest = QuestFactory.createQuest(QuestType.FIELDQUEST);
                 
-                btnCreateQuest =new JButton("Dodaj zagadke");
-                btnCreateQuest.setBounds(26,440,120,30);
-                btnCreateQuest.addActionListener(new ActionListener() {
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                    quest.setQuestAnswer(textAnswer.getText());
-                    quest.addQuestDescription(questContent.getText());
-                    quest.setQuestName("Zagadka1");
-                    quest.setQuestTimeout(0);
-                    
-                    String s = quest.getPicturePaths().get(0);
-                    XmlBuilder xml = new XmlBuilder("Tytul");
-                    
-                    xml.addQuizText(quest.getQuestName(), quest.getPicturePaths(), quest.getSoundPaths(), quest.getQuestDescription(), quest.getPreNote(), quest.getPostNote(), quest.getGoTo() , quest.getPoints(), quest.getDate(), quest.getQuestAnswer(), (int) quest.getQuestTimeout(), null);
-                        try {
-                            xml.saveXml();
-                        } catch (TransformerException ex) {
-                            Logger.getLogger(TextQuestView.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                });
-                
-                add(btnCreateQuest);
 }
 }

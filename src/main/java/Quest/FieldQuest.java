@@ -5,7 +5,10 @@ import java.util.ArrayList;
 public class FieldQuest extends QuestPoint implements DescribeQuest {
 	private double xCoordinate;
 	private double yCoordinate;
-	
+        private double width;
+        private double height;
+	private String goTo;
+        
 	public FieldQuest() {
 		super(QuestType.FIELDQUEST);
 		xCoordinate = 0;
@@ -18,41 +21,61 @@ public class FieldQuest extends QuestPoint implements DescribeQuest {
 	}
 	
 
-	@Override
-	public String getQuestAnswer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        public void setXCoordinate(double x)
+        {
+            xCoordinate=x;
+        }
+        public void setYCoordinate(double y)
+        {
+            yCoordinate=y;
+        }
+        public double getXCoordinate()
+        {
+            return xCoordinate;
+        }
+        public double getYCoordninate()
+        {
+            return yCoordinate;
+        }
+        
+        public void setXWidth(double width)
+        {
+            this.width=width;
+        }
+        public void setYWidth(double height)
+        {
+            this.height=height;
+        }
+        public double getWidth()
+        {
+            return height;
+        }
+        public double getHeight()
+        {
+            return height;
+        }
 
 
-	@Override
-	public void setQuestAnswer(String answ) {
-		// TODO Auto-generated method stub
-
-	}
-
-    @Override
-    public ArrayList<String> getQuestDescription() {
-        return null;
-    }
-
-    @Override
-    public void setQuestDescription(ArrayList<String> descript) {
-       
-    }
-
-    @Override
-    public void addQuestDescription(String descript) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public String getGoTo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return goTo;
+    }
+
+    public void setGoTo(String goTo) {
+        this.goTo=goTo;
     }
 
     @Override
-    public void setGoTo(String goTo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setQuestAnswer(ArrayList<String> answ) {
+        
+    }
+
+    @Override
+    public void addQuestAnswer(String answ) {
+        
+    }
+
+    @Override
+    public ArrayList<String> getQuestAnswer() {
+        return null;
     }
 }

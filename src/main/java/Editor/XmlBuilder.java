@@ -108,8 +108,8 @@ public class XmlBuilder {
         }    
     }
     public void addQuizGPS(String title,ArrayList<String> imageList,ArrayList<String> soundList, 
-            ArrayList<String> paragraphList, String preNote, String postNote, String goTo, int points, double x, double y,
-            double width, double height, String date, int timestop, String wrong)
+            ArrayList<String> paragraphList, String preNote, String postNote, String goTo, int points, String date,double x, double y,
+            double width, double height, int timestop, String wrong)
     {
         Element quizModule = doc.createElement("quiz");
         createQuiz(title,imageList,soundList,paragraphList,preNote,postNote,quizModule);
@@ -144,7 +144,7 @@ public class XmlBuilder {
     }
     
     public void addQuizText(String title,ArrayList<String> imageList,ArrayList<String> soundList, 
-            ArrayList<String> paragraphList, String preNote, String postNote,String goTo, int points, String date, String answer,
+            ArrayList<String> paragraphList, String preNote, String postNote,String goTo, int points, String date, ArrayList<String> answerList,
             int timestop, String wrong)
     {
         Element quizModule = doc.createElement("quiz");
@@ -158,14 +158,16 @@ public class XmlBuilder {
         
         answerModule.appendChild(answerElement);
         
+        for(int i=0;i<answerList.size();i++){
         Element correctElement = doc.createElement("correct");
-        correctElement.appendChild(doc.createTextNode(answer));
+        correctElement.appendChild(doc.createTextNode(answerList.get(i)));
         answerElement.appendChild(correctElement);
+        }
     }
     
     public void addQuizDecision(String title,ArrayList<String> imageList,ArrayList<String> soundList, 
-            ArrayList<String> paragraphList, String preNote, String postNote,ArrayList<String> goToList,
-            ArrayList<String> answerList, int points, String date, int timestop, String wrong)
+            ArrayList<String> paragraphList, String preNote, String postNote, int points, String date,ArrayList<String> goToList,
+            ArrayList<String> answerList, int timestop, String wrong)
     {
         Element quizModule = doc.createElement("quiz");
         createQuiz(title,imageList,soundList,paragraphList,preNote,postNote,quizModule);
@@ -191,7 +193,7 @@ public class XmlBuilder {
     
     public void addQuizMofn(String title,ArrayList<String> imageList,ArrayList<String> soundList, 
             ArrayList<String> paragraphList, String preNote, String postNote, String goTo, int points, String date,
-            String wrong, int timestop, ArrayList<String> answerList, ArrayList<Boolean> answerListBool)
+            ArrayList<String> answerList, ArrayList<Boolean> answerListBool, int timestop, String wrong)
     {
         Element quizModule = doc.createElement("quiz");
         createQuiz(title,imageList,soundList,paragraphList,preNote,postNote,quizModule);

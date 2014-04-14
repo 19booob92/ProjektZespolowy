@@ -9,6 +9,7 @@ public abstract class QuestPoint implements DescribeQuest {
 
 	private ArrayList<String> PicturePaths;
 	private ArrayList<String> SoundPaths;
+        private ArrayList<String> questDescription;
 	private String QuestName;
 	private int QuestTimeout;
         private int points;
@@ -25,6 +26,7 @@ public abstract class QuestPoint implements DescribeQuest {
 		PicturePaths.add("");
 		SoundPaths = new ArrayList<String>();
 		SoundPaths.add("");
+                questDescription = new ArrayList<String>();
 		QuestTimeout = 0;
                 date="10-03-2014 14:33";
 	}
@@ -112,5 +114,14 @@ public abstract class QuestPoint implements DescribeQuest {
 	public String getQuestName() {
 		return QuestName;
 	}
+
+    public ArrayList<String> getQuestDescription() {
+        return questDescription;
+    }
+
+    public void setQuestDescription(ArrayList<String> paragraph) {
+        this.questDescription = paragraph;
+    }
+        
 
 }

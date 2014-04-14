@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 
 public class ChoiceQuest extends QuestPoint implements DescribeQuest{
+    
+        private ArrayList<String> answerList = new ArrayList<String>();
+        private ArrayList<Boolean> answerListCorrect = new ArrayList<Boolean>();
+        private String goTo;
 	
 	public ChoiceQuest()
 	{
@@ -12,39 +16,38 @@ public class ChoiceQuest extends QuestPoint implements DescribeQuest{
 
 
 	@Override
-	public String getQuestAnswer() {
+	public ArrayList<String> getQuestAnswer() {
 		// TODO Auto-generated method stub
-		return null;
+		return answerList;
 	}
-
+        public ArrayList<Boolean> getQuestAnswerCorrect()
+        {
+            return answerListCorrect;
+        }
 
 	@Override
-	public void setQuestAnswer(String answ) {
-		// TODO Auto-generated method stub
-		
+	public void setQuestAnswer(ArrayList<String> answ) {
+		answerList=answ;
 	}
 
-    @Override
-    public ArrayList<String> getQuestDescription() {
-           return null;
-    }
+        public void addQuestAnswer(String answer,boolean correct)
+        {
+                answerListCorrect.add(correct);
+        }
 
-    @Override
-    public void setQuestDescription(ArrayList<String> descript) {
-    }
-
-    @Override
-    public void addQuestDescription(String descript) {
-    }
-
-    @Override
     public String getGoTo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return goTo;
     }
 
-    @Override
+
     public void setGoTo(String goTo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.goTo=goTo;
+    }
+
+
+    @Override
+    public void addQuestAnswer(String answ) {
+        answerList.add(answ);
     }
 
 }

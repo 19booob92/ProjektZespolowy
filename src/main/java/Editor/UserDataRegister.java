@@ -94,7 +94,7 @@ public class UserDataRegister extends JFrame {
 	}
 
 	public static UserDataRegister getInstance(ProjectMainView projectMainView) {
-		UserDataRegister.projectMainView = projectMainView; // to te¿ powinno byc zrobione przez Spring
+		UserDataRegister.projectMainView = projectMainView; // to tez powinno byc zrobione przez Spring
 
 		if (userDataRegister == null || !userDataRegister.isDisplayable()) {
 			userDataRegister = new UserDataRegister(projectMainView);
