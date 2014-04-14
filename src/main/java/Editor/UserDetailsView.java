@@ -12,16 +12,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import NewInterface.ProjectMainView;
-import UserRegistration.DeleteRequest;
-import UserRegistration.UpdateRequest;
+import UserRegistration.Requests;
 import UserRegistration.UserDTO;
 
 public class UserDetailsView extends JFrame {
 
 	private JPanel contentPane;
-	private DeleteRequest deleteRequest;
-	private UpdateRequest updateRequest;
 	private static volatile UserDetailsView userDetailsView;
 	private JTextField login;
 	private JTextField pass;
@@ -29,13 +28,15 @@ public class UserDetailsView extends JFrame {
 	private static ProjectMainView projectMainView;
 	private JButton btnDeleteAllDoneQuests;
 	private JButton btnDeleteUser;
-	
+	@Autowired
+	private Requests requests;
+
 	private UserDetailsView(final String userName) {
 		setBounds(100, 100, 293, 300);
 		Toolkit toolkt = Toolkit.getDefaultToolkit();
 		Dimension screenSize = toolkt.getScreenSize();
-		this.setLocation(screenSize.width/4, screenSize.height/4);
-		
+		this.setLocation(screenSize.width / 4, screenSize.height / 4);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -44,26 +45,24 @@ public class UserDetailsView extends JFrame {
 
 		btnDeleteUser = new JButton("Delete user");
 		btnDeleteAllDoneQuests = new JButton("Usun wszystkie zakonczone questy");
-		
+
 		btnDeleteAllDoneQuests.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				deleteRequest = new DeleteRequest();
 				try {
-					deleteRequest.deleteUser(userName, "/doneQuest/");
+					requests.deleteUser(userName, "/doneQuest/");
 					projectMainView.updateTable();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
 			}
 		});
-		
+
 		btnDeleteUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				deleteRequest = new DeleteRequest();
 				try {
-					deleteRequest.deleteUser(userName, "/deleteUser");
+					requests.deleteUser(userName, "/deleteUser");
 					projectMainView.updateTable();
 					UserDetailsView.this.dispose();
 				} catch (Exception e) {
@@ -78,12 +77,11 @@ public class UserDetailsView extends JFrame {
 
 		JButton btnDeleteGame = new JButton("Delete game");
 		btnDeleteGame.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				deleteRequest = new DeleteRequest();
 				try {
-					deleteRequest.deleteUser(userName, "/deleteGame");
+					requests.deleteUser(userName, "/deleteGame");
 					projectMainView.updateTable();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -95,16 +93,15 @@ public class UserDetailsView extends JFrame {
 
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				UserDTO userDTO = new UserDTO();
 				userDTO.setLogin(login.getText());
 				userDTO.setPassword(pass.getText());
 				try {
-						updateRequest = new UpdateRequest(userDTO);
-						updateRequest.update(userName);
-						projectMainView.updateTable();
+					requests.update(userName, userDTO);
+					projectMainView.updateTable();
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -142,9 +139,12 @@ public class UserDetailsView extends JFrame {
 		setVisible(true);
 	}
 
-	public static UserDetailsView getUserDetailsViewInstance(String value, ProjectMainView projectMainView) {
-		UserDetailsView.projectMainView = projectMainView;	// to tez powinno by zrobione przez Spring
-		
+	public static UserDetailsView getUserDetailsViewInstance(String value,
+			ProjectMainView projectMainView) {
+		UserDetailsView.projectMainView = projectMainView; // to tez powinno by
+															// zrobione przez
+															// Spring
+
 		if (userDetailsView == null || !userDetailsView.isDisplayable()) {
 			userDetailsView = new UserDetailsView(value);
 			return userDetailsView;

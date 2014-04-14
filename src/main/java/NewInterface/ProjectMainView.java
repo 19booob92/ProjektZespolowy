@@ -27,15 +27,22 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import Editor.UserDataRegister;
 import Editor.UserDetailsView;
 import Quest.Campaign;
 import Quest.QuestPoint;
-import UserRegistration.GetRequest;
+import UserRegistration.Requests;
 import UserRegistration.UserDTO;
 
+@Component
 public class ProjectMainView extends JFrame {
 
+	@Autowired
+	private Requests requests;
+	
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
 	private JScrollPane rightScroll;
@@ -71,8 +78,6 @@ public class ProjectMainView extends JFrame {
 	//Campaign vars
 	private Campaign campaign;
 	private static ArrayList<QuestPoint> quest;
-
-	private GetRequest getRequest;
 	
 	public ProjectMainView() {
 		campaign = new Campaign();
@@ -135,7 +140,7 @@ public class ProjectMainView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
-						UserDataRegister.getInstance(ProjectMainView.this);
+						UserDataRegister.getInstance();
 					}
 				});
 			}
@@ -223,7 +228,6 @@ public class ProjectMainView extends JFrame {
 		lblOpcjeUserow = new JLabel("Opcje uzytkownikow, listy, dodawanie itd.");
 		userTabPane.add(lblOpcjeUserow);
 
-		getRequest = new GetRequest();	// kiedy bedzie wdro�ony Spring (z drugiego brancha to nie bedzie potrzebne)
 		getDataToTable();
 		
 		addTable();
@@ -232,7 +236,7 @@ public class ProjectMainView extends JFrame {
 
 	private List<UserDTO> getDataToTable() {
 		try {
-			List<UserDTO> usersList = getRequest.getData();
+			List<UserDTO> usersList = requests.getAllUsers();
 			return usersList;
 		} catch (Exception except) {
 			except.printStackTrace();

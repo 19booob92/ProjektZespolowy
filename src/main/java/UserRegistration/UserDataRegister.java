@@ -10,16 +10,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class UserDataRegister extends JFrame {
 	private JPanel contentPane;
-	private PostReqest postReqest;
 	private JButton btnCommit;
 	private JTextField loginTxt;
 	private JTextField passTxt;
 	private JTextField roletxT;
 	private final JLabel lblUserLogin = new JLabel("User login");
 	private JLabel roleLbl;
+	@Autowired
+	private Requests requests;
 
 	public UserDataRegister() {
 
@@ -57,7 +59,7 @@ public class UserDataRegister extends JFrame {
 		contentPane.add(roleLbl);
 		lblUserLogin.setBounds(12, 0, 125, 33);
 		contentPane.add(lblUserLogin);
-		
+
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setBounds(12, 39, 46, 14);
 		contentPane.add(lblPassword);
@@ -72,8 +74,7 @@ public class UserDataRegister extends JFrame {
 					user.setPassword((passTxt.getText()));
 					user.setRole(roletxT.getText());
 
-					//postReqest = new PostReqest(user);
-					postReqest.sendData();
+					// postReqest = new PostReqest(user);
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}

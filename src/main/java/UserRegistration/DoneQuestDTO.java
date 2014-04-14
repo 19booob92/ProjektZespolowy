@@ -14,20 +14,25 @@ public class DoneQuestDTO {
 	public Integer getExtraPoints() {
 		return extraPoints;
 	}
+
 	public void setExtraPoints(Integer extraPoints) {
 		this.extraPoints = extraPoints;
 	}
+
 	public Date getDoneTime() {
 		return doneTime;
 	}
+
 	public void setDoneTime(Date doneTime) {
 		this.doneTime = doneTime;
 	}
+
 	public QuestDTO getQuestDTO() {
 		return questDTO;
 	}
+
 	public void setQuestDTO(QuestDTO questDTO) {
 		this.questDTO = questDTO;
 	}
-	
+
 }

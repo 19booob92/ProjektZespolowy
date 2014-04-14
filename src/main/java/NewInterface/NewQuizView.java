@@ -1,12 +1,5 @@
 package NewInterface;
 
-import Editor.XmlBuilder;
-import Editor.ZipPacker;
-import Quest.Campaign;
-import Quest.QuestFactory;
-import Quest.QuestPoint;
-import Quest.QuestType;
-import Quest.TextQuest;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -19,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -29,7 +23,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
-import javax.xml.transform.TransformerException;
+
+import Editor.ZipPacker;
+import Quest.Campaign;
+import Quest.QuestFactory;
+import Quest.QuestPoint;
+import Quest.QuestType;
+import Quest.TextQuest;
 
 public class NewQuizView extends JFrame {
 

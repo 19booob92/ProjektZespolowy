@@ -1,11 +1,12 @@
 package Quest;
 
-import Editor.XmlBuilder;
-import static Quest.QuestType.TEXTQUEST;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.xml.transform.TransformerException;
+
+import Editor.XmlBuilder;
 
 public class Campaign {
 

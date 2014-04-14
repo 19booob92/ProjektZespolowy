@@ -17,7 +17,9 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import UserRegistration.GetRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import UserRegistration.Requests;
 import UserRegistration.UserDTO;
 
 public class UserProperties extends JFrame {
@@ -26,17 +28,19 @@ public class UserProperties extends JFrame {
 	private JTable table;
 	private DefaultTableModel tableModel;
 	private int colNum, rowNum;
-
+	@Autowired
+	private Requests requests;
+	private List<UserDTO> usersList = null;
+	
 	public UserProperties() {
 		super("User Properties");
-
-		GetRequest getRequest = new GetRequest();
-		List<UserDTO> usersList = null;
-	/*	try {
-			usersList = getRequest.getData();
+		
+		usersList = null;
+		try {
+			usersList = requests.getAllUsers();
 		} catch (Exception e1) {
 			e1.printStackTrace();
-		}*/
+		}
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -57,7 +61,7 @@ public class UserProperties extends JFrame {
 
 					@Override
 					public void run() {
-//						new UserDataRegister();
+						UserDataRegister.getInstance();
 					}
 				});
 			}
@@ -89,8 +93,8 @@ public class UserProperties extends JFrame {
 
 						@Override
 						public void run() {
-							UserDetailsView.getUserDetailsViewInstance((String) tableModel
-									.getValueAt(rowNum, 0), null);
+							//UserDetailsView.getUserDetailsViewInstance((String) tableModel
+							//		.getValueAt(rowNum, 0), null);
 						}
 
 					});
