@@ -378,4 +378,14 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
     {
         return markerRect.getLongtitude();
     }
+    
+    public double getMarkerWidth()
+    {
+        return markerRect.getWidthCoordinates();
+    }
+    
+    public double getMarkerHeight()
+    {
+        return markerRect.getHeightCoordinates();
+    }
 }
