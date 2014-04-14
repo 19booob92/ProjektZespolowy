@@ -132,12 +132,12 @@ public class NewQuizView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
-                                                TextQuestView t=null;
+                                                TextQuestView textQuestView=null;
 						QuestPoint newQuest = QuestFactory.createQuest(QuestType.TEXTQUEST);
 						for (Component component : rightSidePanel.getComponents())
 						{
 							if (component.isVisible() == true) {
-                                                            t = (TextQuestView) component;
+                                                            textQuestView = (TextQuestView) component;
 						        selectedCard = (QuestView) component;
 							}
 						}
@@ -149,12 +149,12 @@ public class NewQuizView extends JFrame {
 						newTextQuest.setQuestName(tfQuizName.getText());
 						newTextQuest.setQuestTimeout(Integer.parseInt(timeoutField.getText()));
                                                 newTextQuest.setPoints(Integer.parseInt(selectedCard.points.getText()));
-                                                newTextQuest.setGoTo(t.textGoTo.getText());
+                                                newTextQuest.setGoTo(textQuestView.textGoTo.getText());
                                                 newTextQuest.setPostNote(selectedCard.postNote.getText());
                                                 newTextQuest.setPreNote(selectedCard.preNote.getText());
                                                 newTextQuest.setDate(selectedCard.date.getText());
                                                 newTextQuest.setWrong(selectedCard.wrong.getText());
-                                                newTextQuest.setQuestAnswer(t.textAnswer.getText());
+                                                newTextQuest.setQuestAnswer(textQuestView.textAnswer);
                                                 
                                                 /*XmlBuilder xml = new XmlBuilder("tytul");
                                                 
