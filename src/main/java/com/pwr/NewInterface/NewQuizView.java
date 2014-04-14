@@ -1,5 +1,6 @@
 package com.pwr.NewInterface;
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -62,7 +63,7 @@ public class NewQuizView extends JFrame {
 		super();
 		campaignRef = campaign;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(null);
+		getContentPane().setLayout(new BorderLayout());
 
 		setSize(windowWidth, windowHeight);
 		leftSidePanel = new JPanel();

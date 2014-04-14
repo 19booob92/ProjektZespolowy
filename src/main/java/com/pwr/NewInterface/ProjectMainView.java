@@ -85,7 +85,7 @@ public class ProjectMainView extends JFrame {
 		campaign = new Campaign();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(null);
+		getContentPane().setLayout(new BorderLayout());
 
 		setSize(windowWidth, windowHeight);
 

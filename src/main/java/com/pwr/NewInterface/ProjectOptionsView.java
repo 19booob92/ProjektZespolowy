@@ -32,7 +32,7 @@ public class ProjectOptionsView extends JPanel {
 		this.setSize(panelWidth, panelHeight);
 		setLayout(null);
 
-		lblGameTitle = new JLabel("Tytu\u0142 gry");
+		lblGameTitle = new JLabel("Tytuł gry");
 		lblGameTitle.setBounds(10, 28, 81, 14);
 		add(lblGameTitle);
 
@@ -60,7 +60,7 @@ public class ProjectOptionsView extends JPanel {
 		add(outroPics);
 
 		JLabel lblMiejsceNaGraf = new JLabel(
-				"Miejsce na graf kampanii, t.j list\u0119 quiz\u00F3w + graficzn\u0105 reprezentacj\u0119 gry. Tu mo\u017Cna wstawi\u0107 te\u017C wiele innych rzeczy");
+				"Miejsce na graf kampanii, t.j listę quizów + graficzną reprezentację gry. Tu można wstawić też wiele innych rzeczy");
 		lblMiejsceNaGraf.setBounds(314, 60, 565, 14);
 		add(lblMiejsceNaGraf);
 

@@ -101,7 +101,7 @@ public class QuestView extends JPanel {
                 btnDeleteParagraph.setBounds(423, 243, 120, 23);
                 add(btnDeleteParagraph);
 
-		lblSounds = new JLabel("D\u017Awi\u0119ki");
+		lblSounds = new JLabel("Dźwięki");
 		lblSounds.setBounds(23, 138, 76, 14);
 		add(lblSounds);
 
@@ -109,7 +109,7 @@ public class QuestView extends JPanel {
 		btnAddPics.setBounds(126, 38, 89, 23);
 		add(btnAddPics);
 
-		btnDelPics = new JButton("Usun");
+		btnDelPics = new JButton("Usuń");
 		btnDelPics.setBounds(236, 38, 89, 23);
 		add(btnDelPics);
 
@@ -223,7 +223,7 @@ public class QuestView extends JPanel {
                     public void actionPerformed(ActionEvent e) {
                         int selectedIndex = paragraphsComboBox.getSelectedIndex();
                         if(selectedIndex!=-1){
-                            String tempParagraph=JOptionPane.showInputDialog("Podaj treść",paragraphList.get(selectedIndex));
+                            String tempParagraph=JOptionPane.showInputDialog("Podaj treść ",paragraphList.get(selectedIndex));
                             paragraphList.set(selectedIndex, tempParagraph);
                         }
                     }

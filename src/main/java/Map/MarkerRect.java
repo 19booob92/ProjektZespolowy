@@ -11,6 +11,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+import com.pwr.Map.MapGetter;
+
 import static java.lang.Math.abs;
 
 /**
