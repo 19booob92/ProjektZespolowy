@@ -3,6 +3,9 @@ package Quest;
 import Editor.XmlBuilder;
 import static Quest.QuestType.TEXTQUEST;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.transform.TransformerException;
 
 public class Campaign {
 
@@ -90,5 +93,12 @@ public class Campaign {
                 TreasureBox box = boxes.get(i);
                 xml.addTreasureBox(box.getxCoordinate(), box.getyCoordinate(), box.getWidth(), box.getHeight(), box.getNote());
             }
+            
+            try {
+                xml.saveXml();
+            } catch (TransformerException ex) {
+                Logger.getLogger(Campaign.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+
 }

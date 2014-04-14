@@ -24,12 +24,11 @@ import javax.xml.transform.TransformerException;
 public class TextQuestView extends QuestView {
 
 private QuestPoint quest;
-protected JTextArea questContent;
 protected JTextField textAnswer;
+protected JTextField textGoTo;
 
-
+private JLabel lblGoTo;
 private JLabel lblAnswer;
-private JLabel lblQuestContent;
 
 
 private Border border = BorderFactory.createLineBorder(Color.BLACK);
@@ -39,16 +38,14 @@ public TextQuestView() {
             super();	
             this.add(new JLabel("Field"));
             setSize(panelWidth, panelHeight);
-            lblQuestContent = new JLabel("Tre\u015B\u0107 Quizu");
-            lblQuestContent.setBounds(26, 239, 75, 14);
-            add(lblQuestContent);
-
-            questContent = new JTextArea();
-            questContent.setBorder(BorderFactory.createCompoundBorder(border,
-            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-            questContent.setLineWrap(true);
-            questContent.setBounds(26, 264, 567, 61);
-            add(questContent);
+            
+            lblGoTo = new JLabel("Następna zagadka");
+            lblGoTo.setBounds(26,283,120,29);
+            add(lblGoTo);
+            
+            textGoTo = new JTextField();
+            textGoTo.setBounds(26,308,60,29);
+            add(textGoTo);
 
             lblAnswer = new JLabel("Odpowied\u017A");
             lblAnswer.setBounds(26, 353, 87, 14);

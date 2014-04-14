@@ -6,6 +6,7 @@ import Quest.Campaign;
 import Quest.QuestFactory;
 import Quest.QuestPoint;
 import Quest.QuestType;
+import Quest.TextQuest;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -140,25 +141,25 @@ public class NewQuizView extends JFrame {
 						        selectedCard = (QuestView) component;
 							}
 						}
-						/*
-						newQuest.getPicturePaths().addAll(rewriteJListToArrayList(selectedCard.pics));
-						newQuest.getSoundPaths().addAll(rewriteJListToArrayList(selectedCard.sounds));;
-						newQuest.setQuestName(tfQuizName.getText());
-						newQuest.setQuestTimeout(Integer.parseInt(timeoutField.getText()));
-                                                newQuest.setPoints(Integer.parseInt(selectedCard.points.getText()));
-                                                newQuest.setGoTo(selectedCard.goTo.getText());
-                                                newQuest.setPostNote(selectedCard.postNote.getText());
-                                                newQuest.setPreNote(selectedCard.preNote.getText());
-                                                newQuest.setDate(selectedCard.date.getText());
-                                                newQuest.setWrong(selectedCard.wrong.getText());
+						
+                                                TextQuest newTextQuest = (TextQuest) newQuest;
+						newTextQuest.getPicturePaths().addAll(rewriteJListToArrayList(selectedCard.pics));
+						newTextQuest.getSoundPaths().addAll(rewriteJListToArrayList(selectedCard.sounds));;
+                                                newTextQuest.setQuestDescription(selectedCard.paragraphList);
+						newTextQuest.setQuestName(tfQuizName.getText());
+						newTextQuest.setQuestTimeout(Integer.parseInt(timeoutField.getText()));
+                                                newTextQuest.setPoints(Integer.parseInt(selectedCard.points.getText()));
+                                                newTextQuest.setGoTo(t.textGoTo.getText());
+                                                newTextQuest.setPostNote(selectedCard.postNote.getText());
+                                                newTextQuest.setPreNote(selectedCard.preNote.getText());
+                                                newTextQuest.setDate(selectedCard.date.getText());
+                                                newTextQuest.setWrong(selectedCard.wrong.getText());
+                                                newTextQuest.setQuestAnswer(t.textAnswer.getText());
                                                 
-                                                newQuest.setQuestAnswer(t.textAnswer.getText());
-                                                newQuest.addQuestDescription(t.questContent.getText());
+                                                /*XmlBuilder xml = new XmlBuilder("tytul");
                                                 
-                                                XmlBuilder xml = new XmlBuilder("tytul");
-                                                
-                                                xml.addQuizText(newQuest.getQuestName(),  newQuest.getSoundPaths(),newQuest.getPicturePaths(), newQuest.getQuestDescription(), newQuest.getPreNote(),
-                                                        newQuest.getPostNote(), newQuest.getGoTo(), newQuest.getPoints(), newQuest.getDate(), newQuest.getQuestAnswer(), newQuest.getQuestTimeout(), newQuest.getWrong());
+                                                xml.addQuizText(newTextQuest.getQuestName(),  newTextQuest.getSoundPaths(),newTextQuest.getPicturePaths(), newTextQuest.getQuestDescription(), newTextQuest.getPreNote(),
+                                                        newTextQuest.getPostNote(), newTextQuest.getGoTo(), newTextQuest.getPoints(), newTextQuest.getDate(), newTextQuest.getQuestAnswer(), newTextQuest.getQuestTimeout(), newTextQuest.getWrong());
                                             try {
                                                 xml.saveXml();
                                                 //dodac pola w zaleznosci od innych typow
@@ -191,8 +192,9 @@ public class NewQuizView extends JFrame {
                                             }
                                                 zip.closeZip();
                                                 
-						campaignRef.addQuiz(newQuest);
-						
+						campaignRef.addQuiz(newTextQuest);
+						campaignRef.createXml("title");
+                                                
 						System.out.println(campaignRef.getQuizes().get(0).getQuestName());
 						System.out.println(campaignRef.getQuizes().get(0).getSoundPaths().get(0));
 						System.out.println(campaignRef.getQuizes().get(0).getPicturePaths().get(0));
