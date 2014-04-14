@@ -53,12 +53,12 @@ public class MarkerRect {
     
     public double getWidthCoordinates()
     {
-        return width*MapGetter.getXToMap();
+        return abs(leftUpperLongtitude-rightBottomLongtitude);
     }
     
     public double getHeightCoordinates()
     {
-        return height*MapGetter.getYToMap();
+        return abs(leftUpperLatitude-rightBottomLatitude);
     }
     
     public void changeZoom()

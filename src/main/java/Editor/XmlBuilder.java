@@ -372,7 +372,7 @@ public class XmlBuilder {
         }   
     }
     
-    public void addSettings(String date)
+    public void addSettings(String date, ArrayList<String> backgroundList, String button, String logo)
     {
         Element settingsModule = doc.createElement("settings");
         gameModule.appendChild(settingsModule);
@@ -380,5 +380,36 @@ public class XmlBuilder {
         Element startdateElement = doc.createElement("startdate");
         startdateElement.appendChild(doc.createTextNode(date));
         settingsModule.appendChild(startdateElement);
+        
+        for(int i=0;i<backgroundList.size();i++)
+        {
+            Element backgroundElement = doc.createElement("");
+            switch(i)
+            {
+                case 0:
+                    backgroundElement = doc.createElement("backGround1");
+                    break;
+                case 1:
+                    backgroundElement = doc.createElement("backGround2");
+                    break;
+                case 2:
+                    backgroundElement = doc.createElement("backGround3");
+                    break;
+                default:
+                    break;
+            }
+            Path path = Paths.get(backgroundList.get(i));
+            backgroundElement.appendChild(doc.createTextNode(path.toString()));
+            settingsModule.appendChild(backgroundElement);
+        }
+        
+        Element buttonElement = doc.createElement("button1");
+        buttonElement.appendChild(doc.createTextNode(button));
+        settingsModule.appendChild(buttonElement);
+        
+        Element logoElement = doc.createElement("logo1");
+        logoElement.appendChild(doc.createTextNode(logo));
+        settingsModule.appendChild(logoElement);
+        
     }
 }
