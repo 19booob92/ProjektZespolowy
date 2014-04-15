@@ -17,8 +17,8 @@ public class OrderQuest extends QuestPoint implements DescribeQuest {
     ArrayList<String> questAnswer = new ArrayList<String>();
     String goTo;
     
-    public OrderQuest(QuestType type) {
-        super(type);
+    public OrderQuest() {
+    	super(QuestType.ORDERQUEST);
     }
 
     public String getGoTo() {

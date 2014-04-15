@@ -138,7 +138,6 @@ public class NewQuizView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
-						//QuestView questView = null;
 						QuestPoint newQuest = null;
 						for (Component component : rightSidePanel.getComponents()) {
 							if (component.isVisible() == true) {
@@ -278,7 +277,10 @@ public class NewQuizView extends JFrame {
 	}
 
 	private void GetFieldQuestFields(FieldQuest newQuest, FieldQuestView questView) {
-		
+		newQuest.setYCoordinate(Double.parseDouble(questView.latitudeField.getText()));
+		newQuest.setXCoordinate(Double.parseDouble(questView.longitudeField.getText()));
+		newQuest.setXWidth(Double.parseDouble(questView.widthField.getText()));
+		newQuest.setYWidth(Double.parseDouble(questView.heightField.getText()));
 	}
 	
 	private ArrayList rewriteJListToArrayList(JList list) {

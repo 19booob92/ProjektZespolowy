@@ -11,7 +11,15 @@ public class QuestFactory {
 			case CHOICEQUEST:
 				quest = new ChoiceQuest();
 				break;
-			//Wprowadzic pozostale typy do fabryki
+			case FIELDQUEST:
+				quest = new FieldQuest();
+				break;
+			case ORDERQUEST:
+				quest = new OrderQuest();
+				break;
+			case RANGEQUEST:
+				quest = new RangeQuest();
+				break;
 			default:
 				quest = new TextQuest();
 				break;

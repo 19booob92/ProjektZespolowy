@@ -69,7 +69,7 @@ public class QuestView extends JPanel implements DescribeView{
 
 		sounds = new JList(soundsListModel);
 		sounds.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		sounds.setBounds(23, 67, 302, 60);
+		sounds.setBounds(23, 163, 302, 60);
 		add(sounds);
 
 		lblPics = new JLabel("Obrazy");
@@ -78,7 +78,7 @@ public class QuestView extends JPanel implements DescribeView{
 
 		pics = new JList(picsListModel);
 		pics.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		pics.setBounds(23, 163, 302, 60);
+		pics.setBounds(23, 67, 302, 60);
 		add(pics);
 
 		lblParagraph = new JLabel("Opis zagadki");
@@ -170,21 +170,22 @@ public class QuestView extends JPanel implements DescribeView{
 	private void addButtonsListeners() {
 		btnAddPics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				getSoundsPath(soundsListModel);
+				getSoundsPath(picsListModel);
 			}
 		});
 
 		btnAddSounds.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				getPicturesPath(picsListModel);
+				getPicturesPath(soundsListModel);
 			}
 		});
 
 		btnDelPics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int selectedIndex = pics.getSelectedIndex();
+				if (picsListModel.getSize() != 0)
+					picsListModel.remove(pics.getSelectedIndex());
 				/*
-				 * for (String s : mapPoint.getQuest().getPicturePaths()) if (s
+				 for (String s : mapPoint.getQuest().getPicturePaths()) if (s
 				 * == pics.getSelectedValue()) {
 				 * mapPoint.getQuest().getPicturePaths() .remove(selectedIndex);
 				 * picsListModel.remove(selectedIndex); }
@@ -194,7 +195,8 @@ public class QuestView extends JPanel implements DescribeView{
 
 		btnDelSounds.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int selectedIndex = sounds.getSelectedIndex();
+				if(soundsListModel.getSize() != 0)
+					soundsListModel.remove(sounds.getSelectedIndex());
 				/*
 				 * for (String s : mapPoint.getQuest().getSoundPaths()) if (s ==
 				 * sounds.getSelectedValue()) {

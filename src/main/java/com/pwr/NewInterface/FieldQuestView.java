@@ -18,14 +18,14 @@ public class FieldQuestView extends QuestView implements MouseListener, Describe
 	protected GoogleMapPanel googlePanel;
         
         private JLabel lblLatitude;
-        private JLabel lblLongtitude;
+        private JLabel lblLongitude;
         private JLabel lblWidth;
         private JLabel lblHeight;
         
-        private JTextField latitudeField;
-        private JTextField longtitudeField;
-        private JTextField widthField;
-        private JTextField heightField;
+        protected JTextField latitudeField;
+        protected JTextField longitudeField;
+        protected JTextField widthField;
+        protected JTextField heightField;
 	
 	public FieldQuestView() {
 		super();
@@ -47,13 +47,13 @@ public class FieldQuestView extends QuestView implements MouseListener, Describe
         latitudeField.setBounds(26,289,150,30);
         add(latitudeField);
         
-        lblLongtitude = new JLabel("Długość geograficzna");
-        lblLongtitude.setBounds(196,269,150,20);
-        add(lblLongtitude);
+        lblLongitude = new JLabel("Długość geograficzna");
+        lblLongitude.setBounds(196,269,150,20);
+        add(lblLongitude);
         
-        longtitudeField = new JTextField();
-        longtitudeField.setBounds(196,289,150,30);
-        add(longtitudeField);
+        longitudeField = new JTextField();
+        longitudeField.setBounds(196,289,150,30);
+        add(longitudeField);
         
         lblWidth = new JLabel("Szerokość obszaru");
         lblWidth.setBounds(26,319,150,20);
@@ -90,7 +90,7 @@ public class FieldQuestView extends QuestView implements MouseListener, Describe
     @Override
     public void mouseReleased(MouseEvent e) {
         latitudeField.setText(Double.toString(googlePanel.getMarkerLatitude()));
-        longtitudeField.setText(Double.toString(googlePanel.getMarkerLongtitude()));
+        longitudeField.setText(Double.toString(googlePanel.getMarkerLongtitude()));
         widthField.setText(Double.toString(googlePanel.getMarkerWidth()));
         heightField.setText(Double.toString(googlePanel.getMarkerHeight()));
     }
