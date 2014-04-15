@@ -269,7 +269,7 @@ public class NewQuizView extends JFrame {
 	}
 	
 	private void GetMultipleChoiceQuestFields(ChoiceQuest newQuest, MultipleChoiceQuestView questView) {
-		
+		newQuest.setQuestAnswer(questView.getAnswers(),questView.getAnswersBooleans());
 	}
 	
 	private void GetOrderQuestFields(OrderQuest newQuest, OrderQuestView questView) {

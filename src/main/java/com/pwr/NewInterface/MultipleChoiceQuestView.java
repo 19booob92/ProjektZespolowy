@@ -171,9 +171,19 @@ public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 	}
 	
 	public ArrayList getAnswers() {
-		ArrayList collectedAnswers = new ArrayList<String>();
+		ArrayList collectedAnswers = new ArrayList();
+		
 		for (int i = 0; i < table.getModel().getRowCount(); i++) {
 			collectedAnswers.add(tableModel.getValueAt(i, 1));
+		}
+		return collectedAnswers;
+	}
+	
+	public ArrayList getAnswersBooleans() {
+		ArrayList collectedAnswers = new ArrayList();
+		
+		for (int i = 0; i < table.getModel().getRowCount(); i++) {
+			collectedAnswers.add(tableModel.getValueAt(i, 2));
 		}
 		return collectedAnswers;
 	}
