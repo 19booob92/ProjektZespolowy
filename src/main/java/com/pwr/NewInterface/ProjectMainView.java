@@ -177,6 +177,13 @@ public class ProjectMainView extends JFrame {
 		JButton btnNowaGra = new JButton("Nowa gra");
 		btnNowaGra.setBounds(6, 32, 206, 28);
 		leftSidePanel.add(btnNowaGra);
+                
+                btnNowaGra.addActionListener(new ActionListener() {
+
+                    public void actionPerformed(ActionEvent e) {
+                        campaign.createXml("title");
+                    }
+                });
 	}
 
 	private void createRightSidePanel() {

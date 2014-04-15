@@ -70,7 +70,7 @@ public class XmlBuilder {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("./Paczka/Config.xml"));
+            StreamResult result = new StreamResult(new File("Config.xml"));
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.transform(source, result);
         } catch (TransformerConfigurationException ex) {
