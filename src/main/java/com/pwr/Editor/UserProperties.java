@@ -1,5 +1,4 @@
 package com.pwr.Editor;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;

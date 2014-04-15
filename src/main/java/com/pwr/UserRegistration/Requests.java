@@ -1,13 +1,12 @@
 package com.pwr.UserRegistration;
 
-import java.io.FileInputStream;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Properties;
 
 import javax.ws.rs.core.MediaType;
 
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
@@ -25,30 +24,23 @@ public class Requests implements Serializable {
 
 	private WebResource webResource;
 	private Client client;
-	private String base_uri;
-	private Properties properties;
+	@Value("${address}")
+	private String address;
+	@Value("${login}")
 	private String login;
-	private String password;
+	@Value("${pass}")
+	private String pass;
 
 	public Requests() {
-		properties = new Properties();
-		try {
-			properties.load(new FileInputStream("properties.properties"));
-		} catch (Exception e) {
-			System.err.println(e);
-		}
-		base_uri = properties.getProperty("address");
-		login = properties.getProperty("login");
-		password = properties.getProperty("pass");
 	}
 
 	public int deleteUser(String value, String extend_uri) throws Exception {
 		ClientConfig config = new DefaultClientConfig();
 		client = Client.create(config);
 		client.addFilter(new LoggingFilter());
-		webResource = client.resource(base_uri + "adminPanel" + extend_uri + "/" + value);
+		webResource = client.resource(address + "adminPanel" + extend_uri + "/" + value);
 
-		client.addFilter(new HTTPBasicAuthFilter(login, password));
+		client.addFilter(new HTTPBasicAuthFilter(login, pass));
 		ClientResponse response = webResource.type(MediaType.APPLICATION_JSON)
 				.delete(ClientResponse.class);
 
@@ -61,9 +53,9 @@ public class Requests implements Serializable {
 		ClientConfig clientConfig = new DefaultClientConfig();
 		clientConfig.getClasses().add(JacksonJsonProvider.class);
 		Client client = Client.create(clientConfig);
-		client.addFilter(new HTTPBasicAuthFilter(login, password));
+		client.addFilter(new HTTPBasicAuthFilter(login, pass));
 
-		return client.resource(base_uri + "adminPanel/allUsers/")
+		return client.resource(address + "adminPanel/allUsers/")
 				.type(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
 				.get(new GenericType<List<UserDTO>>() {
@@ -78,9 +70,9 @@ public class Requests implements Serializable {
 		ClientConfig config = new DefaultClientConfig();
 		client = Client.create(config);
 		client.addFilter(new LoggingFilter());
-		webResource = client.resource(base_uri + "adminPanel/createUser/" );
+		webResource = client.resource(address + "adminPanel/createUser/" );
 
-		client.addFilter(new HTTPBasicAuthFilter(login, password));
+		client.addFilter(new HTTPBasicAuthFilter(login, pass));
 		ClientResponse response = webResource.type(MediaType.APPLICATION_JSON)
 				.post(ClientResponse.class, json);
 
@@ -95,9 +87,9 @@ public class Requests implements Serializable {
 		ClientConfig config = new DefaultClientConfig();
 		client = Client.create(config);
 		client.addFilter(new LoggingFilter());
-		webResource = client.resource(base_uri  +"adminPanel/updateUser/" + userLogin);
+		webResource = client.resource(address  +"adminPanel/updateUser/" + userLogin);
 		
-		client.addFilter(new HTTPBasicAuthFilter(login, password));
+		client.addFilter(new HTTPBasicAuthFilter(login, pass));
 		webResource.type(MediaType.APPLICATION_JSON).put(json);
 
 	}
@@ -119,20 +111,20 @@ public class Requests implements Serializable {
 	}
 
 	public String getBase_uri() {
-		return base_uri;
+		return address;
 	}
 
 	public void setBase_uri(String base_uri) {
-		this.base_uri = base_uri;
+		this.address = base_uri;
 	}
 
-	public Properties getProperties() {
+/*	public Properties getProperties() {
 		return properties;
 	}
 
 	public void setProperties(Properties properties) {
 		this.properties = properties;
-	}
+	}*/
 
 	public String getLogin() {
 		return login;
@@ -143,11 +135,11 @@ public class Requests implements Serializable {
 	}
 
 	public String getPassword() {
-		return password;
+		return pass;
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.pass = password;
 	}
 
 }
