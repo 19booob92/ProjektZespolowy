@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
+import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,9 +28,13 @@ import javax.swing.ScrollPaneConstants;
 
 import com.pwr.Editor.ZipPacker;
 import com.pwr.Quest.Campaign;
+import com.pwr.Quest.ChoiceQuest;
+import com.pwr.Quest.FieldQuest;
+import com.pwr.Quest.OrderQuest;
 import com.pwr.Quest.QuestFactory;
 import com.pwr.Quest.QuestPoint;
 import com.pwr.Quest.QuestType;
+import com.pwr.Quest.RangeQuest;
 import com.pwr.Quest.TextQuest;
 
 public class NewQuizView extends JFrame {
@@ -133,24 +138,28 @@ public class NewQuizView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
-						TextQuestView textQuestView = null;
+						//QuestView questView = null;
 						QuestPoint newQuest = null;
-						for (Component component : rightSidePanel
-								.getComponents()) {
+						for (Component component : rightSidePanel.getComponents()) {
 							if (component.isVisible() == true) {
 								selectedCard = (QuestView) component;
 								if (selectedCard.introduceYourself() == "TextQuest") {
-									textQuestView = (TextQuestView) component;
-									newQuest = QuestFactory.createQuest(QuestType.TEXTQUEST);
+									newQuest = (TextQuest) QuestFactory.createQuest(QuestType.TEXTQUEST);
+									GetTextQuestFields((TextQuest) newQuest, (TextQuestView) selectedCard);
 								} else if (selectedCard.introduceYourself() == "MultipleChoiceQuest") {
-									newQuest = QuestFactory.createQuest(QuestType.CHOICEQUEST);
+									newQuest = (ChoiceQuest) QuestFactory.createQuest(QuestType.CHOICEQUEST);
+									GetMultipleChoiceQuestFields((ChoiceQuest)newQuest, (MultipleChoiceQuestView)selectedCard);
 								} else if (selectedCard.introduceYourself() == "RangeQuest") {
-									newQuest = QuestFactory.createQuest(QuestType.RANGEQUEST);
+									newQuest = (RangeQuest) QuestFactory.createQuest(QuestType.RANGEQUEST);
+									GetRangeQuestFields((RangeQuest)newQuest, (RangeQuestView)selectedCard);
 								} else if (selectedCard.introduceYourself() == "FieldQuest") {
-									newQuest = QuestFactory.createQuest(QuestType.FIELDQUEST);
+									newQuest = (FieldQuest) QuestFactory.createQuest(QuestType.FIELDQUEST);
+									GetFieldQuestFields((FieldQuest)newQuest, (FieldQuestView)selectedCard);
 								} else if (selectedCard.introduceYourself() == "OrderQuest") {
 									newQuest = QuestFactory.createQuest(QuestType.ORDERQUEST);
+									GetOrderQuestFields((OrderQuest)newQuest, (OrderQuestView)selectedCard);
 								}
+								GetGeneralQuestFields(newQuest, selectedCard);
 							}
 						}										
 
@@ -209,7 +218,7 @@ public class NewQuizView extends JFrame {
 
 	private void ZipPacking(QuestPoint newQuest)
 	{
-		ZipPacker zip = new ZipPacker("paczka.zip");
+		ZipPacker zip = new ZipPacker("./Paczka/paczka.zip");
 		for (int i = 0; i < newQuest.getPicturePaths().size(); i++) {
 			try {
 				zip.addFile(newQuest.getPicturePaths().get(i));
@@ -237,34 +246,38 @@ public class NewQuizView extends JFrame {
 		zip.closeZip();
 	}
 	
-	private void TextQuestFieldsGetter(QuestPoint newQuest, TextQuestView questView) {
+	private void GetGeneralQuestFields(QuestPoint newQuest, QuestView questView) {
 		newQuest.getPicturePaths().addAll(rewriteJListToArrayList(selectedCard.pics));
 		newQuest.getSoundPaths().addAll(rewriteJListToArrayList(selectedCard.sounds));
 		newQuest.setQuestDescription(selectedCard.paragraphList);
 		newQuest.setQuestName(tfQuizName.getText());
 		newQuest.setQuestTimeout(Integer.parseInt(timeoutField.getText()));
 		newQuest.setPoints(Integer.parseInt(selectedCard.points.getText()));
-		//newQuest.setGoTo(questView.textGoTo.getText());
 		newQuest.setPostNote(selectedCard.postNote.getText());
 		newQuest.setPreNote(selectedCard.preNote.getText());
 		newQuest.setDate(selectedCard.date.getText());
 		newQuest.setWrong(selectedCard.wrong.getText());
+	}
+	
+	private void GetTextQuestFields(TextQuest newQuest, TextQuestView questView) {
+		
+		newQuest.setGoTo(questView.textGoTo.getText());
 		newQuest.setQuestAnswer(questView.textAnswer);
 	}
 	
-	private void RangeQuestFieldsGetter(QuestPoint newQuest) {
+	private void GetRangeQuestFields(RangeQuest newQuest, RangeQuestView questView) {
 			
 	}
 	
-	private void MultipleChoiceQuestFieldsGetter(QuestPoint newQuest) {
+	private void GetMultipleChoiceQuestFields(ChoiceQuest newQuest, MultipleChoiceQuestView questView) {
 		
 	}
 	
-	private void OrderQuestFieldsGetter(QuestPoint newQuest) {
+	private void GetOrderQuestFields(OrderQuest newQuest, OrderQuestView questView) {
 		
 	}
 
-	private void FieldQuestFieldsGetter(QuestPoint newQuest) {
+	private void GetFieldQuestFields(FieldQuest newQuest, FieldQuestView questView) {
 		
 	}
 	
