@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class FieldQuest extends QuestPoint implements DescribeQuest {
 	private double xCoordinate;
 	private double yCoordinate;
-        private double width;
-        private double height;
+    private double width;
+    private double height;
 	private String goTo;
         
 	public FieldQuest() {

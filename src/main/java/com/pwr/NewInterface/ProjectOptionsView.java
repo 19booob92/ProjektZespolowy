@@ -1,5 +1,11 @@
 package com.pwr.NewInterface;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Set;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -22,6 +28,9 @@ public class ProjectOptionsView extends JPanel {
 	private JList introPics;
 	private JList outroPics;
 
+	protected DefaultListModel<String> introPicsListModel;
+	protected DefaultListModel<String> outroPicsListModel;
+	
 	private JButton btnAddIntro;
 	private JButton btnDelIntro;
 	private JButton btnAddOutro;
@@ -32,7 +41,9 @@ public class ProjectOptionsView extends JPanel {
 		this.setSize(panelWidth, panelHeight);
 		setLayout(null);
 
-		lblGameTitle = new JLabel("Tytu\u0142 gry");
+		introPicsListModel = new DefaultListModel<String>();
+		outroPicsListModel = new DefaultListModel<String>();
+		lblGameTitle = new JLabel("Tytuł gry");
 		lblGameTitle.setBounds(10, 28, 81, 14);
 		add(lblGameTitle);
 
@@ -49,18 +60,18 @@ public class ProjectOptionsView extends JPanel {
 		lblOutroModulePics.setBounds(10, 317, 81, 14);
 		add(lblOutroModulePics);
 
-		introPics = new JList();
+		introPics = new JList(introPicsListModel);
 		introPics.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		introPics.setBounds(10, 233, 290, 69);
 		add(introPics);
 
-		outroPics = new JList();
+		outroPics = new JList(outroPicsListModel);
 		outroPics.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		outroPics.setBounds(10, 342, 290, 69);
 		add(outroPics);
 
 		JLabel lblMiejsceNaGraf = new JLabel(
-				"Miejsce na graf kampanii, t.j list\u0119 quiz\u00F3w + graficzn\u0105 reprezentacj\u0119 gry. Tu mo\u017Cna wstawi\u0107 te\u017C wiele innych rzeczy");
+				"Miejsce na graf kampanii, t.j listę quizów + graficzną reprezentację gry. Tu można wstawić też wiele innych rzeczy");
 		lblMiejsceNaGraf.setBounds(314, 60, 565, 14);
 		add(lblMiejsceNaGraf);
 
@@ -98,6 +109,34 @@ public class ProjectOptionsView extends JPanel {
 				null));
 		listOfQuizes.setBounds(326, 125, 406, 286);
 		add(listOfQuizes);
+		addButtonsListeners();
 	}
+	private void addButtonsListeners() {
+		btnAddOutro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getPicturesPath(outroPicsListModel);
+			}
+		});
 
+		btnAddIntro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getPicturesPath(introPicsListModel);
+			}
+		});
+	}
+	
+	private void getPicturesPath(DefaultListModel<String> list) {
+		JFileChooser chooser = new JFileChooser();
+		chooser.setCurrentDirectory(new java.io.File("."));
+		chooser.setDialogTitle("Chose JPEG file");
+		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		chooser.setAcceptAllFileFilterUsed(false);
+
+		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+			String str = chooser.getSelectedFile().getName();
+			list.addElement(str);
+		} else {
+			System.out.println("No Selection ");
+		}
+	}
 }

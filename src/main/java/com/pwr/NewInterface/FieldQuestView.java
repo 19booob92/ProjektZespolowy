@@ -12,20 +12,20 @@ import com.pwr.Quest.QuestFactory;
 import com.pwr.Quest.QuestPoint;
 import com.pwr.Quest.QuestType;
 
-public class FieldQuestView extends QuestView implements MouseListener {
+public class FieldQuestView extends QuestView implements MouseListener, DescribeView {
 
 	private QuestPoint quest;
 	protected GoogleMapPanel googlePanel;
         
         private JLabel lblLatitude;
-        private JLabel lblLongtitude;
+        private JLabel lblLongitude;
         private JLabel lblWidth;
         private JLabel lblHeight;
         
-        private JTextField latitudeField;
-        private JTextField longtitudeField;
-        private JTextField widthField;
-        private JTextField heightField;
+        protected JTextField latitudeField;
+        protected JTextField longitudeField;
+        protected JTextField widthField;
+        protected JTextField heightField;
 	
 	public FieldQuestView() {
 		super();
@@ -47,13 +47,13 @@ public class FieldQuestView extends QuestView implements MouseListener {
         latitudeField.setBounds(26,289,150,30);
         add(latitudeField);
         
-        lblLongtitude = new JLabel("Długość geograficzna");
-        lblLongtitude.setBounds(196,269,150,20);
-        add(lblLongtitude);
+        lblLongitude = new JLabel("Długość geograficzna");
+        lblLongitude.setBounds(196,269,150,20);
+        add(lblLongitude);
         
-        longtitudeField = new JTextField();
-        longtitudeField.setBounds(196,289,150,30);
-        add(longtitudeField);
+        longitudeField = new JTextField();
+        longitudeField.setBounds(196,289,150,30);
+        add(longitudeField);
         
         lblWidth = new JLabel("Szerokość obszaru");
         lblWidth.setBounds(26,319,150,20);
@@ -90,7 +90,7 @@ public class FieldQuestView extends QuestView implements MouseListener {
     @Override
     public void mouseReleased(MouseEvent e) {
         latitudeField.setText(Double.toString(googlePanel.getMarkerLatitude()));
-        longtitudeField.setText(Double.toString(googlePanel.getMarkerLongtitude()));
+        longitudeField.setText(Double.toString(googlePanel.getMarkerLongtitude()));
         widthField.setText(Double.toString(googlePanel.getMarkerWidth()));
         heightField.setText(Double.toString(googlePanel.getMarkerHeight()));
     }
@@ -104,6 +104,11 @@ public class FieldQuestView extends QuestView implements MouseListener {
     public void mouseExited(MouseEvent e) {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+	@Override
+	public String introduceYourself() {
+		return "FieldQuest";
+	}
 
 
 }

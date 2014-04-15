@@ -70,7 +70,7 @@ public class MainView extends JFrame {
 		this.setBounds(0, 0, 600, 600);
 		setLocationRelativeTo(null);
             
-		mPoints = new ArrayList<>();
+		mPoints = new ArrayList<MapPoint>();
 		panel = new JPanel();
 		googlePanel = new GoogleMapPanel(338,329);
 		

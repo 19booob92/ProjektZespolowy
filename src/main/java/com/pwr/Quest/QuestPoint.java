@@ -124,5 +124,7 @@ public abstract class QuestPoint implements DescribeQuest {
         this.questDescription = paragraph;
     }
         
-
+    public void setGoTo(String goTo) {
+    	
+    }
 }

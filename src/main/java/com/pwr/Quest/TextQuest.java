@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class TextQuest extends QuestPoint implements DescribeQuest{
 
-        private String goTo;
+    private String goTo;
 	private ArrayList<String> questAnswer = new ArrayList<String>();
 	private double questTimeout;
 	

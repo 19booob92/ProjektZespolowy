@@ -20,20 +20,20 @@ public class ChoiceQuest extends QuestPoint implements DescribeQuest{
 		// TODO Auto-generated method stub
 		return answerList;
 	}
-        public ArrayList<Boolean> getQuestAnswerCorrect()
-        {
-            return answerListCorrect;
-        }
+    public ArrayList<Boolean> getQuestAnswerCorrect()
+    {
+        return answerListCorrect;
+    }
 
-	@Override
-	public void setQuestAnswer(ArrayList<String> answ) {
+	public void setQuestAnswer(ArrayList<String> answ, ArrayList<Boolean> corr) {
 		answerList=answ;
+		answerListCorrect = corr;
 	}
 
-        public void addQuestAnswer(String answer,boolean correct)
-        {
-                answerListCorrect.add(correct);
-        }
+    public void addQuestAnswer(String answer,boolean correct)
+    {
+            answerListCorrect.add(correct);
+    }
 
     public String getGoTo() {
         return goTo;
@@ -49,5 +49,12 @@ public class ChoiceQuest extends QuestPoint implements DescribeQuest{
     public void addQuestAnswer(String answ) {
         answerList.add(answ);
     }
+
+
+	@Override
+	public void setQuestAnswer(ArrayList<String> answ) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

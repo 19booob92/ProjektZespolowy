@@ -84,7 +84,7 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 		generalPanel = new JPanel();
 		generalPanel.setLayout(null);
 
-		setOfpath = new HashSet<>();
+		setOfpath = new HashSet<String>();
 		picsListModel = new DefaultListModel<String>();
 		soundsListModel = new DefaultListModel<String>();
 		

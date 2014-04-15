@@ -38,7 +38,8 @@ public class Requests implements Serializable {
 		ClientConfig config = new DefaultClientConfig();
 		client = Client.create(config);
 		client.addFilter(new LoggingFilter());
-		webResource = client.resource(address + "adminPanel" + extend_uri + "/" + value);
+		webResource = client.resource(address + "adminPanel" + extend_uri + "/"
+				+ value);
 
 		client.addFilter(new HTTPBasicAuthFilter(login, pass));
 		ClientResponse response = webResource.type(MediaType.APPLICATION_JSON)
@@ -70,7 +71,7 @@ public class Requests implements Serializable {
 		ClientConfig config = new DefaultClientConfig();
 		client = Client.create(config);
 		client.addFilter(new LoggingFilter());
-		webResource = client.resource(address + "adminPanel/createUser/" );
+		webResource = client.resource(address + "adminPanel/createUser/");
 
 		client.addFilter(new HTTPBasicAuthFilter(login, pass));
 		ClientResponse response = webResource.type(MediaType.APPLICATION_JSON)
@@ -87,8 +88,9 @@ public class Requests implements Serializable {
 		ClientConfig config = new DefaultClientConfig();
 		client = Client.create(config);
 		client.addFilter(new LoggingFilter());
-		webResource = client.resource(address  +"adminPanel/updateUser/" + userLogin);
-		
+		webResource = client.resource(address + "adminPanel/updateUser/"
+				+ userLogin);
+
 		client.addFilter(new HTTPBasicAuthFilter(login, pass));
 		webResource.type(MediaType.APPLICATION_JSON).put(json);
 
@@ -117,14 +119,6 @@ public class Requests implements Serializable {
 	public void setBase_uri(String base_uri) {
 		this.address = base_uri;
 	}
-
-/*	public Properties getProperties() {
-		return properties;
-	}
-
-	public void setProperties(Properties properties) {
-		this.properties = properties;
-	}*/
 
 	public String getLogin() {
 		return login;
