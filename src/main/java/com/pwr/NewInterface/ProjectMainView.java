@@ -30,7 +30,6 @@ import javax.swing.table.DefaultTableModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import com.pwr.Editor.UserDetailsView;
@@ -179,14 +178,7 @@ public class ProjectMainView extends JFrame {
 		JButton btnNowaGra = new JButton("Nowa gra");
 		btnNowaGra.setBounds(6, 32, 206, 28);
 		leftSidePanel.add(btnNowaGra);
-<<<<<<< HEAD
-		btnNowaGra.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				campaign.createXml("title");
-			}
-		});
-=======
+
                 
                 btnNowaGra.addActionListener(new ActionListener() {
 
@@ -194,7 +186,6 @@ public class ProjectMainView extends JFrame {
                         campaign.createXml("title");
                     }
                 });
->>>>>>> 9eb0aaddf4e4049a33e9aabe58a14c3d36d6fbb5
 	}
 	private void createRightSidePanel() {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
