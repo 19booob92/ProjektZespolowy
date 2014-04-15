@@ -12,10 +12,14 @@ public class Campaign {
 
 	private ArrayList<QuestPoint> quests;
 	private ArrayList<TreasureBox> boxes;
+	private ArrayList<String> introPics;
+	private ArrayList<String> outroPics;
 
 	public Campaign() {
 		quests = new ArrayList();
 		boxes = new ArrayList();
+		introPics = new ArrayList();
+		outroPics = new ArrayList();
 	}
 
 	public void addQuiz(QuestPoint p) {
