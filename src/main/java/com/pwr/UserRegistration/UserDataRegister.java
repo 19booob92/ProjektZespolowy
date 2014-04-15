@@ -1,33 +1,51 @@
 package com.pwr.UserRegistration;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+import com.pwr.NewInterface.ProjectMainView;
+
+@Component
+@Lazy(value = true)
 
 public class UserDataRegister extends JFrame {
 	private JPanel contentPane;
 	private JButton btnCommit;
 	private JTextField loginTxt;
 	private JTextField passTxt;
-	private JTextField roletxT;
 	private final JLabel lblUserLogin = new JLabel("User login");
-	private JLabel roleLbl;
+	
 	@Autowired
 	private Requests requests;
+	@Autowired
+	private ProjectMainView projectMainView;
+
+	private static volatile UserDataRegister userDataRegister = null;
 
 	public UserDataRegister() {
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setBounds(100, 100, 290, 170);
+		Toolkit toolkt = Toolkit.getDefaultToolkit();
+		Dimension screenSize = toolkt.getScreenSize();
+		this.setLocation(screenSize.width / 4, screenSize.height / 4);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -47,23 +65,13 @@ public class UserDataRegister extends JFrame {
 		contentPane.add(passTxt);
 		passTxt.setColumns(10);
 
-		roletxT = new JTextField();
-		roletxT.setBounds(150, 66, 114, 19);
-		contentPane.add(roletxT);
-		roletxT.setColumns(10);
-
 		JLabel passLbl = new JLabel("Password Label");
-
-		roleLbl = new JLabel("Role Label");
-		roleLbl.setBounds(12, 69, 117, 15);
-		contentPane.add(roleLbl);
 		lblUserLogin.setBounds(12, 0, 125, 33);
 		contentPane.add(lblUserLogin);
 
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setBounds(12, 39, 46, 14);
 		contentPane.add(lblPassword);
-		this.setVisible(true);
 
 		btnCommit.addActionListener(new ActionListener() {
 
@@ -72,15 +80,33 @@ public class UserDataRegister extends JFrame {
 					User user = new User();
 					user.setLogin(loginTxt.getText());
 					user.setPassword((passTxt.getText()));
-					user.setRole(roletxT.getText());
 
-					// postReqest = new PostReqest(user);
+					int status = requests.sendData(user);
+					loginTxt.setText("");
+					passTxt.setText("");
+					if (status == 201) {
+						new JOptionPane().showMessageDialog(null, "Success !");
+						projectMainView.updateTable();
+					} else {
+						new JOptionPane().showMessageDialog(null,
+								"Account could not been create !");
+					}
 				} catch (Exception ex) {
+					new JOptionPane().showMessageDialog(null,
+							"Account could not been create !");
 					ex.printStackTrace();
 				}
-
 			}
 		});
+	}
 
+	public static UserDataRegister getInstance() {
+
+		if (userDataRegister == null || !userDataRegister.isDisplayable()) {
+			userDataRegister = new UserDataRegister();
+			return userDataRegister;
+		} else {
+			return null;
+		}
 	}
 }

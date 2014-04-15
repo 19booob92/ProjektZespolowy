@@ -79,7 +79,7 @@ public class Requests implements Serializable {
 		ClientConfig config = new DefaultClientConfig();
 		client = Client.create(config);
 		client.addFilter(new LoggingFilter());
-		webResource = client.resource(base_uri + "/adminPanel");
+		webResource = client.resource(base_uri + "adminPanel/createUser/" );
 
 		client.addFilter(new HTTPBasicAuthFilter(login, password));
 		ClientResponse response = webResource.type(MediaType.APPLICATION_JSON)
@@ -88,8 +88,7 @@ public class Requests implements Serializable {
 		return response.getStatus();
 	}
 
-	public void update(String login, UserDTO userDTO) throws Exception {
-		base_uri += "/adminPanel/updateUser/" + login;
+	public void update(String userLogin, UserDTO userDTO) throws Exception {
 		Gson gson = new Gson();
 		String json = gson.toJson(userDTO);
 		System.out.println(json);
@@ -97,8 +96,8 @@ public class Requests implements Serializable {
 		ClientConfig config = new DefaultClientConfig();
 		client = Client.create(config);
 		client.addFilter(new LoggingFilter());
-		webResource = client.resource(base_uri);
-
+		webResource = client.resource(base_uri  +"adminPanel/updateUser/" + userLogin);
+		
 		client.addFilter(new HTTPBasicAuthFilter(login, password));
 		webResource.type(MediaType.APPLICATION_JSON).put(json);
 

@@ -30,21 +30,26 @@ import javax.swing.table.DefaultTableModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-import com.pwr.Editor.UserDataRegister;
 import com.pwr.Editor.UserDetailsView;
 import com.pwr.Quest.Campaign;
 import com.pwr.Quest.QuestPoint;
 import com.pwr.UserRegistration.Requests;
 import com.pwr.UserRegistration.UserDTO;
+import com.pwr.UserRegistration.UserDataRegister;
 
 @Component
 public class ProjectMainView extends JFrame {
 
 	@Autowired
 	private Requests requests;
-
+	@Autowired
+	private UserDataRegister userDataRegister;
+	@Autowired
+	private UserDetailsView userDetailsView;
+	
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
 	private JScrollPane rightScroll;
@@ -85,7 +90,7 @@ public class ProjectMainView extends JFrame {
 		campaign = new Campaign();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(null);
+		getContentPane().setLayout(new BorderLayout());
 
 		setSize(windowWidth, windowHeight);
 
@@ -139,11 +144,8 @@ public class ProjectMainView extends JFrame {
 
 		btnNewUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						UserDataRegister.getInstance();
-					}
-				});
+				userDataRegister.setVisible(true);
+				userDataRegister.show();
 			}
 		});
 
@@ -177,8 +179,13 @@ public class ProjectMainView extends JFrame {
 		JButton btnNowaGra = new JButton("Nowa gra");
 		btnNowaGra.setBounds(6, 32, 206, 28);
 		leftSidePanel.add(btnNowaGra);
+		btnNowaGra.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				campaign.createXml("title");
+			}
+		});
 	}
-
 	private void createRightSidePanel() {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 0, 1000, 816);
@@ -215,7 +222,6 @@ public class ProjectMainView extends JFrame {
 
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("New menu item");
 		mnNewMenu.add(mntmNewMenuItem_2);
-
 	}
 
 	private void createTabPage1() {
@@ -262,9 +268,12 @@ public class ProjectMainView extends JFrame {
 
 						@Override
 						public void run() {
-							UserDetailsView.getUserDetailsViewInstance(
+/*							UserDetailsView.getUserDetailsViewInstance(
 									(String) tableModel.getValueAt(rowNum, 0),
-									ProjectMainView.this);
+									ProjectMainView.this);*/
+							userDetailsView.setUserName((String) tableModel.getValueAt(rowNum, 0));
+							userDetailsView.setUserNameLabelTxt();
+							userDetailsView.setVisible(true);
 						}
 					});
 				}
@@ -296,17 +305,16 @@ public class ProjectMainView extends JFrame {
 			UnsupportedLookAndFeelException {
 
 		ApplicationContext context = new AnnotationConfigApplicationContext(
-				Spring.class);
+				SpringBootLoader.class);
+
 		ProjectMainView projectMainView = (ProjectMainView) context
 				.getBean(ProjectMainView.class);
 
-		Requests requests = (Requests) context.getBean(Requests.class);
-		
 		projectMainView.createRightSidePanel();
 		projectMainView.createLeftSidePanelForProject();
 		projectMainView.createMenu();
+		projectMainView.setVisible(true);
 		projectMainView.addListenerForTabbedPane();
-		
 		try {
 			UIManager
 					.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -320,8 +328,5 @@ public class ProjectMainView extends JFrame {
 			ex.printStackTrace();
 		}
 		UIManager.put("swing.boldMetal", Boolean.FALSE);
-
-		projectMainView.repaint();
 	}
-
 }

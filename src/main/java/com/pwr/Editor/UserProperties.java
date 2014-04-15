@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.pwr.UserRegistration.Requests;
 import com.pwr.UserRegistration.UserDTO;
+import com.pwr.UserRegistration.UserDataRegister;
 
 public class UserProperties extends JFrame {
 

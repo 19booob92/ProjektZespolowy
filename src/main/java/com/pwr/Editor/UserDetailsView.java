@@ -13,25 +13,35 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 
 import com.pwr.NewInterface.ProjectMainView;
 import com.pwr.UserRegistration.Requests;
 import com.pwr.UserRegistration.UserDTO;
 
+@Component
+@Lazy (value = true)
 public class UserDetailsView extends JFrame {
+	
+	@Autowired
+	private ProjectMainView projectMainView;
+	@Autowired
+	private Requests requests;
 
 	private JPanel contentPane;
 	private static volatile UserDetailsView userDetailsView;
 	private JTextField login;
 	private JTextField pass;
 	private JTextField email;
-	private static ProjectMainView projectMainView;
 	private JButton btnDeleteAllDoneQuests;
 	private JButton btnDeleteUser;
-	@Autowired
-	private Requests requests;
-
-	private UserDetailsView(final String userName) {
+	private JLabel lblUserName;
+	
+	private String userName;
+	
+	public UserDetailsView() {
+		
 		setBounds(100, 100, 293, 300);
 		Toolkit toolkt = Toolkit.getDefaultToolkit();
 		Dimension screenSize = toolkt.getScreenSize();
@@ -136,21 +146,28 @@ public class UserDetailsView extends JFrame {
 		JLabel lblEmail = new JLabel("E-Mail");
 		lblEmail.setBounds(20, 60, 70, 15);
 		contentPane.add(lblEmail);
-		setVisible(true);
+		
+		JLabel lblNewLabel = new JLabel("UserName");
+		lblNewLabel.setBounds(178, 197, 70, 15);
+		contentPane.add(lblNewLabel);
+		
+		lblNewLabel.setText(userName);
+		
+		lblUserName = new JLabel("User Name");
+		lblUserName.setBounds(178, 197, 70, 15);
+		contentPane.add(lblUserName);
 	}
 
-	public static UserDetailsView getUserDetailsViewInstance(String value,
-			ProjectMainView projectMainView) {
-		UserDetailsView.projectMainView = projectMainView; // to tez powinno by
-															// zrobione przez
-															// Spring
+	public String getUserName() {
+		return userName;
+	}
 
-		if (userDetailsView == null || !userDetailsView.isDisplayable()) {
-			userDetailsView = new UserDetailsView(value);
-			return userDetailsView;
-		} else {
-			return null;
-		}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	public void setUserNameLabelTxt() {
+		lblUserName.setText(userName);
 	}
 
 }
