@@ -53,7 +53,7 @@ public class QuestView extends JPanel implements DescribeView{
 	private JLabel lblWrong;
 	private JLabel lblDate;
 
-	protected final static int panelWidth = 800;
+	protected final static int panelWidth = 900;
 	protected final static int panelHeight = 800;
 
 	private int paragraphsTrigger = 1;
@@ -141,27 +141,27 @@ public class QuestView extends JPanel implements DescribeView{
 		add(postNote);
 
 		lblPoints = new JLabel("Punkty");
-		lblPoints.setBounds(667, 38, 120, 30);
+		lblPoints.setBounds(685, 105, 120, 30);
 		add(lblPoints);
 
 		points = new JTextField();
-		points.setBounds(667, 68, 120, 30);
+		points.setBounds(685, 131, 171, 30);
 		add(points);
 
 		lblWrong = new JLabel("Zagadka przy błędnej odpowiedzi");
-		lblWrong.setBounds(667, 88, 200, 30);
+		lblWrong.setBounds(685, 167, 199, 30);
 		add(lblWrong);
 
 		wrong = new JTextField();
-		wrong.setBounds(667, 118, 120, 30);
+		wrong.setBounds(685, 193, 171, 30);
 		add(wrong);
 
 		lblDate = new JLabel("Data");
-		lblDate.setBounds(667, 138, 120, 30);
+		lblDate.setBounds(685, 38, 120, 30);
 		add(lblDate);
 
 		date = new JTextField();
-		date.setBounds(667, 168, 120, 30);
+		date.setBounds(685, 64, 171, 30);
 		add(date);
 
 		addButtonsListeners();

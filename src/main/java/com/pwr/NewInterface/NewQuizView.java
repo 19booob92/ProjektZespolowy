@@ -51,7 +51,7 @@ public class NewQuizView extends JFrame {
 	private JLabel lblTimeout;
 	private JLabel lblType;
 
-	private static final int panelWidth = 800;
+	private static final int panelWidth = 900;
 	private static final int panelHeight = 800;
 
 	private static final int windowWidth = 1000;

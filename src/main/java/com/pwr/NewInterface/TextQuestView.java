@@ -42,32 +42,32 @@ public TextQuestView() {
             setSize(panelWidth, panelHeight);
             
             lblGoTo = new JLabel("Następna zagadka");
-            lblGoTo.setBounds(26,283,120,29);
+            lblGoTo.setBounds(23,277,120,29);
             add(lblGoTo);
             
             textGoTo = new JTextField();
-            textGoTo.setBounds(26,308,60,29);
+            textGoTo.setBounds(23,302,157,29);
             add(textGoTo);
 
             lblAnswer = new JLabel("Odpowiedź");
-            lblAnswer.setBounds(26, 353, 87, 14);
+            lblAnswer.setBounds(23, 347, 87, 14);
             add(lblAnswer);
             
             answersComboBox = new JComboBox(answers);
             answersComboBox.setSelectedIndex(-1);
-            answersComboBox.setBounds(26,378,120,29);
+            answersComboBox.setBounds(23,372,157,23);
             add(answersComboBox);
             
             btnAddAnswer = new JButton("Dodaj odpowiedź");
-            btnAddAnswer.setBounds(156,378,130,30);
+            btnAddAnswer.setBounds(180,372,130,23);
             add(btnAddAnswer);
             
             btnEditAnswer = new JButton("Edytuj odpowiedź");
-            btnEditAnswer.setBounds(286,378,130,30);
+            btnEditAnswer.setBounds(309,372,130,23);
             add(btnEditAnswer);
             
             btnDeleteAnswer = new JButton("Usuń odpowiedź");
-            btnDeleteAnswer.setBounds(426,378,130,30);
+            btnDeleteAnswer.setBounds(438,372,130,23);
             add(btnDeleteAnswer);
             
             addButtonsListeners();
