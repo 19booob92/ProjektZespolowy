@@ -43,11 +43,10 @@ public class Requests implements Serializable {
 	}
 
 	public int deleteUser(String value, String extend_uri) throws Exception {
-		base_uri = base_uri + "adminPanel" + extend_uri;
 		ClientConfig config = new DefaultClientConfig();
 		client = Client.create(config);
 		client.addFilter(new LoggingFilter());
-		webResource = client.resource(base_uri + "/" + value);
+		webResource = client.resource(base_uri + "adminPanel" + extend_uri + "/" + value);
 
 		client.addFilter(new HTTPBasicAuthFilter(login, password));
 		ClientResponse response = webResource.type(MediaType.APPLICATION_JSON)

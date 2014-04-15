@@ -112,9 +112,15 @@ public class UserDetailsView extends JFrame {
 				try {
 					requests.update(userName, userDTO);
 					projectMainView.updateTable();
+					updateThisViewData(userDTO.getLogin());
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
+			}
+
+			private void updateThisViewData(String name) {
+				setUserName(name);
+				setUserNameLabelTxt();
 			}
 		});
 		btnUpdate.setBounds(17, 120, 117, 25);
