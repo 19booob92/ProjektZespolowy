@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
@@ -17,17 +18,23 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.JSplitPane;
 import javax.swing.JButton;
+
+import org.springframework.ui.Model;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class OrderQuestView extends QuestView implements DescribeView{
-
 	private QuestPoint quest;
-	private JTable table;
-	private DefaultTableModel tableModel;
+
+	private JPanel tablePanel;
+	private JSplitPane splitPane;
 	private JTableHeader header;
+	protected JTable table;
+	protected DefaultTableModel tableModel;
 	private int colNum, rowNum;
-	private JPanel tablePanel = new JPanel();
+	
 	private final JButton btnUp = new JButton("W górę");
 	private final JButton btnDown = new JButton("W dół");
 	private final JButton btnAdd = new JButton("Dodaj");
@@ -42,6 +49,7 @@ public class OrderQuestView extends QuestView implements DescribeView{
 	}
 
 	private void addAnswersTable() {
+		tablePanel = new JPanel();
 		tableModel = new DefaultTableModel(new String[] { "Nr", "Treść odpowiedzi","Operacja"}, 0);
 		
 		tablePanel.setBounds(23, 286, 518, 203);
@@ -55,9 +63,6 @@ public class OrderQuestView extends QuestView implements DescribeView{
 		table.getColumn("Operacja").setMaxWidth(80);
 		
 		//Moze bedzie kolumna JButtonow
-		tableModel.addRow(new Object [] {"1","Odp1","Add"});
-		tableModel.addRow(new Object [] {"2","Odp2","Add"});
-		tableModel.addRow(new Object [] {"3","Odp3","Add"});
 		
 		table.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		table.addMouseListener(new MouseAdapter() {
@@ -81,7 +86,7 @@ public class OrderQuestView extends QuestView implements DescribeView{
 		tablePanel.add(header, BorderLayout.NORTH);
 		tablePanel.add(table, BorderLayout.CENTER);
 		
-		JSplitPane splitPane = new JSplitPane();
+		splitPane = new JSplitPane();
 		tablePanel.add(splitPane, BorderLayout.SOUTH);
 		
 		btnUp.addActionListener(new ActionListener() {
@@ -100,7 +105,8 @@ public class OrderQuestView extends QuestView implements DescribeView{
 		
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				String tempAnswer = JOptionPane.showInputDialog("Podaj odpowiedź",null);
+				tableModel.addRow(new Object [] {"",tempAnswer,"Add"});
 			}
 		});
 		btnAdd.setBounds(551, 309, 89, 23);
@@ -111,18 +117,32 @@ public class OrderQuestView extends QuestView implements DescribeView{
 	private void moveUp(){
 		int[] rows = table.getSelectedRows();
 	    DefaultTableModel model =  (DefaultTableModel)table.getModel();
-	    model.moveRow(rows[0],rows[rows.length-1],rows[0]-1);
-	    table.setRowSelectionInterval(rows[0]-1, rows[rows.length-1]-1);
+	    if (model.getRowCount() >= 2)
+	    {
+	    	model.moveRow(rows[0],rows[rows.length-1],rows[0]-1);
+	    	table.setRowSelectionInterval(rows[0]-1, rows[rows.length-1]-1);
+	    }
 	}
 	private void moveDown(){
 		int[] rows = table.getSelectedRows();
 	    DefaultTableModel model =  (DefaultTableModel)table.getModel();
-	    model.moveRow(rows[0],rows[rows.length-1],rows[0]+1);
-	    table.setRowSelectionInterval(rows[0]+1, rows[rows.length-1]+1);
+	    if (model.getRowCount() >= 2)
+	    {
+	    	model.moveRow(rows[0],rows[rows.length-1],rows[0]+1);
+	    	table.setRowSelectionInterval(rows[0]+1, rows[rows.length-1]+1);
+	    }
 	}
 	
 	@Override
 	public String introduceYourself() {
 		return "OrderQuest";
+	}
+	
+	public ArrayList getAnswers() {
+		ArrayList collectedAnswers = new ArrayList<String>();
+		for (int i = 0; i < table.getModel().getRowCount(); i++) {
+			collectedAnswers.add(tableModel.getValueAt(i, 1));
+		}
+		return collectedAnswers;
 	}
 }
