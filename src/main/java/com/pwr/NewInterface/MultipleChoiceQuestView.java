@@ -109,7 +109,6 @@ public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 			public void actionPerformed(ActionEvent e) {
 				String tempAnswer = "";
 				createDialog(tempAnswer);
-				tableModel.addRow(new Object [] {"",tempAnswer,"Add"});
 			}
 		});
 		btnAdd.setBounds(551, 309, 89, 23);
@@ -125,21 +124,29 @@ public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 		  dialog.setLocationRelativeTo(this);
 		  dialog.setLayout(null);
 		  
-		  JLabel lblNewLabel = new JLabel("Wprowadź odpowiedź");
-		  lblNewLabel.setBounds(25, 25, 134, 14);
-		  dialog.add(lblNewLabel);
+		  JLabel lblAnswerLabel = new JLabel("Wprowadź odpowiedź");
+		  lblAnswerLabel.setBounds(25, 25, 134, 14);
+		  dialog.add(lblAnswerLabel);
 		  
-		  JTextField textField = new JTextField();
-		  textField.setBounds(25, 49, 399, 30);
-		  dialog.add(textField);
-		  textField.setColumns(10);
+		  final JTextField tfAnswer = new JTextField();
+		  tfAnswer.setBounds(25, 49, 399, 30);
+		  dialog.add(tfAnswer);
+		  tfAnswer.setColumns(10);
 		  
-		  JCheckBox chckbxOdpowiedPrawidowa = new JCheckBox("Odpowiedź prawidłowa?");
-		  chckbxOdpowiedPrawidowa.setBounds(25, 97, 161, 23);
-		  dialog.add(chckbxOdpowiedPrawidowa);
+		  final JCheckBox chckbxTrueOrFalse = new JCheckBox("Odpowiedź prawidłowa?");
+		  chckbxTrueOrFalse.setBounds(25, 97, 161, 23);
+		  dialog.add(chckbxTrueOrFalse);
 		  
 		  JButton btnOk = new JButton("Ok");
 		  btnOk.setBounds(335, 127, 89, 23);
+		  btnOk.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String tempAnswer = tfAnswer.getText();
+					boolean trueOrFalse = chckbxTrueOrFalse.isSelected();
+					tableModel.addRow(new Object [] {"",tempAnswer,trueOrFalse});
+					dialog.dispose();
+				}
+			});
 		  dialog.add(btnOk);
 		  dialog.setVisible(true);
 		}
