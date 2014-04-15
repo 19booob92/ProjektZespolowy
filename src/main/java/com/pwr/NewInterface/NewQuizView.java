@@ -180,10 +180,10 @@ public class NewQuizView extends JFrame {
 						 * Logger.getLogger(NewQuizView
 						 * .class.getName()).log(Level.SEVERE, null, ex); }
 						 */
-						ZipPacking(newQuest);
+						//ZipPacking(newQuest);
 
 						campaignRef.addQuiz(newQuest);
-						campaignRef.createXml("title");
+						//campaignRef.createXml("title");
 
 						System.out.println(campaignRef.getQuizes().get(0)
 								.getQuestName());

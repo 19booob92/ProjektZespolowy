@@ -7,6 +7,9 @@ import java.util.logging.Logger;
 import javax.xml.transform.TransformerException;
 
 import com.pwr.Editor.XmlBuilder;
+import com.pwr.Editor.ZipPacker;
+import com.pwr.NewInterface.NewQuizView;
+import java.io.IOException;
 
 public class Campaign {
 
@@ -14,14 +17,17 @@ public class Campaign {
 	private ArrayList<TreasureBox> boxes;
 	private ArrayList<String> introPics;
 	private ArrayList<String> outroPics;
-
+        private ZipPacker zip;
+        
 	public Campaign() {
 		quests = new ArrayList();
 		boxes = new ArrayList();
 		introPics = new ArrayList();
 		outroPics = new ArrayList();
 	}
-
+        
+        
+        
 	public void addQuiz(QuestPoint p) {
 		quests.add(p);
 	}
@@ -55,8 +61,12 @@ public class Campaign {
         public void createXml(String title)
         {
             XmlBuilder xml = new XmlBuilder(title);
+            zip = new ZipPacker("paczka.zip");
+            xml.createIntro(introPics, introPics);
+            xml.createOutro(outroPics, outroPics);
             for(int i=0;i<quests.size();i++)
             {
+                ZipPacking(quests.get(i));
                 QuestPoint tempQuest = quests.get(i);
                 if(tempQuest.getQuestType()==QuestType.TEXTQUEST)
                 {
@@ -104,6 +114,38 @@ public class Campaign {
             } catch (TransformerException ex) {
                 Logger.getLogger(Campaign.class.getName()).log(Level.SEVERE, null, ex);
             }
+           
+            
+            
+            try {
+			zip.addFile("Config.xml");
+		} catch (IOException ex) {
+			Logger.getLogger(NewQuizView.class.getName()).log(
+					Level.SEVERE, null, ex);
+		}
+            zip.closeZip();
         }
+        
+        private void ZipPacking(QuestPoint newQuest)
+	{
+		for (int i = 0; i < newQuest.getPicturePaths().size(); i++) {
+			try {
+				zip.addFile(newQuest.getPicturePaths().get(i));
+			} catch (IOException ex) {
+				Logger.getLogger(NewQuizView.class.getName())
+						.log(Level.SEVERE, null, ex);
+			}
+		}
+
+		for (int i = 0; i < newQuest.getSoundPaths().size(); i++) {
+			try {
+				zip.addFile(newQuest.getSoundPaths().get(i));
+			} catch (IOException ex) {
+				Logger.getLogger(NewQuizView.class.getName())
+						.log(Level.SEVERE, null, ex);
+			}
+		}
+
+	}
 
 }

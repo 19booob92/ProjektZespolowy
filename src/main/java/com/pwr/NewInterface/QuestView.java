@@ -62,7 +62,7 @@ public class QuestView extends JPanel implements DescribeView{
 		setLayout(null);
 		setSize(panelWidth, panelHeight);
 
-		setOfpath = new HashSet<>();
+		setOfpath = new HashSet<String>();
 
 		picsListModel = new DefaultListModel<String>();
 		soundsListModel = new DefaultListModel<String>();
