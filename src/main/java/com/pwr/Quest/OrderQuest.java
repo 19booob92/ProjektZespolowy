@@ -43,5 +43,4 @@ public class OrderQuest extends QuestPoint implements DescribeQuest {
     public void addQuestAnswer(String answ) {
         questAnswer.add(answ);
     }
-    
 }

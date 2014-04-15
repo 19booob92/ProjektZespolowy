@@ -273,7 +273,7 @@ public class NewQuizView extends JFrame {
 	}
 	
 	private void GetOrderQuestFields(OrderQuest newQuest, OrderQuestView questView) {
-		
+		newQuest.setQuestAnswer(questView.getAnswers());
 	}
 
 	private void GetFieldQuestFields(FieldQuest newQuest, FieldQuestView questView) {
