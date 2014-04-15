@@ -134,49 +134,25 @@ public class NewQuizView extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						TextQuestView textQuestView = null;
-						QuestPoint newQuest = QuestFactory
-								.createQuest(QuestType.TEXTQUEST);
+						QuestPoint newQuest = null;
 						for (Component component : rightSidePanel
 								.getComponents()) {
 							if (component.isVisible() == true) {
 								selectedCard = (QuestView) component;
 								if (selectedCard.introduceYourself() == "TextQuest") {
 									textQuestView = (TextQuestView) component;
+									newQuest = QuestFactory.createQuest(QuestType.TEXTQUEST);
 								} else if (selectedCard.introduceYourself() == "MultipleChoiceQuest") {
-									System.out.println("");
+									newQuest = QuestFactory.createQuest(QuestType.CHOICEQUEST);
 								} else if (selectedCard.introduceYourself() == "RangeQuest") {
-									System.out.println("");
+									newQuest = QuestFactory.createQuest(QuestType.RANGEQUEST);
 								} else if (selectedCard.introduceYourself() == "FieldQuest") {
-									System.out.println("");
+									newQuest = QuestFactory.createQuest(QuestType.FIELDQUEST);
 								} else if (selectedCard.introduceYourself() == "OrderQuest") {
-									System.out.println("");
+									newQuest = QuestFactory.createQuest(QuestType.ORDERQUEST);
 								}
 							}
-						}
-						//To opakować w metodę - TextQuestFieldsParser
-						//i dopisać odpowiednie w zależności od typu
-						//wyżej utworzono warunki oraz nową metodę, która zwraca tożsamość typu zagadki
-						//więc można dodać metody dotyczące danego typu
-						TextQuest newTextQuest = (TextQuest) newQuest;
-						newTextQuest.getPicturePaths().addAll(
-								rewriteJListToArrayList(selectedCard.pics));
-						newTextQuest.getSoundPaths().addAll(
-								rewriteJListToArrayList(selectedCard.sounds));
-						;
-						newTextQuest
-								.setQuestDescription(selectedCard.paragraphList);
-						newTextQuest.setQuestName(tfQuizName.getText());
-						newTextQuest.setQuestTimeout(Integer
-								.parseInt(timeoutField.getText()));
-						newTextQuest.setPoints(Integer
-								.parseInt(selectedCard.points.getText()));
-						newTextQuest.setGoTo(textQuestView.textGoTo.getText());
-						newTextQuest.setPostNote(selectedCard.postNote
-								.getText());
-						newTextQuest.setPreNote(selectedCard.preNote.getText());
-						newTextQuest.setDate(selectedCard.date.getText());
-						newTextQuest.setWrong(selectedCard.wrong.getText());
-						newTextQuest.setQuestAnswer(textQuestView.textAnswer);
+						}										
 
 						/*
 						 * XmlBuilder xml = new XmlBuilder("tytul");
@@ -196,34 +172,9 @@ public class NewQuizView extends JFrame {
 						 * Logger.getLogger(NewQuizView
 						 * .class.getName()).log(Level.SEVERE, null, ex); }
 						 */
-						ZipPacker zip = new ZipPacker("paczka.zip");
-						for (int i = 0; i < newQuest.getPicturePaths().size(); i++) {
-							try {
-								zip.addFile(newQuest.getPicturePaths().get(i));
-							} catch (IOException ex) {
-								Logger.getLogger(NewQuizView.class.getName())
-										.log(Level.SEVERE, null, ex);
-							}
-						}
+						ZipPacking(newQuest);
 
-						for (int i = 0; i < newQuest.getSoundPaths().size(); i++) {
-							try {
-								zip.addFile(newQuest.getSoundPaths().get(i));
-							} catch (IOException ex) {
-								Logger.getLogger(NewQuizView.class.getName())
-										.log(Level.SEVERE, null, ex);
-							}
-						}
-
-						try {
-							zip.addFile("Config.xml");
-						} catch (IOException ex) {
-							Logger.getLogger(NewQuizView.class.getName()).log(
-									Level.SEVERE, null, ex);
-						}
-						zip.closeZip();
-
-						campaignRef.addQuiz(newTextQuest);
+						campaignRef.addQuiz(newQuest);
 						campaignRef.createXml("title");
 
 						System.out.println(campaignRef.getQuizes().get(0)
@@ -238,13 +189,12 @@ public class NewQuizView extends JFrame {
 				});
 			}
 		});
-
+		
 		rightSidePanel.add(new FieldQuestView(), "Zagadka terenowa");
 		rightSidePanel.add(new TextQuestView(), "Zagadka tekstowa");
-		rightSidePanel.add(new MultipleChoiceQuestView(),
-				"Zagadka wielokrotnego wyboru");
-		rightSidePanel.add(new OrderQuestView(), "Zagadka uporzÄ…dkowania");
-		rightSidePanel.add(new RangeQuestView(), "Zagadka zasiÄ™gu");
+		rightSidePanel.add(new MultipleChoiceQuestView(),"Zagadka wielokrotnego wyboru");
+		rightSidePanel.add(new OrderQuestView(), "Zagadka uporządkowania");
+		rightSidePanel.add(new RangeQuestView(), "Zagadka zasięgu");
 
 		questTypeCombo.addItemListener(new ItemListener() {
 
@@ -257,6 +207,67 @@ public class NewQuizView extends JFrame {
 
 	}
 
+	private void ZipPacking(QuestPoint newQuest)
+	{
+		ZipPacker zip = new ZipPacker("paczka.zip");
+		for (int i = 0; i < newQuest.getPicturePaths().size(); i++) {
+			try {
+				zip.addFile(newQuest.getPicturePaths().get(i));
+			} catch (IOException ex) {
+				Logger.getLogger(NewQuizView.class.getName())
+						.log(Level.SEVERE, null, ex);
+			}
+		}
+
+		for (int i = 0; i < newQuest.getSoundPaths().size(); i++) {
+			try {
+				zip.addFile(newQuest.getSoundPaths().get(i));
+			} catch (IOException ex) {
+				Logger.getLogger(NewQuizView.class.getName())
+						.log(Level.SEVERE, null, ex);
+			}
+		}
+
+		try {
+			zip.addFile("Config.xml");
+		} catch (IOException ex) {
+			Logger.getLogger(NewQuizView.class.getName()).log(
+					Level.SEVERE, null, ex);
+		}
+		zip.closeZip();
+	}
+	
+	private void TextQuestFieldsGetter(QuestPoint newQuest, TextQuestView questView) {
+		newQuest.getPicturePaths().addAll(rewriteJListToArrayList(selectedCard.pics));
+		newQuest.getSoundPaths().addAll(rewriteJListToArrayList(selectedCard.sounds));
+		newQuest.setQuestDescription(selectedCard.paragraphList);
+		newQuest.setQuestName(tfQuizName.getText());
+		newQuest.setQuestTimeout(Integer.parseInt(timeoutField.getText()));
+		newQuest.setPoints(Integer.parseInt(selectedCard.points.getText()));
+		//newQuest.setGoTo(questView.textGoTo.getText());
+		newQuest.setPostNote(selectedCard.postNote.getText());
+		newQuest.setPreNote(selectedCard.preNote.getText());
+		newQuest.setDate(selectedCard.date.getText());
+		newQuest.setWrong(selectedCard.wrong.getText());
+		newQuest.setQuestAnswer(questView.textAnswer);
+	}
+	
+	private void RangeQuestFieldsGetter(QuestPoint newQuest) {
+			
+	}
+	
+	private void MultipleChoiceQuestFieldsGetter(QuestPoint newQuest) {
+		
+	}
+	
+	private void OrderQuestFieldsGetter(QuestPoint newQuest) {
+		
+	}
+
+	private void FieldQuestFieldsGetter(QuestPoint newQuest) {
+		
+	}
+	
 	private ArrayList rewriteJListToArrayList(JList list) {
 		ArrayList newList = new ArrayList();
 		for (int i = 0; i < list.getModel().getSize(); i++) {
