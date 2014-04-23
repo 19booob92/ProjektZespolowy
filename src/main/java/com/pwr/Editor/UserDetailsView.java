@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.jws.soap.SOAPBinding.Use;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -38,15 +39,14 @@ public class UserDetailsView extends JFrame {
 	private JButton btnDeleteUser;
 	private JLabel lblUserName;
 	
-	private String userName;
+	private static String userName;
 	
 	public UserDetailsView() {
-		
 		setBounds(100, 100, 293, 300);
 		Toolkit toolkt = Toolkit.getDefaultToolkit();
 		Dimension screenSize = toolkt.getScreenSize();
 		this.setLocation(screenSize.width / 4, screenSize.height / 4);
-
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -120,7 +120,7 @@ public class UserDetailsView extends JFrame {
 
 			private void updateThisViewData(String name) {
 				setUserName(name);
-				setUserNameLabelTxt();
+				setUserNameLabelTxt(name);
 			}
 		});
 		btnUpdate.setBounds(17, 120, 117, 25);
@@ -144,7 +144,7 @@ public class UserDetailsView extends JFrame {
 		JLabel lblLogin = new JLabel("Login");
 		lblLogin.setBounds(20, 11, 70, 15);
 		contentPane.add(lblLogin);
-
+		
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setBounds(143, 11, 70, 15);
 		contentPane.add(lblPassword);
@@ -153,13 +153,11 @@ public class UserDetailsView extends JFrame {
 		lblEmail.setBounds(20, 60, 70, 15);
 		contentPane.add(lblEmail);
 		
-		JLabel lblNewLabel = new JLabel("UserName");
-		lblNewLabel.setBounds(178, 197, 70, 15);
-		contentPane.add(lblNewLabel);
+		JLabel lblUserNameLabel = new JLabel();
+		lblUserNameLabel.setBounds(178, 197, 70, 15);
+		contentPane.add(lblUserNameLabel);
 		
-		lblNewLabel.setText(userName);
-		
-		lblUserName = new JLabel("User Name");
+		lblUserName = new JLabel("UserName");
 		lblUserName.setBounds(178, 197, 70, 15);
 		contentPane.add(lblUserName);
 	}
@@ -172,8 +170,12 @@ public class UserDetailsView extends JFrame {
 		this.userName = userName;
 	}
 	
-	public void setUserNameLabelTxt() {
-		lblUserName.setText(userName);
+	public void setUserNameLabelTxt(String name) {
+		lblUserName.setText(name);
+	}
+
+	public void setLoginField(String userName2) {
+		login.setText(userName2);
 	}
 
 }

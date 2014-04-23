@@ -48,7 +48,7 @@ public class ProjectMainView extends JFrame {
 	private UserDataRegister userDataRegister;
 	@Autowired
 	private UserDetailsView userDetailsView;
-	
+
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
 	private JScrollPane rightScroll;
@@ -179,14 +179,14 @@ public class ProjectMainView extends JFrame {
 		btnNowaGra.setBounds(6, 32, 206, 28);
 		leftSidePanel.add(btnNowaGra);
 
-                
-                btnNowaGra.addActionListener(new ActionListener() {
+		btnNowaGra.addActionListener(new ActionListener() {
 
-                    public void actionPerformed(ActionEvent e) {
-                        campaign.createXml("title");
-                    }
-                });
+			public void actionPerformed(ActionEvent e) {
+				campaign.createXml("title");
+			}
+		});
 	}
+
 	private void createRightSidePanel() {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 0, 1000, 816);
@@ -265,18 +265,14 @@ public class ProjectMainView extends JFrame {
 					JTable target = (JTable) e.getSource();
 					rowNum = target.getSelectedRow();
 					colNum = target.getSelectedColumn();
-					EventQueue.invokeLater(new Runnable() {
+					String userName = (String) tableModel.getValueAt(
+							rowNum, 0);
+					userDetailsView.setUserName(userName);
+					userDetailsView.setLoginField(userName);
+					userDetailsView.setUserNameLabelTxt(userName);
+					userDetailsView.setTitle(userName);
+					userDetailsView.setVisible(true);  // to wszystko trzeba jakoś ogarnąć
 
-						@Override
-						public void run() {
-/*							UserDetailsView.getUserDetailsViewInstance(
-									(String) tableModel.getValueAt(rowNum, 0),
-									ProjectMainView.this);*/
-							userDetailsView.setUserName((String) tableModel.getValueAt(rowNum, 0));
-							userDetailsView.setUserNameLabelTxt();
-							userDetailsView.setVisible(true);
-						}
-					});
 				}
 			}
 		});
