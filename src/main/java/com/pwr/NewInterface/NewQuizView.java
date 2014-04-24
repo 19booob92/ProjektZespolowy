@@ -148,7 +148,7 @@ public class NewQuizView extends JFrame {
 								} else if (selectedCard.introduceYourself() == "MultipleChoiceQuest") {
 									newQuest = (ChoiceQuest) QuestFactory.createQuest(QuestType.CHOICEQUEST);
 									GetMultipleChoiceQuestFields((ChoiceQuest)newQuest, (MultipleChoiceQuestView)selectedCard);
-								} else if (selectedCard.introduceYourself() == "RangeQuest") {
+								} else if (selectedCard.introduceYourself() == "DecisionQuest") {
 									newQuest = (DecisionQuest) QuestFactory.createQuest(QuestType.DECISIONQUEST);
 									GetRangeQuestFields((DecisionQuest)newQuest, (DecisionQuestView)selectedCard);
 								} else if (selectedCard.introduceYourself() == "FieldQuest") {
