@@ -84,6 +84,10 @@ public abstract class QuestPoint implements DescribeQuest {
 		this.type = type;
 	}
 
+	public String ToString() {
+		return QuestName;
+	}
+	
 	public ArrayList<String> getPicturePaths() {
 		return PicturePaths;
 	}

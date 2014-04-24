@@ -13,6 +13,8 @@ import javax.swing.JList;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JButton;
 
+import com.pwr.Quest.Campaign;
+
 public class ProjectOptionsView extends JPanel {
 
 	private static final int panelWidth = 1000;
@@ -30,19 +32,26 @@ public class ProjectOptionsView extends JPanel {
 
 	protected DefaultListModel<String> introPicsListModel;
 	protected DefaultListModel<String> outroPicsListModel;
+	protected DefaultListModel<String> quizListModel;
 	
 	private JButton btnAddIntro;
 	private JButton btnDelIntro;
 	private JButton btnAddOutro;
 	private JButton btnDelOutro;
 	private JList listOfQuizes;
+	
+	private Campaign campaign;
 
-	public ProjectOptionsView() {
+	public ProjectOptionsView(Campaign camp) {
 		this.setSize(panelWidth, panelHeight);
 		setLayout(null);
+		
+		campaign = camp;
 
 		introPicsListModel = new DefaultListModel<String>();
 		outroPicsListModel = new DefaultListModel<String>();
+		quizListModel = new DefaultListModel<String>();
+		
 		lblGameTitle = new JLabel("Tytuł gry");
 		lblGameTitle.setBounds(10, 28, 81, 14);
 		add(lblGameTitle);
@@ -70,11 +79,18 @@ public class ProjectOptionsView extends JPanel {
 		outroPics.setBounds(10, 342, 290, 69);
 		add(outroPics);
 
+		listOfQuizes = new JList(quizListModel);
+		listOfQuizes.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		listOfQuizes.setBounds(326, 125, 406, 286);
+		
+		for (String s : campaign.getQuizesNames())
+			quizListModel.addElement(s);
+		add(listOfQuizes);
+		
 		JLabel lblMiejsceNaGraf = new JLabel(
 				"Miejsce na graf kampanii, t.j listę quizów + graficzną reprezentację gry. Tu można wstawić też wiele innych rzeczy");
 		lblMiejsceNaGraf.setBounds(314, 60, 565, 14);
 		add(lblMiejsceNaGraf);
-
 		addIntroOutroButtons();
 	}
 
@@ -103,12 +119,6 @@ public class ProjectOptionsView extends JPanel {
 		tfStartDate.setBounds(10, 125, 290, 28);
 		add(tfStartDate);
 		tfStartDate.setColumns(10);
-
-		listOfQuizes = new JList();
-		listOfQuizes.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null,
-				null));
-		listOfQuizes.setBounds(326, 125, 406, 286);
-		add(listOfQuizes);
 		addButtonsListeners();
 	}
 	private void addButtonsListeners() {
@@ -138,5 +148,9 @@ public class ProjectOptionsView extends JPanel {
 		} else {
 			System.out.println("No Selection ");
 		}
+	}
+	
+	public DefaultListModel getQuizListModel() {
+		return quizListModel;
 	}
 }

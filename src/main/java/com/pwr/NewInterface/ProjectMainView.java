@@ -32,7 +32,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
-import com.pwr.Editor.QuestsTableView;
+//import com.pwr.Editor.QuestsTableView;
 import com.pwr.Editor.UserDetailsView;
 import com.pwr.Quest.Campaign;
 import com.pwr.Quest.QuestPoint;
@@ -54,7 +54,7 @@ public class ProjectMainView extends JFrame {
 	private JPanel rightSidePanel;
 	private JScrollPane rightScroll;
 
-	private JPanel projectTabPane;
+	private ProjectOptionsView projectTabPane;
 	private JPanel userTabPane;
 
 	private JTabbedPane tabbedPane;
@@ -141,7 +141,7 @@ public class ProjectMainView extends JFrame {
 	}
 
 	private void createLeftSidePanelForUserSettings() {
-		btnNewUser = new JButton("Dodaj u¿ytkownika");
+		btnNewUser = new JButton("Dodaj uï¿½ytkownika");
 
 		btnNewUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -211,7 +211,7 @@ public class ProjectMainView extends JFrame {
 					
 					@Override
 					public void run() {
-						new QuestsTableView();
+						//new QuestsTableView();
 					}
 				});
 			}
@@ -257,7 +257,7 @@ public class ProjectMainView extends JFrame {
 	}
 
 	private void createTabPage1() {
-		projectTabPane = new ProjectOptionsView();
+		projectTabPane = new ProjectOptionsView(campaign);
 		lblOpcjeProjektu = new JLabel(
 				"Opcje projektu, nazwa, liczba quizow, byc moze graf lub lista punktow");
 		projectTabPane.add(lblOpcjeProjektu);
@@ -332,6 +332,19 @@ public class ProjectMainView extends JFrame {
 			InstantiationException, IllegalAccessException,
 			UnsupportedLookAndFeelException {
 
+		try {
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		} catch (UnsupportedLookAndFeelException ex) {
+			ex.printStackTrace();
+		} catch (IllegalAccessException ex) {
+			ex.printStackTrace();
+		} catch (InstantiationException ex) {
+			ex.printStackTrace();
+		} catch (ClassNotFoundException ex) {
+			ex.printStackTrace();
+		}
+		UIManager.put("swing.boldMetal", Boolean.FALSE);
+
 		ApplicationContext context = new AnnotationConfigApplicationContext(
 				SpringBootLoader.class);
 
@@ -343,18 +356,5 @@ public class ProjectMainView extends JFrame {
 		projectMainView.createMenu();
 		projectMainView.setVisible(true);
 		projectMainView.addListenerForTabbedPane();
-		try {
-			UIManager
-					.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-		} catch (UnsupportedLookAndFeelException ex) {
-			ex.printStackTrace();
-		} catch (IllegalAccessException ex) {
-			ex.printStackTrace();
-		} catch (InstantiationException ex) {
-			ex.printStackTrace();
-		} catch (ClassNotFoundException ex) {
-			ex.printStackTrace();
-		}
-		UIManager.put("swing.boldMetal", Boolean.FALSE);
 	}
 }

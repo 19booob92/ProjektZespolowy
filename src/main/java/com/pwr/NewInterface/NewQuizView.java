@@ -46,7 +46,7 @@ public class NewQuizView extends JFrame {
 	private JScrollPane leftScroll;
 	private JScrollPane rightScroll;
 
-	private JButton btnSafeQuiz;
+	private JButton btnSaveQuiz;
 
 	private JLabel lblTimeout;
 	private JLabel lblType;
@@ -130,11 +130,11 @@ public class NewQuizView extends JFrame {
 		lblTimeout.setBounds(10, 80, 46, 14);
 		leftSidePanel.add(lblTimeout);
 
-		btnSafeQuiz = new JButton("Zapisz quiz");
-		btnSafeQuiz.setBounds(0, 239, 320, 23);
-		leftSidePanel.add(btnSafeQuiz);
+		btnSaveQuiz = new JButton("Zapisz quiz");
+		btnSaveQuiz.setBounds(0, 239, 320, 23);
+		leftSidePanel.add(btnSaveQuiz);
 
-		btnSafeQuiz.addActionListener(new ActionListener() {
+		btnSaveQuiz.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {

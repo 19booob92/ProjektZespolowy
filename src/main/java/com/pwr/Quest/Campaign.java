@@ -40,8 +40,8 @@ public class Campaign {
 
 	}
 
-	public QuestPoint getQuiz() {
-		return null;
+	public QuestPoint getLastQuiz() {
+		return quests.get(quests.size()-1);
 	}
 
 	public TreasureBox getTreasureBox() {
@@ -52,6 +52,14 @@ public class Campaign {
 
 	public ArrayList<QuestPoint> getQuizes() {
 		return quests;
+	}
+	
+	public ArrayList<String> getQuizesNames() {
+		ArrayList names = new ArrayList();
+		for (QuestPoint p : quests){
+			names.add(p.toString());
+		}
+		return names;		
 	}
 
 	public ArrayList<TreasureBox> getTreasureBoxes() {
