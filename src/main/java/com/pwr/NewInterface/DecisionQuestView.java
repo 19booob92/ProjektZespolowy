@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -143,5 +144,23 @@ public class DecisionQuestView extends QuestView implements DescribeView{
 	@Override
 	public String introduceYourself() {
 		return "DecisionQuest";
+	}
+
+	public ArrayList<String> getAnswers() {
+		ArrayList collectedAnswers = new ArrayList();
+		
+		for (int i = 0; i < table.getModel().getRowCount(); i++) {
+			collectedAnswers.add(tableModel.getValueAt(i, 1));
+		}
+		return collectedAnswers;
+	}
+
+	public ArrayList<String> getGoToList() {
+		ArrayList collectedAnswers = new ArrayList();
+		
+		for (int i = 0; i < table.getModel().getRowCount(); i++) {
+			collectedAnswers.add(tableModel.getValueAt(i, 2));
+		}
+		return collectedAnswers;
 	}
 }

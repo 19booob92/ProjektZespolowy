@@ -150,7 +150,7 @@ public class NewQuizView extends JFrame {
 									GetMultipleChoiceQuestFields((ChoiceQuest)newQuest, (MultipleChoiceQuestView)selectedCard);
 								} else if (selectedCard.introduceYourself() == "DecisionQuest") {
 									newQuest = (DecisionQuest) QuestFactory.createQuest(QuestType.DECISIONQUEST);
-									GetRangeQuestFields((DecisionQuest)newQuest, (DecisionQuestView)selectedCard);
+									GetDecisionQuestFields((DecisionQuest)newQuest, (DecisionQuestView)selectedCard);
 								} else if (selectedCard.introduceYourself() == "FieldQuest") {
 									newQuest = (FieldQuest) QuestFactory.createQuest(QuestType.FIELDQUEST);
 									GetFieldQuestFields((FieldQuest)newQuest, (FieldQuestView)selectedCard);
@@ -242,8 +242,8 @@ public class NewQuizView extends JFrame {
 		newQuest.setQuestAnswer(questView.textAnswer);
 	}
 	
-	private void GetRangeQuestFields(DecisionQuest newQuest, DecisionQuestView questView) {
-			
+	private void GetDecisionQuestFields(DecisionQuest newQuest, DecisionQuestView questView) {
+		newQuest.setDecisionAnswer(questView.getAnswers(), questView.getGoToList());
 	}
 	
 	private void GetMultipleChoiceQuestFields(ChoiceQuest newQuest, MultipleChoiceQuestView questView) {

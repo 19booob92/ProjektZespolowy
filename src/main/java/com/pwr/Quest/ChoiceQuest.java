@@ -53,7 +53,6 @@ public class ChoiceQuest extends QuestPoint implements DescribeQuest{
 
 	@Override
 	public void setQuestAnswer(ArrayList<String> answ) {
-		// TODO Auto-generated method stub
 		
 	}
 

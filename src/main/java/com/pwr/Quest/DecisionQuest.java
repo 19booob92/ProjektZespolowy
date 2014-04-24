@@ -24,15 +24,20 @@ public class DecisionQuest extends QuestPoint implements DescribeQuest {
         this.goToList = goToList;
     }
 
-    @Override
-    public void setQuestAnswer(ArrayList<String> answ) {
+    public void setDecisionAnswer(ArrayList<String> answ, ArrayList<String> numbers) {
         questAnswer=answ;
+        goToList=numbers;
     }
 
     @Override
     public void addQuestAnswer(String answ) {
         questAnswer.add(answ);
     }
+
+	@Override
+	public void setQuestAnswer(ArrayList<String> answ) {
+		
+	}
 
     
 }
