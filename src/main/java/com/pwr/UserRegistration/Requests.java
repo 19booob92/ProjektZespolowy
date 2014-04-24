@@ -136,4 +136,22 @@ public class Requests implements Serializable {
 		this.pass = password;
 	}
 
+	public void deleteAll() {
+		
+	}
+
+	public List<QuestDTO> getAllQuests() throws Exception {
+
+		ClientConfig clientConfig = new DefaultClientConfig();
+		clientConfig.getClasses().add(JacksonJsonProvider.class);
+		Client client = Client.create(clientConfig);
+		client.addFilter(new HTTPBasicAuthFilter(login, pass));
+
+		return client.resource(address + "adminPanel/allQuests/")
+				.type(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.get(new GenericType<List<QuestDTO>>() {
+				});
+	}
+
 }

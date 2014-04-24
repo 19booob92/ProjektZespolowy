@@ -32,6 +32,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
+import com.pwr.Editor.QuestsTableView;
 import com.pwr.Editor.UserDetailsView;
 import com.pwr.Quest.Campaign;
 import com.pwr.Quest.QuestPoint;
@@ -61,7 +62,8 @@ public class ProjectMainView extends JFrame {
 
 	private JMenuBar menuBar;
 	private JMenu mnProject;
-
+	private JButton btnDeleteAll;
+	
 	private JButton btnNewQuiz;
 	private JButton btnZapiszUstawieniaGry;
 	private JButton btnNowaGra;
@@ -139,7 +141,7 @@ public class ProjectMainView extends JFrame {
 	}
 
 	private void createLeftSidePanelForUserSettings() {
-		btnNewUser = new JButton("Dodaj u≈ºytkownika");
+		btnNewUser = new JButton("Dodaj uøytkownika");
 
 		btnNewUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -150,10 +152,22 @@ public class ProjectMainView extends JFrame {
 
 		btnNewUser.setBounds(10, 11, 207, 23);
 		leftSidePanel.add(btnNewUser);
+		
+		
+		btnDeleteAll = new JButton("Usun wszystkie dane");
+		
+		btnDeleteAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				requests.deleteAll();
+			}
+		});
+		
+		btnDeleteAll.setBounds(10, 40, 207, 23);
+		leftSidePanel.add(btnDeleteAll);
 	}
 
 	private void createLeftSidePanelForProject() {
-		btnNewQuiz = new JButton("Nowy Quiz");
+		btnNewQuiz = new JButton("Nowy quest");
 		btnNewQuiz.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -183,6 +197,23 @@ public class ProjectMainView extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 				campaign.createXml("title");
+			}
+		});
+		
+		JButton btnDeleteQuestts = new JButton("Usun questy");
+		btnDeleteQuestts.setBounds(6, 152, 206, 28);
+		leftSidePanel.add(btnDeleteQuestts);
+
+		btnDeleteQuestts.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						new QuestsTableView();
+					}
+				});
 			}
 		});
 	}
