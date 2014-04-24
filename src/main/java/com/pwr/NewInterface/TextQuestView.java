@@ -81,7 +81,7 @@ public TextQuestView() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                textAnswer.add(JOptionPane.showInputDialog("Podaj odpowiedÅº"));
+                textAnswer.add(JOptionPane.showInputDialog("Podaj odpowiedź"));
                 answers.addElement(textAnswer.get(answerTrigger));
                 answersComboBox.setSelectedIndex(answerTrigger);
                 answerTrigger++;

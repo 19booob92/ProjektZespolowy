@@ -34,7 +34,7 @@ import com.pwr.Quest.OrderQuest;
 import com.pwr.Quest.QuestFactory;
 import com.pwr.Quest.QuestPoint;
 import com.pwr.Quest.QuestType;
-import com.pwr.Quest.RangeQuest;
+import com.pwr.Quest.DecisionQuest;
 import com.pwr.Quest.TextQuest;
 
 public class NewQuizView extends JFrame {
@@ -102,7 +102,7 @@ public class NewQuizView extends JFrame {
 
 		String[] quizTypes = { "Zagadka terenowa", "Zagadka tekstowa",
 				"Zagadka wielokrotnego wyboru", "Zagadka uporządkowania",
-				"Zagadka zasięgu" };
+				"Zagadka decyzji" };
 
 		final JComboBox questTypeCombo = new JComboBox(quizTypes);
 		questTypeCombo.setBounds(76, 112, 154, 27);
@@ -149,8 +149,8 @@ public class NewQuizView extends JFrame {
 									newQuest = (ChoiceQuest) QuestFactory.createQuest(QuestType.CHOICEQUEST);
 									GetMultipleChoiceQuestFields((ChoiceQuest)newQuest, (MultipleChoiceQuestView)selectedCard);
 								} else if (selectedCard.introduceYourself() == "RangeQuest") {
-									newQuest = (RangeQuest) QuestFactory.createQuest(QuestType.RANGEQUEST);
-									GetRangeQuestFields((RangeQuest)newQuest, (RangeQuestView)selectedCard);
+									newQuest = (DecisionQuest) QuestFactory.createQuest(QuestType.DECISIONQUEST);
+									GetRangeQuestFields((DecisionQuest)newQuest, (DecisionQuestView)selectedCard);
 								} else if (selectedCard.introduceYourself() == "FieldQuest") {
 									newQuest = (FieldQuest) QuestFactory.createQuest(QuestType.FIELDQUEST);
 									GetFieldQuestFields((FieldQuest)newQuest, (FieldQuestView)selectedCard);
@@ -162,29 +162,7 @@ public class NewQuizView extends JFrame {
 							}
 						}										
 
-						/*
-						 * XmlBuilder xml = new XmlBuilder("tytul");
-						 * 
-						 * xml.addQuizText(newTextQuest.getQuestName(),
-						 * newTextQuest
-						 * .getSoundPaths(),newTextQuest.getPicturePaths(),
-						 * newTextQuest.getQuestDescription(),
-						 * newTextQuest.getPreNote(),
-						 * newTextQuest.getPostNote(), newTextQuest.getGoTo(),
-						 * newTextQuest.getPoints(), newTextQuest.getDate(),
-						 * newTextQuest.getQuestAnswer(),
-						 * newTextQuest.getQuestTimeout(),
-						 * newTextQuest.getWrong()); try { xml.saveXml();
-						 * //dodac pola w zaleznosci od innych typow } catch
-						 * (TransformerException ex) {
-						 * Logger.getLogger(NewQuizView
-						 * .class.getName()).log(Level.SEVERE, null, ex); }
-						 */
-						//ZipPacking(newQuest);
-
 						campaignRef.addQuiz(newQuest);
-						//campaignRef.createXml("title");
-
 						System.out.println(campaignRef.getQuizes().get(0)
 								.getQuestName());
 						System.out.println(campaignRef.getQuizes().get(0)
@@ -202,7 +180,7 @@ public class NewQuizView extends JFrame {
 		rightSidePanel.add(new TextQuestView(), "Zagadka tekstowa");
 		rightSidePanel.add(new MultipleChoiceQuestView(),"Zagadka wielokrotnego wyboru");
 		rightSidePanel.add(new OrderQuestView(), "Zagadka uporządkowania");
-		rightSidePanel.add(new RangeQuestView(), "Zagadka zasięgu");
+		rightSidePanel.add(new DecisionQuestView(), "Zagadka decyzji");
 
 		questTypeCombo.addItemListener(new ItemListener() {
 
@@ -264,7 +242,7 @@ public class NewQuizView extends JFrame {
 		newQuest.setQuestAnswer(questView.textAnswer);
 	}
 	
-	private void GetRangeQuestFields(RangeQuest newQuest, RangeQuestView questView) {
+	private void GetRangeQuestFields(DecisionQuest newQuest, DecisionQuestView questView) {
 			
 	}
 	

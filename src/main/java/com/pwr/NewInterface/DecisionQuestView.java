@@ -7,13 +7,13 @@ import com.pwr.Quest.QuestFactory;
 import com.pwr.Quest.QuestPoint;
 import com.pwr.Quest.QuestType;
 
-public class RangeQuestView extends QuestView implements DescribeView{
+public class DecisionQuestView extends QuestView implements DescribeView{
 
 	private QuestPoint quest;
 
-	public RangeQuestView() {
+	public DecisionQuestView() {
 		super();
-		quest = QuestFactory.createQuest(QuestType.RANGEQUEST);
+		quest = QuestFactory.createQuest(QuestType.DECISIONQUEST);
 	}
 
 	@Override

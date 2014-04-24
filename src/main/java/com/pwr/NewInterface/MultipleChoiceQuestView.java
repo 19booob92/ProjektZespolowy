@@ -52,7 +52,7 @@ public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 
 	private void addAnswersTable() {
 		tablePanel = new JPanel();
-		tableModel = new DefaultTableModel(new String[] { "Nr", "Treść odpowiedzi","Prawda/Fałsz"}, 0);
+		tableModel = new DefaultTableModel(new String[] { "Nr", "Treść odpowiedzi","Poprawna"}, 0);
 		
 		tablePanel.setBounds(23, 286, 518, 203);
 		tablePanel.setLayout(new BorderLayout());
@@ -61,8 +61,8 @@ public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 		
 		table.getColumn("Nr").setMinWidth(50);
 		table.getColumn("Nr").setMaxWidth(50);
-		table.getColumn("Prawda/Fałsz").setMinWidth(80);
-		table.getColumn("Prawda/Fałsz").setMaxWidth(80);
+		table.getColumn("Poprawna").setMinWidth(80);
+		table.getColumn("Poprawna").setMaxWidth(80);
 		
 		//Moze bedzie kolumna JButtonow
 		

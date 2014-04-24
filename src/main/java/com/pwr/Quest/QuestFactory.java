@@ -17,8 +17,8 @@ public class QuestFactory {
 			case ORDERQUEST:
 				quest = new OrderQuest();
 				break;
-			case RANGEQUEST:
-				quest = new RangeQuest();
+			case DECISIONQUEST:
+				quest = new DecisionQuest();
 				break;
 			default:
 				quest = new TextQuest();

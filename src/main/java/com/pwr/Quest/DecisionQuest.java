@@ -2,13 +2,13 @@ package com.pwr.Quest;
 
 import java.util.ArrayList;
 
-public class RangeQuest extends QuestPoint implements DescribeQuest {
+public class DecisionQuest extends QuestPoint implements DescribeQuest {
    
     private ArrayList<String> questAnswer = new ArrayList<String>();
     private ArrayList<String> goToList = new ArrayList<String>();
     
-	public RangeQuest() {
-		super(QuestType.RANGEQUEST);
+	public DecisionQuest() {
+		super(QuestType.DECISIONQUEST);
 	}
 
 	@Override

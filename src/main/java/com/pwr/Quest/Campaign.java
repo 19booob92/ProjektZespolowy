@@ -81,9 +81,9 @@ public class Campaign {
                                                         quest.getPostNote(), quest.getGoTo(), quest.getPoints(), quest.getDate(), quest.getXCoordinate(),
                                                         quest.getYCoordninate(), quest.getWidth(), quest.getHeight(),quest.getQuestTimeout(),quest.getWrong());
                 }
-                else if(tempQuest.getQuestType()==QuestType.RANGEQUEST)
+                else if(tempQuest.getQuestType()==QuestType.DECISIONQUEST)
                 {
-                    RangeQuest quest = (RangeQuest)tempQuest;
+                    DecisionQuest quest = (DecisionQuest)tempQuest;
                     xml.addQuizDecision(quest.getQuestName(),  quest.getSoundPaths(),quest.getPicturePaths(), quest.getQuestDescription(), quest.getPreNote(),
                                                         quest.getPostNote(), quest.getPoints(), quest.getDate(), quest.getGoToList(), quest.getQuestAnswer(),
                                                         quest.getQuestTimeout(),quest.getWrong());

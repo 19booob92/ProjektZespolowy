@@ -225,7 +225,7 @@ public class QuestView extends JPanel implements DescribeView{
 				int selectedIndex = paragraphsComboBox.getSelectedIndex();
 				if (selectedIndex != -1) {
 					String tempParagraph = JOptionPane.showInputDialog(
-							"Podaj treść ", paragraphList.get(selectedIndex));
+							"Podaj treÅ›Ä‡ ", paragraphList.get(selectedIndex));
 					paragraphList.set(selectedIndex, tempParagraph);
 				}
 			}
