@@ -1,8 +1,10 @@
 package com.pwr.NewInterface;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.SplashScreen;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -10,7 +12,9 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -51,7 +55,10 @@ public class ProjectMainView extends JFrame {
 	private UserDataRegister userDataRegister;
 	@Autowired
 	private UserDetailsView userDetailsView;
-
+	
+	private static SplashWindow splash;
+	private static final String SPLASH_IMAGE = "monit.gif";
+	
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
 	private JScrollPane rightScroll;
@@ -91,10 +98,14 @@ public class ProjectMainView extends JFrame {
 
 	public ProjectMainView() {
 		campaign = new Campaign();
-
+		//Sample Splash - Do zmiany
+		splash = new SplashWindow(this, "load.gif");
+		for(int i = 0; i < 50000; i++) {
+		      System.out.println(i) ;
+		}
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
-
 		setSize(windowWidth, windowHeight);
 
 		leftSidePanel = new JPanel();
