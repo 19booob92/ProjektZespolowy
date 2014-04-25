@@ -37,7 +37,7 @@ public class SplashWindow extends Window {
 
 	public void showSplashScreen() {
 		Dimension screenSize = tk.getScreenSize();
-		setBackground(BORDERCOLOR);
+		//setBackground(BORDERCOLOR);
 		int w = imgWidth + (BORDERSIZE * 2);
 		int h = imgHeight + (BORDERSIZE * 2);
 		int x = (screenSize.width - w) / 2;

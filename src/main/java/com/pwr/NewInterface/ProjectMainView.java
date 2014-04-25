@@ -56,9 +56,6 @@ public class ProjectMainView extends JFrame {
 	@Autowired
 	private UserDetailsView userDetailsView;
 	
-	private static SplashWindow splash;
-	private static final String SPLASH_IMAGE = "monit.gif";
-	
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
 	private JScrollPane rightScroll;
@@ -97,13 +94,7 @@ public class ProjectMainView extends JFrame {
 	private static ArrayList<QuestPoint> quest;
 
 	public ProjectMainView() {
-		campaign = new Campaign();
-		//Sample Splash - Do zmiany
-		splash = new SplashWindow(this, "load.gif");
-		for(int i = 0; i < 50000; i++) {
-		      System.out.println(i) ;
-		}
-		
+		campaign = new Campaign();		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 		setSize(windowWidth, windowHeight);
@@ -356,10 +347,10 @@ public class ProjectMainView extends JFrame {
 
 		ApplicationContext context = new AnnotationConfigApplicationContext(
 				SpringBootLoader.class);
-
+		
 		ProjectMainView projectMainView = (ProjectMainView) context
 				.getBean(ProjectMainView.class);
-
+		//SplashWindow splash = new SplashWindow(projectMainView, "359.gif");
 		projectMainView.createRightSidePanel();
 		projectMainView.createLeftSidePanelForProject();
 		projectMainView.createMenu();
