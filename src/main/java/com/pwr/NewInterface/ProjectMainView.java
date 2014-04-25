@@ -32,6 +32,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
+
+import com.pwr.Editor.QuestTableView;
 //import com.pwr.Editor.QuestsTableView;
 import com.pwr.Editor.UserDetailsView;
 import com.pwr.Quest.Campaign;
@@ -211,7 +213,7 @@ public class ProjectMainView extends JFrame {
 					
 					@Override
 					public void run() {
-						//new QuestsTableView();
+						new QuestTableView();
 					}
 				});
 			}
@@ -296,13 +298,9 @@ public class ProjectMainView extends JFrame {
 					JTable target = (JTable) e.getSource();
 					rowNum = target.getSelectedRow();
 					colNum = target.getSelectedColumn();
-					String userName = (String) tableModel.getValueAt(
-							rowNum, 0);
-					userDetailsView.setUserName(userName);
-					userDetailsView.setLoginField(userName);
-					userDetailsView.setUserNameLabelTxt(userName);
-					userDetailsView.setTitle(userName);
-					userDetailsView.setVisible(true);  // to wszystko trzeba jakoś ogarnąć
+					
+					userDetailsView.prepareUserDetailsView((String) tableModel.getValueAt(
+							rowNum, 0));
 
 				}
 			}

@@ -34,14 +34,14 @@ public class Requests implements Serializable {
 	public Requests() {
 	}
 
-	public int deleteUser(String value, String extend_uri) throws Exception {
+	public int delete(String value, String extend_uri) throws Exception {
 		ClientConfig config = new DefaultClientConfig();
 		client = Client.create(config);
 		client.addFilter(new LoggingFilter());
-		webResource = client.resource(address + "adminPanel" + extend_uri + "/"
+		webResource = client.resource("http://virt2.iiar.pwr.edu.pl:8080/register/" + "adminPanel" + extend_uri + "/"
 				+ value);
 
-		client.addFilter(new HTTPBasicAuthFilter(login, pass));
+		client.addFilter(new HTTPBasicAuthFilter("adm", "ini"));
 		ClientResponse response = webResource.type(MediaType.APPLICATION_JSON)
 				.delete(ClientResponse.class);
 
@@ -135,9 +135,20 @@ public class Requests implements Serializable {
 	public void setPassword(String password) {
 		this.pass = password;
 	}
-
+	
+	// to jest wersja beta, póxniej na serwerze bedzie stowrzone odpowiednie zapytanie ktore zrobi to wszystko
+	// automatycznie
 	public void deleteAll() {
-		
+		try {
+			List<UserDTO> listaUserow = getAllUsers();
+			for (UserDTO user : listaUserow) {
+				delete(user.getLogin(), "/deleteGame");
+				delete(user.getLogin(), "/doneQuest");
+				delete(user.getLogin(), "/deleteUser");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public List<QuestDTO> getAllQuests() throws Exception {
@@ -145,13 +156,14 @@ public class Requests implements Serializable {
 		ClientConfig clientConfig = new DefaultClientConfig();
 		clientConfig.getClasses().add(JacksonJsonProvider.class);
 		Client client = Client.create(clientConfig);
-		client.addFilter(new HTTPBasicAuthFilter(login, pass));
+		client.addFilter(new HTTPBasicAuthFilter("adm", "ini"));
 
-		return client.resource(address + "adminPanel/allQuests/")
+		return client.resource("http://virt2.iiar.pwr.edu.pl:8080/register/" + "adminPanel/allQuests/")
 				.type(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
 				.get(new GenericType<List<QuestDTO>>() {
 				});
 	}
+	
 
 }

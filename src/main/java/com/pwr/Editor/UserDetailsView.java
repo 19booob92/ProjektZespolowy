@@ -60,7 +60,7 @@ public class UserDetailsView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					requests.deleteUser(userName, "/doneQuest/");
+					requests.delete(userName, "/doneQuest/");
 					projectMainView.updateTable();
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -71,7 +71,7 @@ public class UserDetailsView extends JFrame {
 		btnDeleteUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					requests.deleteUser(userName, "/deleteUser");
+					requests.delete(userName, "/deleteUser");
 					projectMainView.updateTable();
 					UserDetailsView.this.dispose();
 				} catch (Exception e) {
@@ -90,7 +90,7 @@ public class UserDetailsView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					requests.deleteUser(userName, "/deleteGame");
+					requests.delete(userName, "/deleteGame");
 					projectMainView.updateTable();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -175,6 +175,14 @@ public class UserDetailsView extends JFrame {
 
 	public void setLoginField(String userName2) {
 		login.setText(userName2);
+	}
+	
+	public void prepareUserDetailsView(String name) {
+		setUserName(name);
+		setLoginField(name);
+		setUserNameLabelTxt(name);
+		setTitle(name);
+		setVisible(true);
 	}
 
 }
