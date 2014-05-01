@@ -19,6 +19,10 @@ public class GraphFacade {
 		getGraphPanel().setQuizListFromArray(tqDBArray);
 	}
 
+	public GraphFacade(List<QuizDataObject> quizes) {
+		getGraphPanel().setQuizListFromArrayList(quizes);
+	}
+	
 	public void addQuizDataObjectArray(QuizDataObject [] tqDBArray)
 	{
 		getGraphPanel().setQuizListFromArray(tqDBArray);
@@ -37,10 +41,6 @@ public class GraphFacade {
 		qDBArray[5]=new QuizDataObject("ss5",new String[]{""},"",""+(5));
 
 		return qDBArray;
-	}
-
-	public List<QuizDataObject> createFilledQuizList(List<QuizDataObject> quizDTOs) {
-		return quizDTOs;
 	}
 	
 	public GraphPanel getGraphPanel() {

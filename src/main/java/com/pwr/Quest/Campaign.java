@@ -2,6 +2,7 @@ package com.pwr.Quest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,13 +14,14 @@ import com.pwr.Graph.QuizDataObject;
 import com.pwr.NewInterface.NewQuizView;
 import java.io.IOException;
 
-public class Campaign {
+public class Campaign extends Observable{
 
 	private ArrayList<QuestPoint> quests;
 	private ArrayList<TreasureBox> boxes;
 	private ArrayList<String> introPics;
 	private ArrayList<String> outroPics;
-        private ZipPacker zip;
+    private ZipPacker zip;
+    private boolean changed = false;
         
 	public Campaign() {
 		quests = new ArrayList();
@@ -27,7 +29,7 @@ public class Campaign {
 		introPics = new ArrayList();
 		outroPics = new ArrayList();
 	}
-        
+	
 	public List<QuizDataObject> convertQuiz() {
 		List<QuizDataObject> quizDTOs = new ArrayList<>();
 		for (QuestPoint q : quests)
@@ -37,6 +39,12 @@ public class Campaign {
 		return quizDTOs;
 	}
         
+	public void changeState () {
+		changed = !changed;
+		setChanged();
+		notifyObservers();
+	}
+	
 	public void addQuiz(QuestPoint p) {
 		quests.add(p);
 	}

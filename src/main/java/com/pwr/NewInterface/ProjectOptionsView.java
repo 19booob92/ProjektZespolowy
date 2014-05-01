@@ -2,6 +2,8 @@ package com.pwr.NewInterface;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Set;
 import com.pwr.Graph.*;
 
@@ -16,7 +18,7 @@ import javax.swing.JButton;
 
 import com.pwr.Quest.Campaign;
 
-public class ProjectOptionsView extends JPanel {
+public class ProjectOptionsView extends JPanel implements Observer {
 
 	private static final int panelWidth = 1000;
 	private static final int panelHeight = 800;
@@ -49,7 +51,7 @@ public class ProjectOptionsView extends JPanel {
 		setLayout(null);
 		
 		campaign = camp;
-
+		camp.addObserver(this);
 		introPicsListModel = new DefaultListModel<String>();
 		outroPicsListModel = new DefaultListModel<String>();
 		quizListModel = new DefaultListModel<String>();
@@ -117,8 +119,8 @@ public class ProjectOptionsView extends JPanel {
 		add(tfStartDate);
 		tfStartDate.setColumns(10);
 		
-		GraphFacade graphFacade = new GraphFacade();
-		graphFacade.getGraphPanel().setQuizListFromArrayList(graphFacade.createFilledQuizList(campaign.convertQuiz()));
+		graphFacade = new GraphFacade();
+		graphFacade.getGraphPanel().setQuizListFromArrayList(campaign.convertQuiz());
 		graphFacade.getGraphPanel().setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		graphFacade.getGraphPanel().setBounds(310, 53, 676, 326);
 		add(graphFacade.getGraphPanel());
@@ -156,4 +158,11 @@ public class ProjectOptionsView extends JPanel {
 	public DefaultListModel getQuizListModel() {
 		return quizListModel;
 	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		graphFacade.getGraphPanel().setQuizListFromArrayList(campaign.convertQuiz());
+		revalidate();
+	}
+
 }

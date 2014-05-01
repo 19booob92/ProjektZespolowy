@@ -163,6 +163,7 @@ public class NewQuizView extends JFrame {
 						}										
 
 						campaignRef.addQuiz(newQuest);
+						campaignRef.changeState();
 						System.out.println(campaignRef.getQuizes().get(0)
 								.getQuestName());
 						System.out.println(campaignRef.getQuizes().get(0)

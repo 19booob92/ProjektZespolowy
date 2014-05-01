@@ -132,6 +132,6 @@ public abstract class QuestPoint implements DescribeQuest {
 	public QuizDataObject convert() {
 		String [] arr = new String [1];
 		QuizDataObject quizDTO = new QuizDataObject("asd",arr,"asd","asd");
-		return null;
+		return quizDTO;
 	}
 }
