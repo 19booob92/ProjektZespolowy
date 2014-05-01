@@ -21,7 +21,7 @@ import com.pwr.Quest.Campaign;
 public class ProjectOptionsView extends JPanel implements Observer {
 
 	private static final int panelWidth = 1000;
-	private static final int panelHeight = 800;
+	private static final int panelHeight = 750;
 	private JTextField tfGameTitle;
 	private JTextField tfStartDate;
 
@@ -29,6 +29,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	private JLabel lblIntroModulePics;
 	private JLabel lblOutroModulePics;
 	private JLabel lblStartDate;
+	private JLabel lblLista;
 	private GraphFacade graphFacade;
 	
 	private JList introPics;
@@ -85,7 +86,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 
 		listOfQuizes = new JList(quizListModel);
 		listOfQuizes.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		listOfQuizes.setBounds(10, 424, 406, 286);
+		listOfQuizes.setBounds(10, 465, 290, 253);
 		
 		for (String s : campaign.getQuizesNames())
 			quizListModel.addElement(s);
@@ -124,6 +125,10 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		graphFacade.getGraphPanel().setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		graphFacade.getGraphPanel().setBounds(310, 53, 676, 326);
 		add(graphFacade.getGraphPanel());
+		
+		lblLista = new JLabel("Lista");
+		lblLista.setBounds(10, 439, 85, 14);
+		add(lblLista);
 		addButtonsListeners();
 	}
 	private void addButtonsListeners() {
@@ -162,7 +167,6 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		graphFacade.getGraphPanel().setQuizListFromArrayList(campaign.convertQuiz());
-		revalidate();
+		graphFacade.getGraphPanel().repaint();
 	}
-
 }

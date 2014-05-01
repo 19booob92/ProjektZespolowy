@@ -3,6 +3,7 @@ package com.pwr.Quest;
 import java.util.ArrayList;
 
 import com.pwr.Graph.QuizDataObject;
+import com.pwr.NewInterface.QuestView;
 import com.pwr.Quest.QuestType;
 
 ;
@@ -131,7 +132,7 @@ public abstract class QuestPoint implements DescribeQuest {
 
 	public QuizDataObject convert() {
 		String [] arr = new String [1];
-		QuizDataObject quizDTO = new QuizDataObject("asd",arr,"asd","asd");
+		QuizDataObject quizDTO = new QuizDataObject(QuestName,arr,"asd","asd");
 		return quizDTO;
 	}
 }

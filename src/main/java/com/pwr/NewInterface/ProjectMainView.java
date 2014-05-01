@@ -104,7 +104,7 @@ public class ProjectMainView extends JFrame {
 
 		leftSidePanel = new JPanel();
 		rightSidePanel = new JPanel();
-		rightSidePanel.setPreferredSize(new Dimension(800, 500));
+		rightSidePanel.setPreferredSize(new Dimension(1000, 750));
 		rightScroll = new JScrollPane(rightSidePanel);
 		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftSidePanel,
 				rightScroll);
