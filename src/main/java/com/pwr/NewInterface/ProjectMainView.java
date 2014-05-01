@@ -95,6 +95,7 @@ public class ProjectMainView extends JFrame {
 
 	public ProjectMainView() {
 		campaign = new Campaign();		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 		setSize(windowWidth, windowHeight);
@@ -280,7 +281,9 @@ public class ProjectMainView extends JFrame {
 
 	private List<UserDTO> getDataToTable() {
 		try {
+			SplashWindow splash = new SplashWindow(this, "359.gif");
 			List<UserDTO> usersList = requests.getAllUsers();
+			splash.dispose();
 			return usersList;
 		} catch (Exception except) {
 			except.printStackTrace();
@@ -350,7 +353,6 @@ public class ProjectMainView extends JFrame {
 		
 		ProjectMainView projectMainView = (ProjectMainView) context
 				.getBean(ProjectMainView.class);
-		//SplashWindow splash = new SplashWindow(projectMainView, "359.gif");
 		projectMainView.createRightSidePanel();
 		projectMainView.createLeftSidePanelForProject();
 		projectMainView.createMenu();

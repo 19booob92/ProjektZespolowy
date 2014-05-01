@@ -3,7 +3,7 @@ package com.pwr.NewInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Set;
-
+import com.pwr.Graph.*;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
@@ -26,7 +26,8 @@ public class ProjectOptionsView extends JPanel {
 	private JLabel lblIntroModulePics;
 	private JLabel lblOutroModulePics;
 	private JLabel lblStartDate;
-
+	private GraphPanel GraphPanel;
+	
 	private JList introPics;
 	private JList outroPics;
 
@@ -81,16 +82,11 @@ public class ProjectOptionsView extends JPanel {
 
 		listOfQuizes = new JList(quizListModel);
 		listOfQuizes.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		listOfQuizes.setBounds(326, 125, 406, 286);
+		listOfQuizes.setBounds(10, 424, 406, 286);
 		
 		for (String s : campaign.getQuizesNames())
 			quizListModel.addElement(s);
 		add(listOfQuizes);
-		
-		JLabel lblMiejsceNaGraf = new JLabel(
-				"Miejsce na graf kampanii, t.j listę quizów + graficzną reprezentację gry. Tu można wstawić też wiele innych rzeczy");
-		lblMiejsceNaGraf.setBounds(314, 60, 565, 14);
-		add(lblMiejsceNaGraf);
 		addIntroOutroButtons();
 	}
 
@@ -119,6 +115,11 @@ public class ProjectOptionsView extends JPanel {
 		tfStartDate.setBounds(10, 125, 290, 28);
 		add(tfStartDate);
 		tfStartDate.setColumns(10);
+		
+		GraphPanel = new GraphPanel();
+		GraphPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		GraphPanel.setBounds(310, 53, 676, 326);
+		add(GraphPanel);
 		addButtonsListeners();
 	}
 	private void addButtonsListeners() {

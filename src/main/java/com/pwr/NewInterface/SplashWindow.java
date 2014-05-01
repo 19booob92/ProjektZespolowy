@@ -17,7 +17,7 @@ public class SplashWindow extends Window {
 		tk = Toolkit.getDefaultToolkit();
 		splashImage = loadSplashImage();
 		showSplashScreen();
-		f.addWindowListener(new WindowListener());
+		//f.addWindowListener(new WindowListener());
 	}
 
 	public Image loadSplashImage() {
