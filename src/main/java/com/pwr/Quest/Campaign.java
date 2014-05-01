@@ -1,6 +1,7 @@
 package com.pwr.Quest;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -8,6 +9,7 @@ import javax.xml.transform.TransformerException;
 
 import com.pwr.Editor.XmlBuilder;
 import com.pwr.Editor.ZipPacker;
+import com.pwr.Graph.QuizDataObject;
 import com.pwr.NewInterface.NewQuizView;
 import java.io.IOException;
 
@@ -26,7 +28,14 @@ public class Campaign {
 		outroPics = new ArrayList();
 	}
         
-        
+	public List<QuizDataObject> convertQuiz() {
+		List<QuizDataObject> quizDTOs = new ArrayList<>();
+		for (QuestPoint q : quests)
+		{
+			quizDTOs.add(q.convert());
+		}
+		return quizDTOs;
+	}
         
 	public void addQuiz(QuestPoint p) {
 		quests.add(p);
