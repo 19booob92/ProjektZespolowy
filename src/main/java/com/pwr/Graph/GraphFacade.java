@@ -2,6 +2,7 @@ package com.pwr.Graph;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -38,6 +39,10 @@ public class GraphFacade {
 		return qDBArray;
 	}
 
+	public List<QuizDataObject> createFilledQuizList(List<QuizDataObject> quizDTOs) {
+		return quizDTOs;
+	}
+	
 	public GraphPanel getGraphPanel() {
 		return graphPanel;
 	}

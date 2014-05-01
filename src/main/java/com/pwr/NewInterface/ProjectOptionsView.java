@@ -118,7 +118,7 @@ public class ProjectOptionsView extends JPanel {
 		tfStartDate.setColumns(10);
 		
 		GraphFacade graphFacade = new GraphFacade();
-		graphFacade.getGraphPanel().setQuizListFromArray(graphFacade.createFilledQuizList(2));
+		graphFacade.getGraphPanel().setQuizListFromArrayList(graphFacade.createFilledQuizList(campaign.convertQuiz()));
 		graphFacade.getGraphPanel().setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		graphFacade.getGraphPanel().setBounds(310, 53, 676, 326);
 		add(graphFacade.getGraphPanel());

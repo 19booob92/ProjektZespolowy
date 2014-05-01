@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.JPanel;
@@ -30,6 +31,13 @@ public class GraphPanel extends JPanel {
 		}
 		setPreferredSize(new Dimension((int) (200+GraphPanel.xOffset+quizList.size() * (QuizDataObject.getSize()+GraphPanel.space)), (int)(200+GraphPanel.yOffset+quizList.size() * (QuizDataObject.getSize()+GraphPanel.space))));
 		
+	}
+	
+	public void setQuizListFromArrayList(List<QuizDataObject> qDB){
+		for (QuizDataObject q : qDB) {
+			quizList.add(q);
+		}
+		setPreferredSize(new Dimension((int) (200+GraphPanel.xOffset+quizList.size() * (QuizDataObject.getSize()+GraphPanel.space)), (int)(200+GraphPanel.yOffset+quizList.size() * (QuizDataObject.getSize()+GraphPanel.space))));
 	}
 
 	@Override
