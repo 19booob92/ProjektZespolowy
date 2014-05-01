@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Set;
 import com.pwr.Graph.*;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
@@ -26,7 +27,7 @@ public class ProjectOptionsView extends JPanel {
 	private JLabel lblIntroModulePics;
 	private JLabel lblOutroModulePics;
 	private JLabel lblStartDate;
-	private GraphPanel GraphPanel;
+	private GraphFacade graphFacade;
 	
 	private JList introPics;
 	private JList outroPics;
@@ -116,10 +117,11 @@ public class ProjectOptionsView extends JPanel {
 		add(tfStartDate);
 		tfStartDate.setColumns(10);
 		
-		GraphPanel = new GraphPanel();
-		GraphPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		GraphPanel.setBounds(310, 53, 676, 326);
-		add(GraphPanel);
+		GraphFacade graphFacade = new GraphFacade();
+		graphFacade.getGraphPanel().setQuizListFromArray(graphFacade.createFilledQuizList(2));
+		graphFacade.getGraphPanel().setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		graphFacade.getGraphPanel().setBounds(310, 53, 676, 326);
+		add(graphFacade.getGraphPanel());
 		addButtonsListeners();
 	}
 	private void addButtonsListeners() {

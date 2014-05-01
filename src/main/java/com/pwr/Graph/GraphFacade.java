@@ -6,48 +6,21 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
-public class GraphFacade extends JFrame {
+public class GraphFacade {
 
-	GraphPanel graphPanel;
+	private GraphPanel graphPanel;
 
 	public GraphFacade() {
-		super("Graf");
-		graphPanel = new GraphPanel();
-		JScrollPane scrollPanel= new JScrollPane(graphPanel);
-		scrollPanel.setSize(new Dimension(800, 600));
-		add(scrollPanel);
-		pack();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(800, 600);
-		setVisible(true);
+		setGraphPanel(new GraphPanel());
 	}
-	/*
-	 * Tutaj wrzucacie w argumencie upakowan¹ tablice quizow
-	 * no i te quizy to sa takie DTO (QuizDataObject)
-	 * 
-	 * stawialem na semantyke, wiec wszystko powinno byc jasne
-	 */
+
 	public GraphFacade(QuizDataObject [] tqDBArray) {
-		super("Graf");
-		graphPanel = new GraphPanel();
-		JScrollPane scrollPanel= new JScrollPane(graphPanel);
-		scrollPanel.setSize(new Dimension(800, 600));
-		add(scrollPanel);
-		graphPanel.setQuizListFromArray(tqDBArray);
-		pack();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(800, 600);
-		setVisible(true);
-	}
-	
-	public static void main(String[] args) {
-		GraphFacade main = new GraphFacade();
-		main.graphPanel.setQuizListFromArray(main.createFilledQuizList(2));
+		getGraphPanel().setQuizListFromArray(tqDBArray);
 	}
 
 	public void addQuizDataObjectArray(QuizDataObject [] tqDBArray)
 	{
-		graphPanel.setQuizListFromArray(tqDBArray);
+		getGraphPanel().setQuizListFromArray(tqDBArray);
 	}
 	public QuizDataObject[] createFilledQuizList(int size)
 	{
@@ -63,5 +36,13 @@ public class GraphFacade extends JFrame {
 		qDBArray[5]=new QuizDataObject("ss5",new String[]{""},"",""+(5));
 
 		return qDBArray;
+	}
+
+	public GraphPanel getGraphPanel() {
+		return graphPanel;
+	}
+
+	public void setGraphPanel(GraphPanel graphPanel) {
+		this.graphPanel = graphPanel;
 	}
 }
