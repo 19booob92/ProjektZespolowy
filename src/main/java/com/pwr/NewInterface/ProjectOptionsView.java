@@ -168,5 +168,6 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	public void update(Observable o, Object arg) {
 		graphFacade.getGraphPanel().setQuizListFromArrayList(campaign.convertQuiz());
 		graphFacade.getGraphPanel().repaint();
+		quizListModel.addElement(campaign.getLastQuiz().ToString());
 	}
 }
