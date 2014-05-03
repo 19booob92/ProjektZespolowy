@@ -43,6 +43,7 @@ public class QuestView extends JPanel implements DescribeView{
 	protected JTextField points;
 	protected JTextField wrong;
 	protected JTextField date;
+	protected JTextField next;
 
 	private JLabel lblParagraph;
 	private JLabel lblPics;
@@ -163,6 +164,15 @@ public class QuestView extends JPanel implements DescribeView{
 		date = new JTextField();
 		date.setBounds(685, 64, 171, 30);
 		add(date);
+		
+		JLabel lblNastpna = new JLabel("Następna");
+		lblNastpna.setBounds(685, 243, 120, 14);
+		add(lblNastpna);
+		
+		next = new JTextField();
+		next.setBounds(684, 264, 171, 30);
+		add(next);
+		next.setColumns(10);
 
 		addButtonsListeners();
 	}
@@ -288,5 +298,4 @@ public class QuestView extends JPanel implements DescribeView{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 }

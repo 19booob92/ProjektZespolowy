@@ -235,6 +235,7 @@ public class NewQuizView extends JFrame {
 		newQuest.setPreNote(selectedCard.preNote.getText());
 		newQuest.setDate(selectedCard.date.getText());
 		newQuest.setWrong(selectedCard.wrong.getText());
+		newQuest.setGoTo(selectedCard.next.getText());
 	}
 	
 	private void GetTextQuestFields(TextQuest newQuest, TextQuestView questView) {

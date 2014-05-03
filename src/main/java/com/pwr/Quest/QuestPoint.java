@@ -16,11 +16,12 @@ public abstract class QuestPoint implements DescribeQuest {
 	private String QuestName;
 	private int QuestTimeout;
 	private int points;
-	private static int id = 0;
+	//private static int id = 0;
 	private String preNote;
 	private String postNote;
 	private String date;
 	private String wrong;
+	private String goTo;
 	private QuestType type = null;
 
 	public QuestPoint(QuestType type) {
@@ -33,12 +34,12 @@ public abstract class QuestPoint implements DescribeQuest {
 		questDescription = new ArrayList<String>();
 		QuestTimeout = 0;
 		date = "10-03-2014 14:33";
-		id++;
+		//id++;
 	}
 	
-	public int getId() {
-		return id;
-	}
+	//public int getId() {
+		//return id;
+	//}
 	
 	public QuestType getQuestType() {
 		return type;
@@ -133,12 +134,11 @@ public abstract class QuestPoint implements DescribeQuest {
 	}
 
 	public void setGoTo(String goTo) {
-
+		this.goTo = goTo;
 	}
 
 	public QuizDataObject convert() {
-		String [] arr = new String [1];
-		QuizDataObject quizDTO = new QuizDataObject(QuestName,arr,"asd",Integer.toString(id));
+		QuizDataObject quizDTO = new QuizDataObject(QuestName, new String[] {goTo},wrong,QuestName);
 		return quizDTO;
 	}
 }
