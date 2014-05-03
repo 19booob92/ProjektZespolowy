@@ -102,11 +102,10 @@ public class GraphPanel extends JPanel {
 		}
 
 		for (int m = 0; m < quizList.size(); m++)
-			if (quizList.get(m).getId().equals(qDB.getWrong())) {
-				drawRecursive(g, quizList.get(m), alreadyDone, x == 0 ? 0
-						: x - 1, y - 1, busyMap);
-				break;
-			}
+			   if (quizList.get(m).getId().equals(qDB.getWrong())) {
+			    drawRecursive(g, quizList.get(m), alreadyDone, x == 0 ? 0 : x - 1, y== 0 ? 0: y - 1, busyMap);
+			    break;
+			   }
 	}
 
 	private void drawOneOfMany(QuizDataObject qDB, int x, int y,

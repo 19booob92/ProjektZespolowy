@@ -32,6 +32,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	private JLabel lblLista;
 	private GraphFacade graphFacade;
 	
+	
 	private JList introPics;
 	private JList outroPics;
 

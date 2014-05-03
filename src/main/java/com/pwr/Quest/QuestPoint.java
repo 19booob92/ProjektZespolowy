@@ -1,6 +1,7 @@
 package com.pwr.Quest;
 
 import java.util.ArrayList;
+import java.security.*;
 
 import com.pwr.Graph.QuizDataObject;
 import com.pwr.NewInterface.QuestView;
@@ -138,7 +139,19 @@ public abstract class QuestPoint implements DescribeQuest {
 	}
 
 	public QuizDataObject convert() {
-		QuizDataObject quizDTO = new QuizDataObject(QuestName, new String[] {goTo},wrong,QuestName);
+		//MessageDigest md;
+		//String id = "";
+		QuizDataObject quizDTO;
+		//try {
+			//md = MessageDigest.getInstance("MD5");
+			//byte[] questNameBytes = QuestName.getBytes();
+			//byte[] digested = md.digest(questNameBytes);
+			//id = digested.toString();
+			
+		//} catch (NoSuchAlgorithmException e) {
+			//e.printStackTrace();
+		//}
+		quizDTO = new QuizDataObject(QuestName, new String[] {goTo},wrong,QuestName);
 		return quizDTO;
 	}
 }
