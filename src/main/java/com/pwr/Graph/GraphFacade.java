@@ -29,16 +29,16 @@ public class GraphFacade {
 	}
 	public QuizDataObject[] createFilledQuizList(int size)
 	{
-		size=6;
+		size=3;
 		QuizDataObject [] qDBArray=new QuizDataObject[size];
 		
 		
-		qDBArray[0]=new QuizDataObject("dsad0",new String[]{""+(1)},"",""+0);
-		qDBArray[1]=new QuizDataObject("dsad1",new String[]{""+(2)},""+0,""+(1));
-		qDBArray[2]=new QuizDataObject("asfs2",new String[]{""+(4)},""+1,""+(2));
-		qDBArray[3]=new QuizDataObject("asa3",new String[]{""+(5)},""+2,""+(3));
-		qDBArray[4]=new QuizDataObject("aas4",new String[]{""+(3)},"",""+(4));
-		qDBArray[5]=new QuizDataObject("ss5",new String[]{""},"",""+(5));
+		qDBArray[0]=new QuizDataObject("dsad0",new String[]{""+(1)},""+2,""+0);
+		qDBArray[1]=new QuizDataObject("dsad1",new String[]{""+(1)},""+2,""+(1));
+		qDBArray[2]=new QuizDataObject("asfs2",new String[]{""+(0)},""+1,""+(2));
+		//qDBArray[3]=new QuizDataObject("asa3",new String[]{""+(5)},""+2,""+(3));
+		//qDBArray[4]=new QuizDataObject("aas4",new String[]{""+(3)},"",""+(4));
+		//qDBArray[5]=new QuizDataObject("ss5",new String[]{""},"",""+(5));
 
 		return qDBArray;
 	}

@@ -22,7 +22,6 @@ public abstract class QuestPoint implements DescribeQuest {
 	private String postNote;
 	private String date;
 	private String wrong;
-	private String goTo;
 	private QuestType type = null;
 
 	public QuestPoint(QuestType type) {
@@ -134,10 +133,11 @@ public abstract class QuestPoint implements DescribeQuest {
 		this.questDescription = paragraph;
 	}
 
-	public void setGoTo(String goTo) {
-		this.goTo = goTo;
-	}
-
+	public abstract void setGoTo(String goTo); 
+		//this.goTo = goTo;
+	
+	protected abstract String getGoTo() ;
+	
 	public QuizDataObject convert() {
 		//MessageDigest md;
 		//String id = "";
@@ -151,7 +151,7 @@ public abstract class QuestPoint implements DescribeQuest {
 		//} catch (NoSuchAlgorithmException e) {
 			//e.printStackTrace();
 		//}
-		quizDTO = new QuizDataObject(QuestName, new String[] {goTo},wrong,QuestName);
+		quizDTO = new QuizDataObject(QuestName, new String[] {getGoTo()},wrong,QuestName);
 		return quizDTO;
 	}
 }

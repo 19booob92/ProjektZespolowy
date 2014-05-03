@@ -39,6 +39,18 @@ public class DecisionQuest extends QuestPoint implements DescribeQuest {
 		
 	}
 
+	@Override
+	public void setGoTo(String goTo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected String getGoTo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
     
 }
 
