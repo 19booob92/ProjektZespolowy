@@ -155,9 +155,6 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			public void actionPerformed(ActionEvent e) {
 				int ind = listOfQuizes.getSelectedIndex();
 				NewQuizView quizEditView = new NewQuizView(campaign, ind);
-				
-				//if ()
-				//quizEditView
 			}
 		});
 	}

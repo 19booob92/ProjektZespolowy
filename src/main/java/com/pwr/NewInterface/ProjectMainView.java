@@ -179,7 +179,7 @@ public class ProjectMainView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
-						new NewQuizView(campaign, 0);
+						new NewQuizView(campaign);
 					}
 				});
 			}

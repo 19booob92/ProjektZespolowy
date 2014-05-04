@@ -66,17 +66,28 @@ public class NewQuizView extends JFrame {
 	private static int quizIndex;
 	
 	// Quest Card Views
-	private static FieldQuestView fieldView = new FieldQuestView();
-	private static MultipleChoiceQuestView choiceView = new MultipleChoiceQuestView();
-	private static TextQuestView textView = new TextQuestView();
-	private static OrderQuestView orderView = new OrderQuestView();
-	private static DecisionQuestView decisionView = new DecisionQuestView();
+	private FieldQuestView fieldView = new FieldQuestView();
+	private MultipleChoiceQuestView choiceView = new MultipleChoiceQuestView();
+	private TextQuestView textView = new TextQuestView();
+	private OrderQuestView orderView = new OrderQuestView();
+	private DecisionQuestView decisionView = new DecisionQuestView();
 	
 	
 	public NewQuizView(Campaign campaign, int qInd) {
 		super();
 		campaignRef = campaign;
 		quizIndex = qInd;
+		initWindow();
+		fillFieldsWithQuizData();
+	}
+	
+	public NewQuizView(Campaign campaign) {
+		super();
+		campaignRef = campaign;
+		initWindow();
+	}
+
+	private void initWindow() {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
@@ -104,7 +115,7 @@ public class NewQuizView extends JFrame {
 		getContentPane().add(splitPane);
 		setVisible(true);
 	}
-
+	
 	private void fillFieldsWithQuizData() {
 		QuestPoint q = campaignRef.getQuizes().get(quizIndex);
 		fillWithGeneralData(q);
