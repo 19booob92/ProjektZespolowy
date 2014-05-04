@@ -119,6 +119,11 @@ public class NewQuizView extends JFrame {
 	
 	private void fillFieldsWithQuizData() {
 		QuestPoint q = campaignRef.getQuizes().get(quizIndex);
+		choiceView.setVisible(false);
+		decisionView.setVisible(false);
+		orderView.setVisible(false);
+		textView.setVisible(false);
+		fieldView.setVisible(false);
 		if (q.getQuestType() == QuestType.CHOICEQUEST) {
 			choiceView.setVisible(true);
 			fillWithGeneralData(q, choiceView);
