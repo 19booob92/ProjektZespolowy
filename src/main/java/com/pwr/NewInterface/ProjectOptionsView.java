@@ -157,6 +157,22 @@ public class ProjectOptionsView extends JPanel implements Observer {
 				NewQuizView quizEditView = new NewQuizView(campaign, ind);
 			}
 		});
+		
+		btnDelIntro.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				int ind = introPics.getSelectedIndex();
+				introPicsListModel.remove(ind);
+			}
+		});
+		
+		btnDelOutro.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				int ind = outroPics.getSelectedIndex();
+				outroPicsListModel.remove(ind);
+			}
+		});
 	}
 	
 	private void getPicturesPath(DefaultListModel<String> list) {
