@@ -84,6 +84,7 @@ public class NewQuizView extends JFrame {
 	public NewQuizView(Campaign campaign) {
 		super();
 		campaignRef = campaign;
+		quizIndex = -1;
 		initWindow();
 	}
 
@@ -119,18 +120,23 @@ public class NewQuizView extends JFrame {
 	private void fillFieldsWithQuizData() {
 		QuestPoint q = campaignRef.getQuizes().get(quizIndex);
 		if (q.getQuestType() == QuestType.CHOICEQUEST) {
+			choiceView.setVisible(true);
 			fillWithGeneralData(q, choiceView);
 			fillWithChoiceQuestData((ChoiceQuest)q);
 		} else if (q.getQuestType() == QuestType.DECISIONQUEST) {
+			decisionView.setVisible(true);
 			fillWithGeneralData(q, decisionView);
 			fillWithDecisionQuestData((DecisionQuest)q);
 		} else if (q.getQuestType() == QuestType.FIELDQUEST) {
+			fieldView.setVisible(true);
 			fillWithGeneralData(q, fieldView);
 			fillWithFieldQuestData((FieldQuest)q);
 		} else if (q.getQuestType() == QuestType.ORDERQUEST) {
+			orderView.setVisible(true);
 			fillWithGeneralData(q, orderView);
 			fillWithOrderQuestData((OrderQuest)q);
 		} else if (q.getQuestType() == QuestType.TEXTQUEST) {
+			textView.setVisible(true);
 			fillWithGeneralData(q, textView);
 			fillWithTextQuestData((TextQuest)q);
 		}
@@ -212,32 +218,60 @@ public class NewQuizView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
-						QuestPoint newQuest = null;
-						for (Component component : rightSidePanel.getComponents()) {
-							if (component.isVisible() == true) {
-								selectedCard = (QuestView) component;
-								if (selectedCard.introduceYourself() == "TextQuest") {
-									newQuest = (TextQuest) QuestFactory.createQuest(QuestType.TEXTQUEST);
-									GetTextQuestFields((TextQuest) newQuest, (TextQuestView) selectedCard);
-								} else if (selectedCard.introduceYourself() == "MultipleChoiceQuest") {
-									newQuest = (ChoiceQuest) QuestFactory.createQuest(QuestType.CHOICEQUEST);
-									GetMultipleChoiceQuestFields((ChoiceQuest)newQuest, (MultipleChoiceQuestView)selectedCard);
-								} else if (selectedCard.introduceYourself() == "DecisionQuest") {
-									newQuest = (DecisionQuest) QuestFactory.createQuest(QuestType.DECISIONQUEST);
-									GetDecisionQuestFields((DecisionQuest)newQuest, (DecisionQuestView)selectedCard);
-								} else if (selectedCard.introduceYourself() == "FieldQuest") {
-									newQuest = (FieldQuest) QuestFactory.createQuest(QuestType.FIELDQUEST);
-									GetFieldQuestFields((FieldQuest)newQuest, (FieldQuestView)selectedCard);
-								} else if (selectedCard.introduceYourself() == "OrderQuest") {
-									newQuest = QuestFactory.createQuest(QuestType.ORDERQUEST);
-									GetOrderQuestFields((OrderQuest)newQuest, (OrderQuestView)selectedCard);
+						QuestPoint newQuest;
+						if (quizIndex == -1) {
+							newQuest = null;
+							for (Component component : rightSidePanel.getComponents()) {
+								if (component.isVisible() == true) {
+									selectedCard = (QuestView) component;
+									if (selectedCard.introduceYourself() == "TextQuest") {
+										newQuest = (TextQuest) QuestFactory.createQuest(QuestType.TEXTQUEST);
+										GetTextQuestFields((TextQuest) newQuest, (TextQuestView) selectedCard);
+									} else if (selectedCard.introduceYourself() == "MultipleChoiceQuest") {
+										newQuest = (ChoiceQuest) QuestFactory.createQuest(QuestType.CHOICEQUEST);
+										GetMultipleChoiceQuestFields((ChoiceQuest)newQuest, (MultipleChoiceQuestView)selectedCard);
+									} else if (selectedCard.introduceYourself() == "DecisionQuest") {
+										newQuest = (DecisionQuest) QuestFactory.createQuest(QuestType.DECISIONQUEST);
+										GetDecisionQuestFields((DecisionQuest)newQuest, (DecisionQuestView)selectedCard);
+									} else if (selectedCard.introduceYourself() == "FieldQuest") {
+										newQuest = (FieldQuest) QuestFactory.createQuest(QuestType.FIELDQUEST);
+										GetFieldQuestFields((FieldQuest)newQuest, (FieldQuestView)selectedCard);
+									} else if (selectedCard.introduceYourself() == "OrderQuest") {
+										newQuest = QuestFactory.createQuest(QuestType.ORDERQUEST);
+										GetOrderQuestFields((OrderQuest)newQuest, (OrderQuestView)selectedCard);
+									}
+									GetGeneralQuestFields(newQuest, selectedCard);
 								}
-								GetGeneralQuestFields(newQuest, selectedCard);
+							}										
+	
+							campaignRef.addQuiz(newQuest);
+							campaignRef.changeState();
+						}
+						else {
+							newQuest = campaignRef.getQuizes().get(quizIndex);
+							//for (Component comp : rightSidePanel.getComponents()) {
+							for (Component comp : rightSidePanel.getComponents()) {
+								if (comp.isVisible() == true) {
+									if (newQuest.getQuestType() == QuestType.CHOICEQUEST){
+										selectedCard = (MultipleChoiceQuestView) comp;
+										GetMultipleChoiceQuestFields((ChoiceQuest)newQuest, (MultipleChoiceQuestView)selectedCard);
+									} else if (newQuest.getQuestType() == QuestType.DECISIONQUEST){
+										selectedCard = (DecisionQuestView) comp;
+										GetDecisionQuestFields((DecisionQuest)newQuest, (DecisionQuestView)selectedCard);
+									} else if (newQuest.getQuestType() == QuestType.FIELDQUEST){
+										selectedCard = (FieldQuestView) comp;
+										GetFieldQuestFields((FieldQuest)newQuest, (FieldQuestView)selectedCard);
+									} else if (newQuest.getQuestType() == QuestType.ORDERQUEST){
+										selectedCard = (OrderQuestView) comp;
+										GetOrderQuestFields((OrderQuest)newQuest, (OrderQuestView)selectedCard);
+									} else if (newQuest.getQuestType() == QuestType.TEXTQUEST){
+										selectedCard = (TextQuestView) comp;
+										GetTextQuestFields((TextQuest) newQuest, (TextQuestView) selectedCard);
+									}
+									GetGeneralQuestFields(newQuest, selectedCard);
+								}
 							}
-						}										
-
-						campaignRef.addQuiz(newQuest);
-						campaignRef.changeState();
+						}
 						System.out.println(campaignRef.getQuizes().get(0)
 								.getQuestName());
 						System.out.println(campaignRef.getQuizes().get(0)
