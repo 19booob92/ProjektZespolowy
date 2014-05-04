@@ -86,6 +86,7 @@ public class Campaign extends Observable{
         public void createXml(String title)
         {
             XmlBuilder xml = new XmlBuilder(title);
+            xml.resetId();
             zip = new ZipPacker("paczka.zip");
             xml.createIntro(introPics, introPics);
             xml.createOutro(outroPics, outroPics);
@@ -96,34 +97,34 @@ public class Campaign extends Observable{
                 if(tempQuest.getQuestType()==QuestType.TEXTQUEST)
                 {
                     TextQuest quest = (TextQuest)tempQuest;
-                    xml.addQuizText(quest.getQuestName(),  quest.getSoundPaths(),quest.getPicturePaths(), quest.getQuestDescription(), quest.getPreNote(),
+                    xml.addQuizText(quest.getQuestName(),  quest.getPicturePaths(),quest.getSoundPaths(), quest.getQuestDescription(), quest.getPreNote(),
                                                         quest.getPostNote(), quest.getGoTo(), quest.getPoints(), quest.getDate(), quest.getQuestAnswer(), quest.getQuestTimeout(), quest.getWrong());
                 }
                 else if(tempQuest.getQuestType()==QuestType.FIELDQUEST)
                 {
                     FieldQuest quest = (FieldQuest)tempQuest;
-                    xml.addQuizGPS(quest.getQuestName(),  quest.getSoundPaths(),quest.getPicturePaths(), quest.getQuestDescription(), quest.getPreNote(),
+                    xml.addQuizGPS(quest.getQuestName(), quest.getPicturePaths(), quest.getSoundPaths(), quest.getQuestDescription(), quest.getPreNote(),
                                                         quest.getPostNote(), quest.getGoTo(), quest.getPoints(), quest.getDate(), quest.getXCoordinate(),
                                                         quest.getYCoordninate(), quest.getWidth(), quest.getHeight(),quest.getQuestTimeout(),quest.getWrong());
                 }
                 else if(tempQuest.getQuestType()==QuestType.DECISIONQUEST)
                 {
                     DecisionQuest quest = (DecisionQuest)tempQuest;
-                    xml.addQuizDecision(quest.getQuestName(),  quest.getSoundPaths(),quest.getPicturePaths(), quest.getQuestDescription(), quest.getPreNote(),
+                    xml.addQuizDecision(quest.getQuestName(),  quest.getPicturePaths(),quest.getSoundPaths(), quest.getQuestDescription(), quest.getPreNote(),
                                                         quest.getPostNote(), quest.getPoints(), quest.getDate(), quest.getGoToList(), quest.getQuestAnswer(),
                                                         quest.getQuestTimeout(),quest.getWrong());
                 }
                 else if(tempQuest.getQuestType()==QuestType.CHOICEQUEST)
                 {
                     ChoiceQuest quest = (ChoiceQuest)tempQuest;
-                    xml.addQuizMofn(quest.getQuestName(),  quest.getSoundPaths(),quest.getPicturePaths(), quest.getQuestDescription(), quest.getPreNote(),
+                    xml.addQuizMofn(quest.getQuestName(),  quest.getPicturePaths(), quest.getSoundPaths(),quest.getQuestDescription(), quest.getPreNote(),
                                                         quest.getPostNote(),quest.getGoTo(), quest.getPoints(), quest.getDate(),quest.getQuestAnswer(),quest.getQuestAnswerCorrect(),
                                                         quest.getQuestTimeout(),quest.getWrong());
                 }
                 else if(tempQuest.getQuestType()==QuestType.ORDERQUEST)
                 {
                     OrderQuest quest = (OrderQuest)tempQuest;
-                    xml.addQuizPermutation(quest.getQuestName(),  quest.getSoundPaths(),quest.getPicturePaths(), quest.getQuestDescription(), quest.getPreNote(),
+                    xml.addQuizPermutation(quest.getQuestName(),  quest.getPicturePaths(),quest.getSoundPaths(), quest.getQuestDescription(), quest.getPreNote(),
                                                         quest.getPostNote(),quest.getGoTo(), quest.getPoints(), quest.getDate(),quest.getWrong(),quest.getQuestTimeout(),quest.getQuestAnswer());
                 }
             }

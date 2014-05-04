@@ -290,7 +290,10 @@ public class XmlBuilder {
         
         quizModule.appendChild(imageModule);
         
-        
+        if(imageList.size()==0)
+        {
+        	imageModule.appendChild(doc.createTextNode(""));
+        }
         for(int i=0;i<imageList.size();i++)
         {
             Element imageElement = doc.createElement("image");
@@ -305,6 +308,11 @@ public class XmlBuilder {
         Element questionmoduleElement = doc.createElement("questionmodule");
         quizModule.appendChild(questionmoduleElement);
         
+        if(paragraphList.size()==0)
+        {
+        	questionmoduleElement.appendChild(doc.createTextNode(""));
+        }
+        
         for(int i=0;i<paragraphList.size();i++)
         {
             Element paragraphElement = doc.createElement("paragraph");
@@ -315,6 +323,11 @@ public class XmlBuilder {
         Element soundModule = doc.createElement("soundmodule");
         
         quizModule.appendChild(soundModule);
+        
+        if(soundList.size()==0)
+        {
+        	soundModule.appendChild(doc.createTextNode(""));
+        }
         
         for(int i=0;i<soundList.size();i++)
         {
@@ -330,10 +343,20 @@ public class XmlBuilder {
         
         Element preNoteModule = doc.createElement("prenote");
         preNoteModule.appendChild(doc.createTextNode(preNote));
+        if(preNote==null)
+        {
+            	preNoteModule.appendChild(doc.createTextNode(""));
+        }
         quizModule.appendChild(preNoteModule);
+        
+
         
         Element postNoteModule = doc.createElement("postnote");
         postNoteModule.appendChild(doc.createTextNode(postNote));
+        if(postNote==null)
+        {
+            	postNoteModule.appendChild(doc.createTextNode(""));
+        }
         quizModule.appendChild(postNoteModule);
         
     }
@@ -381,4 +404,10 @@ public class XmlBuilder {
         startdateElement.appendChild(doc.createTextNode(date));
         settingsModule.appendChild(startdateElement);
     }
+    
+    public void resetId()
+    {
+    	quizTriggerId=0;
+    }
+    
 }
