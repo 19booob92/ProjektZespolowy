@@ -9,9 +9,11 @@ import java.util.logging.Logger;
 import javax.xml.transform.TransformerException;
 
 import com.pwr.Editor.XmlBuilder;
+import com.pwr.Editor.XmlLoader;
 import com.pwr.Editor.ZipPacker;
 import com.pwr.Graph.QuizDataObject;
 import com.pwr.NewInterface.NewQuizView;
+
 import java.io.IOException;
 
 public class Campaign extends Observable{
@@ -81,6 +83,12 @@ public class Campaign extends Observable{
 
 	public ArrayList<TreasureBox> getTreasureBoxes() {
 		return boxes;
+	}
+	
+	public void loadXml(String title)
+	{
+		XmlLoader xml = new XmlLoader("Config.xml");
+		xml.LoadXml(this);
 	}
         
         public void createXml(String title)

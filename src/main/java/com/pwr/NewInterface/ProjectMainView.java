@@ -78,6 +78,7 @@ public class ProjectMainView extends JFrame {
 
 	private JButton btnNewUser;
 	private JButton btnDeleteAllDoneQuests;
+	private JButton btnLoadQuests;
 
 	private JLabel lblOpcjeProjektu;
 	private JLabel lblOpcjeUserow;
@@ -171,6 +172,7 @@ public class ProjectMainView extends JFrame {
 		
 		btnDeleteAll.setBounds(10, 40, 207, 23);
 		leftSidePanel.add(btnDeleteAll);
+		
 	}
 
 	private void createLeftSidePanelForProject() {
@@ -223,6 +225,23 @@ public class ProjectMainView extends JFrame {
 				});
 			}
 		});
+		
+		btnLoadQuests = new JButton("Wczytaj zagadki");
+		btnLoadQuests.setBounds(6, 190, 206, 28);
+		
+		btnLoadQuests.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				campaign.loadXml("Config.xml");
+				repaint();
+			}
+			
+		}
+		);
+		
+		leftSidePanel.add(btnLoadQuests);
 	}
 
 	private void createRightSidePanel() {
