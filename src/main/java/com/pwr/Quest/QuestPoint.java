@@ -136,7 +136,7 @@ public abstract class QuestPoint implements DescribeQuest {
 	public abstract void setGoTo(String goTo); 
 		//this.goTo = goTo;
 	
-	protected abstract String getGoTo() ;
+	public abstract String getGoTo() ;
 	
 	public QuizDataObject convert() {
 		//MessageDigest md;

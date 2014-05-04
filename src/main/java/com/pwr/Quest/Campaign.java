@@ -113,7 +113,7 @@ public class Campaign extends Observable{
                     FieldQuest quest = (FieldQuest)tempQuest;
                     xml.addQuizGPS(quest.getQuestName(), quest.getPicturePaths(), quest.getSoundPaths(), quest.getQuestDescription(), quest.getPreNote(),
                                                         quest.getPostNote(), quest.getGoTo(), quest.getPoints(), quest.getDate(), quest.getXCoordinate(),
-                                                        quest.getYCoordninate(), quest.getWidth(), quest.getHeight(),quest.getQuestTimeout(),quest.getWrong());
+                                                        quest.getYCoordinate(), quest.getWidth(), quest.getHeight(),quest.getQuestTimeout(),quest.getWrong());
                 }
                 else if(tempQuest.getQuestType()==QuestType.DECISIONQUEST)
                 {
