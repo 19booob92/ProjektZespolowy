@@ -44,6 +44,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	private JButton btnDelIntro;
 	private JButton btnAddOutro;
 	private JButton btnDelOutro;
+	private JButton btnEdit;
 	private JList listOfQuizes;
 	
 	private Campaign campaign;
@@ -130,6 +131,10 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		lblLista = new JLabel("Lista");
 		lblLista.setBounds(10, 439, 85, 14);
 		add(lblLista);
+		
+		btnEdit = new JButton("Edytuj");
+		btnEdit.setBounds(211, 435, 89, 23);
+		add(btnEdit);
 		addButtonsListeners();
 	}
 	private void addButtonsListeners() {
@@ -142,6 +147,17 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		btnAddIntro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getPicturesPath(introPicsListModel);
+			}
+		});
+		
+		btnEdit.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				int ind = listOfQuizes.getSelectedIndex();
+				NewQuizView quizEditView = new NewQuizView(campaign, ind);
+				
+				//if ()
+				//quizEditView
 			}
 		});
 	}

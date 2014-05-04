@@ -50,7 +50,7 @@ public class NewQuizView extends JFrame {
 
 	private JLabel lblTimeout;
 	private JLabel lblType;
-
+	
 	private static final int panelWidth = 900;
 	private static final int panelHeight = 800;
 
@@ -63,10 +63,21 @@ public class NewQuizView extends JFrame {
 
 	// Quest vars
 	private Campaign campaignRef;
-
-	public NewQuizView(Campaign campaign) {
+	private static int quizIndex;
+	
+	// Quest Card Views
+	private static FieldQuestView fieldView = new FieldQuestView();
+	private static MultipleChoiceQuestView choiceView = new MultipleChoiceQuestView();
+	private static TextQuestView textView = new TextQuestView();
+	private static OrderQuestView orderView = new OrderQuestView();
+	private static DecisionQuestView decisionView = new DecisionQuestView();
+	
+	
+	public NewQuizView(Campaign campaign, int qInd) {
 		super();
 		campaignRef = campaign;
+		quizIndex = qInd;
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 
@@ -94,6 +105,47 @@ public class NewQuizView extends JFrame {
 		setVisible(true);
 	}
 
+	private void fillFieldsWithQuizData() {
+		QuestPoint q = campaignRef.getQuizes().get(quizIndex);
+		fillWithGeneralData(q);
+		if (q.getQuestType() == QuestType.CHOICEQUEST) {
+			fillWithChoiceQuestData((ChoiceQuest)q);
+		} else if (q.getQuestType() == QuestType.DECISIONQUEST) {
+			fillWithDecisionQuestData((DecisionQuest)q);
+		} else if (q.getQuestType() == QuestType.FIELDQUEST) {
+			fillWithFieldQuestData((FieldQuest)q);
+		} else if (q.getQuestType() == QuestType.ORDERQUEST) {
+			fillWithOrderQuestData((OrderQuest)q);
+		} else if (q.getQuestType() == QuestType.TEXTQUEST) {
+			fillWithTextQuestData((TextQuest)q);
+		}
+	}
+	
+	private void fillWithGeneralData(QuestPoint q) {
+		
+	}
+		
+	private void fillWithFieldQuestData(FieldQuest q) {
+		fieldView.date.setText(q.getDate());	
+		fieldView.next.setText(q.getGoTo());
+	}
+
+	private void fillWithTextQuestData(TextQuest q) {
+		
+	}
+
+	private void fillWithOrderQuestData(OrderQuest q) {
+		
+	}
+
+	private void fillWithChoiceQuestData(ChoiceQuest q) {
+		
+	}
+	
+	private void fillWithDecisionQuestData(DecisionQuest q) {
+		
+	}
+	
 	private void createLeftSidePanel() {
 
 		JLabel lblTitle = new JLabel("Tytuł");
@@ -177,11 +229,11 @@ public class NewQuizView extends JFrame {
 			}
 		});
 		
-		rightSidePanel.add(new FieldQuestView(), "Zagadka terenowa");
-		rightSidePanel.add(new TextQuestView(), "Zagadka tekstowa");
-		rightSidePanel.add(new MultipleChoiceQuestView(),"Zagadka wielokrotnego wyboru");
-		rightSidePanel.add(new OrderQuestView(), "Zagadka uporządkowania");
-		rightSidePanel.add(new DecisionQuestView(), "Zagadka decyzji");
+		rightSidePanel.add(fieldView, "Zagadka terenowa");
+		rightSidePanel.add(textView, "Zagadka tekstowa");
+		rightSidePanel.add(choiceView,"Zagadka wielokrotnego wyboru");
+		rightSidePanel.add(orderView, "Zagadka uporządkowania");
+		rightSidePanel.add(decisionView, "Zagadka decyzji");
 
 		questTypeCombo.addItemListener(new ItemListener() {
 
