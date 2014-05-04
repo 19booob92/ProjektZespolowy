@@ -33,7 +33,7 @@ public class FieldQuest extends QuestPoint implements DescribeQuest {
         {
             return xCoordinate;
         }
-        public double getYCoordninate()
+        public double getYCoordinate()
         {
             return yCoordinate;
         }

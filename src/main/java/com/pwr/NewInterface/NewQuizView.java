@@ -118,27 +118,38 @@ public class NewQuizView extends JFrame {
 	
 	private void fillFieldsWithQuizData() {
 		QuestPoint q = campaignRef.getQuizes().get(quizIndex);
-		fillWithGeneralData(q);
 		if (q.getQuestType() == QuestType.CHOICEQUEST) {
+			fillWithGeneralData(q, choiceView);
 			fillWithChoiceQuestData((ChoiceQuest)q);
 		} else if (q.getQuestType() == QuestType.DECISIONQUEST) {
+			fillWithGeneralData(q, decisionView);
 			fillWithDecisionQuestData((DecisionQuest)q);
 		} else if (q.getQuestType() == QuestType.FIELDQUEST) {
+			fillWithGeneralData(q, fieldView);
 			fillWithFieldQuestData((FieldQuest)q);
 		} else if (q.getQuestType() == QuestType.ORDERQUEST) {
+			fillWithGeneralData(q, orderView);
 			fillWithOrderQuestData((OrderQuest)q);
 		} else if (q.getQuestType() == QuestType.TEXTQUEST) {
+			fillWithGeneralData(q, textView);
 			fillWithTextQuestData((TextQuest)q);
 		}
 	}
 	
-	private void fillWithGeneralData(QuestPoint q) {
-		
+	private void fillWithGeneralData(QuestPoint q, QuestView view) {
+		view.points.setText(Integer.toString(q.getPoints()));
+		view.date.setText(q.getDate());
+		view.next.setText(q.getGoTo());
+		view.wrong.setText(q.getWrong());
+		view.preNote.setText(q.getPreNote());
+		view.postNote.setText(q.getPostNote());
 	}
 		
 	private void fillWithFieldQuestData(FieldQuest q) {
-		fieldView.date.setText(q.getDate());	
-		fieldView.next.setText(q.getGoTo());
+		fieldView.heightField.setText(Double.toString(q.getHeight()));
+		fieldView.widthField.setText(Double.toString(q.getWidth()));
+		fieldView.latitudeField.setText(Double.toString(q.getYCoordinate()));
+		fieldView.longitudeField.setText(Double.toString(q.getXCoordinate()));
 	}
 
 	private void fillWithTextQuestData(TextQuest q) {
