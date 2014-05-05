@@ -15,7 +15,6 @@ import javax.swing.border.EmptyBorder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.pwr.NewInterface.ProjectMainView;
@@ -81,7 +80,7 @@ public class UserDataRegister extends JFrame {
 					user.setLogin(loginTxt.getText());
 					user.setPassword((passTxt.getText()));
 
-					int status = requests.sendData(user);
+					int status = requests.sendData(user, "createUser/");
 					loginTxt.setText("");
 					passTxt.setText("");
 					if (status == 201) {

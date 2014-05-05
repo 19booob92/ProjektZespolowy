@@ -1,22 +1,16 @@
 package com.pwr.NewInterface;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.SplashScreen;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -37,7 +31,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
-
 
 import com.pwr.Editor.QuestTableView;
 //import com.pwr.Editor.QuestsTableView;
@@ -190,7 +183,8 @@ public class ProjectMainView extends JFrame {
 
 		JButton btnZapiszUstawieniaGry = new JButton("Zapisz ustawienia gry");
 		btnZapiszUstawieniaGry.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent aE) {
+				
 			}
 		});
 		btnZapiszUstawieniaGry.setBounds(6, 72, 207, 28);
