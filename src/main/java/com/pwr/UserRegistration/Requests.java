@@ -102,10 +102,15 @@ public class Requests implements Serializable {
 	public void deleteAll() {
 		try {
 			List<UserDTO> listaUserow = getAllUsers();
+			List<QuestDTO> listaQuestow = getAllQuests();
+			
+			for (QuestDTO quest : listaQuestow) {
+				delete(String.valueOf(quest.getId()), "/deleteQuest");
+			}
+			
 			for (UserDTO user : listaUserow) {
 				delete(user.getLogin(), "/deleteGame");
 				delete(user.getLogin(), "/doneQuest");
-				delete(user.getLogin(), "/deleteUser");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

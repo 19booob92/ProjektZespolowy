@@ -152,9 +152,25 @@ public class ProjectMainView extends JFrame {
 			}
 		});
 
-		btnNewUser.setBounds(10, 11, 207, 23);
+		btnNewUser.setBounds(10, 70, 207, 23);
 		leftSidePanel.add(btnNewUser);
 		
+		JButton btnDeleteQuestts = new JButton("Usun questy");
+		btnDeleteQuestts.setBounds(10, 10, 207, 23);
+		leftSidePanel.add(btnDeleteQuestts);
+
+		btnDeleteQuestts.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						new QuestTableView();
+					}
+				});
+			}
+		});
 		
 		btnDeleteAll = new JButton("Usun wszystkie dane");
 		
@@ -202,22 +218,6 @@ public class ProjectMainView extends JFrame {
 			}
 		});
 		
-		JButton btnDeleteQuestts = new JButton("Usun questy");
-		btnDeleteQuestts.setBounds(6, 152, 206, 28);
-		leftSidePanel.add(btnDeleteQuestts);
-
-		btnDeleteQuestts.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				EventQueue.invokeLater(new Runnable() {
-					
-					@Override
-					public void run() {
-						new QuestTableView();
-					}
-				});
-			}
-		});
 	}
 
 	private void createRightSidePanel() {
