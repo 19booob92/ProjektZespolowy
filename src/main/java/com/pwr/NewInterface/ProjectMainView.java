@@ -32,6 +32,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
+
 import com.pwr.Editor.QuestTableView;
 //import com.pwr.Editor.QuestsTableView;
 import com.pwr.Editor.UserDetailsView;
@@ -183,8 +184,7 @@ public class ProjectMainView extends JFrame {
 
 		JButton btnZapiszUstawieniaGry = new JButton("Zapisz ustawienia gry");
 		btnZapiszUstawieniaGry.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent aE) {
-				
+			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
 		btnZapiszUstawieniaGry.setBounds(6, 72, 207, 28);

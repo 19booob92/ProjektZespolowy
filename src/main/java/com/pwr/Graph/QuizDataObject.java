@@ -75,7 +75,53 @@ public class QuizDataObject {
 		g2d.fillOval(randomX+x+xGapOut-5,randomY+ y+ yGapOut-5, 10, 10);
 		g2d.fillOval(randomX+x+xGapWrong-5,randomY+ y+ yGapWrong-5, 10, 10);
 	}
+	public ArrayList<ArrayList<GraphRect>> drawQuizWithManyCorrect(Graphics g, int x, int y, int howMany, String id) {
+		Graphics2D g2d = (Graphics2D) g;
+			
+		g2d.setColor(Color.black);
+		g2d.setStroke(new BasicStroke(1));
+		g2d.drawLine(randomX+x+xGapIn, randomY+y+yGapIn,randomX+ x+xGapOut,randomY+ y+ yGapOut);
+		g2d.drawLine(randomX+x+xGapWrong,randomY+ y+yGapWrong,(int)( randomX+x+size/2),(int)( randomY+y+ size/4));
+		g2d.drawLine(randomX+x+(int)(size/2), randomY+y,randomX+ x+(int)(size/2),randomY+ y-10-((xCoord%2==0)?20:0));
+		
+		g2d.setColor(new Color(color));
+		g2d.fillRect(randomX+x,randomY+ y, (int) size, (int) (size / 2));
+		g2d.setColor(new Color(0));
+		g2d.setStroke(new BasicStroke(3));
+		g2d.drawRect(randomX+x,randomY+ y, (int) size, (int) (size / 2));
+		g2d.setColor(new Color(0));
 
+		
+		
+		g2d.setColor(new Color(0xffffcc));
+		g2d.fillRect(randomX+x,randomY+ y-20-((xCoord%2==0)?20:0),  8*9, (int) (size / 3));
+		g2d.setColor(new Color(0));
+		g2d.setStroke(new BasicStroke(1));
+		g2d.drawRect(randomX+x,randomY+ y-20-((xCoord%2==0)?20:0),  8*9, (int) (size / 3));
+		g2d.setColor(new Color(0));
+		g2d.drawString(title.substring(0, title.length()>8?7:title.length())+((title.length()>8)?"...":""), randomX+x+5,randomY+ y+15-20-((xCoord%2==0)?20:0));
+		ArrayList<ArrayList<GraphRect>> tempGRect = new ArrayList<ArrayList<GraphRect>>();
+		tempGRect.add(new ArrayList<GraphRect>());
+		tempGRect.add(new ArrayList<GraphRect>());
+		tempGRect.add(new ArrayList<GraphRect>());
+		tempGRect.add(new ArrayList<GraphRect>());
+		
+		g2d.fillOval(randomX+x+xGapIn-5,randomY+ y+yGapIn-5, 10, 10);
+		
+		tempGRect.get(0).add(new GraphRect(id,0, randomX+x+xGapIn-5,randomY+ y+yGapIn-5, 10, 10));
+		for(int n=0;n<howMany;n++)
+		{
+			g2d.fillOval(randomX+x+xGapOut-5,randomY+ y+ yGapOut-5+n*15, 10, 10);
+			tempGRect.get(1).add(new GraphRect(id,n, randomX+x+xGapOut-5,randomY+ y+ yGapOut-5+n*15, 10, 10));
+		}
+		g2d.fillOval(randomX+x+xGapWrong-5,randomY+ y+ yGapWrong-5, 10, 10);
+		tempGRect.get(2).add(new GraphRect(id,0, randomX+x+xGapWrong-5,randomY+ y+ yGapWrong-5, 10, 10));
+		
+		
+		
+		tempGRect.get(3).add(new GraphRect(id,0,randomX+x,randomY+ y, (int) size, (int) (size / 2)));
+		return tempGRect;
+	}
 	public static double getSize() {
 		return size;
 	}
