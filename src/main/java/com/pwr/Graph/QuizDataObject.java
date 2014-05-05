@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.pwr.Quest.QuestPoint;
+
 public class QuizDataObject {
 	String title;
 	String[] correct;
@@ -234,5 +236,12 @@ public class QuizDataObject {
 		}
 		return (int) (randomY + tempY + GraphPanel.yOffset + yCoord
 				* (QuizDataObject.getSize() + GraphPanel.space));
+	}
+	
+	public void convert(QuestPoint quiz) {
+		quiz.setWrong(wrong);
+		quiz.setGoTo(correct[0]);
+		quiz.setQuestName(title);
+		quiz.setId(id);
 	}
 }

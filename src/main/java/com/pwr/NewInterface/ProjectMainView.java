@@ -92,7 +92,7 @@ public class ProjectMainView extends JFrame {
 	private int colNum, rowNum;
 
 	// Campaign vars
-	private Campaign campaign;
+	private static Campaign campaign;
 	private static ArrayList<QuestPoint> quest;
 
 	public ProjectMainView() {
@@ -172,7 +172,15 @@ public class ProjectMainView extends JFrame {
 		btnDeleteAll.setBounds(10, 40, 207, 23);
 		leftSidePanel.add(btnDeleteAll);
 	}
-
+	
+	public static void invokeNewQuizView(final int id) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new NewQuizView(campaign, id);
+			}
+		});
+	}
+	
 	private void createLeftSidePanelForProject() {
 		btnNewQuiz = new JButton("Nowy quest");
 		btnNewQuiz.addActionListener(new ActionListener() {
@@ -308,7 +316,6 @@ public class ProjectMainView extends JFrame {
 					
 					userDetailsView.prepareUserDetailsView((String) tableModel.getValueAt(
 							rowNum, 0));
-
 				}
 			}
 		});

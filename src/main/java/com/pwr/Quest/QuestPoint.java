@@ -43,6 +43,10 @@ public abstract class QuestPoint implements DescribeQuest {
 		return questId;
 	}
 
+	public void setId(String id) {
+		questId = Integer.parseInt(id);
+	}
+	
 	public void incrementId() {
 		id++;
 	}
