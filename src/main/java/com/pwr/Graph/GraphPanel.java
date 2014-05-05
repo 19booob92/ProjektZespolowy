@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import com.pwr.Graph.GraphPanel;
 import com.pwr.Graph.QuizDataObject;
 import com.pwr.NewInterface.ProjectMainView;
+import com.pwr.Graph.GraphClick;
 
 public class GraphPanel extends JPanel  implements MouseListener{
 	ArrayList<QuizDataObject> quizList;
@@ -498,8 +499,8 @@ public class GraphPanel extends JPanel  implements MouseListener{
 	
 	public void onGraphEdit()
 	{
-		//tutaj mo¿esz sobie coœ wpisaæ. 
-		//quizList to lista quizów ju¿ zedytowanych 
+		//tutaj moï¿½esz sobie coï¿½ wpisaï¿½. 
+		//quizList to lista quizï¿½w juï¿½ zedytowanych 
 		System.out.println("Zlapalem zmiane!");
 	}
 	

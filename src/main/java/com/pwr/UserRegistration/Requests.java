@@ -31,6 +31,7 @@ public class Requests implements Serializable {
 	@Value("${pass}")
 	private String pass;
 
+	
 	public Requests() {
 	}
 
@@ -63,17 +64,17 @@ public class Requests implements Serializable {
 				});
 	}
 
-	public int sendData(User user) throws Exception {
+	public <T> int sendData(T data, String typeURI) throws Exception {
 		Gson gson = new Gson();
-		String json = gson.toJson(user);
+		String json = gson.toJson(data);
 		System.out.println(json);
 
 		ClientConfig config = new DefaultClientConfig();
 		client = Client.create(config);
 		client.addFilter(new LoggingFilter());
-		webResource = client.resource(address + "adminPanel/createUser/");
+		webResource = client.resource("http://virt2.iiar.pwr.edu.pl:8080/register/"  + "adminPanel/" + typeURI);
 
-		client.addFilter(new HTTPBasicAuthFilter(login, pass));
+		client.addFilter(new HTTPBasicAuthFilter("adm", "ini"));
 		ClientResponse response = webResource.type(MediaType.APPLICATION_JSON)
 				.post(ClientResponse.class, json);
 
@@ -96,55 +97,20 @@ public class Requests implements Serializable {
 
 	}
 
-	public WebResource getWebResource() {
-		return webResource;
-	}
-
-	public void setWebResource(WebResource webResource) {
-		this.webResource = webResource;
-	}
-
-	public Client getClient() {
-		return client;
-	}
-
-	public void setClient(Client client) {
-		this.client = client;
-	}
-
-	public String getBase_uri() {
-		return address;
-	}
-
-	public void setBase_uri(String base_uri) {
-		this.address = base_uri;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getPassword() {
-		return pass;
-	}
-
-	public void setPassword(String password) {
-		this.pass = password;
-	}
-	
 	// to jest wersja beta, póxniej na serwerze bedzie stowrzone odpowiednie zapytanie ktore zrobi to wszystko
 	// automatycznie
 	public void deleteAll() {
 		try {
 			List<UserDTO> listaUserow = getAllUsers();
+			List<QuestDTO> listaQuestow = getAllQuests();
+			
+			for (QuestDTO quest : listaQuestow) {
+				delete(String.valueOf(quest.getId()), "/deleteQuest");
+			}
+			
 			for (UserDTO user : listaUserow) {
 				delete(user.getLogin(), "/deleteGame");
 				delete(user.getLogin(), "/doneQuest");
-				delete(user.getLogin(), "/deleteUser");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

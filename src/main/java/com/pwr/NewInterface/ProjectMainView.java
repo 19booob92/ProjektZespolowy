@@ -1,22 +1,16 @@
 package com.pwr.NewInterface;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.SplashScreen;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -38,7 +32,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
-
 import com.pwr.Editor.QuestTableView;
 //import com.pwr.Editor.QuestsTableView;
 import com.pwr.Editor.UserDetailsView;
@@ -57,7 +50,9 @@ public class ProjectMainView extends JFrame {
 	private UserDataRegister userDataRegister;
 	@Autowired
 	private UserDetailsView userDetailsView;
-	
+	@Autowired
+	private ConfirmView confirmView;
+
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
 	private JScrollPane rightScroll;
@@ -71,13 +66,14 @@ public class ProjectMainView extends JFrame {
 	private JMenuBar menuBar;
 	private JMenu mnProject;
 	private JButton btnDeleteAll;
-	
+
 	private JButton btnNewQuiz;
 	private JButton btnZapiszUstawieniaGry;
 	private JButton btnNowaGra;
 
 	private JButton btnNewUser;
 	private JButton btnDeleteAllDoneQuests;
+	private JButton btnLoadQuests;
 
 	private JLabel lblOpcjeProjektu;
 	private JLabel lblOpcjeUserow;
@@ -96,7 +92,7 @@ public class ProjectMainView extends JFrame {
 	private static ArrayList<QuestPoint> quest;
 
 	public ProjectMainView() {
-		campaign = new Campaign();		
+		campaign = new Campaign();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
@@ -157,20 +153,37 @@ public class ProjectMainView extends JFrame {
 			}
 		});
 
-		btnNewUser.setBounds(10, 11, 207, 23);
+		btnNewUser.setBounds(10, 70, 207, 23);
 		leftSidePanel.add(btnNewUser);
-		
-		
-		btnDeleteAll = new JButton("Usun wszystkie dane");
-		
-		btnDeleteAll.addActionListener(new ActionListener() {
+
+		JButton btnDeleteQuestts = new JButton("Usun questy");
+		btnDeleteQuestts.setBounds(10, 10, 207, 23);
+		leftSidePanel.add(btnDeleteQuestts);
+
+		btnDeleteQuestts.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
-				requests.deleteAll();
+				EventQueue.invokeLater(new Runnable() {
+
+					@Override
+					public void run() {
+						new QuestTableView();
+					}
+				});
 			}
 		});
-		
+
+		btnDeleteAll = new JButton("Usun wszystkie dane");
+
+		btnDeleteAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				confirmView.setVisible(true);
+			}
+		});
+
 		btnDeleteAll.setBounds(10, 40, 207, 23);
 		leftSidePanel.add(btnDeleteAll);
+		
 	}
 	
 	public static void invokeNewQuizView(final int id) {
@@ -211,26 +224,27 @@ public class ProjectMainView extends JFrame {
 		btnNowaGra.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				campaign.createXml("title");
+				campaign.createXml();
 			}
 		});
+
 		
-		JButton btnDeleteQuestts = new JButton("Usun questy");
-		btnDeleteQuestts.setBounds(6, 152, 206, 28);
-		leftSidePanel.add(btnDeleteQuestts);
+		btnLoadQuests = new JButton("Wczytaj zagadki");
+		btnLoadQuests.setBounds(6, 190, 206, 28);
+		
+		btnLoadQuests.addActionListener(new ActionListener()
+		{
 
-		btnDeleteQuestts.addActionListener(new ActionListener() {
-
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				EventQueue.invokeLater(new Runnable() {
-					
-					@Override
-					public void run() {
-						new QuestTableView();
-					}
-				});
+				campaign.loadXml("Config.xml");
+				repaint();
 			}
-		});
+			
+		}
+		);
+		
+		leftSidePanel.add(btnLoadQuests);
 	}
 
 	private void createRightSidePanel() {
@@ -313,9 +327,15 @@ public class ProjectMainView extends JFrame {
 					JTable target = (JTable) e.getSource();
 					rowNum = target.getSelectedRow();
 					colNum = target.getSelectedColumn();
-					
 					userDetailsView.prepareUserDetailsView((String) tableModel.getValueAt(
 							rowNum, 0));
+					try {
+						userDetailsView
+								.prepareUserDetailsView((String) tableModel
+										.getValueAt(rowNum, 0));
+					} catch (Exception ex) {
+
+					}
 				}
 			}
 		});
@@ -345,7 +365,8 @@ public class ProjectMainView extends JFrame {
 			UnsupportedLookAndFeelException {
 
 		try {
-			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			UIManager
+					.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (UnsupportedLookAndFeelException ex) {
 			ex.printStackTrace();
 		} catch (IllegalAccessException ex) {
@@ -359,7 +380,7 @@ public class ProjectMainView extends JFrame {
 
 		ApplicationContext context = new AnnotationConfigApplicationContext(
 				SpringBootLoader.class);
-		
+
 		ProjectMainView projectMainView = (ProjectMainView) context
 				.getBean(ProjectMainView.class);
 		projectMainView.createRightSidePanel();
