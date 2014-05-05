@@ -17,8 +17,9 @@ public abstract class QuestPoint implements DescribeQuest {
 	private String QuestName;
 	private int QuestTimeout;
 	private int points;
-	//private static int id = 0;
+	private static int id = 0;
 	private String preNote;
+	private int questId;
 	private String postNote;
 	private String date;
 	private String wrong;
@@ -27,6 +28,7 @@ public abstract class QuestPoint implements DescribeQuest {
 	public QuestPoint(QuestType type) {
 		this.type = type;
 		QuestName = "";
+		questId = id;
 		PicturePaths = new ArrayList<String>();
 		PicturePaths.add("");
 		SoundPaths = new ArrayList<String>();
@@ -37,9 +39,13 @@ public abstract class QuestPoint implements DescribeQuest {
 		//id++;
 	}
 	
-	//public int getId() {
-		//return id;
-	//}
+	public int getId() {
+		return questId;
+	}
+
+	public void incrementId() {
+		id++;
+	}
 	
 	public QuestType getQuestType() {
 		return type;
@@ -151,7 +157,7 @@ public abstract class QuestPoint implements DescribeQuest {
 		//} catch (NoSuchAlgorithmException e) {
 			//e.printStackTrace();
 		//}
-		quizDTO = new QuizDataObject(QuestName, new String[] {getGoTo()},wrong,QuestName);
+		quizDTO = new QuizDataObject(QuestName, new String[] {getGoTo()},wrong,Integer.toString(questId));
 		return quizDTO;
 	}
 }

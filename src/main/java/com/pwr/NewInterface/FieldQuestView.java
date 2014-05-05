@@ -74,7 +74,7 @@ public class FieldQuestView extends QuestView implements MouseListener, Describe
         this.addMouseListener(this);
 	    //endof
 		add(googlePanel);
-		quest = QuestFactory.createQuest(QuestType.TEXTQUEST);
+		//quest = QuestFactory.createQuest(QuestType.TEXTQUEST);
 	}
 
     @Override

@@ -72,7 +72,7 @@ public TextQuestView() {
             
             addButtonsListeners();
 
-            quest = QuestFactory.createQuest(QuestType.FIELDQUEST);
+            //quest = QuestFactory.createQuest(QuestType.FIELDQUEST);
                 
 }
     private void addButtonsListeners()

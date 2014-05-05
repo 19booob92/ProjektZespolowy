@@ -42,7 +42,7 @@ public class DecisionQuestView extends QuestView implements DescribeView{
 		super();
 		
 		this.add(new JLabel("Decision"));
-		quest = QuestFactory.createQuest(QuestType.DECISIONQUEST);
+		//quest = QuestFactory.createQuest(QuestType.DECISIONQUEST);
 		addAnswersTable();
 	}
 	

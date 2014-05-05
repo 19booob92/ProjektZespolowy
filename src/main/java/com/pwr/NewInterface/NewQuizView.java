@@ -156,9 +156,9 @@ public class NewQuizView extends JFrame {
 		view.preNote.setText(q.getPreNote());
 		view.postNote.setText(q.getPostNote());
 		this.tfQuizName.setText(q.getQuestName());
-		this.timeoutField.setText(Double.toString(q.getQuestTimeout()));
-		rewriteArrayListToJList(view.picsListModel, q.getPicturePaths());
-		rewriteArrayListToJList(view.soundsListModel, q.getSoundPaths());
+		this.timeoutField.setText(Integer.toString(q.getQuestTimeout()));
+		view.pics.setModel(rewriteArrayListToJList(q.getPicturePaths(),q));
+		view.sounds.setModel(rewriteArrayListToJList(q.getSoundPaths(),q));
 	}
 		
 	private void fillWithFieldQuestData(FieldQuest q) {
@@ -254,7 +254,7 @@ public class NewQuizView extends JFrame {
 									GetGeneralQuestFields(newQuest, selectedCard);
 								}
 							}										
-	
+							newQuest.incrementId();
 							campaignRef.addQuiz(newQuest);
 							campaignRef.createdTrue();
 						}
@@ -356,6 +356,14 @@ public class NewQuizView extends JFrame {
 		newQuest.setDate(selectedCard.date.getText());
 		newQuest.setWrong(selectedCard.wrong.getText());
 		newQuest.setGoTo(selectedCard.next.getText());
+		/*for (QuestPoint q : campaignRef.getQuizes()) {
+			if (selectedCard.next.getText() == q.getQuestName()) {
+				newQuest.setGoTo(Integer.toString(q.getId()));
+			}
+			if (selectedCard.wrong.getText() == q.getWrong()) {
+				newQuest.setWrong(Integer.toString(q.getId()));
+			}
+		}*/
 	}
 	
 	private void GetTextQuestFields(TextQuest newQuest, TextQuestView questView) {
@@ -391,12 +399,12 @@ public class NewQuizView extends JFrame {
 		return newList;
 	}
 	
-	private void rewriteArrayListToJList(DefaultListModel<String> model, ArrayList<String> arr) {
-		DefaultListModel newmodel = new DefaultListModel<String>();
-		for(int i = 0; i < model.size(); i++)
-		{
-		    newmodel.addElement(model.getElementAt(i));
+	private DefaultListModel rewriteArrayListToJList(ArrayList<String> arr, QuestPoint q) {
+		DefaultListModel<String> newmodel = new DefaultListModel<String>();
+		for(int i = 0; i < arr.size(); i++) {
+		    newmodel.addElement(arr.get(i));
 		}
+		return newmodel;
 	}
 	
 }

@@ -45,7 +45,7 @@ public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 		super();
 		this.add(new JLabel("Multi"));
 
-		quest = QuestFactory.createQuest(QuestType.CHOICEQUEST);
+		//quest = QuestFactory.createQuest(QuestType.CHOICEQUEST);
 		addAnswersTable();
 	}
 

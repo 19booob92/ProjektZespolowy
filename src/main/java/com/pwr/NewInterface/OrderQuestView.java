@@ -45,7 +45,7 @@ public class OrderQuestView extends QuestView implements DescribeView{
 		addAnswersTable();
 		colNum = 0;
 		rowNum = 0;
-		quest = QuestFactory.createQuest(QuestType.ORDERQUEST);
+		//quest = QuestFactory.createQuest(QuestType.ORDERQUEST);
 	}
 
 	private void addAnswersTable() {
