@@ -32,7 +32,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
-
 import com.pwr.Editor.QuestTableView;
 //import com.pwr.Editor.QuestsTableView;
 import com.pwr.Editor.UserDetailsView;
@@ -51,6 +50,8 @@ public class ProjectMainView extends JFrame {
 	private UserDataRegister userDataRegister;
 	@Autowired
 	private UserDetailsView userDetailsView;
+	@Autowired
+	private ConfirmView confirmView;
 	
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
@@ -159,7 +160,7 @@ public class ProjectMainView extends JFrame {
 		
 		btnDeleteAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				requests.deleteAll();
+				confirmView.setVisible(true);
 			}
 		});
 		
