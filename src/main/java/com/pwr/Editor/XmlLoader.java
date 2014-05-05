@@ -47,6 +47,107 @@ public class XmlLoader {
 	
 	public void LoadXml(Campaign campaign)
 	{
+		ArrayList<String> introList = new ArrayList();
+		ArrayList<String> introFileList = new ArrayList();
+		
+		ArrayList<String> outroList = new ArrayList();
+		ArrayList<String> outroFileList = new ArrayList();
+		
+		ArrayList<String> treasureBoxNoteList = new ArrayList();
+		ArrayList<String> treasureBoxXList = new ArrayList();
+		ArrayList<String> treasureBoxYList = new ArrayList();
+		ArrayList<String> treasureBoxWidthList = new ArrayList();
+		ArrayList<String> treasureBoxHeightList = new ArrayList();
+		
+		String settingsStartdate;
+		String settingsBackGround1;
+		String settingsBackGround2;
+		String settingsBackGround3;
+		String settingsButton1;
+		String settingsLogo1;
+		
+		String gameTitle;
+		
+		NodeList gameList = doc.getElementsByTagName("game");
+		Node gameNode = gameList.item(0);
+		if(gameNode.getNodeType()==Node.ELEMENT_NODE)
+		{
+			Element gameElement = (Element) gameNode;
+			gameTitle = gameElement.getAttribute("title").trim();
+		}
+		
+		
+		
+		NodeList introSrcList = doc.getElementsByTagName("intro");
+		
+		for(int i=0;i<introSrcList.getLength();i++)
+		{
+			Node nodeIntro = introSrcList.item(i);
+			if(nodeIntro.getNodeType()==Node.ELEMENT_NODE)
+			{
+				Element element = (Element) nodeIntro;
+				NodeList introModuleSrcList = element.getElementsByTagName("introModule");
+				for(int j=0;j<introModuleSrcList.getLength();j++)
+				{
+					Element introElement = (Element) introModuleSrcList.item(j);
+					if(introElement.getNodeType()==Node.ELEMENT_NODE)
+					{
+						introList.add(introElement.getTextContent().trim());
+						introFileList.add(introElement.getAttribute("image").trim());
+					}
+				}
+			}
+		}
+		
+		NodeList outroSrcList = doc.getElementsByTagName("outro");
+				
+				for(int i=0;i<outroSrcList.getLength();i++)
+				{
+					Node nodeOutro = outroSrcList.item(i);
+					if(nodeOutro.getNodeType()==Node.ELEMENT_NODE)
+					{
+						Element element = (Element) nodeOutro;
+						NodeList outroModuleSrcList = element.getElementsByTagName("outroModule");
+						for(int j=0;j<outroModuleSrcList.getLength();j++)
+						{
+							Element outroElement = (Element) outroModuleSrcList.item(j);
+							if(outroElement.getNodeType()==Node.ELEMENT_NODE)
+							{
+								introList.add(outroElement.getTextContent().trim());
+								introFileList.add(outroElement.getAttribute("image").trim());
+							}
+						}
+					}
+				}
+		
+		NodeList settingsSrcList = doc.getElementsByTagName("settings");
+		Node nodeSettings = settingsSrcList.item(0);
+		if(nodeSettings.getNodeType()==Element.ELEMENT_NODE)
+		{
+			Element element = (Element) nodeSettings;
+			settingsStartdate=element.getAttribute("startdate").trim();
+			settingsBackGround1=element.getElementsByTagName("backGround1").item(0).getTextContent().trim();
+			settingsBackGround2=element.getElementsByTagName("backGround2").item(0).getTextContent().trim();
+			settingsBackGround3=element.getElementsByTagName("backGround3").item(0).getTextContent().trim();
+			settingsLogo1=element.getElementsByTagName("logo1").item(0).getTextContent().trim();
+			settingsButton1=element.getElementsByTagName("button1").item(0).getTextContent().trim();
+		}
+		NodeList treasureBoxList = doc.getElementsByTagName("treasurebox");
+		
+		for(int i=0;i<treasureBoxList.getLength();i++)
+		{
+			Node treasureBoxNode = treasureBoxList.item(i);
+			if(treasureBoxNode.getNodeType()==Element.ELEMENT_NODE)
+			{
+				Element treasureBoxElement = (Element) treasureBoxNode;
+				treasureBoxNoteList.add(treasureBoxElement.getElementsByTagName("note").item(0).getTextContent().trim());
+				treasureBoxXList.add(treasureBoxElement.getElementsByTagName("x").item(0).getTextContent().trim());
+				treasureBoxYList.add(treasureBoxElement.getElementsByTagName("y").item(0).getTextContent().trim());
+				treasureBoxWidthList.add(treasureBoxElement.getElementsByTagName("width").item(0).getTextContent().trim());
+				treasureBoxHeightList.add(treasureBoxElement.getElementsByTagName("height").item(0).getTextContent().trim());
+			}
+		}
+				
 		NodeList nList = doc.getElementsByTagName("quiz");
 		
 		for(int i=0; i<nList.getLength();i++)
@@ -67,17 +168,17 @@ public class XmlLoader {
 			ArrayList<String> soundList = new ArrayList();
 			ArrayList<String> paragraphList = new ArrayList();
 			Node node = nList.item(i);
+			
 			if(node.getNodeType()==Node.ELEMENT_NODE)
 			{
-				System.out.println(i);
 				Element element = (Element) node;
-				System.out.println(element.getAttribute("title"));
+				System.out.println(element.getAttribute("title").trim());
 				
-				title=element.getAttribute("title");
-				id=element.getAttribute("id");
+				title=element.getAttribute("title").trim();
+				id=element.getAttribute("id").trim();
 				
-				preNote=element.getElementsByTagName("prenote").item(0).getTextContent();
-				postNote=element.getElementsByTagName("postnote").item(0).getTextContent();
+				preNote=element.getElementsByTagName("prenote").item(0).getTextContent().trim();
+				postNote=element.getElementsByTagName("postnote").item(0).getTextContent().trim();
 				
 
 				NodeList imageSrcList = element.getElementsByTagName("image");
@@ -86,8 +187,7 @@ public class XmlLoader {
 					Element imageSrcElement = (Element) imageSrcList.item(j);
 					if(imageSrcElement.getNodeType()==Element.ELEMENT_NODE)
 					{
-						System.out.println(imageSrcElement.getAttribute("src"));
-						imageList.add(imageSrcElement.getAttribute("src"));
+						imageList.add(imageSrcElement.getAttribute("src").trim());
 					}
 				}
 				
@@ -98,8 +198,7 @@ public class XmlLoader {
 					Element soundSrcElement = (Element) soundSrcList.item(j);
 					if(soundSrcElement.getNodeType()==Element.ELEMENT_NODE)
 					{
-						System.out.println(soundSrcElement.getAttribute("src"));
-						soundList.add(soundSrcElement.getAttribute("src"));
+						soundList.add(soundSrcElement.getAttribute("src").trim());
 					}
 				}
 				
@@ -109,8 +208,7 @@ public class XmlLoader {
 				{
 					if(paragraphSrcElement.getNodeType()==Element.ELEMENT_NODE)
 					{
-						System.out.println(paragraphSrcElement.getElementsByTagName("paragraph").item(j).getTextContent());
-						paragraphList.add(paragraphSrcElement.getElementsByTagName("paragraph").item(j).getTextContent());
+						paragraphList.add(paragraphSrcElement.getElementsByTagName("paragraph").item(j).getTextContent().trim());
 					}
 				}
 				
@@ -120,13 +218,13 @@ public class XmlLoader {
 				
 				String type = answerModuleElement.getAttribute("type");
 				
-				goTo = answerModuleElement.getAttribute("goto");
-				points = answerModuleElement.getAttribute("points");
+				goTo = answerModuleElement.getAttribute("goto").trim();
+				points = answerModuleElement.getAttribute("points").trim();
 				if(points==""){points="0";}
-				wrong = answerModuleElement.getAttribute("wrong");
-				timestop = answerModuleElement.getAttribute("timestop");
+				wrong = answerModuleElement.getAttribute("wrong").trim();
+				timestop = answerModuleElement.getAttribute("timestop").trim();
 				if(timestop==""){timestop="0";}
-				date = answerModuleElement.getAttribute("datetime");
+				date = answerModuleElement.getAttribute("datetime").trim();
 				
 				ArrayList<String> answerList = new ArrayList();
 				QuestPoint quest;
@@ -138,7 +236,7 @@ public class XmlLoader {
 					NodeList answersList = answerModuleElement.getElementsByTagName("correct");
 					for(int j=0;j<answersList.getLength();j++)
 					{
-						answerList.add(answersList.item(j).getTextContent());
+						answerList.add(answersList.item(j).getTextContent().trim());
 					}					
 					quest = (TextQuest) QuestFactory.createQuest(QuestType.TEXTQUEST);
 					setQuest(quest,title,imageList,soundList,paragraphList,preNote,postNote);
@@ -148,10 +246,10 @@ public class XmlLoader {
 					campaign.createdTrue();
 					break;
 				case "GPS":
-					String x = answerModuleElement.getElementsByTagName("x").item(0).getTextContent();
-					String y = answerModuleElement.getElementsByTagName("y").item(0).getTextContent();
-					String width = answerModuleElement.getElementsByTagName("width").item(0).getTextContent();
-					String height = answerModuleElement.getElementsByTagName("height").item(0).getTextContent();
+					String x = answerModuleElement.getElementsByTagName("x").item(0).getTextContent().trim();
+					String y = answerModuleElement.getElementsByTagName("y").item(0).getTextContent().trim();
+					String width = answerModuleElement.getElementsByTagName("width").item(0).getTextContent().trim();
+					String height = answerModuleElement.getElementsByTagName("height").item(0).getTextContent().trim();
 					quest = (FieldQuest) QuestFactory.createQuest(QuestType.FIELDQUEST);
 					setQuest(quest,title,imageList,soundList,paragraphList,preNote,postNote);
 					setQuestAnswer(quest,goTo,Integer.parseInt(points),date,wrong,Integer.parseInt(timestop));
@@ -165,9 +263,9 @@ public class XmlLoader {
 					NodeList answersMList = answerModuleElement.getElementsByTagName("option");
 					for(int j=0;j<answersMList.getLength();j++)
 					{
-						answerList.add(answersMList.item(j).getTextContent());
+						answerList.add(answersMList.item(j).getTextContent().trim());
 						Element answerMElement = (Element) answersMList.item(j);
-						String tempAnswer = answerMElement.getAttribute("correct");
+						String tempAnswer = answerMElement.getAttribute("correct").trim();
 						if(tempAnswer.equals("true"))
 						{
 							answerListBool.add(true);
@@ -190,9 +288,9 @@ public class XmlLoader {
 					NodeList answersGoToList = answerModuleElement.getElementsByTagName("option");
 					for(int j=0;j<answersGoToList.getLength();j++)
 					{
-						answerList.add(answersGoToList.item(j).getTextContent());
+						answerList.add(answersGoToList.item(j).getTextContent().trim());
 						Element answerGoToElement = (Element) answersGoToList.item(j);
-						goToList.add(answerGoToElement.getAttribute("goto"));
+						goToList.add(answerGoToElement.getAttribute("goto").trim());
 					}
 					quest = (DecisionQuest) QuestFactory.createQuest(QuestType.DECISIONQUEST);
 					setQuest(quest,title,imageList,soundList,paragraphList,preNote,postNote);
@@ -207,9 +305,9 @@ public class XmlLoader {
 					NodeList answersPermutationList = answerModuleElement.getElementsByTagName("option");
 					for(int j=0;j<answersPermutationList.getLength();j++)
 					{
-						answerList.add(answersPermutationList.item(j).getTextContent());
+						answerList.add(answersPermutationList.item(j).getTextContent().trim());
 						Element answerPermutationElement = (Element) answersPermutationList.item(j);
-						indexList.add(answerPermutationElement.getAttribute("index"));
+						indexList.add(answerPermutationElement.getAttribute("index").trim());
 					}
 					quest = QuestFactory.createQuest(QuestType.ORDERQUEST);
 					setQuest(quest,title,imageList,soundList,paragraphList,preNote,postNote);
