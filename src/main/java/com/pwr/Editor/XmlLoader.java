@@ -145,7 +145,7 @@ public class XmlLoader {
 					setQuestAnswer(quest,goTo,Integer.parseInt(points),date,wrong,Integer.parseInt(timestop));
 					setTextQuest((TextQuest)quest,answerList);
 					campaign.addQuiz(quest);
-					campaign.changeState();
+					campaign.createdTrue();
 					break;
 				case "GPS":
 					String x = answerModuleElement.getElementsByTagName("x").item(0).getTextContent();
@@ -157,7 +157,7 @@ public class XmlLoader {
 					setQuestAnswer(quest,goTo,Integer.parseInt(points),date,wrong,Integer.parseInt(timestop));
 					setGpsQuest((FieldQuest)quest,x,y,width,height);
 					campaign.addQuiz(quest);
-					campaign.changeState();
+					campaign.createdTrue();
 					break;
 				case "MofN":
 					answerList = new ArrayList();
@@ -182,7 +182,7 @@ public class XmlLoader {
 					setQuestAnswer(quest,goTo,Integer.parseInt(points),date,wrong,Integer.parseInt(timestop));
 					setMofNQuest((ChoiceQuest)quest,answerList,answerListBool);
 					campaign.addQuiz(quest);
-					campaign.changeState();
+					campaign.createdTrue();
 					break;
 				case "Decision":
 					answerList=new ArrayList();
@@ -199,7 +199,7 @@ public class XmlLoader {
 					setQuestAnswer(quest,goTo,Integer.parseInt(points),date,wrong,Integer.parseInt(timestop));
 					setDecisionQuest((DecisionQuest)quest,answerList,goToList);
 					campaign.addQuiz(quest);
-					campaign.changeState();
+					campaign.createdTrue();
 					break;
 				case "Permutation":
 					answerList=new ArrayList();
@@ -216,7 +216,7 @@ public class XmlLoader {
 					setQuestAnswer(quest,goTo,Integer.parseInt(points),date,wrong,Integer.parseInt(timestop));
 					setPermutationQuest((OrderQuest)quest,answerList,indexList);
 					campaign.addQuiz(quest);
-					campaign.changeState();
+					campaign.createdTrue();
 					break;
 					default:
 						break;

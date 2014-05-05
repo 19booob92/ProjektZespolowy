@@ -9,9 +9,11 @@ import java.util.logging.Logger;
 import javax.xml.transform.TransformerException;
 
 import com.pwr.Editor.XmlBuilder;
+import com.pwr.Editor.XmlLoader;
 import com.pwr.Editor.ZipPacker;
 import com.pwr.Graph.QuizDataObject;
 import com.pwr.NewInterface.NewQuizView;
+
 import java.io.IOException;
 
 public class Campaign extends Observable {
@@ -198,6 +200,12 @@ public class Campaign extends Observable {
 			}
 		}
 
+	}
+	
+	public void loadXml(String file)
+	{
+		XmlLoader xml = new XmlLoader(file);
+		xml.LoadXml(this);
 	}
 
 }
