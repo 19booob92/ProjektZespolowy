@@ -157,6 +157,22 @@ public class ProjectOptionsView extends JPanel implements Observer {
 				NewQuizView quizEditView = new NewQuizView(campaign, ind);
 			}
 		});
+		
+		btnDelIntro.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				int ind = introPics.getSelectedIndex();
+				introPicsListModel.remove(ind);
+			}
+		});
+		
+		btnDelOutro.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				int ind = outroPics.getSelectedIndex();
+				outroPicsListModel.remove(ind);
+			}
+		});
 	}
 	
 	private void getPicturesPath(DefaultListModel<String> list) {
@@ -182,6 +198,12 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	public void update(Observable o, Object arg) {
 		graphFacade.getGraphPanel().setQuizListFromArrayList(campaign.convertQuiz());
 		graphFacade.getGraphPanel().repaint();
-		quizListModel.addElement(campaign.getLastQuiz().ToString());
+		if (campaign.getCreated() == true)
+		{
+			quizListModel.addElement(campaign.getLastQuiz().ToString());
+			campaign.createdFalse();
+		} else if (campaign.getEdited() == true) {
+			campaign.editedFalse();
+		}
 	}
 }

@@ -1,22 +1,16 @@
 package com.pwr.NewInterface;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.SplashScreen;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -38,7 +32,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
-
 import com.pwr.Editor.QuestTableView;
 //import com.pwr.Editor.QuestsTableView;
 import com.pwr.Editor.UserDetailsView;
@@ -57,6 +50,8 @@ public class ProjectMainView extends JFrame {
 	private UserDataRegister userDataRegister;
 	@Autowired
 	private UserDetailsView userDetailsView;
+	@Autowired
+	private ConfirmView confirmView;
 	
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
@@ -158,15 +153,31 @@ public class ProjectMainView extends JFrame {
 			}
 		});
 
-		btnNewUser.setBounds(10, 11, 207, 23);
+		btnNewUser.setBounds(10, 70, 207, 23);
 		leftSidePanel.add(btnNewUser);
 		
+		JButton btnDeleteQuestts = new JButton("Usun questy");
+		btnDeleteQuestts.setBounds(10, 10, 207, 23);
+		leftSidePanel.add(btnDeleteQuestts);
+
+		btnDeleteQuestts.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						new QuestTableView();
+					}
+				});
+			}
+		});
 		
 		btnDeleteAll = new JButton("Usun wszystkie dane");
 		
 		btnDeleteAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				requests.deleteAll();
+				confirmView.setVisible(true);
 			}
 		});
 		
@@ -209,22 +220,6 @@ public class ProjectMainView extends JFrame {
 			}
 		});
 		
-		JButton btnDeleteQuestts = new JButton("Usun questy");
-		btnDeleteQuestts.setBounds(6, 152, 206, 28);
-		leftSidePanel.add(btnDeleteQuestts);
-
-		btnDeleteQuestts.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				EventQueue.invokeLater(new Runnable() {
-					
-					@Override
-					public void run() {
-						new QuestTableView();
-					}
-				});
-			}
-		});
 		
 		btnLoadQuests = new JButton("Wczytaj zagadki");
 		btnLoadQuests.setBounds(6, 190, 206, 28);
