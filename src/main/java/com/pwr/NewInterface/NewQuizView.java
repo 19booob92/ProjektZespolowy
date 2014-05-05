@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -154,6 +155,10 @@ public class NewQuizView extends JFrame {
 		view.wrong.setText(q.getWrong());
 		view.preNote.setText(q.getPreNote());
 		view.postNote.setText(q.getPostNote());
+		this.tfQuizName.setText(q.getQuestName());
+		this.timeoutField.setText(Double.toString(q.getQuestTimeout()));
+		rewriteArrayListToJList(view.picsListModel, q.getPicturePaths());
+		rewriteArrayListToJList(view.soundsListModel, q.getSoundPaths());
 	}
 		
 	private void fillWithFieldQuestData(FieldQuest q) {
@@ -218,7 +223,8 @@ public class NewQuizView extends JFrame {
 		btnSaveQuiz = new JButton("Zapisz quiz");
 		btnSaveQuiz.setBounds(0, 239, 320, 23);
 		leftSidePanel.add(btnSaveQuiz);
-
+		
+		//Refactor it!
 		btnSaveQuiz.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -250,7 +256,7 @@ public class NewQuizView extends JFrame {
 							}										
 	
 							campaignRef.addQuiz(newQuest);
-							campaignRef.changeState();
+							campaignRef.createdTrue();
 						}
 						else {
 							newQuest = campaignRef.getQuizes().get(quizIndex);
@@ -276,6 +282,7 @@ public class NewQuizView extends JFrame {
 									GetGeneralQuestFields(newQuest, selectedCard);
 								}
 							}
+							campaignRef.editedTrue();
 						}
 						System.out.println(campaignRef.getQuizes().get(0)
 								.getQuestName());
@@ -382,6 +389,14 @@ public class NewQuizView extends JFrame {
 			newList.add(list.getModel().getElementAt(i));
 		}
 		return newList;
-
 	}
+	
+	private void rewriteArrayListToJList(DefaultListModel<String> model, ArrayList<String> arr) {
+		DefaultListModel newmodel = new DefaultListModel<String>();
+		for(int i = 0; i < model.size(); i++)
+		{
+		    newmodel.addElement(model.getElementAt(i));
+		}
+	}
+	
 }
