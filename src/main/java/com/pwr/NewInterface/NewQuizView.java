@@ -20,6 +20,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -218,7 +219,7 @@ public class NewQuizView extends JFrame {
 		lblTimeout.setBounds(10, 80, 46, 14);
 		leftSidePanel.add(lblTimeout);
 
-		btnSaveQuiz = new JButton("Zapisz quiz");
+		btnSaveQuiz = new JButton("Zapisz quest");
 		btnSaveQuiz.setBounds(0, 239, 320, 23);
 		leftSidePanel.add(btnSaveQuiz);
 
@@ -410,7 +411,15 @@ public class NewQuizView extends JFrame {
 		newQuest.setQuestDescription(selectedCard.paragraphList);
 		newQuest.setQuestName(tfQuizName.getText());
 		newQuest.setQuestTimeout(Integer.parseInt(timeoutField.getText()));
-		newQuest.setPoints(Integer.parseInt(selectedCard.points.getText()));
+		
+		Integer defaultPoints = Integer.parseInt(selectedCard.points.getText());
+		
+		if (defaultPoints != null) {
+			newQuest.setPoints(defaultPoints);
+		} else {
+			JOptionPane.showMessageDialog(null, "Podaj ilosc punktow");
+		}
+		
 		newQuest.setPostNote(selectedCard.postNote.getText());
 		newQuest.setPreNote(selectedCard.preNote.getText());
 		newQuest.setDate(selectedCard.date.getText());

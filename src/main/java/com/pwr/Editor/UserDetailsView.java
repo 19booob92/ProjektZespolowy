@@ -53,7 +53,7 @@ public class UserDetailsView extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		btnDeleteUser = new JButton("Delete user");
-		btnDeleteAllDoneQuests = new JButton("Usun wszystkie zakonczone questy");
+		btnDeleteAllDoneQuests = new JButton("<html><body style=\"text-align:center;\">Usun wszystkie<br />zakonczone questy</body></html>");
 
 		btnDeleteAllDoneQuests.addActionListener(new ActionListener() {
 
@@ -80,7 +80,7 @@ public class UserDetailsView extends JFrame {
 			}
 		});
 		btnDeleteUser.setBounds(17, 156, 117, 25);
-		btnDeleteAllDoneQuests.setBounds(162, 120, 117, 25);
+		btnDeleteAllDoneQuests.setBounds(162, 120, 117, 50);
 		contentPane.add(btnDeleteUser);
 		contentPane.add(btnDeleteAllDoneQuests);
 
@@ -126,17 +126,17 @@ public class UserDetailsView extends JFrame {
 		contentPane.add(btnUpdate);
 
 		login = new JTextField();
-		login.setBounds(20, 30, 114, 19);
+		login.setBounds(20, 30, 122, 30);
 		contentPane.add(login);
 		login.setColumns(10);
 
 		pass = new JTextField();
-		pass.setBounds(144, 30, 114, 19);
+		pass.setBounds(144, 30, 122, 30);
 		contentPane.add(pass);
 		pass.setColumns(10);
 
 		email = new JTextField();
-		email.setBounds(20, 75, 114, 19);
+		email.setBounds(20, 75, 122, 30);
 		contentPane.add(email);
 		email.setColumns(10);
 
