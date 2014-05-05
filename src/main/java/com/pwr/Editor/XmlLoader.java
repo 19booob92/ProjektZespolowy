@@ -18,6 +18,7 @@ import com.pwr.Quest.QuestFactory;
 import com.pwr.Quest.QuestPoint;
 import com.pwr.Quest.TextQuest;
 import com.pwr.Quest.QuestType;
+import com.pwr.Quest.TreasureBox;
 
 import java.io.File;
 import java.io.IOException;
@@ -74,6 +75,7 @@ public class XmlLoader {
 		{
 			Element gameElement = (Element) gameNode;
 			gameTitle = gameElement.getAttribute("title").trim();
+			campaign.setGameTitle(gameTitle);
 		}
 		
 		
@@ -99,6 +101,15 @@ public class XmlLoader {
 			}
 		}
 		
+		if(introFileList.size()>0)
+		{
+			campaign.setIntroPics(introFileList);
+		}
+		if(introList.size()>0)
+		{
+			campaign.setIntroText(introList);
+		}
+		
 		NodeList outroSrcList = doc.getElementsByTagName("outro");
 				
 				for(int i=0;i<outroSrcList.getLength();i++)
@@ -113,12 +124,21 @@ public class XmlLoader {
 							Element outroElement = (Element) outroModuleSrcList.item(j);
 							if(outroElement.getNodeType()==Node.ELEMENT_NODE)
 							{
-								introList.add(outroElement.getTextContent().trim());
-								introFileList.add(outroElement.getAttribute("image").trim());
+								outroList.add(outroElement.getTextContent().trim());
+								outroFileList.add(outroElement.getAttribute("image").trim());
 							}
 						}
 					}
 				}
+		
+		if(outroFileList.size()>0)
+		{
+			campaign.setOutroPics(outroFileList);
+		}
+		if(outroList.size()>0)
+		{
+			campaign.setOutroText(outroList);
+		}
 		
 		NodeList settingsSrcList = doc.getElementsByTagName("settings");
 		Node nodeSettings = settingsSrcList.item(0);
@@ -146,6 +166,13 @@ public class XmlLoader {
 				treasureBoxWidthList.add(treasureBoxElement.getElementsByTagName("width").item(0).getTextContent().trim());
 				treasureBoxHeightList.add(treasureBoxElement.getElementsByTagName("height").item(0).getTextContent().trim());
 			}
+			TreasureBox treasureBox = new TreasureBox();
+			treasureBox.setNote(treasureBoxNoteList.get(i));
+			treasureBox.setxCoordinate(Double.parseDouble(treasureBoxXList.get(i)));
+			treasureBox.setyCoordinate(Double.parseDouble(treasureBoxYList.get(i)));
+			treasureBox.setWidth(Double.parseDouble(treasureBoxWidthList.get(i)));
+			treasureBox.setHeight(Double.parseDouble(treasureBoxHeightList.get(i)));
+			campaign.addTreasureBox(treasureBox);
 		}
 				
 		NodeList nList = doc.getElementsByTagName("quiz");
@@ -172,7 +199,6 @@ public class XmlLoader {
 			if(node.getNodeType()==Node.ELEMENT_NODE)
 			{
 				Element element = (Element) node;
-				System.out.println(element.getAttribute("title").trim());
 				
 				title=element.getAttribute("title").trim();
 				id=element.getAttribute("id").trim();

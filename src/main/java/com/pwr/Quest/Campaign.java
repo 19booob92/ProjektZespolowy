@@ -20,17 +20,23 @@ public class Campaign extends Observable {
 
 	private ArrayList<QuestPoint> quests;
 	private ArrayList<TreasureBox> boxes;
+	private ArrayList<String> introText;
+	private ArrayList<String> outroText;
 	private ArrayList<String> introPics;
 	private ArrayList<String> outroPics;
 	private ZipPacker zip;
 	private boolean created = false;
 	private boolean edited = false;
+	
+	private String gameTitle="";
 
 	public Campaign() {
 		quests = new ArrayList();
 		boxes = new ArrayList();
 		introPics = new ArrayList();
 		outroPics = new ArrayList();
+		introText = new ArrayList();
+		outroText = new ArrayList();
 	}
 
 	public List<QuizDataObject> convertQuiz() {
@@ -105,8 +111,8 @@ public class Campaign extends Observable {
 		return boxes;
 	}
 
-	public void createXml(String title) {
-		XmlBuilder xml = new XmlBuilder(title);
+	public void createXml() {
+		XmlBuilder xml = new XmlBuilder(gameTitle);
 		xml.resetId();
 		zip = new ZipPacker("paczka.zip");
 		xml.createIntro(introPics, introPics);
@@ -206,6 +212,28 @@ public class Campaign extends Observable {
 	{
 		XmlLoader xml = new XmlLoader(file);
 		xml.LoadXml(this);
+	}
+	
+	public void setIntroPics(ArrayList<String> list)
+	{
+		introPics=list;
+	}
+	
+	public void setOutroPics(ArrayList<String> list)
+	{
+		outroPics=list;
+	}
+	public void setIntroText(ArrayList<String> list)
+	{
+		introText=list;
+	}
+	public void setOutroText(ArrayList<String> list)
+	{
+		outroText=list;
+	}
+	public void setGameTitle(String title)
+	{
+		gameTitle=title;
 	}
 
 }

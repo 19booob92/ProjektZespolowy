@@ -216,7 +216,7 @@ public class ProjectMainView extends JFrame {
 		btnNowaGra.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				campaign.createXml("title");
+				campaign.createXml();
 			}
 		});
 
