@@ -52,7 +52,7 @@ public class ProjectMainView extends JFrame {
 	private UserDetailsView userDetailsView;
 	@Autowired
 	private ConfirmView confirmView;
-	
+
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
 	private JScrollPane rightScroll;
@@ -66,7 +66,7 @@ public class ProjectMainView extends JFrame {
 	private JMenuBar menuBar;
 	private JMenu mnProject;
 	private JButton btnDeleteAll;
-	
+
 	private JButton btnNewQuiz;
 	private JButton btnZapiszUstawieniaGry;
 	private JButton btnNowaGra;
@@ -91,7 +91,7 @@ public class ProjectMainView extends JFrame {
 	private static ArrayList<QuestPoint> quest;
 
 	public ProjectMainView() {
-		campaign = new Campaign();		
+		campaign = new Campaign();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
@@ -154,7 +154,7 @@ public class ProjectMainView extends JFrame {
 
 		btnNewUser.setBounds(10, 70, 207, 23);
 		leftSidePanel.add(btnNewUser);
-		
+
 		JButton btnDeleteQuestts = new JButton("Usun questy");
 		btnDeleteQuestts.setBounds(10, 10, 207, 23);
 		leftSidePanel.add(btnDeleteQuestts);
@@ -163,7 +163,7 @@ public class ProjectMainView extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
-					
+
 					@Override
 					public void run() {
 						new QuestTableView();
@@ -171,15 +171,15 @@ public class ProjectMainView extends JFrame {
 				});
 			}
 		});
-		
+
 		btnDeleteAll = new JButton("Usun wszystkie dane");
-		
+
 		btnDeleteAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				confirmView.setVisible(true);
 			}
 		});
-		
+
 		btnDeleteAll.setBounds(10, 40, 207, 23);
 		leftSidePanel.add(btnDeleteAll);
 	}
@@ -217,7 +217,7 @@ public class ProjectMainView extends JFrame {
 				campaign.createXml("title");
 			}
 		});
-		
+
 	}
 
 	private void createRightSidePanel() {
@@ -300,9 +300,14 @@ public class ProjectMainView extends JFrame {
 					JTable target = (JTable) e.getSource();
 					rowNum = target.getSelectedRow();
 					colNum = target.getSelectedColumn();
-					
-					userDetailsView.prepareUserDetailsView((String) tableModel.getValueAt(
-							rowNum, 0));
+
+					try {
+						userDetailsView
+								.prepareUserDetailsView((String) tableModel
+										.getValueAt(rowNum, 0));
+					} catch (Exception ex) {
+
+					}
 
 				}
 			}
@@ -333,7 +338,8 @@ public class ProjectMainView extends JFrame {
 			UnsupportedLookAndFeelException {
 
 		try {
-			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			UIManager
+					.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (UnsupportedLookAndFeelException ex) {
 			ex.printStackTrace();
 		} catch (IllegalAccessException ex) {
@@ -347,7 +353,7 @@ public class ProjectMainView extends JFrame {
 
 		ApplicationContext context = new AnnotationConfigApplicationContext(
 				SpringBootLoader.class);
-		
+
 		ProjectMainView projectMainView = (ProjectMainView) context
 				.getBean(ProjectMainView.class);
 		projectMainView.createRightSidePanel();
