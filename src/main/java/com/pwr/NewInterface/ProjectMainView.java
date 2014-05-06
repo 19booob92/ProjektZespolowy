@@ -55,7 +55,9 @@ public class ProjectMainView extends JFrame {
 	private UserDetailsView userDetailsView;
 	@Autowired
 	private ConfirmView confirmView;
-
+	// chwilowe rozwiazanie, nie wiem jak przekazywac parametry do metody z aspektu
+	static SplashWindow splashWindow;
+	
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
 	private JPanel userTabPane;
@@ -364,10 +366,8 @@ public class ProjectMainView extends JFrame {
 
 	private List<UserDTO> getDataToTable() {
 		try {
-			SplashWindow splash = new SplashWindow(this, "359.gif");
+			splashWindow = new SplashWindow(this, "359.gif");
 			List<UserDTO> usersList = requests.getAllUsers();
-			splash.dispose();
-			splash=null;
 			return usersList;
 		} catch (Exception except) {
 			except.printStackTrace();
