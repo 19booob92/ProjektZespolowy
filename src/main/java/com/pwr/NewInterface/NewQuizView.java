@@ -439,7 +439,7 @@ public class NewQuizView extends JFrame {
 			newQuest.setPoints(Integer.parseInt(selectedCard.points.getText()));
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Podaj ilosc punktow");
-			throw new EmptyStackException();				// ¿eby nie robic problemow w innych miejscach
+			throw new EmptyStackException();				// ï¿½eby nie robic problemow w innych miejscach
 		}
 	}
 
@@ -448,7 +448,7 @@ public class NewQuizView extends JFrame {
 			newQuest.setQuestName(tfQuizName.getText());
 		} else {
 			JOptionPane.showMessageDialog(null, "Podaj nawe zagadki");
-			throw new NoDataInFieldException();				// ¿eby nie robic problemow w innych miejscach
+			throw new NoDataInFieldException();				// ï¿½eby nie robic problemow w innych miejscach
 		}
 	}
 

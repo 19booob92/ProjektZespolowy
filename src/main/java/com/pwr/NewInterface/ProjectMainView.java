@@ -37,6 +37,7 @@ import org.springframework.stereotype.Component;
 import com.pwr.Editor.QuestTableView;
 //import com.pwr.Editor.QuestsTableView;
 import com.pwr.Editor.UserDetailsView;
+import com.pwr.Graph.QuizDataObject;
 import com.pwr.Quest.Campaign;
 import com.pwr.Quest.QuestPoint;
 import com.pwr.UserRegistration.Requests;
@@ -458,6 +459,18 @@ public class ProjectMainView extends JFrame {
 		projectMainView.createMenu();
 		projectMainView.setVisible(true);
 		projectMainView.addListenerForTabbedPane();
+	}
+
+	public static void quizConnectionsChanged(ArrayList<QuizDataObject> quizList) {
+		for (QuizDataObject q : quizList) {
+			for (QuestPoint p : campaign.getQuizes()) {
+				if (Integer.parseInt(q.getId()) == p.getId()) {
+					p.setWrong(q.getWrong());
+					p.setGoTo(q.getCorrect()[0]);
+					break;
+				}
+			}
+		}
 	}
 
 }
