@@ -10,7 +10,6 @@ import javax.swing.JScrollPane;
 public class GraphFacade {
 
 	private GraphPanel graphPanel;
-
 	public GraphFacade() {
 		setGraphPanel(new GraphPanel());
 	}

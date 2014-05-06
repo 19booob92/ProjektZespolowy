@@ -161,6 +161,9 @@ public class NewQuizView extends JFrame {
 		this.timeoutField.setText(Integer.toString(q.getQuestTimeout()));
 		view.pics.setModel(rewriteArrayListToJList(q.getPicturePaths(), q));
 		view.sounds.setModel(rewriteArrayListToJList(q.getSoundPaths(), q));
+		view.paragraphList.addAll(q.getQuestDescription());
+		for (int i = 0; i < q.getQuestDescription().size(); i++)
+			view.paragraphs.addElement(q.getQuestDescription().get(i));
 	}
 
 	private void fillWithFieldQuestData(FieldQuest q) {
@@ -171,15 +174,22 @@ public class NewQuizView extends JFrame {
 	}
 
 	private void fillWithTextQuestData(TextQuest q) {
-
+		textView.textAnswer.addAll(q.getQuestAnswer());
+		for (int i = 0; i < q.getQuestAnswer().size(); i++) {
+			textView.getAnswersCombo().addElement(q.getQuestAnswer().get(i));
+		}
 	}
 
 	private void fillWithOrderQuestData(OrderQuest q) {
-
+		for (int i = 0; i < q.getQuestAnswer().size(); i++) {
+			orderView.tableModel.addRow(new Object [] {"", q.getQuestAnswer().get(i), "add"});
+		}
 	}
 
 	private void fillWithChoiceQuestData(ChoiceQuest q) {
-
+		for (int i = 0; i < q.getQuestAnswer().size(); i++) {
+			choiceView.tableModel.addRow(new Object [] {"", q.getQuestAnswer().get(i), q.getQuestAnswerCorrect().get(i)});
+		}
 	}
 
 	private void fillWithDecisionQuestData(DecisionQuest q) {
@@ -447,7 +457,7 @@ public class NewQuizView extends JFrame {
 		if (!tfQuizName.getText().equals("")){
 			newQuest.setQuestName(tfQuizName.getText());
 		} else {
-			JOptionPane.showMessageDialog(null, "Podaj nawe zagadki");
+			JOptionPane.showMessageDialog(null, "Podaj nazwę zagadki");
 			throw new NoDataInFieldException();				// �eby nie robic problemow w innych miejscach
 		}
 	}

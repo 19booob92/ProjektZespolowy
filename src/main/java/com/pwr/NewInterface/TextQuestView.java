@@ -122,4 +122,8 @@ public TextQuestView() {
 	public String introduceYourself() {
 		return "TextQuest";
 	}
+	
+	public DefaultComboBoxModel getAnswersCombo() {
+		return answers;
+	}
 }
