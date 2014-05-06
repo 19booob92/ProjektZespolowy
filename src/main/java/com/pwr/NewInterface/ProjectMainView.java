@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -150,7 +151,7 @@ public class ProjectMainView extends JFrame {
 	}
 
 	private void createLeftSidePanelForUserSettings() {
-		btnNewUser = new JButton("Dodaj u�ytkownika");
+		btnNewUser = new JButton("Dodaj użytkownika");
 
 		btnNewUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -158,11 +159,11 @@ public class ProjectMainView extends JFrame {
 			}
 		});
 
-		btnNewUser.setBounds(10, 70, 207, 23);
+		btnNewUser.setBounds(6, 112, 207, 28);
 		leftSidePanel.add(btnNewUser);
 
 		btnDeleteQuestts = new JButton("Usun questy");
-		btnDeleteQuestts.setBounds(10, 10, 207, 23);
+		btnDeleteQuestts.setBounds(6, 72, 207, 28);
 		leftSidePanel.add(btnDeleteQuestts);
 
 		btnDeleteQuestts.addActionListener(new ActionListener() {
@@ -186,7 +187,7 @@ public class ProjectMainView extends JFrame {
 			}
 		});
 
-		btnDeleteAll.setBounds(10, 40, 207, 23);
+		btnDeleteAll.setBounds(6, 32, 206, 28);
 		leftSidePanel.add(btnDeleteAll);
 
 	}
@@ -240,7 +241,7 @@ public class ProjectMainView extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				campaign.loadXml("Config.xml");
+				campaign.loadXml(getXML());
 				repaint();
 			}
 
@@ -411,6 +412,19 @@ public class ProjectMainView extends JFrame {
 		}
 	}
 
+	private String getXML() {
+		JFileChooser chooser = new JFileChooser();
+		chooser.setCurrentDirectory(new java.io.File("."));
+		chooser.setDialogTitle("Chose MP3 file");
+		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		chooser.setAcceptAllFileFilterUsed(false);
+		String str = "";
+		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+			str = chooser.getSelectedFile().toString();
+		}
+		return str;
+	}
+	
 	public void updateTable() {
 		tableModel.setRowCount(0);
 		addRowToTable(getDataToTable());
