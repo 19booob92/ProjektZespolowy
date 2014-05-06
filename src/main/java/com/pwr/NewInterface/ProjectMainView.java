@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -57,25 +58,26 @@ public class ProjectMainView extends JFrame {
 
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
+	private JPanel userTabPane;
+
 	private JScrollPane rightScroll;
 
 	private ProjectOptionsView projectTabPane;
-	private JPanel userTabPane;
 
 	private JTabbedPane tabbedPane;
 	private JSplitPane splitPane;
 
 	private JMenuBar menuBar;
 	private JMenu mnProject;
+	
 	private JButton btnDeleteAll;
-
 	private JButton btnNewQuiz;
 	private JButton btnZapiszUstawieniaGry;
 	private JButton btnNowaGra;
-
 	private JButton btnNewUser;
 	private JButton btnDeleteAllDoneQuests;
 	private JButton btnLoadQuests;
+	private JButton btnDeleteQuestts;
 
 	private JLabel lblOpcjeProjektu;
 	private JLabel lblOpcjeUserow;
@@ -151,14 +153,13 @@ public class ProjectMainView extends JFrame {
 		btnNewUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				userDataRegister.setVisible(true);
-				userDataRegister.show();
 			}
 		});
 
 		btnNewUser.setBounds(10, 70, 207, 23);
 		leftSidePanel.add(btnNewUser);
 
-		JButton btnDeleteQuestts = new JButton("Usun questy");
+		btnDeleteQuestts = new JButton("Usun questy");
 		btnDeleteQuestts.setBounds(10, 10, 207, 23);
 		leftSidePanel.add(btnDeleteQuestts);
 
@@ -264,7 +265,7 @@ public class ProjectMainView extends JFrame {
 
 		mnProject = new JMenu("Project");
 		menuBar.add(mnProject);
-
+		
 		JMenuItem mntmNewProjectItem = new JMenuItem("Nowy projekt");
 		mnProject.add(mntmNewProjectItem);
 
@@ -274,14 +275,73 @@ public class ProjectMainView extends JFrame {
 		JMenu mnUser = new JMenu("User");
 		menuBar.add(mnUser);
 
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("New menu item");
-		mnUser.add(mntmNewMenuItem_1);
+		JMenuItem usunQuestyItem = new JMenuItem("Usun questy");
+		mnUser.add(usunQuestyItem);
 
-		JMenu mnNewMenu = new JMenu("New menu");
-		menuBar.add(mnNewMenu);
+		JMenuItem usunWszystkieDaneItem = new JMenuItem("Usun wszystkie dane");
+		mnUser.add(usunWszystkieDaneItem);
 
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("New menu item");
-		mnNewMenu.add(mntmNewMenuItem_2);
+		JMenuItem dodajUzytkownikaItem = new JMenuItem("Dodaj uzytkownika");
+		mnUser.add(dodajUzytkownikaItem);
+		
+		JMenu mnPomoc = new JMenu("Pomoc");
+		menuBar.add(mnPomoc);
+
+		JMenuItem infoItem = new JMenuItem("Informacje");
+		mnPomoc.add(infoItem);
+		
+		JMenuItem oProgramieItem = new JMenuItem("O Programie");
+		mnPomoc.add(oProgramieItem);
+		
+		infoItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, 
+						  "<html> "
+						+ "		<body> "
+						+ "			<ol> "
+						+ "				<li>Najpierw zrob to</lo> "
+						+ "				<li>A teraz zrob to</lo> "
+						+ "			</ol> "
+						+ "		</body> "
+						+ "</html>");
+			}
+		});
+		
+		oProgramieItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, 
+						"Jakies informacje");
+			}
+		});
+		
+		usunQuestyItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent ev) {
+				questTableView.setVisible(true);
+			}
+		});
+		
+		usunWszystkieDaneItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent ev) {
+				confirmView.setVisible(true);
+			}
+		});
+		
+		dodajUzytkownikaItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent ev) {
+				userDataRegister.setVisible(true);
+			}
+		});
+		
 	}
 
 	private void createTabPage1() {
@@ -307,6 +367,7 @@ public class ProjectMainView extends JFrame {
 			SplashWindow splash = new SplashWindow(this, "359.gif");
 			List<UserDTO> usersList = requests.getAllUsers();
 			splash.dispose();
+			splash=null;
 			return usersList;
 		} catch (Exception except) {
 			except.printStackTrace();
