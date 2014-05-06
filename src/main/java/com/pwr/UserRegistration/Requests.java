@@ -39,10 +39,10 @@ public class Requests implements Serializable {
 		ClientConfig config = new DefaultClientConfig();
 		client = Client.create(config);
 		client.addFilter(new LoggingFilter());
-		webResource = client.resource("http://virt2.iiar.pwr.edu.pl:8080/register/" + "adminPanel" + extend_uri + "/"
+		webResource = client.resource(address + "adminPanel" + extend_uri + "/"
 				+ value);
 
-		client.addFilter(new HTTPBasicAuthFilter("adm", "ini"));
+		client.addFilter(new HTTPBasicAuthFilter(login, pass));
 		ClientResponse response = webResource.type(MediaType.APPLICATION_JSON)
 				.delete(ClientResponse.class);
 
@@ -72,9 +72,9 @@ public class Requests implements Serializable {
 		ClientConfig config = new DefaultClientConfig();
 		client = Client.create(config);
 		client.addFilter(new LoggingFilter());
-		webResource = client.resource("http://virt2.iiar.pwr.edu.pl:8080/register/"  + "adminPanel/" + typeURI);
+		webResource = client.resource(address  + "adminPanel/" + typeURI);
 
-		client.addFilter(new HTTPBasicAuthFilter("adm", "ini"));
+		client.addFilter(new HTTPBasicAuthFilter(login, pass));
 		ClientResponse response = webResource.type(MediaType.APPLICATION_JSON)
 				.post(ClientResponse.class, json);
 
@@ -122,9 +122,9 @@ public class Requests implements Serializable {
 		ClientConfig clientConfig = new DefaultClientConfig();
 		clientConfig.getClasses().add(JacksonJsonProvider.class);
 		Client client = Client.create(clientConfig);
-		client.addFilter(new HTTPBasicAuthFilter("adm", "ini"));
+		client.addFilter(new HTTPBasicAuthFilter(login, pass));
 
-		return client.resource("http://virt2.iiar.pwr.edu.pl:8080/register/" + "adminPanel/allQuests/")
+		return client.resource(address + "adminPanel/allQuests/")
 				.type(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
 				.get(new GenericType<List<QuestDTO>>() {

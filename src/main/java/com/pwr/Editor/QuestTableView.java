@@ -2,7 +2,6 @@ package com.pwr.Editor;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,24 +21,23 @@ import org.springframework.stereotype.Component;
 
 import com.pwr.UserRegistration.QuestDTO;
 import com.pwr.UserRegistration.Requests;
-import com.pwr.UserRegistration.UserDTO;
-import com.pwr.UserRegistration.UserDataRegister;
 
+@Component
 public class QuestTableView extends JFrame {
+	
 	private JPanel contentPane;
 	private JTable table;
 	private DefaultTableModel tableModel;
 	private int colNum, rowNum;
-	private Requests requests;
-	private List<QuestDTO> usersList = null;
+	private List<QuestDTO> questList = null;
 
-	public QuestTableView() {
+	@Autowired
+	public QuestTableView(final Requests requests) {
 		super("Quests");
 
-		usersList = null;
+		questList = null;
 		try {
-			requests = new Requests();
-			usersList = requests.getAllQuests();
+			questList = requests.getAllQuests();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -73,9 +71,7 @@ public class QuestTableView extends JFrame {
 		
 		addTable();
 
-		addRowToTable(usersList);
-
-		setVisible(true);
+		addRowToTable(questList);
 	}
 
 	// kiedy User będzie miał w tabeli maila, layout się ułoży

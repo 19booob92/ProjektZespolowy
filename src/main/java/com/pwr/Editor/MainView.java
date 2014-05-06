@@ -81,8 +81,7 @@ public class MainView extends JFrame {
         googlePanel.addKeyListener(googlePanel);
         googlePanel.setFocusable(true);
         googlePanel.setBounds(272, 32, 338, 329);
-        
-	    //endof
+        //endof
 
         listBtn.setBounds(12, 372, 107, 25);
 		userDataBtn = new JButton("Create User");

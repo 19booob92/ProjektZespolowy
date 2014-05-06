@@ -1,7 +1,6 @@
 package com.pwr.Editor;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,7 +8,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,16 +18,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.border.EtchedBorder;
-import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import com.pwr.Quest.MapPoint;
-import com.pwr.Quest.QuestFactory;
 import com.pwr.Quest.QuestType;
 
 public class QuestDetailsView extends JFrame implements KeyListener {
@@ -278,14 +273,6 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 				if (e.getClickCount() == 1) {
 					JTable target = (JTable) e.getSource();
 					rowNum = target.getSelectedRow();
-					EventQueue.invokeLater(new Runnable() {
-
-						@Override
-						public void run() {
-							
-						}
-
-					});
 				}
 			}
 		});

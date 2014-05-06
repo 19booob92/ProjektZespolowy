@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import Utils.NoDataInFieldException;
+
 import com.pwr.NewInterface.ProjectMainView;
 
 @Component
@@ -77,8 +79,17 @@ public class UserDataRegister extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					User user = new User();
-					user.setLogin(loginTxt.getText());
-					user.setPassword((passTxt.getText()));
+					String userLogin = loginTxt.getText();
+					String userPass = (passTxt.getText());
+					
+					if (!userLogin.equals("") && !userPass.equals("")) {
+						user.setLogin(loginTxt.getText());
+						user.setPassword((passTxt.getText()));
+					} else {
+						JOptionPane.showMessageDialog(null,
+								"Wprowadz login i haslo");
+						throw new NoDataInFieldException();
+					}
 
 					int status = requests.sendData(user, "createUser/");
 					loginTxt.setText("");
@@ -88,11 +99,11 @@ public class UserDataRegister extends JFrame {
 						projectMainView.updateTable();
 					} else {
 						new JOptionPane().showMessageDialog(null,
-								"Account could not been create !");
+								"Nie mo¿na utworzyc konta !");
 					}
 				} catch (Exception ex) {
 					new JOptionPane().showMessageDialog(null,
-							"Account could not been create !");
+							"Nie mo¿na utworzyc konta !");
 					ex.printStackTrace();
 				}
 			}

@@ -11,6 +11,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,6 +27,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+
+import Utils.NoDataInFieldException;
 
 import com.pwr.Editor.ZipPacker;
 import com.pwr.Quest.Campaign;
@@ -156,8 +159,8 @@ public class NewQuizView extends JFrame {
 		view.postNote.setText(q.getPostNote());
 		this.tfQuizName.setText(q.getQuestName());
 		this.timeoutField.setText(Integer.toString(q.getQuestTimeout()));
-		view.pics.setModel(rewriteArrayListToJList(q.getPicturePaths(),q));
-		view.sounds.setModel(rewriteArrayListToJList(q.getSoundPaths(),q));
+		view.pics.setModel(rewriteArrayListToJList(q.getPicturePaths(), q));
+		view.sounds.setModel(rewriteArrayListToJList(q.getSoundPaths(), q));
 	}
 
 	private void fillWithFieldQuestData(FieldQuest q) {
@@ -253,9 +256,10 @@ public class NewQuizView extends JFrame {
 										newQuest = caseOrderQuest();
 										break;
 									}
-									GetGeneralQuestFields(newQuest,selectedCard);
+									GetGeneralQuestFields(newQuest,
+											selectedCard);
 								}
-							}										
+							}
 							newQuest.incrementId();
 							campaignRef.addQuiz(newQuest);
 							campaignRef.createdTrue();
@@ -409,30 +413,43 @@ public class NewQuizView extends JFrame {
 		newQuest.getSoundPaths().addAll(
 				rewriteJListToArrayList(selectedCard.sounds));
 		newQuest.setQuestDescription(selectedCard.paragraphList);
-		newQuest.setQuestName(tfQuizName.getText());
 		newQuest.setQuestTimeout(Integer.parseInt(timeoutField.getText()));
 		
-		Integer defaultPoints = Integer.parseInt(selectedCard.points.getText());
 		
-		if (defaultPoints != null) {
-			newQuest.setPoints(defaultPoints);
-		} else {
-			JOptionPane.showMessageDialog(null, "Podaj ilosc punktow");
-		}
+		validateName(newQuest);
+
+		validatePoints(newQuest);
 		
 		newQuest.setPostNote(selectedCard.postNote.getText());
 		newQuest.setPreNote(selectedCard.preNote.getText());
 		newQuest.setDate(selectedCard.date.getText());
 		newQuest.setWrong(selectedCard.wrong.getText());
 		newQuest.setGoTo(selectedCard.next.getText());
-		/*for (QuestPoint q : campaignRef.getQuizes()) {
-			if (selectedCard.next.getText() == q.getQuestName()) {
-				newQuest.setGoTo(Integer.toString(q.getId()));
-			}
-			if (selectedCard.wrong.getText() == q.getWrong()) {
-				newQuest.setWrong(Integer.toString(q.getId()));
-			}
-		}*/
+		/*
+		 * for (QuestPoint q : campaignRef.getQuizes()) { if
+		 * (selectedCard.next.getText() == q.getQuestName()) {
+		 * newQuest.setGoTo(Integer.toString(q.getId())); } if
+		 * (selectedCard.wrong.getText() == q.getWrong()) {
+		 * newQuest.setWrong(Integer.toString(q.getId())); } }
+		 */
+	}
+
+	private void validatePoints(QuestPoint newQuest) {
+		try {
+			newQuest.setPoints(Integer.parseInt(selectedCard.points.getText()));
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Podaj ilosc punktow");
+			throw new EmptyStackException();				// ¿eby nie robic problemow w innych miejscach
+		}
+	}
+
+	private void validateName(QuestPoint newQuest) {
+		if (!tfQuizName.getText().equals("")){
+			newQuest.setQuestName(tfQuizName.getText());
+		} else {
+			JOptionPane.showMessageDialog(null, "Podaj nawe zagadki");
+			throw new NoDataInFieldException();				// ¿eby nie robic problemow w innych miejscach
+		}
 	}
 
 	private void GetTextQuestFields(TextQuest newQuest, TextQuestView questView) {
@@ -460,12 +477,17 @@ public class NewQuizView extends JFrame {
 
 	private void GetFieldQuestFields(FieldQuest newQuest,
 			FieldQuestView questView) {
+		try {
 		newQuest.setYCoordinate(Double.parseDouble(questView.latitudeField
 				.getText()));
 		newQuest.setXCoordinate(Double.parseDouble(questView.longitudeField
 				.getText()));
 		newQuest.setXWidth(Double.parseDouble(questView.widthField.getText()));
 		newQuest.setYWidth(Double.parseDouble(questView.heightField.getText()));
+		}catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Wybierz punkt na mapie");
+			throw new NoDataInFieldException();
+		}
 	}
 
 	private ArrayList rewriteJListToArrayList(JList list) {
@@ -476,11 +498,11 @@ public class NewQuizView extends JFrame {
 		return newList;
 	}
 
-	
-	private DefaultListModel rewriteArrayListToJList(ArrayList<String> arr, QuestPoint q) {
+	private DefaultListModel rewriteArrayListToJList(ArrayList<String> arr,
+			QuestPoint q) {
 		DefaultListModel<String> newmodel = new DefaultListModel<String>();
-		for(int i = 0; i < arr.size(); i++) {
-		    newmodel.addElement(arr.get(i));
+		for (int i = 0; i < arr.size(); i++) {
+			newmodel.addElement(arr.get(i));
 		}
 		return newmodel;
 	}

@@ -45,6 +45,8 @@ import com.pwr.UserRegistration.UserDataRegister;
 public class ProjectMainView extends JFrame {
 
 	@Autowired
+	private QuestTableView questTableView;
+	@Autowired
 	private Requests requests;
 	@Autowired
 	private UserDataRegister userDataRegister;
@@ -167,7 +169,7 @@ public class ProjectMainView extends JFrame {
 
 					@Override
 					public void run() {
-						new QuestTableView();
+						questTableView.setVisible(true);
 					}
 				});
 			}
@@ -183,9 +185,9 @@ public class ProjectMainView extends JFrame {
 
 		btnDeleteAll.setBounds(10, 40, 207, 23);
 		leftSidePanel.add(btnDeleteAll);
-		
+
 	}
-	
+
 	public static void invokeNewQuizView(final int id) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -193,7 +195,7 @@ public class ProjectMainView extends JFrame {
 			}
 		});
 	}
-	
+
 	private void createLeftSidePanelForProject() {
 		btnNewQuiz = new JButton("Nowy quest");
 		btnNewQuiz.addActionListener(new ActionListener() {
@@ -228,22 +230,19 @@ public class ProjectMainView extends JFrame {
 			}
 		});
 
-		
 		btnLoadQuests = new JButton("Wczytaj zagadki");
 		btnLoadQuests.setBounds(6, 190, 206, 28);
-		
-		btnLoadQuests.addActionListener(new ActionListener()
-		{
+
+		btnLoadQuests.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				campaign.loadXml("Config.xml");
 				repaint();
 			}
-			
-		}
-		);
-		
+
+		});
+
 		leftSidePanel.add(btnLoadQuests);
 	}
 
@@ -327,14 +326,10 @@ public class ProjectMainView extends JFrame {
 					JTable target = (JTable) e.getSource();
 					rowNum = target.getSelectedRow();
 					colNum = target.getSelectedColumn();
-					userDetailsView.prepareUserDetailsView((String) tableModel.getValueAt(
-							rowNum, 0));
-					try {
+					if (rowNum >= 0) {
 						userDetailsView
 								.prepareUserDetailsView((String) tableModel
 										.getValueAt(rowNum, 0));
-					} catch (Exception ex) {
-
 					}
 				}
 			}
