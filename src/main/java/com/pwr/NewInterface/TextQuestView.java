@@ -39,7 +39,7 @@ private int answerTrigger=0;
 public TextQuestView() {
             super();	
             this.add(new JLabel("Field"));
-            setSize(panelWidth, panelHeight);
+            setSize(PANEL_WIDTH, PANEL_HEIGHT);
             
             lblGoTo = new JLabel("Następna zagadka");
             lblGoTo.setBounds(23,277,120,29);

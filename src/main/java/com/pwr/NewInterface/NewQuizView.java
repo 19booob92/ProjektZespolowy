@@ -57,19 +57,19 @@ public class NewQuizView extends JFrame {
 	private JLabel lblWrong;
 	private JLabel lblPoints;
 	private JLabel lblDate;
-	
-	private static final int panelWidth = 900;
-	private static final int panelHeight = 800;
 
-	private static final int windowWidth = 1000;
-	private static final int windowHeight = 500;
-	
+	private static final int PANEL_WIDTH = 650;
+	private static final int PANEL_HEIGHT = 800;
+
+	private static final int WINDOW_WIDTH = 1000;
+	private static final int WINDOW_HEIGHT = 500;
+
 	protected JTextField wrong;
 	private JTextField timeoutField;
 	private JTextField tfQuizName;
 	protected JTextField points;
 	protected JTextField date;
-	
+
 	private QuestView selectedCard;
 
 	// Quest vars
@@ -103,11 +103,12 @@ public class NewQuizView extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 
-		setSize(windowWidth, windowHeight);
+		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		leftSidePanel = new JPanel();
-		leftSidePanel.setPreferredSize(new Dimension(320, panelHeight));
+		leftSidePanel.setPreferredSize(new Dimension(320, PANEL_HEIGHT));
 		rightSidePanel = new JPanel(new CardLayout());
-		rightSidePanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
+		rightSidePanel
+				.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
 
 		leftScroll = new JScrollPane(leftSidePanel);
 		rightScroll = new JScrollPane(rightSidePanel);
@@ -203,7 +204,6 @@ public class NewQuizView extends JFrame {
 				"Zagadka wielokrotnego wyboru", "Zagadka uporzÄ…dkowania",
 				"Zagadka decyzji" };
 
-
 		JLabel lblOpcjeQuizu = new JLabel("Opcje quizu");
 		lblOpcjeQuizu.setBounds(10, 11, 126, 14);
 		leftSidePanel.add(lblOpcjeQuizu);
@@ -221,7 +221,7 @@ public class NewQuizView extends JFrame {
 		lblTimeout = new JLabel("Timeout");
 		lblTimeout.setBounds(10, 80, 46, 14);
 		leftSidePanel.add(lblTimeout);
-		
+
 		lblPoints = new JLabel("Punkty");
 		lblPoints.setBounds(10, 100, 46, 14);
 		add(lblPoints);
@@ -237,7 +237,7 @@ public class NewQuizView extends JFrame {
 		date = new JTextField();
 		date.setBounds(76, 140, 160, 27);
 		add(date);
-		
+
 		lblWrong = new JLabel("<html><body>Zagadka<br/>kara</body></html>");
 		lblWrong.setBounds(10, 230, 50, 30);
 		add(lblWrong);
@@ -249,11 +249,11 @@ public class NewQuizView extends JFrame {
 		final JComboBox questTypeCombo = new JComboBox(quizTypes);
 		questTypeCombo.setBounds(70, 260, 154, 27);
 		leftSidePanel.add(questTypeCombo);
-		
+
 		lblType = new JLabel("Typ");
 		lblType.setBounds(10, 260, 46, 14);
 		leftSidePanel.add(lblType);
-		
+
 		btnSaveQuiz = new JButton("Zapisz quest");
 		btnSaveQuiz.setBounds(30, 300, 120, 23);
 		leftSidePanel.add(btnSaveQuiz);
@@ -302,31 +302,22 @@ public class NewQuizView extends JFrame {
 							for (Component comp : rightSidePanel
 									.getComponents()) {
 								if (comp.isVisible() == true) {
-									if (newQuest.getQuestType() == QuestType.CHOICEQUEST) {
-										selectedCard = (MultipleChoiceQuestView) comp;
-										GetMultipleChoiceQuestFields(
-												(ChoiceQuest) newQuest,
-												(MultipleChoiceQuestView) selectedCard);
-									} else if (newQuest.getQuestType() == QuestType.DECISIONQUEST) {
-										selectedCard = (DecisionQuestView) comp;
-										GetDecisionQuestFields(
-												(DecisionQuest) newQuest,
-												(DecisionQuestView) selectedCard);
-									} else if (newQuest.getQuestType() == QuestType.FIELDQUEST) {
-										selectedCard = (FieldQuestView) comp;
-										GetFieldQuestFields(
-												(FieldQuest) newQuest,
-												(FieldQuestView) selectedCard);
-									} else if (newQuest.getQuestType() == QuestType.ORDERQUEST) {
-										selectedCard = (OrderQuestView) comp;
-										GetOrderQuestFields(
-												(OrderQuest) newQuest,
-												(OrderQuestView) selectedCard);
-									} else if (newQuest.getQuestType() == QuestType.TEXTQUEST) {
-										selectedCard = (TextQuestView) comp;
-										GetTextQuestFields(
-												(TextQuest) newQuest,
-												(TextQuestView) selectedCard);
+									switch (newQuest.getQuestType()) {
+									case CHOICEQUEST:
+										caseChoiceQuest(newQuest, comp);
+										break;
+									case DECISIONQUEST:
+										caseDecisionQuest(newQuest, comp);
+										break;
+									case FIELDQUEST:
+										caseFieldQuest(newQuest, comp);
+										break;
+									case ORDERQUEST:
+										caseOrderQuest(newQuest, comp);
+										break;
+									case TEXTQUEST:
+										caseTextQuest(newQuest, comp);
+										break;
 									}
 									GetGeneralQuestFields(newQuest,
 											selectedCard);
@@ -342,6 +333,41 @@ public class NewQuizView extends JFrame {
 								.getPicturePaths().get(0));
 
 						dispose();
+					}
+
+					private void caseTextQuest(QuestPoint newQuest,
+							Component comp) {
+						selectedCard = (TextQuestView) comp;
+						GetTextQuestFields((TextQuest) newQuest,
+								(TextQuestView) selectedCard);
+					}
+
+					private void caseOrderQuest(QuestPoint newQuest,
+							Component comp) {
+						selectedCard = (OrderQuestView) comp;
+						GetOrderQuestFields((OrderQuest) newQuest,
+								(OrderQuestView) selectedCard);
+					}
+
+					private void caseFieldQuest(QuestPoint newQuest,
+							Component comp) {
+						selectedCard = (FieldQuestView) comp;
+						GetFieldQuestFields((FieldQuest) newQuest,
+								(FieldQuestView) selectedCard);
+					}
+
+					private void caseDecisionQuest(QuestPoint newQuest,
+							Component comp) {
+						selectedCard = (DecisionQuestView) comp;
+						GetDecisionQuestFields((DecisionQuest) newQuest,
+								(DecisionQuestView) selectedCard);
+					}
+
+					private void caseChoiceQuest(QuestPoint newQuest,
+							Component comp) {
+						selectedCard = (MultipleChoiceQuestView) comp;
+						GetMultipleChoiceQuestFields((ChoiceQuest) newQuest,
+								(MultipleChoiceQuestView) selectedCard);
 					}
 
 					private QuestPoint caseOrderQuest() {
@@ -446,17 +472,15 @@ public class NewQuizView extends JFrame {
 				rewriteJListToArrayList(selectedCard.sounds));
 		newQuest.setQuestDescription(selectedCard.paragraphList);
 		newQuest.setQuestTimeout(Integer.parseInt(timeoutField.getText()));
-		
-		
+
 		validateName(newQuest);
 
 		validatePoints(newQuest);
-		
+
 		newQuest.setPostNote(selectedCard.postNote.getText());
 		newQuest.setPreNote(selectedCard.preNote.getText());
 		newQuest.setDate(this.date.getText());
 		newQuest.setWrong(this.wrong.getText());
-		newQuest.setGoTo(selectedCard.next.getText());
 		/*
 		 * for (QuestPoint q : campaignRef.getQuizes()) { if
 		 * (selectedCard.next.getText() == q.getQuestName()) {
@@ -471,16 +495,18 @@ public class NewQuizView extends JFrame {
 			newQuest.setPoints(Integer.parseInt(this.points.getText()));
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Podaj ilosc punktow");
-			throw new EmptyStackException();				// ¿eby nie robic problemow w innych miejscach
+			throw new EmptyStackException(); // ¿eby nie robic problemow w
+												// innych miejscach
 		}
 	}
 
 	private void validateName(QuestPoint newQuest) {
-		if (!tfQuizName.getText().equals("")){
+		if (!tfQuizName.getText().equals("")) {
 			newQuest.setQuestName(tfQuizName.getText());
 		} else {
 			JOptionPane.showMessageDialog(null, "Podaj nawe zagadki");
-			throw new NoDataInFieldException();				// ¿eby nie robic problemow w innych miejscach
+			throw new NoDataInFieldException(); // ¿eby nie robic problemow w
+												// innych miejscach
 		}
 	}
 
@@ -510,13 +536,15 @@ public class NewQuizView extends JFrame {
 	private void GetFieldQuestFields(FieldQuest newQuest,
 			FieldQuestView questView) {
 		try {
-		newQuest.setYCoordinate(Double.parseDouble(questView.latitudeField
-				.getText()));
-		newQuest.setXCoordinate(Double.parseDouble(questView.longitudeField
-				.getText()));
-		newQuest.setXWidth(Double.parseDouble(questView.widthField.getText()));
-		newQuest.setYWidth(Double.parseDouble(questView.heightField.getText()));
-		}catch (Exception ex) {
+			newQuest.setYCoordinate(Double.parseDouble(questView.latitudeField
+					.getText()));
+			newQuest.setXCoordinate(Double.parseDouble(questView.longitudeField
+					.getText()));
+			newQuest.setXWidth(Double.parseDouble(questView.widthField
+					.getText()));
+			newQuest.setYWidth(Double.parseDouble(questView.heightField
+					.getText()));
+		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Wybierz punkt na mapie");
 			throw new NoDataInFieldException();
 		}

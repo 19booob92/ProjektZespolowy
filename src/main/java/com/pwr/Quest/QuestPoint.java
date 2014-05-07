@@ -1,13 +1,8 @@
 package com.pwr.Quest;
 
 import java.util.ArrayList;
-import java.security.*;
 
 import com.pwr.Graph.QuizDataObject;
-import com.pwr.NewInterface.QuestView;
-import com.pwr.Quest.QuestType;
-
-;
 
 public abstract class QuestPoint implements DescribeQuest {
 

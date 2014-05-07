@@ -49,14 +49,14 @@ public class QuestView extends JPanel implements DescribeView{
 	private JLabel lblPreNote;
 	private JLabel lblPostNote;
 
-	protected final static int panelWidth = 900;
-	protected final static int panelHeight = 800;
+	protected final static int PANEL_WIDTH = 900;
+	protected final static int PANEL_HEIGHT = 800;
 
 	private int paragraphsTrigger = 1;
 
 	public QuestView() {
 		setLayout(null);
-		setSize(panelWidth, panelHeight);
+		setSize(PANEL_WIDTH, PANEL_HEIGHT);
 
 		setOfpath = new HashSet<String>();
 
@@ -257,7 +257,6 @@ public class QuestView extends JPanel implements DescribeView{
 
 	@Override
 	public String introduceYourself() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

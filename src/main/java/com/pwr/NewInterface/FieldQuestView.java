@@ -27,7 +27,7 @@ public class FieldQuestView extends QuestView implements DescribeView {
 	public FieldQuestView() {
 		super();
 
-		setSize(panelWidth, panelHeight);
+		setSize(PANEL_WIDTH, PANEL_HEIGHT);
 		googlePanel = new GoogleMapPanel(616, 329);
 		// GoogleMap Listeners, labels etc
 		googlePanel.addMouseListener(googlePanel);
