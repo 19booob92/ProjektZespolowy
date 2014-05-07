@@ -92,6 +92,9 @@ public class NewQuizView extends JFrame {
 		fillFieldsWithQuizData();
 	}
 
+	/**
+	 * @wbp.parser.constructor
+	 */
 	public NewQuizView(Campaign campaign) {
 		super();
 		campaignRef = campaign;
@@ -223,12 +226,12 @@ public class NewQuizView extends JFrame {
 		leftSidePanel.add(lblOpcjeQuizu);
 
 		tfQuizName = new JTextField();
-		tfQuizName.setBounds(76, 36, 154, 27);
+		tfQuizName.setBounds(76, 36, 160, 27);
 		leftSidePanel.add(tfQuizName);
 		tfQuizName.setColumns(10);
 
 		timeoutField = new JTextField("0");
-		timeoutField.setBounds(76, 74, 154, 27);
+		timeoutField.setBounds(76, 74, 160, 27);
 		leftSidePanel.add(timeoutField);
 		timeoutField.setColumns(10);
 
@@ -236,32 +239,8 @@ public class NewQuizView extends JFrame {
 		lblTimeout.setBounds(10, 80, 46, 14);
 		leftSidePanel.add(lblTimeout);
 
-		lblPoints = new JLabel("Punkty");
-		lblPoints.setBounds(10, 100, 46, 14);
-		add(lblPoints);
-
-		points = new JTextField();
-		points.setBounds(76, 112, 154, 27);
-		add(points);
-
-		lblDate = new JLabel("Data");
-		lblDate.setBounds(10, 140, 46, 14);
-		add(lblDate);
-
-		date = new JTextField();
-		date.setBounds(76, 140, 160, 27);
-		add(date);
-
-		lblWrong = new JLabel("<html><body>Zagadka<br/>kara</body></html>");
-		lblWrong.setBounds(10, 230, 50, 30);
-		add(lblWrong);
-
-		wrong = new JTextField();
-		wrong.setBounds(76, 230, 154, 27);
-		add(wrong);
-
 		final JComboBox questTypeCombo = new JComboBox(quizTypes);
-		questTypeCombo.setBounds(70, 260, 154, 27);
+		questTypeCombo.setBounds(76, 254, 154, 27);
 		leftSidePanel.add(questTypeCombo);
 
 		lblType = new JLabel("Typ");
@@ -269,8 +248,32 @@ public class NewQuizView extends JFrame {
 		leftSidePanel.add(lblType);
 
 		btnSaveQuiz = new JButton("Zapisz quest");
-		btnSaveQuiz.setBounds(30, 300, 120, 23);
+		btnSaveQuiz.setBounds(76, 292, 120, 23);
 		leftSidePanel.add(btnSaveQuiz);
+		
+				wrong = new JTextField();
+				leftSidePanel.add(wrong);
+				wrong.setBounds(76, 192, 160, 27);
+				
+						date = new JTextField();
+						leftSidePanel.add(date);
+						date.setBounds(76, 154, 160, 27);
+						
+								points = new JTextField();
+								leftSidePanel.add(points);
+								points.setBounds(76, 112, 160, 27);
+								
+										lblPoints = new JLabel("Punkty");
+										leftSidePanel.add(lblPoints);
+										lblPoints.setBounds(10, 118, 46, 14);
+										
+												lblDate = new JLabel("Data");
+												leftSidePanel.add(lblDate);
+												lblDate.setBounds(10, 160, 46, 14);
+												
+														lblWrong = new JLabel("<html><body>Zagadka<br/>kara</body></html>");
+														leftSidePanel.add(lblWrong);
+														lblWrong.setBounds(10, 192, 50, 30);
 
 		// Refactor it!
 		btnSaveQuiz.addActionListener(new ActionListener() {
