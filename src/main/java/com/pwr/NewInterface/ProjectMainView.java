@@ -476,7 +476,6 @@ public class ProjectMainView extends JFrame {
 			if (q.getId() == id) {
 				campaign.getQuizes().remove(id);
 				ProjectOptionsView.updateView();
-				
 				break;
 			}
 		}

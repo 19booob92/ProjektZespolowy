@@ -15,6 +15,7 @@ import java.util.EmptyStackException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -153,14 +154,16 @@ public class NewQuizView extends JFrame {
 	private void fillWithGeneralData(QuestPoint q, QuestView view) {
 		view.points.setText(Integer.toString(q.getPoints()));
 		view.date.setText(q.getDate());
-		view.next.setText(q.getGoTo());
-		view.wrong.setText(q.getWrong());
+		//view.next.setText(q.getGoTo());
+		//view.wrong.setText(q.getWrong());
 		view.preNote.setText(q.getPreNote());
 		view.postNote.setText(q.getPostNote());
 		this.tfQuizName.setText(q.getQuestName());
 		this.timeoutField.setText(Integer.toString(q.getQuestTimeout()));
 		view.pics.setModel(rewriteArrayListToJList(q.getPicturePaths(), q));
 		view.sounds.setModel(rewriteArrayListToJList(q.getSoundPaths(), q));
+		view.paragraphs = new DefaultComboBoxModel();
+		view.paragraphList = new ArrayList();
 		view.paragraphList.addAll(q.getQuestDescription());
 		for (int i = 0; i < q.getQuestDescription().size(); i++)
 			view.paragraphs.addElement(q.getQuestDescription().get(i));
@@ -174,6 +177,7 @@ public class NewQuizView extends JFrame {
 	}
 
 	private void fillWithTextQuestData(TextQuest q) {
+		textView.textAnswer = new ArrayList();
 		textView.textAnswer.addAll(q.getQuestAnswer());
 		for (int i = 0; i < q.getQuestAnswer().size(); i++) {
 			textView.getAnswersCombo().addElement(q.getQuestAnswer().get(i));
@@ -275,8 +279,6 @@ public class NewQuizView extends JFrame {
 							campaignRef.createdTrue();
 						} else {
 							newQuest = campaignRef.getQuizes().get(quizIndex);
-							// for (Component comp :
-							// rightSidePanel.getComponents()) {
 							for (Component comp : rightSidePanel
 									.getComponents()) {
 								if (comp.isVisible() == true) {
@@ -433,15 +435,8 @@ public class NewQuizView extends JFrame {
 		newQuest.setPostNote(selectedCard.postNote.getText());
 		newQuest.setPreNote(selectedCard.preNote.getText());
 		newQuest.setDate(selectedCard.date.getText());
-		newQuest.setWrong(selectedCard.wrong.getText());
-		newQuest.setGoTo(selectedCard.next.getText());
-		/*
-		 * for (QuestPoint q : campaignRef.getQuizes()) { if
-		 * (selectedCard.next.getText() == q.getQuestName()) {
-		 * newQuest.setGoTo(Integer.toString(q.getId())); } if
-		 * (selectedCard.wrong.getText() == q.getWrong()) {
-		 * newQuest.setWrong(Integer.toString(q.getId())); } }
-		 */
+		//newQuest.setWrong(selectedCard.wrong.getText());
+		//newQuest.setGoTo(selectedCard.next.getText());
 	}
 
 	private void validatePoints(QuestPoint newQuest) {
@@ -449,7 +444,7 @@ public class NewQuizView extends JFrame {
 			newQuest.setPoints(Integer.parseInt(selectedCard.points.getText()));
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Podaj ilosc punktow");
-			throw new EmptyStackException();				// �eby nie robic problemow w innych miejscach
+			throw new EmptyStackException();				
 		}
 	}
 
@@ -458,13 +453,13 @@ public class NewQuizView extends JFrame {
 			newQuest.setQuestName(tfQuizName.getText());
 		} else {
 			JOptionPane.showMessageDialog(null, "Podaj nazwę zagadki");
-			throw new NoDataInFieldException();				// �eby nie robic problemow w innych miejscach
+			throw new NoDataInFieldException();				
 		}
 	}
 
 	private void GetTextQuestFields(TextQuest newQuest, TextQuestView questView) {
 
-		newQuest.setGoTo(questView.textGoTo.getText());
+		//newQuest.setGoTo(questView.textGoTo.getText());
 		newQuest.setQuestAnswer(questView.textAnswer);
 	}
 

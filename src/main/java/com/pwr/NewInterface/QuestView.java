@@ -41,9 +41,9 @@ public class QuestView extends JPanel implements DescribeView{
 	protected JTextArea preNote;
 	protected JTextArea postNote;
 	protected JTextField points;
-	protected JTextField wrong;
+	//protected JTextField wrong;
 	protected JTextField date;
-	protected JTextField next;
+	//protected JTextField next;
 
 	private JLabel lblParagraph;
 	private JLabel lblPics;
@@ -51,7 +51,6 @@ public class QuestView extends JPanel implements DescribeView{
 	private JLabel lblPreNote;
 	private JLabel lblPostNote;
 	private JLabel lblPoints;
-	private JLabel lblWrong;
 	private JLabel lblDate;
 
 	protected final static int panelWidth = 900;
@@ -142,37 +141,30 @@ public class QuestView extends JPanel implements DescribeView{
 		add(postNote);
 
 		lblPoints = new JLabel("Punkty");
-		lblPoints.setBounds(685, 105, 120, 30);
+		lblPoints.setBounds(657, 138, 120, 30);
 		add(lblPoints);
 
 		points = new JTextField();
-		points.setBounds(685, 131, 171, 30);
+		points.setBounds(657, 164, 171, 30);
 		add(points);
-
-		lblWrong = new JLabel("Zagadka przy błędnej odpowiedzi");
-		lblWrong.setBounds(685, 167, 199, 30);
-		add(lblWrong);
-
+		/*
 		wrong = new JTextField();
 		wrong.setBounds(685, 193, 171, 30);
 		add(wrong);
-
+		*/
 		lblDate = new JLabel("Data");
-		lblDate.setBounds(685, 38, 120, 30);
+		lblDate.setBounds(657, 38, 120, 30);
 		add(lblDate);
 
 		date = new JTextField();
-		date.setBounds(685, 64, 171, 30);
+		date.setBounds(657, 68, 171, 30);
 		add(date);
-		
-		JLabel lblNastpna = new JLabel("Następna");
-		lblNastpna.setBounds(685, 243, 120, 14);
-		add(lblNastpna);
-		
+		/*
 		next = new JTextField();
 		next.setBounds(684, 264, 171, 30);
 		add(next);
 		next.setColumns(10);
+		 */
 
 		addButtonsListeners();
 	}
@@ -194,12 +186,6 @@ public class QuestView extends JPanel implements DescribeView{
 			public void actionPerformed(ActionEvent arg0) {
 				if (picsListModel.getSize() != 0)
 					picsListModel.remove(pics.getSelectedIndex());
-				/*
-				 for (String s : mapPoint.getQuest().getPicturePaths()) if (s
-				 * == pics.getSelectedValue()) {
-				 * mapPoint.getQuest().getPicturePaths() .remove(selectedIndex);
-				 * picsListModel.remove(selectedIndex); }
-				 */
 			}
 		});
 
@@ -207,12 +193,6 @@ public class QuestView extends JPanel implements DescribeView{
 			public void actionPerformed(ActionEvent e) {
 				if(soundsListModel.getSize() != 0)
 					soundsListModel.remove(sounds.getSelectedIndex());
-				/*
-				 * for (String s : mapPoint.getQuest().getSoundPaths()) if (s ==
-				 * sounds.getSelectedValue()) {
-				 * mapPoint.getQuest().getSoundPaths() .remove(selectedIndex);
-				 * soundsListModel.remove(selectedIndex); }
-				 */
 			}
 		});
 

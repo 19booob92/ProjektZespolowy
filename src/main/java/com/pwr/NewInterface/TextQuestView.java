@@ -21,12 +21,10 @@ import com.pwr.Quest.QuestType;
 public class TextQuestView extends QuestView implements DescribeView{
 
 private QuestPoint quest;
-protected JTextField textGoTo;
+//protected JTextField textGoTo;
 private DefaultComboBoxModel answers = new DefaultComboBoxModel();
 private JComboBox answersComboBox;
 protected ArrayList<String> textAnswer = new ArrayList<String>();
-
-private JLabel lblGoTo;
 private JLabel lblAnswer;
 
 private JButton btnAddAnswer;
@@ -41,33 +39,29 @@ public TextQuestView() {
             this.add(new JLabel("Field"));
             setSize(panelWidth, panelHeight);
             
-            lblGoTo = new JLabel("Następna zagadka");
-            lblGoTo.setBounds(23,277,120,29);
-            add(lblGoTo);
-            
-            textGoTo = new JTextField();
-            textGoTo.setBounds(23,302,157,29);
-            add(textGoTo);
+            //textGoTo = new JTextField();
+            //textGoTo.setBounds(23,302,157,29);
+            //add(textGoTo);
 
             lblAnswer = new JLabel("Odpowiedź");
-            lblAnswer.setBounds(23, 347, 87, 14);
+            lblAnswer.setBounds(23, 277, 87, 14);
             add(lblAnswer);
             
             answersComboBox = new JComboBox(answers);
             answersComboBox.setSelectedIndex(-1);
-            answersComboBox.setBounds(23,372,157,23);
+            answersComboBox.setBounds(23,302,160,23);
             add(answersComboBox);
             
             btnAddAnswer = new JButton("Dodaj odpowiedź");
-            btnAddAnswer.setBounds(180,372,130,23);
+            btnAddAnswer.setBounds(183,302,122,23);
             add(btnAddAnswer);
             
             btnEditAnswer = new JButton("Edytuj odpowiedź");
-            btnEditAnswer.setBounds(309,372,130,23);
+            btnEditAnswer.setBounds(305,302,117,23);
             add(btnEditAnswer);
             
             btnDeleteAnswer = new JButton("Usuń odpowiedź");
-            btnDeleteAnswer.setBounds(438,372,130,23);
+            btnDeleteAnswer.setBounds(422,302,122,23);
             add(btnDeleteAnswer);
             
             addButtonsListeners();
