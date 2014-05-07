@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -40,9 +41,6 @@ public class QuestView extends JPanel implements DescribeView{
 
 	protected JTextArea preNote;
 	protected JTextArea postNote;
-	protected JTextField points;
-	protected JTextField wrong;
-	protected JTextField date;
 	protected JTextField next;
 
 	private JLabel lblParagraph;
@@ -50,9 +48,6 @@ public class QuestView extends JPanel implements DescribeView{
 	private JLabel lblSounds;
 	private JLabel lblPreNote;
 	private JLabel lblPostNote;
-	private JLabel lblPoints;
-	private JLabel lblWrong;
-	private JLabel lblDate;
 
 	protected final static int panelWidth = 900;
 	protected final static int panelHeight = 800;
@@ -140,39 +135,6 @@ public class QuestView extends JPanel implements DescribeView{
 		postNote.setBounds(345, 163, 302, 60);
 		postNote.setLineWrap(true);
 		add(postNote);
-
-		lblPoints = new JLabel("Punkty");
-		lblPoints.setBounds(685, 105, 120, 30);
-		add(lblPoints);
-
-		points = new JTextField();
-		points.setBounds(685, 131, 171, 30);
-		add(points);
-
-		lblWrong = new JLabel("Zagadka przy błędnej odpowiedzi");
-		lblWrong.setBounds(685, 167, 199, 30);
-		add(lblWrong);
-
-		wrong = new JTextField();
-		wrong.setBounds(685, 193, 171, 30);
-		add(wrong);
-
-		lblDate = new JLabel("Data");
-		lblDate.setBounds(685, 38, 120, 30);
-		add(lblDate);
-
-		date = new JTextField();
-		date.setBounds(685, 64, 171, 30);
-		add(date);
-		
-		JLabel lblNastpna = new JLabel("Następna");
-		lblNastpna.setBounds(685, 243, 120, 14);
-		add(lblNastpna);
-		
-		next = new JTextField();
-		next.setBounds(684, 264, 171, 30);
-		add(next);
-		next.setColumns(10);
 
 		addButtonsListeners();
 	}

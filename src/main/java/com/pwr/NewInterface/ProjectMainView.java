@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +44,7 @@ import com.pwr.UserRegistration.UserDTO;
 import com.pwr.UserRegistration.UserDataRegister;
 
 @Component
-public class ProjectMainView extends JFrame {
+public class ProjectMainView extends JFrame implements Serializable{
 
 	@Autowired
 	private QuestTableView questTableView;
@@ -56,7 +57,7 @@ public class ProjectMainView extends JFrame {
 	@Autowired
 	private ConfirmView confirmView;
 	// chwilowe rozwiazanie, nie wiem jak przekazywac parametry do metody z aspektu
-	static SplashWindow splashWindow;
+	SplashWindow splashWindow;
 	
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
@@ -96,7 +97,7 @@ public class ProjectMainView extends JFrame {
 	// Campaign vars
 	private static Campaign campaign;
 	private static ArrayList<QuestPoint> quest;
-
+	
 	public ProjectMainView() {
 		campaign = new Campaign();
 
@@ -364,10 +365,10 @@ public class ProjectMainView extends JFrame {
 		addRowToTable(getDataToTable());
 	}
 
-	private List<UserDTO> getDataToTable() {
+	public List<UserDTO> getDataToTable() {
 		try {
 			splashWindow = new SplashWindow(this, "359.gif");
-			List<UserDTO> usersList = requests.getAllUsers();
+			List<UserDTO>usersList = requests.getAllUsers(splashWindow);
 			return usersList;
 		} catch (Exception except) {
 			except.printStackTrace();
@@ -445,5 +446,5 @@ public class ProjectMainView extends JFrame {
 		projectMainView.setVisible(true);
 		projectMainView.addListenerForTabbedPane();
 	}
-
+	
 }

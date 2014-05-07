@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
+import com.pwr.NewInterface.SplashWindow;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;
@@ -50,7 +51,7 @@ public class Requests implements Serializable {
 		return response.getStatus();
 	}
 
-	public List<UserDTO> getAllUsers() throws Exception {
+	public List<UserDTO> getAllUsers(SplashWindow splashWindow) throws Exception {
 
 		ClientConfig clientConfig = new DefaultClientConfig();
 		clientConfig.getClasses().add(JacksonJsonProvider.class);
@@ -101,7 +102,7 @@ public class Requests implements Serializable {
 	// automatycznie
 	public void deleteAll() {
 		try {
-			List<UserDTO> listaUserow = getAllUsers();
+			List<UserDTO> listaUserow = getAllUsers(null);
 			List<QuestDTO> listaQuestow = getAllQuests();
 			
 			for (QuestDTO quest : listaQuestow) {

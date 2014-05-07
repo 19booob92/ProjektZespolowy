@@ -100,7 +100,7 @@ public class QuestTableView extends JFrame {
 				}
 			}
 		});
-
+		
 		contentPane.setLayout(new BorderLayout());
 		table.setBounds(400, 22, 0, 0);
 		tablePanel = new JPanel(new BorderLayout());
@@ -110,7 +110,6 @@ public class QuestTableView extends JFrame {
 		scrollPanel = new JScrollPane(tablePanel);
 		contentPane.add(scrollPanel);
 	}
-
 	private void addRowToTable(List<QuestDTO> usersList) {
 		for (QuestDTO quest : usersList) {
 			tableModel.addRow(quest.toArray());

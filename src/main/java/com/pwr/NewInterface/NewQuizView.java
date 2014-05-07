@@ -54,15 +54,22 @@ public class NewQuizView extends JFrame {
 
 	private JLabel lblTimeout;
 	private JLabel lblType;
-
+	private JLabel lblWrong;
+	private JLabel lblPoints;
+	private JLabel lblDate;
+	
 	private static final int panelWidth = 900;
 	private static final int panelHeight = 800;
 
 	private static final int windowWidth = 1000;
 	private static final int windowHeight = 500;
-
+	
+	protected JTextField wrong;
 	private JTextField timeoutField;
 	private JTextField tfQuizName;
+	protected JTextField points;
+	protected JTextField date;
+	
 	private QuestView selectedCard;
 
 	// Quest vars
@@ -151,10 +158,10 @@ public class NewQuizView extends JFrame {
 	}
 
 	private void fillWithGeneralData(QuestPoint q, QuestView view) {
-		view.points.setText(Integer.toString(q.getPoints()));
-		view.date.setText(q.getDate());
+		this.points.setText(Integer.toString(q.getPoints()));
+		this.date.setText(q.getDate());
 		view.next.setText(q.getGoTo());
-		view.wrong.setText(q.getWrong());
+		this.wrong.setText(q.getWrong());
 		view.preNote.setText(q.getPreNote());
 		view.postNote.setText(q.getPostNote());
 		this.tfQuizName.setText(q.getQuestName());
@@ -196,13 +203,6 @@ public class NewQuizView extends JFrame {
 				"Zagadka wielokrotnego wyboru", "Zagadka uporzÄ…dkowania",
 				"Zagadka decyzji" };
 
-		final JComboBox questTypeCombo = new JComboBox(quizTypes);
-		questTypeCombo.setBounds(76, 112, 154, 27);
-		leftSidePanel.add(questTypeCombo);
-
-		lblType = new JLabel("Typ");
-		lblType.setBounds(10, 118, 46, 14);
-		leftSidePanel.add(lblType);
 
 		JLabel lblOpcjeQuizu = new JLabel("Opcje quizu");
 		lblOpcjeQuizu.setBounds(10, 11, 126, 14);
@@ -221,9 +221,41 @@ public class NewQuizView extends JFrame {
 		lblTimeout = new JLabel("Timeout");
 		lblTimeout.setBounds(10, 80, 46, 14);
 		leftSidePanel.add(lblTimeout);
+		
+		lblPoints = new JLabel("Punkty");
+		lblPoints.setBounds(10, 100, 46, 14);
+		add(lblPoints);
 
+		points = new JTextField();
+		points.setBounds(76, 112, 154, 27);
+		add(points);
+
+		lblDate = new JLabel("Data");
+		lblDate.setBounds(10, 140, 46, 14);
+		add(lblDate);
+
+		date = new JTextField();
+		date.setBounds(76, 140, 160, 27);
+		add(date);
+		
+		lblWrong = new JLabel("<html><body>Zagadka<br/>kara</body></html>");
+		lblWrong.setBounds(10, 230, 50, 30);
+		add(lblWrong);
+
+		wrong = new JTextField();
+		wrong.setBounds(76, 230, 154, 27);
+		add(wrong);
+
+		final JComboBox questTypeCombo = new JComboBox(quizTypes);
+		questTypeCombo.setBounds(70, 260, 154, 27);
+		leftSidePanel.add(questTypeCombo);
+		
+		lblType = new JLabel("Typ");
+		lblType.setBounds(10, 260, 46, 14);
+		leftSidePanel.add(lblType);
+		
 		btnSaveQuiz = new JButton("Zapisz quest");
-		btnSaveQuiz.setBounds(0, 239, 320, 23);
+		btnSaveQuiz.setBounds(30, 300, 120, 23);
 		leftSidePanel.add(btnSaveQuiz);
 
 		// Refactor it!
@@ -422,8 +454,8 @@ public class NewQuizView extends JFrame {
 		
 		newQuest.setPostNote(selectedCard.postNote.getText());
 		newQuest.setPreNote(selectedCard.preNote.getText());
-		newQuest.setDate(selectedCard.date.getText());
-		newQuest.setWrong(selectedCard.wrong.getText());
+		newQuest.setDate(this.date.getText());
+		newQuest.setWrong(this.wrong.getText());
 		newQuest.setGoTo(selectedCard.next.getText());
 		/*
 		 * for (QuestPoint q : campaignRef.getQuizes()) { if
@@ -436,7 +468,7 @@ public class NewQuizView extends JFrame {
 
 	private void validatePoints(QuestPoint newQuest) {
 		try {
-			newQuest.setPoints(Integer.parseInt(selectedCard.points.getText()));
+			newQuest.setPoints(Integer.parseInt(this.points.getText()));
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Podaj ilosc punktow");
 			throw new EmptyStackException();				// ¿eby nie robic problemow w innych miejscach

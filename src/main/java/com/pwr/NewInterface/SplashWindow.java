@@ -11,9 +11,6 @@ import java.awt.Window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class SplashWindow extends Window {
 	private Image splashImage;
 	private int imgWidth, imgHeight;
