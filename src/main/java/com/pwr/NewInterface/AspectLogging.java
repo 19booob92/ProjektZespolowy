@@ -5,10 +5,10 @@ import org.aspectj.lang.annotation.Aspect;
 
 @Aspect
 public class AspectLogging {
-	
-	@After("execution(* getAllUsers(..))")
-	public void killSplash() {
-		ProjectMainView.splashWindow.dispose();
-		ProjectMainView.splashWindow = null;
+
+	@After("execution(* getAllUsers(..)) && args (splashWindow,..)")
+	public void killSplash(SplashWindow splashWindow) {
+		splashWindow.dispose();
+		splashWindow = null;
 	}
 }

@@ -37,7 +37,7 @@ private int answerTrigger=0;
 public TextQuestView() {
             super();	
             this.add(new JLabel("Field"));
-            setSize(panelWidth, panelHeight);
+            setSize(PANEL_WIDTH, PANEL_HEIGHT);
             
             //textGoTo = new JTextField();
             //textGoTo.setBounds(23,302,157,29);

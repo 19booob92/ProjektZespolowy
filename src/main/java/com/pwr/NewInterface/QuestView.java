@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -18,7 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
-public class QuestView extends JPanel implements DescribeView{
+public class QuestView extends JPanel implements DescribeView {
 	protected JList<String> pics;
 	protected JList<String> sounds;
 	protected DefaultComboBoxModel paragraphs = new DefaultComboBoxModel();
@@ -40,27 +41,21 @@ public class QuestView extends JPanel implements DescribeView{
 
 	protected JTextArea preNote;
 	protected JTextArea postNote;
-	protected JTextField points;
-	//protected JTextField wrong;
-	protected JTextField date;
-	//protected JTextField next;
 
 	private JLabel lblParagraph;
 	private JLabel lblPics;
 	private JLabel lblSounds;
 	private JLabel lblPreNote;
 	private JLabel lblPostNote;
-	private JLabel lblPoints;
-	private JLabel lblDate;
 
-	protected final static int panelWidth = 900;
-	protected final static int panelHeight = 800;
+	protected final static int PANEL_WIDTH = 900;
+	protected final static int PANEL_HEIGHT = 800;
 
 	private int paragraphsTrigger = 1;
 
 	public QuestView() {
 		setLayout(null);
-		setSize(panelWidth, panelHeight);
+		setSize(PANEL_WIDTH, PANEL_HEIGHT);
 
 		setOfpath = new HashSet<String>();
 
@@ -140,32 +135,6 @@ public class QuestView extends JPanel implements DescribeView{
 		postNote.setLineWrap(true);
 		add(postNote);
 
-		lblPoints = new JLabel("Punkty");
-		lblPoints.setBounds(657, 138, 120, 30);
-		add(lblPoints);
-
-		points = new JTextField();
-		points.setBounds(657, 164, 171, 30);
-		add(points);
-		/*
-		wrong = new JTextField();
-		wrong.setBounds(685, 193, 171, 30);
-		add(wrong);
-		*/
-		lblDate = new JLabel("Data");
-		lblDate.setBounds(657, 38, 120, 30);
-		add(lblDate);
-
-		date = new JTextField();
-		date.setBounds(657, 68, 171, 30);
-		add(date);
-		/*
-		next = new JTextField();
-		next.setBounds(684, 264, 171, 30);
-		add(next);
-		next.setColumns(10);
-		 */
-
 		addButtonsListeners();
 	}
 
@@ -191,7 +160,7 @@ public class QuestView extends JPanel implements DescribeView{
 
 		btnDelSounds.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(soundsListModel.getSize() != 0)
+				if (soundsListModel.getSize() != 0)
 					soundsListModel.remove(sounds.getSelectedIndex());
 			}
 		});
@@ -275,7 +244,6 @@ public class QuestView extends JPanel implements DescribeView{
 
 	@Override
 	public String introduceYourself() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +46,7 @@ import com.pwr.UserRegistration.UserDTO;
 import com.pwr.UserRegistration.UserDataRegister;
 
 @Component
-public class ProjectMainView extends JFrame {
+public class ProjectMainView extends JFrame implements Serializable {
 
 	@Autowired
 	private QuestTableView questTableView;
@@ -57,9 +58,10 @@ public class ProjectMainView extends JFrame {
 	private UserDetailsView userDetailsView;
 	@Autowired
 	private ConfirmView confirmView;
-	// chwilowe rozwiazanie, nie wiem jak przekazywac parametry do metody z aspektu
-	static SplashWindow splashWindow;
-	
+	// chwilowe rozwiazanie, nie wiem jak przekazywac parametry do metody z
+	// aspektu
+	SplashWindow splashWindow;
+
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
 	private JPanel userTabPane;
@@ -73,7 +75,7 @@ public class ProjectMainView extends JFrame {
 
 	private JMenuBar menuBar;
 	private JMenu mnProject;
-	
+
 	private JButton btnDeleteAll;
 	private JButton btnNewQuiz;
 	private JButton btnZapiszUstawieniaGry;
@@ -132,9 +134,11 @@ public class ProjectMainView extends JFrame {
 		//
 		setVisible(true);
 	}
+
 	public static Campaign getCampaign() {
 		return campaign;
 	}
+
 	private void addListenerForTabbedPane() {
 		tabbedPane.addChangeListener(new ChangeListener() {
 
@@ -202,7 +206,7 @@ public class ProjectMainView extends JFrame {
 			}
 		});
 	}
-	
+
 	public static void invokeNewQuizView() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -279,7 +283,7 @@ public class ProjectMainView extends JFrame {
 
 		mnProject = new JMenu("Project");
 		menuBar.add(mnProject);
-		
+
 		JMenuItem mntmNewProjectItem = new JMenuItem("Nowy projekt");
 		mnProject.add(mntmNewProjectItem);
 
@@ -297,65 +301,59 @@ public class ProjectMainView extends JFrame {
 
 		JMenuItem dodajUzytkownikaItem = new JMenuItem("Dodaj uzytkownika");
 		mnUser.add(dodajUzytkownikaItem);
-		
+
 		JMenu mnPomoc = new JMenu("Pomoc");
 		menuBar.add(mnPomoc);
 
 		JMenuItem infoItem = new JMenuItem("Informacje");
 		mnPomoc.add(infoItem);
-		
+
 		JMenuItem oProgramieItem = new JMenuItem("O Programie");
 		mnPomoc.add(oProgramieItem);
-		
+
 		infoItem.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, 
-						  "<html> "
-						+ "		<body> "
-						+ "			<ol> "
-						+ "				<li>Najpierw zrob to</lo> "
-						+ "				<li>A teraz zrob to</lo> "
-						+ "			</ol> "
-						+ "		</body> "
-						+ "</html>");
+				JOptionPane.showMessageDialog(null, "<html> " + "		<body> "
+						+ "			<ol> " + "				<li>Najpierw zrob to</lo> "
+						+ "				<li>A teraz zrob to</lo> " + "			</ol> "
+						+ "		</body> " + "</html>");
 			}
 		});
-		
+
 		oProgramieItem.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, 
-						"Jakies informacje");
+				JOptionPane.showMessageDialog(null, "Jakies informacje");
 			}
 		});
-		
+
 		usunQuestyItem.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent ev) {
 				questTableView.setVisible(true);
 			}
 		});
-		
+
 		usunWszystkieDaneItem.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent ev) {
 				confirmView.setVisible(true);
 			}
 		});
-		
+
 		dodajUzytkownikaItem.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent ev) {
 				userDataRegister.setVisible(true);
 			}
 		});
-		
+
 	}
 
 	private void createTabPage1() {
@@ -376,10 +374,10 @@ public class ProjectMainView extends JFrame {
 		addRowToTable(getDataToTable());
 	}
 
-	private List<UserDTO> getDataToTable() {
+	public List<UserDTO> getDataToTable() {
 		try {
 			splashWindow = new SplashWindow(this, "359.gif");
-			List<UserDTO> usersList = requests.getAllUsers();
+			List<UserDTO> usersList = requests.getAllUsers(splashWindow);
 			return usersList;
 		} catch (Exception except) {
 			except.printStackTrace();
@@ -435,7 +433,7 @@ public class ProjectMainView extends JFrame {
 		}
 		return str;
 	}
-	
+
 	public void updateTable() {
 		tableModel.setRowCount(0);
 		addRowToTable(getDataToTable());
@@ -480,7 +478,7 @@ public class ProjectMainView extends JFrame {
 			}
 		}
 	}
-	
+
 	public static void quizConnectionsChanged(ArrayList<QuizDataObject> quizList) {
 		for (QuizDataObject q : quizList) {
 			for (QuestPoint p : campaign.getQuizes()) {
@@ -492,5 +490,4 @@ public class ProjectMainView extends JFrame {
 			}
 		}
 	}
-
 }

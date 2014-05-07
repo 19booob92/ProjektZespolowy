@@ -8,14 +8,15 @@ import java.util.Set;
 import com.pwr.Graph.*;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JFileChooser;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JList;
-import javax.swing.border.EtchedBorder;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EtchedBorder;
 
+import com.pwr.Graph.GraphFacade;
 import com.pwr.Quest.Campaign;
 
 public class ProjectOptionsView extends JPanel implements Observer {
@@ -154,7 +155,9 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			
 			public void actionPerformed(ActionEvent e) {
 				int ind = listOfQuizes.getSelectedIndex();
-				NewQuizView quizEditView = new NewQuizView(campaign, ind);
+				if (ind >= 0) {
+					NewQuizView quizEditView = new NewQuizView(campaign, ind);
+				}
 			}
 		});
 		
@@ -162,7 +165,9 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			
 			public void actionPerformed(ActionEvent e) {
 				int ind = introPics.getSelectedIndex();
-				introPicsListModel.remove(ind);
+				if (ind >= 0) {
+					introPicsListModel.remove(ind);
+				}
 			}
 		});
 		
@@ -170,7 +175,9 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			
 			public void actionPerformed(ActionEvent e) {
 				int ind = outroPics.getSelectedIndex();
-				outroPicsListModel.remove(ind);
+				if (ind >= 0) {
+					outroPicsListModel.remove(ind);
+				}
 			}
 		});
 	}

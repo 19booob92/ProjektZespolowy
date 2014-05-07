@@ -7,11 +7,11 @@
 package com.pwr.Map;
 
 //import Editor.MainView;
+import static java.lang.Math.abs;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-
-import static java.lang.Math.abs;
 
 /**
  *
