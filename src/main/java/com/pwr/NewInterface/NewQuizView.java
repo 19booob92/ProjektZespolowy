@@ -52,7 +52,6 @@ public class NewQuizView extends JFrame {
 	private JScrollPane rightScroll;
 
 	private JButton btnSaveQuiz;
-
 	private JLabel lblTimeout;
 	private JLabel lblType;
 	private JLabel lblWrong;
@@ -60,7 +59,7 @@ public class NewQuizView extends JFrame {
 	private JLabel lblDate;
 
 	private static final int PANEL_WIDTH = 650;
-	private static final int PANEL_HEIGHT = 800;
+	private static final int PANEL_HEIGHT = 900;
 
 	private static final int WINDOW_WIDTH = 1000;
 	private static final int WINDOW_HEIGHT = 500;
@@ -168,11 +167,13 @@ public class NewQuizView extends JFrame {
 		view.postNote.setText(q.getPostNote());
 		this.tfQuizName.setText(q.getQuestName());
 		this.timeoutField.setText(Integer.toString(q.getQuestTimeout()));
-		view.pics.setModel(rewriteArrayListToJList(q.getPicturePaths(), q));
-		view.sounds.setModel(rewriteArrayListToJList(q.getSoundPaths(), q));
+		rewriteArrayListToJList(q.getPicturePaths(), view.picsListModel);
+		rewriteArrayListToJList(q.getSoundPaths(), view.soundsListModel);
 		view.paragraphs = new DefaultComboBoxModel();
 		view.paragraphList = new ArrayList();
-		view.paragraphList.addAll(q.getQuestDescription());
+		// view.paragraphList.addAll(q.getQuestDescription());
+		points.setText(Integer.toString(q.getPoints()));
+		date.setText(q.getDate());
 		for (int i = 0; i < q.getQuestDescription().size(); i++)
 			view.paragraphs.addElement(q.getQuestDescription().get(i));
 	}
@@ -186,7 +187,7 @@ public class NewQuizView extends JFrame {
 
 	private void fillWithTextQuestData(TextQuest q) {
 		textView.textAnswer = new ArrayList();
-		textView.textAnswer.addAll(q.getQuestAnswer());
+		// textView.textAnswer.addAll(q.getQuestAnswer());
 		for (int i = 0; i < q.getQuestAnswer().size(); i++) {
 			textView.getAnswersCombo().addElement(q.getQuestAnswer().get(i));
 		}
@@ -250,30 +251,30 @@ public class NewQuizView extends JFrame {
 		btnSaveQuiz = new JButton("Zapisz quest");
 		btnSaveQuiz.setBounds(76, 292, 120, 23);
 		leftSidePanel.add(btnSaveQuiz);
-		
-				wrong = new JTextField();
-				leftSidePanel.add(wrong);
-				wrong.setBounds(76, 192, 160, 27);
-				
-						date = new JTextField();
-						leftSidePanel.add(date);
-						date.setBounds(76, 154, 160, 27);
-						
-								points = new JTextField();
-								leftSidePanel.add(points);
-								points.setBounds(76, 112, 160, 27);
-								
-										lblPoints = new JLabel("Punkty");
-										leftSidePanel.add(lblPoints);
-										lblPoints.setBounds(10, 118, 46, 14);
-										
-												lblDate = new JLabel("Data");
-												leftSidePanel.add(lblDate);
-												lblDate.setBounds(10, 160, 46, 14);
-												
-														lblWrong = new JLabel("<html><body>Zagadka<br/>kara</body></html>");
-														leftSidePanel.add(lblWrong);
-														lblWrong.setBounds(10, 192, 50, 30);
+
+		wrong = new JTextField();
+		leftSidePanel.add(wrong);
+		wrong.setBounds(76, 192, 160, 27);
+
+		date = new JTextField();
+		leftSidePanel.add(date);
+		date.setBounds(76, 154, 160, 27);
+
+		points = new JTextField();
+		leftSidePanel.add(points);
+		points.setBounds(76, 112, 160, 27);
+
+		lblPoints = new JLabel("Punkty");
+		leftSidePanel.add(lblPoints);
+		lblPoints.setBounds(10, 118, 46, 14);
+
+		lblDate = new JLabel("Data");
+		leftSidePanel.add(lblDate);
+		lblDate.setBounds(10, 160, 46, 14);
+
+		lblWrong = new JLabel("<html><body>Zagadka<br/>kara</body></html>");
+		leftSidePanel.add(lblWrong);
+		lblWrong.setBounds(10, 192, 50, 30);
 
 		// Refactor it!
 		btnSaveQuiz.addActionListener(new ActionListener() {
@@ -342,10 +343,6 @@ public class NewQuizView extends JFrame {
 						}
 						System.out.println(campaignRef.getQuizes().get(0)
 								.getQuestName());
-						System.out.println(campaignRef.getQuizes().get(0)
-								.getSoundPaths().get(0));
-						System.out.println(campaignRef.getQuizes().get(0)
-								.getPicturePaths().get(0));
 
 						dispose();
 					}
@@ -481,13 +478,13 @@ public class NewQuizView extends JFrame {
 	}
 
 	private void GetGeneralQuestFields(QuestPoint newQuest, QuestView questView) {
-		newQuest.getPicturePaths().addAll(
-				rewriteJListToArrayList(selectedCard.pics));
-		newQuest.getSoundPaths().addAll(
-				rewriteJListToArrayList(selectedCard.sounds));
+		if (newQuest.getPicturePaths().size() != 0
+				&& newQuest.getSoundPaths().size() != 0) {
+			newQuest.setPicturePaths(rewriteJListToArrayList(selectedCard.pics));
+			newQuest.setSoundPaths(rewriteJListToArrayList(selectedCard.sounds));
+		}
 		newQuest.setQuestDescription(selectedCard.paragraphList);
 		newQuest.setQuestTimeout(Integer.parseInt(timeoutField.getText()));
-
 		validateName(newQuest);
 
 		validatePoints(newQuest);
@@ -558,17 +555,21 @@ public class NewQuizView extends JFrame {
 	private ArrayList rewriteJListToArrayList(JList list) {
 		ArrayList newList = new ArrayList();
 		for (int i = 0; i < list.getModel().getSize(); i++) {
-			newList.add(list.getModel().getElementAt(i));
+			if (list.getModel().getElementAt(i) != null)
+				newList.add(list.getModel().getElementAt(i));
 		}
 		return newList;
 	}
 
 	private DefaultListModel rewriteArrayListToJList(ArrayList<String> arr,
-			QuestPoint q) {
-		DefaultListModel<String> newmodel = new DefaultListModel<String>();
+			DefaultListModel<String> model) {
+
+		model.removeAllElements();
 		for (int i = 0; i < arr.size(); i++) {
-			newmodel.addElement(arr.get(i));
+			if (arr.get(i) != null)
+				model.addElement(arr.get(i));
 		}
-		return newmodel;
+
+		return model;
 	}
 }
