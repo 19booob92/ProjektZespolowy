@@ -132,7 +132,9 @@ public class ProjectMainView extends JFrame {
 		//
 		setVisible(true);
 	}
-
+	public static Campaign getCampaign() {
+		return campaign;
+	}
 	private void addListenerForTabbedPane() {
 		tabbedPane.addChangeListener(new ChangeListener() {
 
@@ -197,6 +199,14 @@ public class ProjectMainView extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				new NewQuizView(campaign, id);
+			}
+		});
+	}
+	
+	public static void invokeNewQuizView() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new NewQuizView(campaign);
 			}
 		});
 	}
@@ -461,6 +471,17 @@ public class ProjectMainView extends JFrame {
 		projectMainView.addListenerForTabbedPane();
 	}
 
+	public static void invokeQuizRemoving(int id) {
+		for (QuestPoint q : campaign.getQuizes()) {
+			if (q.getId() == id) {
+				campaign.getQuizes().remove(id);
+				ProjectOptionsView.updateView();
+				
+				break;
+			}
+		}
+	}
+	
 	public static void quizConnectionsChanged(ArrayList<QuizDataObject> quizList) {
 		for (QuizDataObject q : quizList) {
 			for (QuestPoint p : campaign.getQuizes()) {

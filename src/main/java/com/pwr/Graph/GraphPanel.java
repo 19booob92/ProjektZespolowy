@@ -6,19 +6,21 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 
-import com.pwr.Graph.GraphPanel;
-import com.pwr.Graph.QuizDataObject;
 import com.pwr.NewInterface.ProjectMainView;
+import com.pwr.Quest.Campaign;
 import com.pwr.Quest.QuestPoint;
-import com.pwr.Graph.GraphClick;
 
 public class GraphPanel extends JPanel  implements MouseListener{
 	ArrayList<QuizDataObject> quizList;
@@ -48,14 +50,14 @@ public class GraphPanel extends JPanel  implements MouseListener{
 		setPreferredSize(new Dimension((int) (200+GraphPanel.xOffset+quizList.size() * (QuizDataObject.getSize()+GraphPanel.space)), (int)(200+GraphPanel.yOffset+quizList.size() * (QuizDataObject.getSize()+GraphPanel.space))));
 		
 	}
-	
+
 	public void setQuizListFromArrayList(List<QuizDataObject> qDB){
 		for (QuizDataObject q : qDB) {
 			quizList.add(q);
 		}
 		setPreferredSize(new Dimension((int) (200+GraphPanel.xOffset+quizList.size() * (QuizDataObject.getSize()+GraphPanel.space)), (int)(200+GraphPanel.yOffset+quizList.size() * (QuizDataObject.getSize()+GraphPanel.space))));
 	}
-
+	
 	@Override
 	public void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
@@ -415,11 +417,14 @@ public class GraphPanel extends JPanel  implements MouseListener{
 		}
 		if(e.getButton()==MouseEvent.BUTTON3)
 		{
+			
+			
 			if(oldClick.size()>1)
 			{
 				oldClick.clear();
 				System.out.println("anulowano, kasuje");
 			}
+			
 			else if(oldClick.size()==1)
 			{
 				String id=oldClick.get(0).id;
@@ -463,6 +468,49 @@ public class GraphPanel extends JPanel  implements MouseListener{
 				System.out.println("kasuje");
 				repaint();
 			}
+			
+			for(int n=0;n<quizRect.size();n++)
+			{
+				if(quizRect.get(n).contains(e.getX(),e.getY()))
+				{
+					clicked=true;
+					 JPopupMenu menu = new JPopupMenu("Popup");
+					 JMenuItem item = new JMenuItem("Usuń quiz");
+					 item.setToolTipText(quizRect.get(n).id);
+					 menu.add(item);
+					 item.addActionListener(new ActionListener() {
+
+						@Override
+						public void actionPerformed(ActionEvent arg0) {
+							// TODO Auto-generated method stub
+							JMenuItem src=(JMenuItem)arg0.getSource();
+							String id=src.getToolTipText();
+							
+							onQuizDelete(id);
+						}
+					    });
+					 menu.show(e.getComponent(), e.getX(), e.getY());
+				
+				}
+			}
+			if(!clicked)
+			{
+				 JPopupMenu menu = new JPopupMenu("Popup");
+				 JMenuItem item = new JMenuItem("Dodaj nowy quiz");
+				 menu.add(item);
+				 item.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						// TODO Auto-generated method stub
+						JMenuItem src=(JMenuItem)arg0.getSource();
+						onQuizAdd();
+					}
+				    });
+				 
+				 menu.show(e.getComponent(), e.getX(), e.getY());
+			}
+			
 		}
 		repaint();
 	}
@@ -491,6 +539,7 @@ public class GraphPanel extends JPanel  implements MouseListener{
 		
 	}
 
+
 	public void onQuizClicked(String id)
 	{
 		int quizId = Integer.parseInt(id);
@@ -506,11 +555,15 @@ public class GraphPanel extends JPanel  implements MouseListener{
 	
 	public void onQuizDelete(String id)
 	{
+		int quizId = Integer.parseInt(id);
+		quizList.remove(quizId);
+		ProjectMainView.invokeQuizRemoving(quizId);
 		System.out.println("Usuwam quiz "+ id);
 	}
 	
 	public void onQuizAdd()
 	{
+		ProjectMainView.invokeNewQuizView();
 		System.out.println("Dodaje nowy quiz");
 	}
 }

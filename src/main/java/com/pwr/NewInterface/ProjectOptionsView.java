@@ -30,7 +30,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	private JLabel lblOutroModulePics;
 	private JLabel lblStartDate;
 	private JLabel lblLista;
-	private GraphFacade graphFacade;
+	private static GraphFacade graphFacade;
 	
 	
 	private JList introPics;
@@ -190,6 +190,10 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		}
 	}
 	
+	public static void updateView() {
+		graphFacade.getGraphPanel().repaint();
+	}
+	
 	public DefaultListModel getQuizListModel() {
 		return quizListModel;
 	}
@@ -198,8 +202,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	public void update(Observable o, Object arg) {
 		graphFacade.getGraphPanel().setQuizListFromArrayList(campaign.convertQuiz());
 		graphFacade.getGraphPanel().repaint();
-		if (campaign.getCreated() == true)
-		{
+		if (campaign.getCreated() == true) {
 			quizListModel.addElement(campaign.getLastQuiz().ToString());
 			campaign.createdFalse();
 		} else if (campaign.getEdited() == true) {
