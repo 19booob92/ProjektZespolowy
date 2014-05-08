@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +106,14 @@ public class ProjectMainView extends JFrame implements Serializable {
 	public ProjectMainView() {
 		campaign = new Campaign();
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter()
+		{
+			public void windowClosing(WindowEvent evt) {
+				campaign.closeCampaign();
+				System.exit(0);
+			}
+		});
 		getContentPane().setLayout(new BorderLayout());
 		setSize(windowWidth, windowHeight);
 
@@ -187,7 +196,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		});
 
 		btnDeleteAll = new JButton("Usun wszystkie dane");
-
+		
 		btnDeleteAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				confirmView.setVisible(true);
@@ -196,7 +205,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 		btnDeleteAll.setBounds(6, 32, 206, 28);
 		leftSidePanel.add(btnDeleteAll);
-
+		
 	}
 
 	public static void invokeNewQuizView(final int id) {

@@ -95,7 +95,7 @@ public class XmlLoader {
 					if(introElement.getNodeType()==Node.ELEMENT_NODE)
 					{
 						introList.add(introElement.getTextContent().trim());
-						introFileList.add(introElement.getAttribute("image").trim());
+						introFileList.add("temp"+File.separator+introElement.getAttribute("image").trim());
 					}
 				}
 			}
@@ -125,7 +125,7 @@ public class XmlLoader {
 							if(outroElement.getNodeType()==Node.ELEMENT_NODE)
 							{
 								outroList.add(outroElement.getTextContent().trim());
-								outroFileList.add(outroElement.getAttribute("image").trim());
+								outroFileList.add("temp"+File.separator+outroElement.getAttribute("image").trim());
 							}
 						}
 					}
@@ -213,7 +213,7 @@ public class XmlLoader {
 					Element imageSrcElement = (Element) imageSrcList.item(j);
 					if(imageSrcElement.getNodeType()==Element.ELEMENT_NODE)
 					{
-						imageList.add(imageSrcElement.getAttribute("src").trim());
+						imageList.add("temp"+File.separator+imageSrcElement.getAttribute("src").trim());
 					}
 				}
 				
@@ -224,7 +224,7 @@ public class XmlLoader {
 					Element soundSrcElement = (Element) soundSrcList.item(j);
 					if(soundSrcElement.getNodeType()==Element.ELEMENT_NODE)
 					{
-						soundList.add(soundSrcElement.getAttribute("src").trim());
+						soundList.add("temp"+File.separator+soundSrcElement.getAttribute("src").trim());
 					}
 				}
 				

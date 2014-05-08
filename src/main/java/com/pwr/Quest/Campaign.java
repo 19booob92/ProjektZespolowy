@@ -11,9 +11,11 @@ import javax.xml.transform.TransformerException;
 import com.pwr.Editor.XmlBuilder;
 import com.pwr.Editor.XmlLoader;
 import com.pwr.Editor.ZipPacker;
+import com.pwr.Editor.ZipUnpacker;
 import com.pwr.Graph.QuizDataObject;
 import com.pwr.NewInterface.NewQuizView;
 
+import java.io.File;
 import java.io.IOException;
 
 public class Campaign extends Observable {
@@ -25,6 +27,7 @@ public class Campaign extends Observable {
 	private ArrayList<String> introPics;
 	private ArrayList<String> outroPics;
 	private ZipPacker zip;
+	private ZipUnpacker zipUnpacker;
 	private boolean created = false;
 	private boolean edited = false;
 	
@@ -210,8 +213,18 @@ public class Campaign extends Observable {
 	
 	public void loadXml(String file)
 	{
-		XmlLoader xml = new XmlLoader(file);
+		zipUnpacker = new ZipUnpacker(file);
+		zipUnpacker.unZip();
+		XmlLoader xml = new XmlLoader("temp"+File.separator+"config.xml");
 		xml.LoadXml(this);
+	}
+	
+	public void closeCampaign()
+	{
+		if(zipUnpacker!=null)
+		{
+			zipUnpacker.close();
+		}
 	}
 	
 	public void setIntroPics(ArrayList<String> list)
