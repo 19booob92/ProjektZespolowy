@@ -472,10 +472,13 @@ public class ProjectMainView extends JFrame implements Serializable {
 	public static void invokeQuizRemoving(int id) {
 		for (QuestPoint q : campaign.getQuizes()) {
 			if (q.getId() == id) {
-				campaign.getQuizes().remove(id);
+				campaign.getQuizes().remove(q);
 				ProjectOptionsView.updateView();
 				break;
 			}
+		}
+		for (QuestPoint q : campaign.getQuizes()) {
+			System.out.println(q.getId());
 		}
 	}
 

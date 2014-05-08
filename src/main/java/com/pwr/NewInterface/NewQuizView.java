@@ -341,7 +341,7 @@ public class NewQuizView extends JFrame {
 							}
 							campaignRef.editedTrue();
 						}
-						System.out.println(campaignRef.getQuizes().get(0)
+						System.out.println(campaignRef.getQuizes().get(campaignRef.getQuizes().size()-1)
 								.getQuestName());
 
 						dispose();

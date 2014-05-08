@@ -52,6 +52,7 @@ public class GraphPanel extends JPanel  implements MouseListener{
 	}
 
 	public void setQuizListFromArrayList(List<QuizDataObject> qDB){
+		quizList = new ArrayList<QuizDataObject>();
 		for (QuizDataObject q : qDB) {
 			quizList.add(q);
 		}
@@ -556,8 +557,13 @@ public class GraphPanel extends JPanel  implements MouseListener{
 	public void onQuizDelete(String id)
 	{
 		int quizId = Integer.parseInt(id);
-		quizList.remove(quizId);
-		ProjectMainView.invokeQuizRemoving(quizId);
+		for (QuizDataObject q : quizList) {
+			if (q.id == id) {
+				quizList.remove(q);
+				ProjectMainView.invokeQuizRemoving(quizId);
+				break;
+			}
+		}
 		System.out.println("Usuwam quiz "+ id);
 	}
 	
