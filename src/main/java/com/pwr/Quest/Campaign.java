@@ -215,7 +215,7 @@ public class Campaign extends Observable {
 	{
 		zipUnpacker = new ZipUnpacker(file);
 		zipUnpacker.unZip();
-		XmlLoader xml = new XmlLoader("temp"+File.separator+"config.xml");
+		XmlLoader xml = new XmlLoader("temp"+File.separator+"Config.xml");
 		xml.LoadXml(this);
 	}
 	
