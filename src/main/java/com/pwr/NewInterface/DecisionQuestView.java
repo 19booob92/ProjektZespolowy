@@ -94,6 +94,14 @@ public class DecisionQuestView extends QuestView implements DescribeView{
 				createDialog(tempAnswer);
 			}
 		});	
+		btnDel.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				if (tableModel.getRowCount() != 0 && rowNum >= 0) {
+					tableModel.removeRow(rowNum);
+				}
+			}
+		});
 	}
 	
 	private void createDialog(String answ) {
