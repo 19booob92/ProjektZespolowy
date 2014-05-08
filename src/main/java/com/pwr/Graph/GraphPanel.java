@@ -205,7 +205,7 @@ public class GraphPanel extends JPanel  implements MouseListener{
 		g2d.setStroke(new BasicStroke(3));
 		for (double n = pitch; n <= 1; n += pitch) {
 			p2 = getBezierCurvePoint(n, px1, py1, px2, py2, px3, py3, px4, py4);
-			
+			g2d.setStroke(new BasicStroke(10));
 			g2d.drawLine( p1.x, p1.y, p2.x, p2.y);
 			p1 = getBezierCurvePoint(n, px1, py1, px2, py2, px3, py3, px4, py4);
 		}

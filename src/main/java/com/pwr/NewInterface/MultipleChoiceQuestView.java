@@ -119,7 +119,8 @@ public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 
 	private void createDialog(String answ) {
 		final JDialog dialog = new JDialog();
-		dialog.setSize(400, 250);
+		dialog.setSize(460, 250);
+		dialog.setResizable(false);
 		dialog.getContentPane().setLayout(null);
 
 		dialog.setLocationRelativeTo(this);

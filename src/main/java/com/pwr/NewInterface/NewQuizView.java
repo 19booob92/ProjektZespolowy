@@ -215,66 +215,62 @@ public class NewQuizView extends JFrame {
 	private void createLeftSidePanel() {
 
 		JLabel lblTitle = new JLabel("Tytuł");
-		lblTitle.setBounds(10, 42, 46, 14);
+		lblTitle.setBounds(24, 11, 46, 14);
 		leftSidePanel.add(lblTitle);
 
 		String[] quizTypes = { "Zagadka terenowa", "Zagadka tekstowa",
 				"Zagadka wielokrotnego wyboru", "Zagadka uporządkowania",
 				"Zagadka decyzji" };
 
-		JLabel lblOpcjeQuizu = new JLabel("Opcje quizu");
-		lblOpcjeQuizu.setBounds(10, 11, 126, 14);
-		leftSidePanel.add(lblOpcjeQuizu);
-
 		tfQuizName = new JTextField();
-		tfQuizName.setBounds(76, 36, 160, 27);
+		tfQuizName.setBounds(24, 36, 226, 27);
 		leftSidePanel.add(tfQuizName);
 		tfQuizName.setColumns(10);
 
 		timeoutField = new JTextField("0");
-		timeoutField.setBounds(76, 74, 160, 27);
+		timeoutField.setBounds(24, 95, 226, 27);
 		leftSidePanel.add(timeoutField);
 		timeoutField.setColumns(10);
 
 		lblTimeout = new JLabel("Timeout");
-		lblTimeout.setBounds(10, 80, 46, 14);
+		lblTimeout.setBounds(24, 78, 46, 14);
 		leftSidePanel.add(lblTimeout);
 
 		final JComboBox questTypeCombo = new JComboBox(quizTypes);
-		questTypeCombo.setBounds(76, 254, 154, 27);
+		questTypeCombo.setBounds(24, 321, 226, 27);
 		leftSidePanel.add(questTypeCombo);
 
 		lblType = new JLabel("Typ");
-		lblType.setBounds(10, 260, 46, 14);
+		lblType.setBounds(24, 296, 46, 14);
 		leftSidePanel.add(lblType);
 
 		btnSaveQuiz = new JButton("Zapisz quest");
-		btnSaveQuiz.setBounds(76, 292, 120, 23);
+		btnSaveQuiz.setBounds(24, 359, 226, 23);
 		leftSidePanel.add(btnSaveQuiz);
 
 		wrong = new JTextField();
 		leftSidePanel.add(wrong);
-		wrong.setBounds(76, 192, 160, 27);
+		wrong.setBounds(24, 258, 226, 27);
 
 		date = new JTextField();
 		leftSidePanel.add(date);
-		date.setBounds(76, 154, 160, 27);
+		date.setBounds(24, 205, 226, 27);
 
 		points = new JTextField();
 		leftSidePanel.add(points);
-		points.setBounds(76, 112, 160, 27);
+		points.setBounds(24, 148, 226, 27);
 
 		lblPoints = new JLabel("Punkty");
 		leftSidePanel.add(lblPoints);
-		lblPoints.setBounds(10, 118, 46, 14);
+		lblPoints.setBounds(24, 133, 46, 14);
 
 		lblDate = new JLabel("Data");
 		leftSidePanel.add(lblDate);
-		lblDate.setBounds(10, 160, 46, 14);
+		lblDate.setBounds(24, 186, 46, 14);
 
-		lblWrong = new JLabel("<html><body>Zagadka<br/>kara</body></html>");
+		lblWrong = new JLabel("Zagadka kara");
 		leftSidePanel.add(lblWrong);
-		lblWrong.setBounds(10, 192, 50, 30);
+		lblWrong.setBounds(24, 243, 105, 14);
 
 		// Refactor it!
 		btnSaveQuiz.addActionListener(new ActionListener() {
