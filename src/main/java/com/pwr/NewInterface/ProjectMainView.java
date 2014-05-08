@@ -28,6 +28,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
@@ -106,12 +107,27 @@ public class ProjectMainView extends JFrame implements Serializable {
 	public ProjectMainView() {
 		campaign = new Campaign();
 
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter()
 		{
 			public void windowClosing(WindowEvent evt) {
-				campaign.closeCampaign();
-				System.exit(0);
+				boolean quit=true;
+				if(!campaign.isSaved())
+				{
+					int dialogButton=
+	                JOptionPane.showConfirmDialog (null, "Projekt nad którym pracujesz nie jest zapisany.\n Czy chcesz kontynuować?","Uwaga!",JOptionPane.YES_NO_OPTION);
+	                if(dialogButton == JOptionPane.YES_OPTION)
+	                {
+	                	campaign.closeCampaign();
+						System.exit(0);
+	                }
+				}
+				else
+				{
+					campaign.closeCampaign();
+					System.exit(0);
+				}
+				
 			}
 		});
 		getContentPane().setLayout(new BorderLayout());
