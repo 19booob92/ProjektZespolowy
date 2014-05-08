@@ -126,7 +126,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		graphFacade = new GraphFacade();
 		graphFacade.getGraphPanel().setQuizListFromArrayList(campaign.convertQuiz());
 		graphFacade.getGraphPanel().setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		graphFacade.getGraphPanel().setBounds(310, 53, 676, 326);
+		graphFacade.getGraphPanel().setBounds(310, 53, 676, 626);
 		add(graphFacade.getGraphPanel());
 		
 		lblLista = new JLabel("Lista");

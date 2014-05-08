@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -69,9 +70,10 @@ public class GraphPanel extends JPanel  implements MouseListener{
 		quizRect.clear();
 		quizWrong.clear();
 		Graphics2D g2d = (Graphics2D) g;
+		g2d.setColor(new Color(0.95f,0.95f,0.95f));
+		g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+		//g2d.drawImage(img, 0, 0, null);
 		g2d.setColor(new Color(0.7f, 0.1f, 0.1f));
-
-		
 		drawQuizList(g);
 		g.setColor(Color.RED);
 		for(int m=0;m<oldClick.size();m++)
@@ -205,7 +207,7 @@ public class GraphPanel extends JPanel  implements MouseListener{
 		g2d.setStroke(new BasicStroke(3));
 		for (double n = pitch; n <= 1; n += pitch) {
 			p2 = getBezierCurvePoint(n, px1, py1, px2, py2, px3, py3, px4, py4);
-			g2d.setStroke(new BasicStroke(10));
+			g2d.setStroke(new BasicStroke(2));
 			g2d.drawLine( p1.x, p1.y, p2.x, p2.y);
 			p1 = getBezierCurvePoint(n, px1, py1, px2, py2, px3, py3, px4, py4);
 		}

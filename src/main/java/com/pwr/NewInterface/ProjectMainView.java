@@ -433,7 +433,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 	private String getXML() {
 		JFileChooser chooser = new JFileChooser();
 		chooser.setCurrentDirectory(new java.io.File("."));
-		chooser.setDialogTitle("Chose MP3 file");
+		chooser.setDialogTitle("Choose Package file");
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		chooser.setAcceptAllFileFilterUsed(false);
 		String str = "";
