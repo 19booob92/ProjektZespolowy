@@ -30,6 +30,7 @@ public class Campaign extends Observable {
 	private ZipUnpacker zipUnpacker;
 	private boolean created = false;
 	private boolean edited = false;
+	private boolean saved = true;
 	
 	private String gameTitle="";
 
@@ -61,6 +62,7 @@ public class Campaign extends Observable {
 	}
 
 	public void editedTrue() {
+		saved = false;
 		edited = true;
 		setChanged();
 		notifyObservers();
@@ -79,10 +81,12 @@ public class Campaign extends Observable {
 	}
 
 	public void addQuiz(QuestPoint p) {
+		saved=false;
 		quests.add(p);
 	}
 
 	public void addTreasureBox(TreasureBox b) {
+		saved=false;
 		boxes.add(b);
 	}
 
@@ -115,6 +119,7 @@ public class Campaign extends Observable {
 	}
 
 	public void createXml() {
+		saved=true;
 		XmlBuilder xml = new XmlBuilder(gameTitle);
 		xml.resetId();
 		zip = new ZipPacker("paczka.zip");
@@ -217,6 +222,7 @@ public class Campaign extends Observable {
 		zipUnpacker.unZip();
 		XmlLoader xml = new XmlLoader("temp"+File.separator+"Config.xml");
 		xml.LoadXml(this);
+		saved=true;
 	}
 	
 	public void closeCampaign()
@@ -227,6 +233,10 @@ public class Campaign extends Observable {
 		}
 	}
 	
+	public boolean isSaved()
+	{
+		return saved;
+	}
 	public void setIntroPics(ArrayList<String> list)
 	{
 		introPics=list;

@@ -142,15 +142,18 @@ public class XmlLoader {
 		
 		NodeList settingsSrcList = doc.getElementsByTagName("settings");
 		Node nodeSettings = settingsSrcList.item(0);
-		if(nodeSettings.getNodeType()==Element.ELEMENT_NODE)
+		if(nodeSettings!=null)
 		{
-			Element element = (Element) nodeSettings;
-			settingsStartdate=element.getAttribute("startdate").trim();
-			settingsBackGround1=element.getElementsByTagName("backGround1").item(0).getTextContent().trim();
-			settingsBackGround2=element.getElementsByTagName("backGround2").item(0).getTextContent().trim();
-			settingsBackGround3=element.getElementsByTagName("backGround3").item(0).getTextContent().trim();
-			settingsLogo1=element.getElementsByTagName("logo1").item(0).getTextContent().trim();
-			settingsButton1=element.getElementsByTagName("button1").item(0).getTextContent().trim();
+			if(nodeSettings.getNodeType()==Element.ELEMENT_NODE)
+			{
+				Element element = (Element) nodeSettings;
+				settingsStartdate=element.getAttribute("startdate").trim();
+				settingsBackGround1=element.getElementsByTagName("backGround1").item(0).getTextContent().trim();
+				settingsBackGround2=element.getElementsByTagName("backGround2").item(0).getTextContent().trim();
+				settingsBackGround3=element.getElementsByTagName("backGround3").item(0).getTextContent().trim();
+				settingsLogo1=element.getElementsByTagName("logo1").item(0).getTextContent().trim();
+				settingsButton1=element.getElementsByTagName("button1").item(0).getTextContent().trim();
+			}
 		}
 		NodeList treasureBoxList = doc.getElementsByTagName("treasurebox");
 		

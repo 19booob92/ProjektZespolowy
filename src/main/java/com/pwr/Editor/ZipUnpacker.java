@@ -71,7 +71,10 @@ public class ZipUnpacker {
 		 for(int i=0;i<fileList.size();i++)
 		 {
 			 File file = new File(fileList.get(i));
-			 file.delete();
+			 if(file.exists())
+			 {
+				 file.delete();
+			 }
 		 }
 		 if(folder.exists())
 		 {

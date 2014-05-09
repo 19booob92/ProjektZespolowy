@@ -370,6 +370,7 @@ public class XmlBuilder {
     {
         Attr attr = doc.createAttribute("type");
         attr.setValue(type);
+        answerElement.setAttributeNode(attr);
         
         if(goTo!=null)
         {
