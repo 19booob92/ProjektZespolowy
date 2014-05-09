@@ -1,12 +1,15 @@
 package com.pwr.UserRegistration;
 
 import java.io.Serializable;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.core.MediaType;
 
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
@@ -32,7 +35,6 @@ public class Requests implements Serializable {
 	@Value("${pass}")
 	private String pass;
 
-	
 	public Requests() {
 	}
 
@@ -51,7 +53,8 @@ public class Requests implements Serializable {
 		return response.getStatus();
 	}
 
-	public List<UserDTO> getAllUsers(SplashWindow splashWindow) throws Exception {
+	public List<UserDTO> getAllUsers(SplashWindow splashWindow)
+			throws Exception {
 
 		ClientConfig clientConfig = new DefaultClientConfig();
 		clientConfig.getClasses().add(JacksonJsonProvider.class);
@@ -73,7 +76,7 @@ public class Requests implements Serializable {
 		ClientConfig config = new DefaultClientConfig();
 		client = Client.create(config);
 		client.addFilter(new LoggingFilter());
-		webResource = client.resource(address  + "adminPanel/" + typeURI);
+		webResource = client.resource(address + "adminPanel/" + typeURI);
 
 		client.addFilter(new HTTPBasicAuthFilter(login, pass));
 		ClientResponse response = webResource.type(MediaType.APPLICATION_JSON)
@@ -98,17 +101,18 @@ public class Requests implements Serializable {
 
 	}
 
-	// to jest wersja beta, póxniej na serwerze bedzie stowrzone odpowiednie zapytanie ktore zrobi to wszystko
+	// to jest wersja beta, póxniej na serwerze bedzie stowrzone odpowiednie
+	// zapytanie ktore zrobi to wszystko
 	// automatycznie
 	public void deleteAll() {
 		try {
 			List<UserDTO> listaUserow = getAllUsers(null);
 			List<QuestDTO> listaQuestow = getAllQuests();
-			
+
 			for (QuestDTO quest : listaQuestow) {
 				delete(String.valueOf(quest.getId()), "/deleteQuest");
 			}
-			
+
 			for (UserDTO user : listaUserow) {
 				delete(user.getLogin(), "/deleteGame");
 				delete(user.getLogin(), "/doneQuest");
@@ -131,6 +135,19 @@ public class Requests implements Serializable {
 				.get(new GenericType<List<QuestDTO>>() {
 				});
 	}
-	
+
+	public ResponseEntity<Object> createNewGame(String name) throws Exception {
+
+		ClientConfig clientConfig = new DefaultClientConfig();
+		clientConfig.getClasses().add(JacksonJsonProvider.class);
+		Client client = Client.create(clientConfig);
+		client.addFilter(new HTTPBasicAuthFilter(login, pass));
+
+		return client.resource(address + "adminPanel/newGame/" + name)
+				.type(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.get(new GenericType<ResponseEntity<Object>>() {
+				});
+	}
 
 }

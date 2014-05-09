@@ -8,10 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.UnknownHostException;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -45,7 +47,7 @@ public class QuestTableView extends JFrame {
 		try {
 			questList = requests.getAllQuests();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Sprawdz polaczenie z internetem");
 		}
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

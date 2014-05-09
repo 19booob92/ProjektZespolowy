@@ -21,9 +21,9 @@ import com.pwr.UserRegistration.Requests;
 import com.pwr.UserRegistration.UserDTO;
 
 @Component
-@Lazy (value = true)
+@Lazy(value = true)
 public class UserDetailsView extends JFrame {
-	
+
 	@Autowired
 	private ProjectMainView projectMainView;
 	@Autowired
@@ -36,16 +36,16 @@ public class UserDetailsView extends JFrame {
 	private JTextField email;
 	private JButton btnDeleteAllDoneQuests;
 	private JButton btnDeleteUser;
-	private JLabel lblUserName;
-	
+	private JButton btnCreateGameForUser;
+
 	private static String userName;
-	
+
 	public UserDetailsView() {
 		setBounds(100, 100, 293, 300);
 		Toolkit toolkt = Toolkit.getDefaultToolkit();
 		Dimension screenSize = toolkt.getScreenSize();
 		this.setLocation(screenSize.width / 4, screenSize.height / 4);
-		
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -53,7 +53,8 @@ public class UserDetailsView extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		btnDeleteUser = new JButton("Delete user");
-		btnDeleteAllDoneQuests = new JButton("<html><body style=\"text-align:center;\">Usun wszystkie<br />zakonczone questy</body></html>");
+		btnDeleteAllDoneQuests = new JButton(
+				"<html><body style=\"text-align:center;\">Usun wszystkie<br />zakonczone questy</body></html>");
 
 		btnDeleteAllDoneQuests.addActionListener(new ActionListener() {
 
@@ -67,6 +68,21 @@ public class UserDetailsView extends JFrame {
 				}
 			}
 		});
+
+		btnCreateGameForUser = new JButton("Stworz gre");
+
+		btnCreateGameForUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					requests.createNewGame(userName);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+
+		btnCreateGameForUser.setBounds(162, 192, 117, 25);
+		getContentPane().add(btnCreateGameForUser);
 
 		btnDeleteUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -119,7 +135,6 @@ public class UserDetailsView extends JFrame {
 
 			private void updateThisViewData(String name) {
 				setUserName(name);
-				setUserNameLabelTxt(name);
 			}
 		});
 		btnUpdate.setBounds(17, 120, 117, 25);
@@ -143,7 +158,7 @@ public class UserDetailsView extends JFrame {
 		JLabel lblLogin = new JLabel("Login");
 		lblLogin.setBounds(20, 11, 70, 15);
 		contentPane.add(lblLogin);
-		
+
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setBounds(143, 11, 70, 15);
 		contentPane.add(lblPassword);
@@ -151,14 +166,6 @@ public class UserDetailsView extends JFrame {
 		JLabel lblEmail = new JLabel("E-Mail");
 		lblEmail.setBounds(20, 60, 70, 15);
 		contentPane.add(lblEmail);
-		
-		JLabel lblUserNameLabel = new JLabel();
-		lblUserNameLabel.setBounds(178, 197, 70, 15);
-		contentPane.add(lblUserNameLabel);
-		
-		lblUserName = new JLabel("UserName");
-		lblUserName.setBounds(178, 197, 70, 15);
-		contentPane.add(lblUserName);
 	}
 
 	public String getUserName() {
@@ -168,19 +175,14 @@ public class UserDetailsView extends JFrame {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	
-	public void setUserNameLabelTxt(String name) {
-		lblUserName.setText(name);
-	}
 
 	public void setLoginField(String userName2) {
 		login.setText(userName2);
 	}
-	
+
 	public void prepareUserDetailsView(String name) {
 		setUserName(name);
 		setLoginField(name);
-		setUserNameLabelTxt(name);
 		setTitle(name);
 		setVisible(true);
 	}

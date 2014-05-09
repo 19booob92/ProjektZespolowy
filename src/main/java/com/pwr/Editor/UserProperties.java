@@ -78,7 +78,7 @@ public class UserProperties extends JFrame {
 
 	// kiedy User będzie miał w tabeli maila, layout się ułoży
 	private void addTable() {
-		tableModel = new DefaultTableModel(new String[] { "login", "e-mail",
+		tableModel = new DefaultTableModel(new String[] { "login", 
 				"points", "end time" }, 0);
 
 		table = new JTable(tableModel);
