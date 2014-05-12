@@ -7,12 +7,14 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import com.pwr.Quest.Campaign;
 import com.pwr.Quest.QuestFactory;
 import com.pwr.Quest.QuestPoint;
 import com.pwr.Quest.QuestType;
+
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -34,6 +36,7 @@ public class OrderQuestView extends QuestView implements DescribeView{
 	protected JTable table;
 	protected DefaultTableModel tableModel;
 	private int colNum, rowNum;
+	private JScrollPane tableScrollPane;
 	
 	private final JButton btnUp = new JButton("W górę");
 	private final JButton btnDown = new JButton("W dół");
@@ -52,8 +55,8 @@ public class OrderQuestView extends QuestView implements DescribeView{
 		tablePanel = new JPanel();
 		tableModel = new DefaultTableModel(new String[] { "Nr", "Treść odpowiedzi","Operacja"}, 0);
 		
-		tablePanel.setBounds(23, 286, 518, 203);
 		tablePanel.setLayout(new BorderLayout());
+		
 		table = new JTable(tableModel);
 		header = table.getTableHeader();
 		
@@ -82,12 +85,15 @@ public class OrderQuestView extends QuestView implements DescribeView{
 				}
 			}
 		});
-		add(tablePanel);
 		tablePanel.add(header, BorderLayout.NORTH);
 		tablePanel.add(table, BorderLayout.CENTER);
 		
 		splitPane = new JSplitPane();
 		tablePanel.add(splitPane, BorderLayout.SOUTH);
+		
+		tableScrollPane = new JScrollPane(tablePanel);
+		tableScrollPane.setBounds(23, 286, 518, 203);
+		add(tableScrollPane);
 		
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

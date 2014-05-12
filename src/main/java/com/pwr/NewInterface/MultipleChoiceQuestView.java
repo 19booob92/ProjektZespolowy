@@ -12,6 +12,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -31,7 +32,8 @@ public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 	private QuestPoint quest;
 	private JTable table;
 	private JPanel tablePanel;
-
+	private JScrollPane tableScrollPane;
+	
 	private final JButton btnUp = new JButton("W górę");
 	private final JButton btnDown = new JButton("W dół");
 	private final JButton btnAdd = new JButton("Dodaj");
@@ -50,7 +52,6 @@ public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 		tableModel = new DefaultTableModel(new String[] { "Nr",
 				"Treść odpowiedzi", "Poprawna" }, 0);
 
-		tablePanel.setBounds(23, 286, 518, 203);
 		tablePanel.setLayout(new BorderLayout());
 		table = new JTable(tableModel);
 		header = table.getTableHeader();
@@ -73,8 +74,10 @@ public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 				}
 			}
 		});
-
-		add(tablePanel);
+		tableScrollPane = new JScrollPane(tablePanel);
+		tableScrollPane.setBounds(23, 286, 518, 203);
+		add(tableScrollPane);
+		
 		tablePanel.add(header, BorderLayout.NORTH);
 		tablePanel.add(table, BorderLayout.CENTER);
 

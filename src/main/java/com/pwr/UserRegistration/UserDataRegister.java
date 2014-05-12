@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
@@ -30,7 +31,7 @@ public class UserDataRegister extends JFrame {
 	private JTextField loginTxt;
 	private JTextField passTxt;
 	private final JLabel lblUserLogin = new JLabel("User login");
-	
+
 	@Autowired
 	private Requests requests;
 	@Autowired
@@ -57,12 +58,12 @@ public class UserDataRegister extends JFrame {
 		contentPane.add(btnCommit);
 
 		loginTxt = new JTextField();
-		loginTxt.setBounds(150, 6, 114, 19);
+		loginTxt.setBounds(150, 6, 114, 28);
 		contentPane.add(loginTxt);
 		loginTxt.setColumns(10);
 
 		passTxt = new JTextField();
-		passTxt.setBounds(150, 36, 114, 19);
+		passTxt.setBounds(150, 36, 114, 28);
 		contentPane.add(passTxt);
 		passTxt.setColumns(10);
 
@@ -99,11 +100,11 @@ public class UserDataRegister extends JFrame {
 						projectMainView.updateTable();
 					} else {
 						new JOptionPane().showMessageDialog(null,
-								"Nie mo¿na utworzyc konta !");
+								"Nie moï¿½na utworzyc konta !");
 					}
 				} catch (Exception ex) {
 					new JOptionPane().showMessageDialog(null,
-							"Nie mo¿na utworzyc konta !");
+							"Nie moï¿½na utworzyc konta !");
 					ex.printStackTrace();
 				}
 			}

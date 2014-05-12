@@ -6,6 +6,7 @@ import com.pwr.Quest.Campaign;
 import com.pwr.Quest.QuestFactory;
 import com.pwr.Quest.QuestPoint;
 import com.pwr.Quest.QuestType;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JSplitPane;
 import javax.swing.JButton;
@@ -33,6 +35,8 @@ public class DecisionQuestView extends QuestView implements DescribeView{
 	private JTableHeader header;
 	protected DefaultTableModel tableModel;
 	private int colNum, rowNum;
+	
+	private JScrollPane tableScrollPane;
 	
 	private final JButton btnAdd = new JButton("Dodaj");
 	private JButton btnDel = new JButton("Usuń");
@@ -78,7 +82,11 @@ public class DecisionQuestView extends QuestView implements DescribeView{
 				}
 			}
 		});
-		add(tablePanel);
+		
+		tableScrollPane = new JScrollPane(tablePanel);
+		tableScrollPane.setBounds(23, 286, 518, 203);
+		add(tableScrollPane);
+		
 		tablePanel.add(header, BorderLayout.NORTH);
 		tablePanel.add(table, BorderLayout.CENTER);
 		

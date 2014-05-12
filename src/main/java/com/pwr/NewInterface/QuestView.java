@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -39,6 +40,11 @@ public class QuestView extends JPanel implements DescribeView {
 	private JButton btnEditParagraph;
 	private JButton btnDeleteParagraph;
 
+	private JScrollPane introScrollPane;
+	private JScrollPane outroScrollPane;
+	private JScrollPane picsScrollPane;
+	private JScrollPane soundsScrollPane;
+	
 	protected JTextArea preNote;
 	protected JTextArea postNote;
 
@@ -64,8 +70,9 @@ public class QuestView extends JPanel implements DescribeView {
 
 		sounds = new JList(soundsListModel);
 		sounds.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		sounds.setBounds(23, 163, 302, 60);
-		add(sounds);
+		soundsScrollPane = new JScrollPane(sounds);
+		soundsScrollPane.setBounds(23, 163, 302, 60);
+		add(soundsScrollPane);
 
 		lblPics = new JLabel("Obrazy");
 		lblPics.setBounds(23, 42, 76, 14);
@@ -73,8 +80,9 @@ public class QuestView extends JPanel implements DescribeView {
 
 		pics = new JList(picsListModel);
 		pics.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		pics.setBounds(23, 67, 302, 60);
-		add(pics);
+		picsScrollPane = new JScrollPane(pics);
+		picsScrollPane.setBounds(23, 67, 302, 60);
+		add(picsScrollPane);
 
 		lblParagraph = new JLabel("Opis zagadki");
 		lblParagraph.setBounds(23, 220, 120, 23);
@@ -122,18 +130,20 @@ public class QuestView extends JPanel implements DescribeView {
 		add(lblPreNote);
 
 		preNote = new JTextArea();
-		preNote.setBounds(345, 67, 302, 60);
 		preNote.setLineWrap(true);
-		add(preNote);
+		introScrollPane = new JScrollPane(preNote);
+		introScrollPane.setBounds(345, 67, 302, 60);
+		add(introScrollPane);
 
 		lblPostNote = new JLabel("Notka końcowa");
 		lblPostNote.setBounds(345, 138, 120, 23);
 		add(lblPostNote);
 
 		postNote = new JTextArea();
-		postNote.setBounds(345, 163, 302, 60);
 		postNote.setLineWrap(true);
-		add(postNote);
+		outroScrollPane = new JScrollPane(postNote);
+		outroScrollPane.setBounds(345, 163, 302, 60);
+		add(outroScrollPane);
 
 		addButtonsListeners();
 	}
