@@ -15,7 +15,6 @@ import java.util.EmptyStackException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -485,12 +484,20 @@ public class NewQuizView extends JFrame {
 		}
 		newQuest.setQuestDescription(selectedCard.paragraphList);
 		newQuest.setQuestTimeout(Integer.parseInt(timeoutField.getText()));
+		
 		validateName(newQuest);
-
+		validateData(newQuest);
 		validatePoints(newQuest);
 
 		newQuest.setPostNote(selectedCard.postNote.getText());
 		newQuest.setPreNote(selectedCard.preNote.getText());
+	}
+
+	private void validateData(QuestPoint newQuest) {
+		if (!this.date.getText().matches("[0-3][0-9]-[0-1][0-9]-[0-9]{4} [0-2][0-9]:[0-6][0-9]:[0-6][0-9]")) {
+			JOptionPane.showMessageDialog(null, "Podaj date w formacie dd-MM-rrrr hh:mm:ss");
+			throw new NoDataInFieldException();	
+		}
 	}
 
 	private void validatePoints(QuestPoint newQuest) {

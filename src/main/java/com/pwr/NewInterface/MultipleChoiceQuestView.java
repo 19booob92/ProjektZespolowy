@@ -13,7 +13,6 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -24,7 +23,7 @@ import com.pwr.Quest.QuestPoint;
 
 public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 
-	private JSplitPane splitPane;
+	private JPanel splitPane;
 	private JTableHeader header;
 	protected DefaultTableModel tableModel;
 	private int colNum, rowNum;
@@ -74,6 +73,7 @@ public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 				}
 			}
 		});
+		
 		tableScrollPane = new JScrollPane(tablePanel);
 		tableScrollPane.setBounds(23, 286, 518, 203);
 		add(tableScrollPane);
@@ -81,7 +81,7 @@ public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 		tablePanel.add(header, BorderLayout.NORTH);
 		tablePanel.add(table, BorderLayout.CENTER);
 
-		splitPane = new JSplitPane();
+		splitPane = new JPanel();
 		tablePanel.add(splitPane, BorderLayout.SOUTH);
 
 		btnUp.addActionListener(new ActionListener() {
@@ -89,15 +89,17 @@ public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 				moveUp();
 			}
 		});
-		splitPane.setLeftComponent(btnUp);
+		add(btnUp);
+		btnUp.setBounds(200, 500, 89, 23);
 
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				moveDown();
 			}
 		});
-		splitPane.setRightComponent(btnDown);
-
+		
+		btnDown.setBounds(100, 500, 89, 23);
+		add(btnDown);
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String tempAnswer = "";

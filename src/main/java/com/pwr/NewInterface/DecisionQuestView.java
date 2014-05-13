@@ -1,37 +1,31 @@
 package com.pwr.NewInterface;
 
-import javax.swing.JPanel;
-
-import com.pwr.Quest.Campaign;
-import com.pwr.Quest.QuestFactory;
-import com.pwr.Quest.QuestPoint;
-import com.pwr.Quest.QuestType;
-
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JSplitPane;
-import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+
+import com.pwr.Quest.QuestPoint;
 
 public class DecisionQuestView extends QuestView implements DescribeView{
 
 	private QuestPoint quest;
 	private JTable table;
 	private JPanel tablePanel;
-	private JSplitPane splitPane;
+	private JPanel splitPane;
 	private JTableHeader header;
 	protected DefaultTableModel tableModel;
 	private int colNum, rowNum;
@@ -71,14 +65,6 @@ public class DecisionQuestView extends QuestView implements DescribeView{
 					JTable target = (JTable) e.getSource();
 					rowNum = target.getSelectedRow();
 					colNum = target.getSelectedColumn();
-					EventQueue.invokeLater(new Runnable() {
-
-						@Override
-						public void run() {
-
-						}
-
-					});
 				}
 			}
 		});
@@ -90,11 +76,14 @@ public class DecisionQuestView extends QuestView implements DescribeView{
 		tablePanel.add(header, BorderLayout.NORTH);
 		tablePanel.add(table, BorderLayout.CENTER);
 		
-		splitPane = new JSplitPane();
+		splitPane = new JPanel();
 		tablePanel.add(splitPane, BorderLayout.SOUTH);
 		
-		splitPane.setLeftComponent(btnAdd);
-		splitPane.setRightComponent(btnDel);
+		btnAdd.setBounds(551, 309, 89, 23);
+		btnDel.setBounds(551, 350, 89, 23);
+		
+		add(btnAdd);
+		add(btnDel);
 		
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -102,6 +91,7 @@ public class DecisionQuestView extends QuestView implements DescribeView{
 				createDialog(tempAnswer);
 			}
 		});	
+		
 		btnDel.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
