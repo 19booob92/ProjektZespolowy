@@ -7,7 +7,10 @@ import java.io.FileWriter;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.JOptCommandLinePropertySource;
 import org.springframework.stereotype.Component;
 
 import com.lowagie.text.Paragraph;
@@ -68,6 +71,7 @@ public class CreateHTMLRaport {
 			Desktop.getDesktop().browse(file.toURI());
 
 		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Nie udalo sie utworzyc raportu");
 			e.printStackTrace();
 		}
 	}
