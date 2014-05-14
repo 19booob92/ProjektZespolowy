@@ -113,7 +113,7 @@ public class XmlBuilder {
         }    
     }
     public void addQuizGPS(String title,ArrayList<String> imageList,ArrayList<String> soundList, 
-            ArrayList<String> paragraphList, String preNote, String postNote, String goTo, int points, String date,double x, double y,
+            ArrayList<String> paragraphList, String preNote, String postNote, String goTo, int points, String date,double y,double x,
             double width, double height, int timestop, String wrong)
     {
         Element quizModule = doc.createElement("quiz");

@@ -203,6 +203,12 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	public DefaultListModel getQuizListModel() {
 		return quizListModel;
 	}
+	
+	public void updateGraph()
+	{
+		graphFacade.getGraphPanel().setQuizListFromArrayList(campaign.convertQuiz());
+		graphFacade.getGraphPanel().repaint();
+	}
 
 	@Override
 	public void update(Observable o, Object arg) {

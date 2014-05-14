@@ -12,27 +12,31 @@ public class ZipUnpacker {
 	private String outputFolder;
 	private String inputZip;
 	private File folder;
-	private ArrayList<String> fileList;
-	private boolean unzipped;
+
+
 	
 	public ZipUnpacker(String inputZip)
 	{
 		this.inputZip=inputZip;
 		outputFolder="temp";
-		fileList = new ArrayList();
-		unzipped=false;
 	}
 	
 	 public void unZip(){
 		 
 	     byte[] buffer = new byte[1024];
-	     unzipped=true;
 	     try{
 	 
 	    	folder = new File(outputFolder);
-	    	if(!folder.exists()){
-	    		folder.mkdir();
+	    	if(folder.exists())
+	    	{
+	    		File [] fileList = folder.listFiles();
+	    		for(int i=0;i<fileList.length;i++)
+	    		{
+	    			fileList[i].delete();
+	    		}
+	    		folder.delete();
 	    	}
+	    		folder.mkdir();
 	 
 	    	ZipInputStream zis = 
 	    		new ZipInputStream(new FileInputStream(inputZip));
@@ -42,7 +46,6 @@ public class ZipUnpacker {
 	 
 	    	   String fileName = ze.getName();
 	           File newFile = new File(outputFolder + File.separator + fileName);
-	           fileList.add(outputFolder + File.separator + fileName);
 	 
 	            new File(newFile.getParent()).mkdirs();
 	 
@@ -68,16 +71,13 @@ public class ZipUnpacker {
 	 
 	 public void close()
 	 {
-		 for(int i=0;i<fileList.size();i++)
-		 {
-			 File file = new File(fileList.get(i));
-			 if(file.exists())
-			 {
-				 file.delete();
-			 }
-		 }
 		 if(folder.exists())
 		 {
+	    	File [] fileList = folder.listFiles();
+	    	for(int i=0;i<fileList.length;i++)
+	    	{
+	    		fileList[i].delete();
+	    	}
 			 folder.delete();
 		 }
 	 }
