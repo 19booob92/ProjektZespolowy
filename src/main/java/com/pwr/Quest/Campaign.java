@@ -93,6 +93,11 @@ public class Campaign extends Observable {
 	public void setQuiz() {
 
 	}
+	
+	public void setQuiz(QuestPoint p,int index)
+	{
+		quests.set(index, p);
+	}
 
 	public QuestPoint getLastQuiz() {
 		return quests.get(quests.size() - 1);
@@ -258,5 +263,4 @@ public class Campaign extends Observable {
 	{
 		gameTitle=title;
 	}
-
 }

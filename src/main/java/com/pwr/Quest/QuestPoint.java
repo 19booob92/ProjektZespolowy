@@ -30,7 +30,7 @@ public abstract class QuestPoint implements DescribeQuest {
 		SoundPaths.add("");
 		questDescription = new ArrayList<String>();
 		QuestTimeout = 0;
-		date = "10-03-2014 14:33";
+		date = "10-03-1410 14:33";
 		//id++;
 	}
 	
