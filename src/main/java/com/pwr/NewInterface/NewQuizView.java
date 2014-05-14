@@ -183,6 +183,7 @@ public class NewQuizView extends JFrame {
 		fieldView.widthField.setText(Double.toString(q.getWidth()));
 		fieldView.latitudeField.setText(Double.toString(q.getYCoordinate()));
 		fieldView.longitudeField.setText(Double.toString(q.getXCoordinate()));
+		fieldView.googlePanel.setMapPoint(q.getXCoordinate(),q.getYCoordinate(),q.getWidth(),q.getHeight());
 	}
 
 	private void fillWithTextQuestData(TextQuest q) {
@@ -338,6 +339,7 @@ public class NewQuizView extends JFrame {
 											selectedCard);
 								}
 							}
+							campaignRef.setQuiz(newQuest, quizIndex);
 							campaignRef.editedTrue();
 						}
 						System.out.println(campaignRef.getQuizes().get(campaignRef.getQuizes().size()-1)
@@ -488,7 +490,7 @@ public class NewQuizView extends JFrame {
 		validateName(newQuest);
 		validateData(newQuest);
 		validatePoints(newQuest);
-
+		newQuest.setDate(date.getText());
 		newQuest.setPostNote(selectedCard.postNote.getText());
 		newQuest.setPreNote(selectedCard.preNote.getText());
 	}

@@ -48,7 +48,7 @@ public class FieldQuest extends QuestPoint implements DescribeQuest {
         }
         public double getWidth()
         {
-            return height;
+            return width;
         }
         public double getHeight()
         {

@@ -384,4 +384,10 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
     {
         return markerRect.getHeightCoordinates();
     }
+    
+	public void setMapPoint(double latitude, double longtitude, double width, double height)
+	{
+		markerRect = new MarkerRect(latitude,longtitude,width,height);
+		repaint();
+	}
 }

@@ -68,7 +68,7 @@ public class FieldQuestView extends QuestView implements DescribeView {
 		heightField = new JTextField();
 		heightField.setBounds(196, 339, 150, 30);
 		add(heightField);
-
+		
 		add(googlePanel);
 		// quest = QuestFactory.createQuest(QuestType.TEXTQUEST);
 
@@ -102,6 +102,7 @@ public class FieldQuestView extends QuestView implements DescribeView {
 			public void mouseClicked(MouseEvent e) {
 			}
 		});
+		
 	}
 
 	@Override

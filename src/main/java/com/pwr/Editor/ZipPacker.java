@@ -12,6 +12,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.CRC32;
@@ -55,7 +57,9 @@ public class ZipPacker {
     
     public void addFile(String directory) throws IOException
     {
-        zipEntry = new ZipEntry(directory);
+    	Path path = Paths.get(directory);
+    	String ZipDirectory = path.getFileName().toString();
+        zipEntry = new ZipEntry(ZipDirectory);
         byte[] buffer = new byte[1024];
         int bytesRead=0;
         CRC32 crc = new CRC32();        
