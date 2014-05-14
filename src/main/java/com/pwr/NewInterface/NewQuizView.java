@@ -28,11 +28,8 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
-import org.apache.tomcat.jni.File;
-
-import Utils.NoDataInFieldException;
-
 import com.pwr.Editor.ZipPacker;
+import com.pwr.Other.NoDataInFieldException;
 import com.pwr.Quest.Campaign;
 import com.pwr.Quest.ChoiceQuest;
 import com.pwr.Quest.DecisionQuest;
@@ -176,7 +173,7 @@ public class NewQuizView extends JFrame {
 		date.setText(q.getDate());
 		for (int i = 0; i < q.getQuestDescription().size(); i++)
 			view.paragraphs.addElement(q.getQuestDescription().get(i));
-		for (int i = 0; i < q.getQuestDescription().size(); i++) 
+		for (int i = 0; i < q.getQuestDescription().size(); i++)
 			view.paragraphList.add(q.getQuestDescription().get(i));
 	}
 
@@ -185,7 +182,8 @@ public class NewQuizView extends JFrame {
 		fieldView.widthField.setText(Double.toString(q.getWidth()));
 		fieldView.latitudeField.setText(Double.toString(q.getYCoordinate()));
 		fieldView.longitudeField.setText(Double.toString(q.getXCoordinate()));
-		fieldView.googlePanel.setMapPoint(q.getXCoordinate(),q.getYCoordinate(),q.getWidth(),q.getHeight());
+		fieldView.googlePanel.setMapPoint(q.getXCoordinate(),
+				q.getYCoordinate(), q.getWidth(), q.getHeight());
 	}
 
 	private void fillWithTextQuestData(TextQuest q) {
@@ -213,8 +211,8 @@ public class NewQuizView extends JFrame {
 
 	private void fillWithDecisionQuestData(DecisionQuest q) {
 		for (int i = 0; i < q.getQuestAnswer().size(); i++) {
-			decisionView.tableModel.addRow(new Object[] {"", q.getQuestAnswer().get(i),
-							q.getGoToList().get(i)});
+			decisionView.tableModel.addRow(new Object[] { "",
+					q.getQuestAnswer().get(i), q.getGoToList().get(i) });
 		}
 	}
 
@@ -258,7 +256,7 @@ public class NewQuizView extends JFrame {
 		leftSidePanel.add(wrong);
 		wrong.setBounds(24, 258, 226, 27);
 
-		date = new JTextField();
+		date = new JTextField("dd-MM-yyyy hh:mm:ss");
 		leftSidePanel.add(date);
 		date.setBounds(24, 205, 226, 27);
 
@@ -288,29 +286,7 @@ public class NewQuizView extends JFrame {
 							newQuest = null;
 							for (Component component : rightSidePanel
 									.getComponents()) {
-								if (component.isVisible() == true) {
-									selectedCard = (QuestView) component;
-
-									switch (selectedCard.introduceYourself()) {
-									case "TextQuest":
-										newQuest = caseTextQuest();
-										break;
-									case "MultipleChoiceQuest":
-										newQuest = caseMultipleChioceQuest();
-										break;
-									case "DecisionQuest":
-										newQuest = caseDecisionQuest();
-										break;
-									case "FieldQuest":
-										newQuest = caseFieldQuest();
-										break;
-									case "OrderQuest":
-										newQuest = caseOrderQuest();
-										break;
-									}
-									GetGeneralQuestFields(newQuest,
-											selectedCard);
-								}
+								newQuest = whichTestCreate(newQuest, component);
 							}
 							newQuest.incrementId();
 							campaignRef.addQuiz(newQuest);
@@ -319,116 +295,14 @@ public class NewQuizView extends JFrame {
 							newQuest = campaignRef.getQuizes().get(quizIndex);
 							for (Component comp : rightSidePanel
 									.getComponents()) {
-								if (comp.isVisible() == true) {
-									switch (newQuest.getQuestType()) {
-									case CHOICEQUEST:
-										caseChoiceQuest(newQuest, comp);
-										break;
-									case DECISIONQUEST:
-										caseDecisionQuest(newQuest, comp);
-										break;
-									case FIELDQUEST:
-										caseFieldQuest(newQuest, comp);
-										break;
-									case ORDERQUEST:
-										caseOrderQuest(newQuest, comp);
-										break;
-									case TEXTQUEST:
-										caseTextQuest(newQuest, comp);
-										break;
-									}
-									GetGeneralQuestFields(newQuest,
-											selectedCard);
-								}
+								choiceQuestType(newQuest, comp);
 							}
 							campaignRef.setQuiz(newQuest, quizIndex);
 							campaignRef.editedTrue();
 						}
-						System.out.println(campaignRef.getQuizes().get(campaignRef.getQuizes().size()-1)
-								.getQuestName());
-
 						dispose();
 					}
 
-					private void caseTextQuest(QuestPoint newQuest,
-							Component comp) {
-						selectedCard = (TextQuestView) comp;
-						GetTextQuestFields((TextQuest) newQuest,
-								(TextQuestView) selectedCard);
-					}
-
-					private void caseOrderQuest(QuestPoint newQuest,
-							Component comp) {
-						selectedCard = (OrderQuestView) comp;
-						GetOrderQuestFields((OrderQuest) newQuest,
-								(OrderQuestView) selectedCard);
-					}
-
-					private void caseFieldQuest(QuestPoint newQuest,
-							Component comp) {
-						selectedCard = (FieldQuestView) comp;
-						GetFieldQuestFields((FieldQuest) newQuest,
-								(FieldQuestView) selectedCard);
-					}
-
-					private void caseDecisionQuest(QuestPoint newQuest,
-							Component comp) {
-						selectedCard = (DecisionQuestView) comp;
-						GetDecisionQuestFields((DecisionQuest) newQuest,
-								(DecisionQuestView) selectedCard);
-					}
-
-					private void caseChoiceQuest(QuestPoint newQuest,
-							Component comp) {
-						selectedCard = (MultipleChoiceQuestView) comp;
-						GetMultipleChoiceQuestFields((ChoiceQuest) newQuest,
-								(MultipleChoiceQuestView) selectedCard);
-					}
-
-					private QuestPoint caseOrderQuest() {
-						QuestPoint newQuest;
-						newQuest = QuestFactory
-								.createQuest(QuestType.ORDERQUEST);
-						GetOrderQuestFields((OrderQuest) newQuest,
-								(OrderQuestView) selectedCard);
-						return newQuest;
-					}
-
-					private QuestPoint caseFieldQuest() {
-						QuestPoint newQuest;
-						newQuest = (FieldQuest) QuestFactory
-								.createQuest(QuestType.FIELDQUEST);
-						GetFieldQuestFields((FieldQuest) newQuest,
-								(FieldQuestView) selectedCard);
-						return newQuest;
-					}
-
-					private QuestPoint caseDecisionQuest() {
-						QuestPoint newQuest;
-						newQuest = (DecisionQuest) QuestFactory
-								.createQuest(QuestType.DECISIONQUEST);
-						GetDecisionQuestFields((DecisionQuest) newQuest,
-								(DecisionQuestView) selectedCard);
-						return newQuest;
-					}
-
-					private QuestPoint caseMultipleChioceQuest() {
-						QuestPoint newQuest;
-						newQuest = (ChoiceQuest) QuestFactory
-								.createQuest(QuestType.CHOICEQUEST);
-						GetMultipleChoiceQuestFields((ChoiceQuest) newQuest,
-								(MultipleChoiceQuestView) selectedCard);
-						return newQuest;
-					}
-
-					private QuestPoint caseTextQuest() {
-						QuestPoint newQuest;
-						newQuest = (TextQuest) QuestFactory
-								.createQuest(QuestType.TEXTQUEST);
-						GetTextQuestFields((TextQuest) newQuest,
-								(TextQuestView) selectedCard);
-						return newQuest;
-					}
 				});
 
 			}
@@ -449,6 +323,125 @@ public class NewQuizView extends JFrame {
 			}
 		});
 
+	}
+
+	private void choiceQuestType(QuestPoint newQuest, Component comp) {
+		if (comp.isVisible() == true) {
+			switch (newQuest.getQuestType()) {
+			case CHOICEQUEST:
+				caseChoiceQuest(newQuest, comp);
+				break;
+			case DECISIONQUEST:
+				caseDecisionQuest(newQuest, comp);
+				break;
+			case FIELDQUEST:
+				caseFieldQuest(newQuest, comp);
+				break;
+			case ORDERQUEST:
+				caseOrderQuest(newQuest, comp);
+				break;
+			case TEXTQUEST:
+				caseTextQuest(newQuest, comp);
+				break;
+			}
+			GetGeneralQuestFields(newQuest, selectedCard);
+		}
+	}
+
+	private QuestPoint whichTestCreate(QuestPoint newQuest, Component component) {
+		if (component.isVisible() == true) {
+			selectedCard = (QuestView) component;
+
+			switch (selectedCard.introduceYourself()) {
+			case "TextQuest":
+				newQuest = caseTextQuest();
+				break;
+			case "MultipleChoiceQuest":
+				newQuest = caseMultipleChioceQuest();
+				break;
+			case "DecisionQuest":
+				newQuest = caseDecisionQuest();
+				break;
+			case "FieldQuest":
+				newQuest = caseFieldQuest();
+				break;
+			case "OrderQuest":
+				newQuest = caseOrderQuest();
+				break;
+			}
+			GetGeneralQuestFields(newQuest, selectedCard);
+		}
+		return newQuest;
+	}
+
+	private void caseTextQuest(QuestPoint newQuest, Component comp) {
+		selectedCard = (TextQuestView) comp;
+		GetTextQuestFields((TextQuest) newQuest, (TextQuestView) selectedCard);
+	}
+
+	private void caseOrderQuest(QuestPoint newQuest, Component comp) {
+		selectedCard = (OrderQuestView) comp;
+		GetOrderQuestFields((OrderQuest) newQuest,
+				(OrderQuestView) selectedCard);
+	}
+
+	private void caseFieldQuest(QuestPoint newQuest, Component comp) {
+		selectedCard = (FieldQuestView) comp;
+		GetFieldQuestFields((FieldQuest) newQuest,
+				(FieldQuestView) selectedCard);
+	}
+
+	private void caseDecisionQuest(QuestPoint newQuest, Component comp) {
+		selectedCard = (DecisionQuestView) comp;
+		GetDecisionQuestFields((DecisionQuest) newQuest,
+				(DecisionQuestView) selectedCard);
+	}
+
+	private void caseChoiceQuest(QuestPoint newQuest, Component comp) {
+		selectedCard = (MultipleChoiceQuestView) comp;
+		GetMultipleChoiceQuestFields((ChoiceQuest) newQuest,
+				(MultipleChoiceQuestView) selectedCard);
+	}
+
+	private QuestPoint caseOrderQuest() {
+		QuestPoint newQuest;
+		newQuest = QuestFactory.createQuest(QuestType.ORDERQUEST);
+		GetOrderQuestFields((OrderQuest) newQuest,
+				(OrderQuestView) selectedCard);
+		return newQuest;
+	}
+
+	private QuestPoint caseFieldQuest() {
+		QuestPoint newQuest;
+		newQuest = (FieldQuest) QuestFactory.createQuest(QuestType.FIELDQUEST);
+		GetFieldQuestFields((FieldQuest) newQuest,
+				(FieldQuestView) selectedCard);
+		return newQuest;
+	}
+
+	private QuestPoint caseDecisionQuest() {
+		QuestPoint newQuest;
+		newQuest = (DecisionQuest) QuestFactory
+				.createQuest(QuestType.DECISIONQUEST);
+		GetDecisionQuestFields((DecisionQuest) newQuest,
+				(DecisionQuestView) selectedCard);
+		return newQuest;
+	}
+
+	private QuestPoint caseMultipleChioceQuest() {
+		QuestPoint newQuest;
+		newQuest = (ChoiceQuest) QuestFactory
+				.createQuest(QuestType.CHOICEQUEST);
+		GetMultipleChoiceQuestFields((ChoiceQuest) newQuest,
+				(MultipleChoiceQuestView) selectedCard);
+		return newQuest;
+	}
+
+	private QuestPoint caseTextQuest() {
+		QuestPoint newQuest;
+		newQuest = (TextQuest) QuestFactory.createQuest(QuestType.TEXTQUEST);
+		GetTextQuestFields((TextQuest) newQuest, (TextQuestView) selectedCard);
+		return newQuest;
 	}
 
 	private void ZipPacking(QuestPoint newQuest) {
@@ -488,7 +481,7 @@ public class NewQuizView extends JFrame {
 		}
 		newQuest.setQuestDescription(selectedCard.paragraphList);
 		newQuest.setQuestTimeout(Integer.parseInt(timeoutField.getText()));
-		
+
 		validateName(newQuest);
 		validateData(newQuest);
 		validatePoints(newQuest);
@@ -498,9 +491,13 @@ public class NewQuizView extends JFrame {
 	}
 
 	private void validateData(QuestPoint newQuest) {
-		if (!this.date.getText().matches("[0-3][0-9]-[0-1][0-9]-[0-9]{4} [0-2][0-9]:[0-6][0-9]:[0-6][0-9]")) {
-			JOptionPane.showMessageDialog(null, "Podaj date w formacie dd-MM-rrrr hh:mm:ss");
-			throw new NoDataInFieldException();	
+		if (!this.date
+				.getText()
+				.matches(
+						"[0-3][0-9]-[0-1][0-9]-[0-9]{4} [0-2][0-9]:[0-6][0-9]:[0-6][0-9]")) {
+			JOptionPane.showMessageDialog(null,
+					"Podaj date w formacie dd-MM-rrrr hh:mm:ss");
+			throw new NoDataInFieldException();
 		}
 	}
 
