@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -38,6 +39,8 @@ public class UserDetailsView extends JFrame {
 	private JButton btnDeleteUser;
 	private JButton btnCreateGameForUser;
 
+	static final int STATUS_CONFLICT = 409;
+	
 	private static String userName;
 
 	public UserDetailsView() {
@@ -74,7 +77,12 @@ public class UserDetailsView extends JFrame {
 		btnCreateGameForUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					requests.createNewGame(userName);
+					if (requests.createNewGame(userName) == STATUS_CONFLICT ) {
+						JOptionPane.showMessageDialog(null, "Dla tego uzytkownika utworzono juz gre");
+					} else {
+						projectMainView.updateTable();
+						UserDetailsView.this.show();
+					}
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -89,7 +97,7 @@ public class UserDetailsView extends JFrame {
 				try {
 					requests.delete(userName, "/deleteUser");
 					projectMainView.updateTable();
-					UserDetailsView.this.dispose();
+					UserDetailsView.this.show();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -100,7 +108,7 @@ public class UserDetailsView extends JFrame {
 		contentPane.add(btnDeleteUser);
 		contentPane.add(btnDeleteAllDoneQuests);
 
-		JButton btnDeleteGame = new JButton("Delete game");
+		JButton btnDeleteGame = new JButton("Usun gre");
 		btnDeleteGame.addActionListener(new ActionListener() {
 
 			@Override
@@ -108,6 +116,7 @@ public class UserDetailsView extends JFrame {
 				try {
 					requests.delete(userName, "/deleteGame");
 					projectMainView.updateTable();
+					UserDetailsView.this.show();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

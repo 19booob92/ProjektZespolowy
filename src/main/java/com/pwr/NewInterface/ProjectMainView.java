@@ -79,6 +79,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 	private JMenuBar menuBar;
 	private JMenu mnProject;
 
+	private JButton btnGenerateRaport;
 	private JButton btnDeleteAll;
 	private JButton btnNewQuiz;
 	private JButton btnZapiszUstawieniaGry;
@@ -87,7 +88,8 @@ public class ProjectMainView extends JFrame implements Serializable {
 	private JButton btnDeleteAllDoneQuests;
 	private JButton btnLoadQuests;
 	private JButton btnDeleteQuestts;
-
+	private JButton btnSendPackageToSerwer;
+	
 	private JLabel lblOpcjeProjektu;
 	private JLabel lblOpcjeUserow;
 	private JLabel lblOperacjeNaProjekcie;
@@ -108,26 +110,24 @@ public class ProjectMainView extends JFrame implements Serializable {
 		campaign = new Campaign();
 
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(new WindowAdapter()
-		{
+		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
-				boolean quit=true;
-				if(!campaign.isSaved())
-				{
-					int dialogButton=
-	                JOptionPane.showConfirmDialog (null, "Projekt nad którym pracujesz nie jest zapisany.\n Czy chcesz kontynuować?","Uwaga!",JOptionPane.YES_NO_OPTION);
-	                if(dialogButton == JOptionPane.YES_OPTION)
-	                {
-	                	campaign.closeCampaign();
+				boolean quit = true;
+				if (!campaign.isSaved()) {
+					int dialogButton = JOptionPane
+							.showConfirmDialog(
+									null,
+									"Projekt nad którym pracujesz nie jest zapisany.\n Czy chcesz kontynuować?",
+									"Uwaga!", JOptionPane.YES_NO_OPTION);
+					if (dialogButton == JOptionPane.YES_OPTION) {
+						campaign.closeCampaign();
 						System.exit(0);
-	                }
-				}
-				else
-				{
+					}
+				} else {
 					campaign.closeCampaign();
 					System.exit(0);
 				}
-				
+
 			}
 		});
 		getContentPane().setLayout(new BorderLayout());
@@ -212,7 +212,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		});
 
 		btnDeleteAll = new JButton("Usun wszystkie dane");
-		
+
 		btnDeleteAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				confirmView.setVisible(true);
@@ -221,7 +221,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 		btnDeleteAll.setBounds(6, 32, 206, 28);
 		leftSidePanel.add(btnDeleteAll);
-		
+
 	}
 
 	public static void invokeNewQuizView(final int id) {
@@ -255,6 +255,18 @@ public class ProjectMainView extends JFrame implements Serializable {
 		btnNewQuiz.setBounds(6, 112, 207, 28);
 		leftSidePanel.add(btnNewQuiz);
 
+		btnGenerateRaport = new JButton("Raport");
+		btnGenerateRaport.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+
+		btnGenerateRaport.setBounds(6, 152, 207, 28);
+		leftSidePanel.add(btnGenerateRaport);
+		
 		JButton btnZapiszUstawieniaGry = new JButton("Zapisz ustawienia gry");
 		btnZapiszUstawieniaGry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -288,6 +300,23 @@ public class ProjectMainView extends JFrame implements Serializable {
 		});
 
 		leftSidePanel.add(btnLoadQuests);
+		
+		btnSendPackageToSerwer = new JButton("Wyslij paczke");
+		btnSendPackageToSerwer.setBounds(6, 230, 206, 28);
+		
+		btnSendPackageToSerwer.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					requests.sendFile();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		leftSidePanel.add(btnSendPackageToSerwer);
 	}
 
 	private void createRightSidePanel() {
@@ -405,14 +434,15 @@ public class ProjectMainView extends JFrame implements Serializable {
 			List<UserDTO> usersList = requests.getAllUsers(splashWindow);
 			return usersList;
 		} catch (Exception except) {
-			JOptionPane.showMessageDialog(null, "Sprawdz polaczenie z internetem");
+			JOptionPane.showMessageDialog(null,
+					"Sprawdz polaczenie z internetem");
 			return null;
 		}
 	}
 
 	private void addTable() {
-		tableModel = new DefaultTableModel(new String[] { "login",
-				"points", "end time" }, 0);
+		tableModel = new DefaultTableModel(new String[] { "login", "points",
+				"end time" }, 0);
 
 		table = new JTable(tableModel);
 

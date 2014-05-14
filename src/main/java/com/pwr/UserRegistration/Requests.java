@@ -1,15 +1,13 @@
 package com.pwr.UserRegistration;
 
+import java.io.File;
 import java.io.Serializable;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.core.MediaType;
 
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
@@ -22,6 +20,9 @@ import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import com.sun.jersey.api.client.filter.LoggingFilter;
+import com.sun.jersey.multipart.FormDataMultiPart;
+import com.sun.jersey.multipart.file.FileDataBodyPart;
+
 
 @Component
 public class Requests implements Serializable {
@@ -36,6 +37,13 @@ public class Requests implements Serializable {
 	private String pass;
 
 	public Requests() {
+	}
+
+	private void prepareConnection() {
+		ClientConfig config = new DefaultClientConfig();
+		client = Client.create(config);
+		client.addFilter(new LoggingFilter());
+		client.addFilter(new HTTPBasicAuthFilter(login, pass));
 	}
 
 	public int delete(String value, String extend_uri) throws Exception {
@@ -73,12 +81,10 @@ public class Requests implements Serializable {
 		String json = gson.toJson(data);
 		System.out.println(json);
 
-		ClientConfig config = new DefaultClientConfig();
-		client = Client.create(config);
-		client.addFilter(new LoggingFilter());
+		prepareConnection();
+
 		webResource = client.resource(address + "adminPanel/" + typeURI);
 
-		client.addFilter(new HTTPBasicAuthFilter(login, pass));
 		ClientResponse response = webResource.type(MediaType.APPLICATION_JSON)
 				.post(ClientResponse.class, json);
 
@@ -136,18 +142,34 @@ public class Requests implements Serializable {
 				});
 	}
 
-	public ResponseEntity<Object> createNewGame(String name) throws Exception {
+	public int createNewGame(String name) throws Exception {
 
-		ClientConfig clientConfig = new DefaultClientConfig();
-		clientConfig.getClasses().add(JacksonJsonProvider.class);
-		Client client = Client.create(clientConfig);
-		client.addFilter(new HTTPBasicAuthFilter(login, pass));
+		prepareConnection();
+		webResource = client.resource(address + "adminPanel/newGame/" + name);
 
-		return client.resource(address + "adminPanel/newGame/" + name)
-				.type(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)
-				.get(new GenericType<ResponseEntity<Object>>() {
-				});
+		ClientResponse response = webResource.type(MediaType.APPLICATION_JSON)
+				.post(ClientResponse.class, null);
+
+		return response.getStatus();
 	}
 
+	public int sendFile() {
+		prepareConnection();
+		webResource = client.resource(address + "adminPanel/upload/");
+		ClientResponse response = webResource.type(
+				MediaType.MULTIPART_FORM_DATA_TYPE).post(ClientResponse.class,
+				createInstance());
+		return response.getStatus();
+	}
+
+	private FormDataMultiPart createInstance() {
+		File f = new File("paczka.zip");
+		FileDataBodyPart fdp = new FileDataBodyPart("paczka", f,
+				MediaType.APPLICATION_OCTET_STREAM_TYPE);
+
+		FormDataMultiPart formDataMultiPart = new FormDataMultiPart();
+
+		formDataMultiPart.bodyPart(fdp);
+		return formDataMultiPart;
+	}
 }
