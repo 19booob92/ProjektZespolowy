@@ -28,6 +28,8 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
+import org.apache.tomcat.jni.File;
+
 import Utils.NoDataInFieldException;
 
 import com.pwr.Editor.ZipPacker;
@@ -469,12 +471,12 @@ public class NewQuizView extends JFrame {
 			}
 		}
 
-		try {
-			zip.addFile("Config.xml");
+		/*try {
+			zip.addFile("temp"+java.io.File.separator+"Config.xml");
 		} catch (IOException ex) {
 			Logger.getLogger(NewQuizView.class.getName()).log(Level.SEVERE,
 					null, ex);
-		}
+		}*/
 		zip.closeZip();
 	}
 
