@@ -37,7 +37,7 @@ public class UserProperties extends JFrame {
 		
 		usersList = null;
 		try {
-			usersList = requests.getAllUsers(null);
+			usersList = requests.getAllUsers();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

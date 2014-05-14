@@ -38,7 +38,9 @@ public class Requests implements Serializable {
 
 	public Requests() {
 	}
-
+	
+	public void crossPoint(SplashWindow splashWindow) {}
+	
 	private void prepareConnection() {
 		ClientConfig config = new DefaultClientConfig();
 		client = Client.create(config);
@@ -61,7 +63,7 @@ public class Requests implements Serializable {
 		return response.getStatus();
 	}
 
-	public List<UserDTO> getAllUsers(SplashWindow splashWindow)
+	public List<UserDTO> getAllUsers()
 			throws Exception {
 
 		ClientConfig clientConfig = new DefaultClientConfig();
@@ -75,7 +77,7 @@ public class Requests implements Serializable {
 				.get(new GenericType<List<UserDTO>>() {
 				});
 	}
-
+	
 	public <T> int sendData(T data, String typeURI) throws Exception {
 		Gson gson = new Gson();
 		String json = gson.toJson(data);
@@ -112,7 +114,7 @@ public class Requests implements Serializable {
 	// automatycznie
 	public void deleteAll() {
 		try {
-			List<UserDTO> listaUserow = getAllUsers(null);
+			List<UserDTO> listaUserow = getAllUsers();
 			List<QuestDTO> listaQuestow = getAllQuests();
 
 			for (QuestDTO quest : listaQuestow) {

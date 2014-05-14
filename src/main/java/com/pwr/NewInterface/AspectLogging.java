@@ -6,7 +6,7 @@ import org.aspectj.lang.annotation.Aspect;
 @Aspect
 public class AspectLogging {
 
-	@After("execution(* getAllUsers(..)) && args (splashWindow,..)")
+	@After("execution(* crossPoint(..)) && args (splashWindow,..)")
 	public void killSplash(SplashWindow splashWindow) {
 		splashWindow.dispose();
 		splashWindow = null;

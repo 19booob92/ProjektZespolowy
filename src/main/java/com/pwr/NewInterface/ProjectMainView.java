@@ -61,6 +61,8 @@ public class ProjectMainView extends JFrame implements Serializable {
 	private UserDetailsView userDetailsView;
 	@Autowired
 	private ConfirmView confirmView;
+	@Autowired
+	private CreatePDFRaport createPDFRaport;
 	// chwilowe rozwiazanie, nie wiem jak przekazywac parametry do metody z
 	// aspektu
 	SplashWindow splashWindow;
@@ -260,7 +262,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				createPDFRaport.generatePDF();
 			}
 		});
 
@@ -431,7 +433,9 @@ public class ProjectMainView extends JFrame implements Serializable {
 	public List<UserDTO> getDataToTable() {
 		try {
 			splashWindow = new SplashWindow(this, "359.gif");
-			List<UserDTO> usersList = requests.getAllUsers(splashWindow);
+			
+			List<UserDTO> usersList = requests.getAllUsers();
+			requests.crossPoint(splashWindow);
 			return usersList;
 		} catch (Exception except) {
 			JOptionPane.showMessageDialog(null,
