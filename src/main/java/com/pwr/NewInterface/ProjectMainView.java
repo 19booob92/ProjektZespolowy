@@ -42,6 +42,9 @@ import com.pwr.Editor.QuestTableView;
 //import com.pwr.Editor.QuestsTableView;
 import com.pwr.Editor.UserDetailsView;
 import com.pwr.Graph.QuizDataObject;
+import com.pwr.Other.CreateHTMLRaport;
+import com.pwr.Other.CreatePDFRaport;
+import com.pwr.Other.SpringBootLoader;
 import com.pwr.Quest.Campaign;
 import com.pwr.Quest.QuestPoint;
 import com.pwr.UserRegistration.Requests;
@@ -63,6 +66,8 @@ public class ProjectMainView extends JFrame implements Serializable {
 	private ConfirmView confirmView;
 	@Autowired
 	private CreatePDFRaport createPDFRaport;
+	@Autowired
+	private CreateHTMLRaport createHTMLRaport;
 	// chwilowe rozwiazanie, nie wiem jak przekazywac parametry do metody z
 	// aspektu
 	SplashWindow splashWindow;
@@ -263,6 +268,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				createPDFRaport.generatePDF();
+				createHTMLRaport.generateHTML();
 			}
 		});
 
