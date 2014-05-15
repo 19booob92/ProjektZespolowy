@@ -104,7 +104,7 @@ public class UserDetailsView extends JFrame {
 			}
 		});
 		btnDeleteUser.setBounds(17, 156, 117, 25);
-		btnDeleteAllDoneQuests.setBounds(162, 120, 117, 50);
+		btnDeleteAllDoneQuests.setBounds(162, 120, 117, 65);
 		contentPane.add(btnDeleteUser);
 		contentPane.add(btnDeleteAllDoneQuests);
 

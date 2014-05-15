@@ -114,7 +114,9 @@ public class OrderQuestView extends QuestView implements DescribeView {
 		});
 
 		add(btnUp);
-		btnUp.setBounds(200, 500, 89, 23);
+		add(btnDown);
+		btnUp.setBounds(260, 500, 89, 23);
+		btnDown.setBounds(160, 500, 89, 23);
 
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -132,20 +134,27 @@ public class OrderQuestView extends QuestView implements DescribeView {
 	private void moveUp() {
 		int[] rows = table.getSelectedRows();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		if (model.getRowCount() >= 2) {
-			model.moveRow(rows[0], rows[rows.length - 1], rows[0] - 1);
-			table.setRowSelectionInterval(rows[0] - 1,
-					rows[rows.length - 1] - 1);
+		try {
+			if (model.getRowCount() >= 2) {
+				model.moveRow(rows[0], rows[rows.length - 1], rows[0] - 1);
+				table.setRowSelectionInterval(rows[0] - 1,
+						rows[rows.length - 1] - 1);
+			}
+		} catch (Exception ArrayIndexOutOfBoundsException) {
+
 		}
 	}
 
 	private void moveDown() {
 		int[] rows = table.getSelectedRows();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		if (model.getRowCount() >= 2) {
-			model.moveRow(rows[0], rows[rows.length - 1], rows[0] + 1);
-			table.setRowSelectionInterval(rows[0] + 1,
-					rows[rows.length - 1] + 1);
+		try {
+			if (model.getRowCount() >= 2) {
+				model.moveRow(rows[0], rows[rows.length - 1], rows[0] + 1);
+				table.setRowSelectionInterval(rows[0] + 1,
+						rows[rows.length - 1] + 1);
+			}
+		} catch (ArrayIndexOutOfBoundsException ex) {
 		}
 	}
 
