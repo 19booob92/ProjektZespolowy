@@ -167,14 +167,10 @@ public class NewQuizView extends JFrame {
 		this.timeoutField.setText(Integer.toString(q.getQuestTimeout()));
 		rewriteArrayListToJList(q.getPicturePaths(), view.picsListModel);
 		rewriteArrayListToJList(q.getSoundPaths(), view.soundsListModel);
-		view.paragraphList = new ArrayList();
-		// view.paragraphList.addAll(q.getQuestDescription());
 		points.setText(Integer.toString(q.getPoints()));
 		date.setText(q.getDate());
-		for (int i = 0; i < q.getQuestDescription().size(); i++)
-			view.paragraphs.addElement(q.getQuestDescription().get(i));
-		for (int i = 0; i < q.getQuestDescription().size(); i++)
-			view.paragraphList.add(q.getQuestDescription().get(i));
+		
+		view.paragraph=q.getParagraph();
 	}
 
 	private void fillWithFieldQuestData(FieldQuest q) {
@@ -479,7 +475,7 @@ public class NewQuizView extends JFrame {
 			newQuest.setPicturePaths(rewriteJListToArrayList(selectedCard.pics));
 			newQuest.setSoundPaths(rewriteJListToArrayList(selectedCard.sounds));
 		}
-		newQuest.setQuestDescription(selectedCard.paragraphList);
+		newQuest.setParagraph(selectedCard.paragraph);
 		newQuest.setQuestTimeout(Integer.parseInt(timeoutField.getText()));
 
 		validateName(newQuest);

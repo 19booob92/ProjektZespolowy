@@ -2,6 +2,8 @@ package com.pwr.NewInterface;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,22 +25,20 @@ import javax.swing.border.EtchedBorder;
 public class QuestView extends JPanel implements DescribeView {
 	protected JList<String> pics;
 	protected JList<String> sounds;
-	protected DefaultComboBoxModel paragraphs = new DefaultComboBoxModel();
-	protected JComboBox paragraphsComboBox;
 	protected Set<String> setOfpath;
+	protected String paragraph="";
 
-	protected ArrayList<String> paragraphList = new ArrayList<String>();
 
 	protected DefaultListModel<String> picsListModel;
 	protected DefaultListModel<String> soundsListModel;
 
+	private ParagraphInputDialog paragraphInputDialog;
+	
 	private JButton btnAddPics;
 	private JButton btnAddSounds;
 	private JButton btnDelPics;
 	private JButton btnDelSounds;
 	private JButton btnAddParagraph;
-	private JButton btnEditParagraph;
-	private JButton btnDeleteParagraph;
 
 	private JScrollPane introScrollPane;
 	private JScrollPane outroScrollPane;
@@ -48,7 +48,6 @@ public class QuestView extends JPanel implements DescribeView {
 	protected JTextArea preNote;
 	protected JTextArea postNote;
 
-	private JLabel lblParagraph;
 	private JLabel lblPics;
 	private JLabel lblSounds;
 	private JLabel lblPreNote;
@@ -84,26 +83,10 @@ public class QuestView extends JPanel implements DescribeView {
 		picsScrollPane.setBounds(23, 67, 302, 60);
 		add(picsScrollPane);
 
-		lblParagraph = new JLabel("Opis zagadki");
-		lblParagraph.setBounds(23, 220, 120, 23);
-		add(lblParagraph);
-
-		paragraphsComboBox = new JComboBox(paragraphs);
-		paragraphsComboBox.setSelectedIndex(-1);
-		paragraphsComboBox.setBounds(23, 243, 160, 23);
-		add(paragraphsComboBox);
-
-		btnAddParagraph = new JButton("Dodaj paragraf");
-		btnAddParagraph.setBounds(183, 243, 120, 23);
+		btnAddParagraph = new JButton("Edytuj paragraf");
+		btnAddParagraph.setBounds(23, 243, 120, 23);
 		add(btnAddParagraph);
 
-		btnEditParagraph = new JButton("Edytuj paragraf");
-		btnEditParagraph.setBounds(303, 243, 120, 23);
-		add(btnEditParagraph);
-
-		btnDeleteParagraph = new JButton("Usuń paragraf");
-		btnDeleteParagraph.setBounds(423, 243, 120, 23);
-		add(btnDeleteParagraph);
 
 		lblSounds = new JLabel("Dźwięki");
 		lblSounds.setBounds(23, 138, 76, 14);
@@ -179,40 +162,22 @@ public class QuestView extends JPanel implements DescribeView {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				paragraphs.addElement("Paragraf "
+				paragraphInputDialog = new ParagraphInputDialog(paragraph);
+				paragraphInputDialog.addWindowListener(new WindowAdapter()
+				{
+					public void windowClosed(WindowEvent e) {
+				        paragraph = paragraphInputDialog.getParagraph();
+				    }
+				});
+				/*paragraphs.addElement("Paragraf "
 						+ Integer.toString(paragraphsTrigger));
 				paragraphList.add("");
 				paragraphsComboBox.setSelectedIndex(paragraphsTrigger - 1);
-				paragraphsTrigger++;
+				paragraphsTrigger++;*/
 			}
 		});
 
-		btnEditParagraph.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int selectedIndex = paragraphsComboBox.getSelectedIndex();
-				if (selectedIndex != -1) {
-					String tempParagraph = JOptionPane.showInputDialog(
-							"Podaj treść: ", paragraphList.get(selectedIndex));
-					paragraphList.set(selectedIndex, tempParagraph);
-				}
-			}
-		});
-
-		btnDeleteParagraph.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int selectedIndex = paragraphsComboBox.getSelectedIndex();
-				if (selectedIndex != -1) {
-					paragraphsTrigger--;
-					paragraphList.remove(selectedIndex);
-					paragraphs.removeElementAt(selectedIndex);
-					paragraphsComboBox = new JComboBox(paragraphs);
-				}
-			}
-		});
 
 	}
 

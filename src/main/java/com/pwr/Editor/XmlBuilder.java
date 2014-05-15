@@ -113,7 +113,7 @@ public class XmlBuilder {
         }    
     }
     public void addQuizGPS(String title,ArrayList<String> imageList, ArrayList<Boolean> imageInventoryList,ArrayList<String> soundList,
-    		ArrayList<Boolean> soundInventoryList, int narration,ArrayList<String> paragraphList, String preNote, String postNote,
+    		ArrayList<Boolean> soundInventoryList, int narration,String paragraphList, String preNote, String postNote,
     		String goTo, int points, String date,double y,double x,
             double width, double height, int timestop, String wrong)
     {
@@ -151,7 +151,7 @@ public class XmlBuilder {
     
     public void addQuizText(String title,ArrayList<String> imageList, ArrayList<Boolean> imageInventoryList,ArrayList<String> soundList,
     		ArrayList<Boolean> soundInventoryList, int narration,
-            ArrayList<String> paragraphList, String preNote, String postNote,String goTo, int points, String date, ArrayList<String> answerList,
+    		String paragraphList, String preNote, String postNote,String goTo, int points, String date, ArrayList<String> answerList,
             int timestop, String wrong)
     {
         Element quizModule = doc.createElement("quiz");
@@ -174,7 +174,7 @@ public class XmlBuilder {
     
     public void addQuizDecision(String title,ArrayList<String> imageList, ArrayList<Boolean> imageInventoryList,ArrayList<String> soundList,
     		ArrayList<Boolean> soundInventoryList, int narration,
-            ArrayList<String> paragraphList, String preNote, String postNote, int points, String date,ArrayList<String> goToList,
+    		String paragraphList, String preNote, String postNote, int points, String date,ArrayList<String> goToList,
             ArrayList<String> answerList, int timestop, String wrong)
     {
         Element quizModule = doc.createElement("quiz");
@@ -201,7 +201,7 @@ public class XmlBuilder {
     
     public void addQuizMofn(String title,ArrayList<String> imageList, ArrayList<Boolean> imageInventoryList,ArrayList<String> soundList,
     		ArrayList<Boolean> soundInventoryList, int narration,
-            ArrayList<String> paragraphList, String preNote, String postNote, String goTo, int points, String date,
+    		String paragraphList, String preNote, String postNote, String goTo, int points, String date,
             ArrayList<String> answerList, ArrayList<Boolean> answerListBool, int timestop, String wrong)
     {
         Element quizModule = doc.createElement("quiz");
@@ -227,7 +227,7 @@ public class XmlBuilder {
     
     public void addQuizPermutation(String title,ArrayList<String> imageList, ArrayList<Boolean> imageInventoryList,ArrayList<String> soundList,
     		ArrayList<Boolean> soundInventoryList, int narration,
-            ArrayList<String> paragraphList, String preNote, String postNote, String goTo, int points,
+    		String paragraphList, String preNote, String postNote, String goTo, int points,
             String date, String wrong, int timestop, ArrayList<String> answerList)
     {
         Element quizModule = doc.createElement("quiz");
@@ -283,7 +283,7 @@ public class XmlBuilder {
     }
     private void createQuiz(String title,ArrayList<String> imageList, ArrayList<Boolean> imageInventoryList,ArrayList<String> soundList,
     		ArrayList<Boolean> soundInventoryList, int narration, 
-            ArrayList<String> paragraphList, String preNote, String postNote, Element quizModule)
+    		String paragraphList, String preNote, String postNote, Element quizModule)
     {
         quizTriggerId++;
         
@@ -329,17 +329,14 @@ public class XmlBuilder {
         Element questionmoduleElement = doc.createElement("questionmodule");
         quizModule.appendChild(questionmoduleElement);
         
-        if(paragraphList.size()==0)
+        if(paragraphList.equals(""))
         {
         	questionmoduleElement.appendChild(doc.createTextNode(""));
         }
         
-        for(int i=0;i<paragraphList.size();i++)
-        {
             Element paragraphElement = doc.createElement("paragraph");
-            paragraphElement.appendChild(doc.createTextNode(paragraphList.get(i)));
+            paragraphElement.appendChild(doc.createTextNode(paragraphList));
             questionmoduleElement.appendChild(paragraphElement);
-        }
         
         Element soundModule = doc.createElement("soundmodule");
         
