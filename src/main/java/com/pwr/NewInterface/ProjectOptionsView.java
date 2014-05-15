@@ -102,7 +102,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			this.introPicsListModel.addElement(q);			
 		}
 		for (String q : campaign.getOutroPics()) {
-			this.introPicsListModel.addElement(q);			
+			this.outroPicsListModel.addElement(q);			
 		}
 	}
 	
