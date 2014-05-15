@@ -1,6 +1,7 @@
 package com.pwr.Other;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.io.FileOutputStream;
 import java.util.Collections;
 import java.util.List;
@@ -28,64 +29,76 @@ public class CreatePDFRaport {
 	private Requests requests;
 
 	private Document document;
-	static final int COLUMNS_COUNT = 3;   
-	
+	static final int COLUMNS_COUNT = 3;
+
 	public CreatePDFRaport() {
 	}
 
 	public void generatePDF() {
-		try {
-			document = new Document();
-			FileOutputStream fileOutputStream = new FileOutputStream(
-					"RAPORT.pdf");
-			PdfWriter pdfWriter = PdfWriter.getInstance(document,
-					fileOutputStream);
+		EventQueue.invokeLater(new Runnable() {
 
-			document.open();
+			@Override
+			public void run() {
+				try {
+					document = new Document();
+					FileOutputStream fileOutputStream = new FileOutputStream(
+							"RAPORT.pdf");
+					PdfWriter pdfWriter = PdfWriter.getInstance(document,
+							fileOutputStream);
 
-			PdfPTable table = new PdfPTable(COLUMNS_COUNT);
-			PdfPTable header = new PdfPTable(COLUMNS_COUNT);
+					document.open();
 
-			Font font = new Font(Font.BOLD, 15, Font.TIMES_ROMAN, Color.RED);
-			
-			PdfPCell loginCol = new PdfPCell(new Paragraph("Login", font));
-			PdfPCell pointsCol = new PdfPCell(new Paragraph("Punkty", font));
-			PdfPCell dateCol = new PdfPCell(new Paragraph("Data", font));
+					PdfPTable table = new PdfPTable(COLUMNS_COUNT);
+					PdfPTable header = new PdfPTable(COLUMNS_COUNT);
 
-			header.addCell(loginCol);
-			header.addCell(pointsCol);
-			header.addCell(dateCol);
+					Font font = new Font(Font.BOLD, 15, Font.TIMES_ROMAN,
+							Color.RED);
 
-			List<UserDTO> listaUserow = requests.getAllUsers();
-			Collections.sort(listaUserow);
-			
-			// to jest chyba nie wydajne !!!
-			for (UserDTO userDTO : listaUserow) {
-				PdfPCell login = new PdfPCell(new Paragraph(userDTO.getLogin()));
-				table.addCell(login);
-				UserGameDTO userGameDTO = userDTO.getUserGame();
-				if (userGameDTO != null) {
-					PdfPCell points = new PdfPCell(new Paragraph(
-							String.valueOf(userGameDTO.getPoints())));
-					table.addCell(points);
-					PdfPCell date = new PdfPCell(new Paragraph(userGameDTO
-							.getEndTime().toString()));
-					table.addCell(date);
-				} else {
-					table.addCell(new PdfPCell(new Paragraph("Brak")));
-					table.addCell(new PdfPCell(new Paragraph("Brak")));
+					PdfPCell loginCol = new PdfPCell(new Paragraph("Login",
+							font));
+					PdfPCell pointsCol = new PdfPCell(new Paragraph("Punkty",
+							font));
+					PdfPCell dateCol = new PdfPCell(new Paragraph("Data", font));
+
+					header.addCell(loginCol);
+					header.addCell(pointsCol);
+					header.addCell(dateCol);
+
+					List<UserDTO> listaUserow = requests.getAllUsers();
+					Collections.sort(listaUserow);
+
+					// to jest chyba nie wydajne !!!
+					for (UserDTO userDTO : listaUserow) {
+						PdfPCell login = new PdfPCell(new Paragraph(userDTO
+								.getLogin()));
+						table.addCell(login);
+						UserGameDTO userGameDTO = userDTO.getUserGame();
+						if (userGameDTO != null) {
+							PdfPCell points = new PdfPCell(new Paragraph(String
+									.valueOf(userGameDTO.getPoints())));
+							table.addCell(points);
+							PdfPCell date = new PdfPCell(new Paragraph(
+									userGameDTO.getEndTime().toString()));
+							table.addCell(date);
+						} else {
+							table.addCell(new PdfPCell(new Paragraph("Brak")));
+							table.addCell(new PdfPCell(new Paragraph("Brak")));
+						}
+					}
+
+					document.add(header);
+					document.add(new Paragraph(""));
+					document.add(Chunk.NEWLINE);
+					document.add(table);
+					document.close();
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null,
+							"Nie mozna zapisac pliku");
+					System.err.println(e);
 				}
 			}
+		});
 
-			document.add(header);
-			document.add(new Paragraph(""));
-			document.add(Chunk.NEWLINE);
-			document.add(table);
-			document.close();
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Nie mozna zapisac pliku");
-			System.err.println(e);
-		}
 	}
 
 }
