@@ -558,9 +558,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 				break;
 			}
 		}
-		for (QuestPoint q : campaign.getQuizes()) {
-			System.out.println(q.getId());
-		}
+
 	}
 
 	public static void quizConnectionsChanged(ArrayList<QuizDataObject> quizList) {

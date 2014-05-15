@@ -7,14 +7,17 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -72,8 +75,8 @@ public class GraphPanel extends JPanel  implements MouseListener{
 		quizWrong.clear();
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setColor(new Color(0.95f,0.95f,0.95f));
-		g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
-		//g2d.drawImage(img, 0, 0, null);
+		//g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+		g2d.drawImage(Toolkit.getDefaultToolkit().getImage("grid.jpg"), 0, 0, null);
 		g2d.setColor(new Color(0.7f, 0.1f, 0.1f));
 		drawQuizList(g);
 		g.setColor(Color.RED);
