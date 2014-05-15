@@ -95,6 +95,11 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		addIntroOutroButtons();
 	}
 
+	public void initiateGameFields() {
+		this.tfGameTitle.setText(campaign.getGameTitle());
+		this.tfStartDate.setText(campaign.getGameDate());
+	}
+	
 	public void addIntroOutroButtons() {
 		btnAddIntro = new JButton("Dodaj");
 		btnAddIntro.setBounds(101, 206, 89, 23);

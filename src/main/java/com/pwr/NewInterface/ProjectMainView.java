@@ -296,6 +296,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				campaign.loadXml(getXML());
+				projectTabPane.initiateGameFields();
 				projectTabPane.updateGraph();
 				repaint();
 			}

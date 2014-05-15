@@ -33,6 +33,7 @@ public class Campaign extends Observable {
 	private boolean saved = true;
 	
 	private String gameTitle="";
+	private String date="";
 
 	public Campaign() {
 		quests = new ArrayList();
@@ -262,5 +263,15 @@ public class Campaign extends Observable {
 	public void setGameTitle(String title)
 	{
 		gameTitle=title;
+	}
+	public String getGameTitle() {
+		return gameTitle;
+	}
+	public void setGameDate(String date) {
+		this.date = date;
+	}
+
+	public String getGameDate() {
+		return date;
 	}
 }
