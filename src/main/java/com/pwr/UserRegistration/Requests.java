@@ -1,5 +1,6 @@
 package com.pwr.UserRegistration;
 
+import java.awt.EventQueue;
 import java.io.File;
 import java.io.Serializable;
 import java.util.List;
@@ -23,7 +24,6 @@ import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.multipart.FormDataMultiPart;
 import com.sun.jersey.multipart.file.FileDataBodyPart;
 
-
 @Component
 public class Requests implements Serializable {
 
@@ -38,6 +38,7 @@ public class Requests implements Serializable {
 
 	public Requests() {
 	}
+
 	
 	public void crossPoint(SplashWindow splashWindow) {}
 	
@@ -131,7 +132,7 @@ public class Requests implements Serializable {
 	}
 
 	public List<QuestDTO> getAllQuests() throws Exception {
-
+		
 		ClientConfig clientConfig = new DefaultClientConfig();
 		clientConfig.getClasses().add(JacksonJsonProvider.class);
 		Client client = Client.create(clientConfig);

@@ -35,6 +35,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
@@ -69,6 +70,8 @@ public class ProjectMainView extends JFrame implements Serializable {
 	private CreatePDFRaport createPDFRaport;
 	@Autowired
 	private CreateHTMLRaport createHTMLRaport;
+	@Value("${instrukcja}")
+	private String instrukcja;
 	// chwilowe rozwiazanie, nie wiem jak przekazywac parametry do metody z
 	// aspektu
 	SplashWindow splashWindow;
@@ -97,7 +100,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 	private JButton btnLoadQuests;
 	private JButton btnDeleteQuestts;
 	private JButton btnSendPackageToSerwer;
-	
+
 	private JLabel lblOpcjeProjektu;
 	private JLabel lblOpcjeUserow;
 	private JLabel lblOperacjeNaProjekcie;
@@ -275,7 +278,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 		btnGenerateRaport.setBounds(6, 152, 207, 28);
 		leftSidePanel.add(btnGenerateRaport);
-		
+
 		JButton btnZapiszUstawieniaGry = new JButton("Zapisz ustawienia gry");
 		btnZapiszUstawieniaGry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -291,12 +294,9 @@ public class ProjectMainView extends JFrame implements Serializable {
 		btnNowaGra.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				campaign.setGameTitle(projectTabPane.getGameTitle());
-				campaign.setGameDate(projectTabPane.getGameDate());
-				campaign.setIntroPics(rewriteJListToArrayList(projectTabPane.introPics));
-				campaign.setOutroPics(rewriteJListToArrayList(projectTabPane.outroPics));
-				campaign.createXml();
+				tworzNowaGre();
 			}
+
 		});
 
 		btnLoadQuests = new JButton("Wczytaj zagadki");
@@ -306,21 +306,18 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				campaign.loadXml(getXML());
-				projectTabPane.initiateGameFields();
-				projectTabPane.updateGraph();
-				repaint();
+				wczytajPaczke();
 			}
 
 		});
 
 		leftSidePanel.add(btnLoadQuests);
-		
+
 		btnSendPackageToSerwer = new JButton("Wyslij paczke");
 		btnSendPackageToSerwer.setBounds(6, 230, 206, 28);
-		
+
 		btnSendPackageToSerwer.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -330,10 +327,25 @@ public class ProjectMainView extends JFrame implements Serializable {
 				}
 			}
 		});
-		
+
 		leftSidePanel.add(btnSendPackageToSerwer);
 	}
-	
+
+	private void wczytajPaczke() {
+		campaign.loadXml(getXML());
+		projectTabPane.initiateGameFields();
+		projectTabPane.updateGraph();
+		repaint();
+	}
+
+	private void tworzNowaGre() {
+		campaign.setGameTitle(projectTabPane.getGameTitle());
+		campaign.setGameDate(projectTabPane.getGameDate());
+		campaign.setIntroPics(rewriteJListToArrayList(projectTabPane.introPics));
+		campaign.setOutroPics(rewriteJListToArrayList(projectTabPane.outroPics));
+		campaign.createXml();
+	}
+
 	private ArrayList rewriteJListToArrayList(JList list) {
 		ArrayList newList = new ArrayList();
 		for (int i = 0; i < list.getModel().getSize(); i++) {
@@ -342,7 +354,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		}
 		return newList;
 	}
-	
+
 	private void createRightSidePanel() {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 0, 1000, 816);
@@ -364,6 +376,9 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 		JMenuItem mntmNewProjectItem = new JMenuItem("Nowy projekt");
 		mnProject.add(mntmNewProjectItem);
+
+		JMenuItem mntmGenRaport = new JMenuItem("Raport");
+		mnProject.add(mntmGenRaport);
 
 		JMenuItem mntmOpenProjectItem = new JMenuItem("Otw\u00F3rz");
 		mnProject.add(mntmOpenProjectItem);
@@ -389,14 +404,36 @@ public class ProjectMainView extends JFrame implements Serializable {
 		JMenuItem oProgramieItem = new JMenuItem("O Programie");
 		mnPomoc.add(oProgramieItem);
 
+		mntmGenRaport.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				createPDFRaport.generatePDF();
+				createHTMLRaport.generateHTML();
+			}
+		});
+
+		mntmOpenProjectItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				wczytajPaczke();
+			}
+		});
+
+		mntmNewProjectItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tworzNowaGre();
+			}
+		});
+
 		infoItem.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "<html> " + "		<body> "
-						+ "			<ol> " + "				<li>Najpierw zrob to</lo> "
-						+ "				<li>A teraz zrob to</lo> " + "			</ol> "
-						+ "		</body> " + "</html>");
+				JOptionPane.showMessageDialog(null, instrukcja);
 			}
 		});
 
@@ -450,12 +487,13 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 		addTable();
 		addRowToTable(getDataToTable());
+
 	}
 
 	public List<UserDTO> getDataToTable() {
 		try {
 			splashWindow = new SplashWindow(this, "359.gif");
-			
+
 			List<UserDTO> usersList = requests.getAllUsers();
 			requests.crossPoint(splashWindow);
 			return usersList;
