@@ -14,6 +14,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
@@ -146,13 +147,15 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		graphFacade = new GraphFacade();
 		graphFacade.getGraphPanel().setQuizListFromArrayList(campaign.convertQuiz());
 		graphFacade.getGraphPanel().setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		graphFacade.getGraphPanel().setPreferredSize(new Dimension(900, 900));
+		graphFacade.getGraphPanel().setBounds(310, 53, 900, 900);
 		
 		graphScrollPane = new JScrollPane();
 		graphScrollPane.setLayout(new ScrollPaneLayout());
 		graphScrollPane.setBounds(310, 53, 600, 600);
 		graphScrollPane.setViewportView(graphFacade.getGraphPanel());
+		
 		add(graphScrollPane);
+		graphFacade.getGraphPanel().setPreferredSize(new Dimension(900, 900));
 		
 		lblLista = new JLabel("Lista");
 		lblLista.setBounds(10, 439, 85, 14);
