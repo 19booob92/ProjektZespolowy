@@ -1,5 +1,8 @@
 package com.pwr.NewInterface;
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Scrollbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -11,7 +14,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.ScrollPaneLayout;
 import javax.swing.border.EtchedBorder;
 
 import com.pwr.Graph.GraphFacade;
@@ -135,8 +141,13 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		graphFacade = new GraphFacade();
 		graphFacade.getGraphPanel().setQuizListFromArrayList(campaign.convertQuiz());
 		graphFacade.getGraphPanel().setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		graphFacade.getGraphPanel().setBounds(310, 53, 676, 626);
-		add(graphFacade.getGraphPanel());
+		graphFacade.getGraphPanel().setPreferredSize(new Dimension(700, 900));
+		
+		JScrollPane graphScrollPane = new JScrollPane();
+		graphScrollPane.setLayout(new ScrollPaneLayout());
+		graphScrollPane.setBounds(310, 53, 400, 400);
+		graphScrollPane.setViewportView(graphFacade.getGraphPanel());
+		add(graphScrollPane);
 		
 		lblLista = new JLabel("Lista");
 		lblLista.setBounds(10, 439, 85, 14);
