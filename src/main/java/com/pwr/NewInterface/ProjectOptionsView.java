@@ -55,6 +55,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	private JButton btnAddOutro;
 	private JButton btnDelOutro;
 	private JButton btnEdit;
+	private JButton btnDel;
 	private JList listOfQuizes;
 	
 	private Campaign campaign;
@@ -153,7 +154,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		
 		graphScrollPane = new JScrollPane();
 		graphScrollPane.setLayout(new ScrollPaneLayout());
-		graphScrollPane.setBounds(310, 53, 600, 600);
+		graphScrollPane.setBounds(310, 79, 600, 600);
 		graphScrollPane.setViewportView(graphFacade.getGraphPanel());
 
 		add(graphScrollPane);
@@ -164,8 +165,12 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		add(lblLista);
 
 		btnEdit = new JButton("Edytuj");
-		btnEdit.setBounds(211, 435, 89, 23);
+		btnEdit.setBounds(101, 435, 89, 23);
 		add(btnEdit);
+		
+		btnDel = new JButton("Usuń");
+		btnDel.setBounds(211, 435, 89, 23);
+		add(btnDel);
 		addButtonsListeners();
 	}
 
@@ -189,6 +194,15 @@ public class ProjectOptionsView extends JPanel implements Observer {
 				if (ind >= 0) {
 					NewQuizView quizEditView = new NewQuizView(campaign, ind);
 				}
+			}
+		});
+		
+		btnDel.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				int ind = listOfQuizes.getSelectedIndex();
+				if (quizListModel.size() != 0)
+					quizListModel.remove(ind);
 			}
 		});
 
