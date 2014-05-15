@@ -7,7 +7,11 @@ import com.pwr.Graph.QuizDataObject;
 public abstract class QuestPoint implements DescribeQuest {
 
 	private ArrayList<String> PicturePaths;
+	private ArrayList<Boolean> pictureInventoryList;
+	
 	private ArrayList<String> SoundPaths;
+	private ArrayList<Boolean> soundInventoryList;
+	private int soundNarration;
 	private ArrayList<String> questDescription;
 	private String QuestName;
 	private int QuestTimeout;
@@ -29,9 +33,40 @@ public abstract class QuestPoint implements DescribeQuest {
 		SoundPaths = new ArrayList<String>();
 		SoundPaths.add("");
 		questDescription = new ArrayList<String>();
+		soundInventoryList = new ArrayList();
+		pictureInventoryList = new ArrayList();
+		soundNarration=-1;
 		QuestTimeout = 0;
 		date = "10-03-1410 14:33";
 		//id++;
+	}
+	
+	public ArrayList<Boolean> getPictureInventoryList()
+	{
+		return pictureInventoryList;
+	}
+	
+	public void setPictureInventoryList(ArrayList<Boolean> pictureInventoryList)
+	{
+		this.pictureInventoryList=pictureInventoryList;
+	}
+	
+	public ArrayList<Boolean> getSoundInventoryList()
+	{
+		return soundInventoryList;
+	}
+	
+	public void setSoundInventoryList( ArrayList<Boolean> soundInventoryList)
+	{
+		this.soundInventoryList=soundInventoryList;
+	}
+	public int soundNarration()
+	{
+		return soundNarration;
+	}
+	public void setSoundNarration(int soundNarration)
+	{
+		this.soundNarration=soundNarration;
 	}
 	
 	public int getId() {

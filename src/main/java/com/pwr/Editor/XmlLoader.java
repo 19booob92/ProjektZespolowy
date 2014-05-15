@@ -195,7 +195,10 @@ public class XmlLoader {
 			String postNote;
 			
 			ArrayList<String> imageList = new ArrayList();
+			ArrayList<Boolean> imageInventoryList = new ArrayList();
 			ArrayList<String> soundList = new ArrayList();
+			ArrayList<Boolean> soundInventoryList = new ArrayList();
+			int narration = -1;
 			ArrayList<String> paragraphList = new ArrayList();
 			Node node = nList.item(i);
 			
@@ -217,6 +220,14 @@ public class XmlLoader {
 					if(imageSrcElement.getNodeType()==Element.ELEMENT_NODE)
 					{
 						imageList.add("temp"+File.separator+imageSrcElement.getAttribute("src").trim());
+						if(imageSrcElement.getAttribute("inventory")!=null)
+						{
+							imageInventoryList.add(true);
+						}
+						else
+						{
+							imageInventoryList.add(false);
+						}
 					}
 				}
 				
@@ -228,6 +239,20 @@ public class XmlLoader {
 					if(soundSrcElement.getNodeType()==Element.ELEMENT_NODE)
 					{
 						soundList.add("temp"+File.separator+soundSrcElement.getAttribute("src").trim());
+					}
+					
+					if(soundSrcElement.getAttribute("inventory")!=null)
+					{
+						soundInventoryList.add(true);
+					}
+					else
+					{
+						soundInventoryList.add(false);
+					}
+					
+					if(soundSrcElement.getAttribute("narration")!=null)
+					{
+						narration=j;
 					}
 				}
 				
@@ -268,7 +293,7 @@ public class XmlLoader {
 						answerList.add(answersList.item(j).getTextContent().trim());
 					}					
 					quest = (TextQuest) QuestFactory.createQuest(QuestType.TEXTQUEST);
-					setQuest(quest,title,imageList,soundList,paragraphList,preNote,postNote);
+					setQuest(quest,title,imageList,imageInventoryList,soundList,imageInventoryList,narration,paragraphList,preNote,postNote);
 					setQuestAnswer(quest,goTo,Integer.parseInt(points),date,wrong,Integer.parseInt(timestop));
 					setTextQuest((TextQuest)quest,answerList);
 					campaign.addQuiz(quest);
@@ -280,7 +305,7 @@ public class XmlLoader {
 					String width = answerModuleElement.getElementsByTagName("width").item(0).getTextContent().trim();
 					String height = answerModuleElement.getElementsByTagName("height").item(0).getTextContent().trim();
 					quest = (FieldQuest) QuestFactory.createQuest(QuestType.FIELDQUEST);
-					setQuest(quest,title,imageList,soundList,paragraphList,preNote,postNote);
+					setQuest(quest,title,imageList,imageInventoryList,soundList,imageInventoryList,narration,paragraphList,preNote,postNote);
 					setQuestAnswer(quest,goTo,Integer.parseInt(points),date,wrong,Integer.parseInt(timestop));
 					setGpsQuest((FieldQuest)quest,x,y,width,height);
 					campaign.addQuiz(quest);
@@ -305,7 +330,7 @@ public class XmlLoader {
 						}
 					}
 					quest = (ChoiceQuest) QuestFactory.createQuest(QuestType.CHOICEQUEST);
-					setQuest(quest,title,imageList,soundList,paragraphList,preNote,postNote);
+					setQuest(quest,title,imageList,imageInventoryList,soundList,imageInventoryList,narration,paragraphList,preNote,postNote);
 					setQuestAnswer(quest,goTo,Integer.parseInt(points),date,wrong,Integer.parseInt(timestop));
 					setMofNQuest((ChoiceQuest)quest,answerList,answerListBool);
 					campaign.addQuiz(quest);
@@ -322,7 +347,7 @@ public class XmlLoader {
 						goToList.add(answerGoToElement.getAttribute("goto").trim());
 					}
 					quest = (DecisionQuest) QuestFactory.createQuest(QuestType.DECISIONQUEST);
-					setQuest(quest,title,imageList,soundList,paragraphList,preNote,postNote);
+					setQuest(quest,title,imageList,imageInventoryList,soundList,imageInventoryList,narration,paragraphList,preNote,postNote);
 					setQuestAnswer(quest,goTo,Integer.parseInt(points),date,wrong,Integer.parseInt(timestop));
 					setDecisionQuest((DecisionQuest)quest,answerList,goToList);
 					campaign.addQuiz(quest);
@@ -339,7 +364,7 @@ public class XmlLoader {
 						indexList.add(answerPermutationElement.getAttribute("index").trim());
 					}
 					quest = QuestFactory.createQuest(QuestType.ORDERQUEST);
-					setQuest(quest,title,imageList,soundList,paragraphList,preNote,postNote);
+					setQuest(quest,title,imageList,imageInventoryList,soundList,imageInventoryList,narration,paragraphList,preNote,postNote);
 					setQuestAnswer(quest,goTo,Integer.parseInt(points),date,wrong,Integer.parseInt(timestop));
 					setPermutationQuest((OrderQuest)quest,answerList,indexList);
 					campaign.addQuiz(quest);
@@ -356,12 +381,15 @@ public class XmlLoader {
 		
 	}
 	
-	private void setQuest(QuestPoint quest, String title,ArrayList<String> imageList,ArrayList<String> soundList, 
-            ArrayList<String> paragraphList, String preNote, String postNote)
+	private void setQuest(QuestPoint quest, String title,ArrayList<String> imageList,ArrayList<Boolean> imageInventoryList,ArrayList<String> soundList, 
+            ArrayList<Boolean> soundInventoryList, int narration, ArrayList<String> paragraphList, String preNote, String postNote)
 	{
 		quest.setQuestName(title);
 		quest.setPicturePaths(imageList);
+		quest.setPictureInventoryList(imageInventoryList);
 		quest.setSoundPaths(soundList);
+		quest.setSoundInventoryList(soundInventoryList);
+		quest.setSoundNarration(narration);
 		quest.setQuestDescription(paragraphList);
 		quest.setPreNote(preNote);
 		quest.setPostNote(postNote);
