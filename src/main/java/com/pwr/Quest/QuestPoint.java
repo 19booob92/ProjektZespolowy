@@ -7,8 +7,12 @@ import com.pwr.Graph.QuizDataObject;
 public abstract class QuestPoint implements DescribeQuest {
 
 	private ArrayList<String> PicturePaths;
+	private ArrayList<Boolean> pictureInventoryList;
+	
 	private ArrayList<String> SoundPaths;
-	private ArrayList<String> questDescription;
+	private ArrayList<Boolean> soundInventoryList;
+	private int soundNarration;
+	private String paragraph;
 	private String QuestName;
 	private int QuestTimeout;
 	private int points;
@@ -28,10 +32,51 @@ public abstract class QuestPoint implements DescribeQuest {
 		PicturePaths.add("");
 		SoundPaths = new ArrayList<String>();
 		SoundPaths.add("");
-		questDescription = new ArrayList<String>();
+		paragraph="";
+		soundInventoryList = new ArrayList();
+		pictureInventoryList = new ArrayList();
+		soundNarration=-1;
 		QuestTimeout = 0;
 		date = "10-03-1410 14:33";
 		//id++;
+	}
+	
+	public void setParagraph(String paragraph)
+	{
+		this.paragraph=paragraph;
+	}
+	
+	public String getParagraph()
+	{
+		return paragraph;
+	}
+	
+	public ArrayList<Boolean> getPictureInventoryList()
+	{
+		return pictureInventoryList;
+	}
+	
+	public void setPictureInventoryList(ArrayList<Boolean> pictureInventoryList)
+	{
+		this.pictureInventoryList=pictureInventoryList;
+	}
+	
+	public ArrayList<Boolean> getSoundInventoryList()
+	{
+		return soundInventoryList;
+	}
+	
+	public void setSoundInventoryList( ArrayList<Boolean> soundInventoryList)
+	{
+		this.soundInventoryList=soundInventoryList;
+	}
+	public int soundNarration()
+	{
+		return soundNarration;
+	}
+	public void setSoundNarration(int soundNarration)
+	{
+		this.soundNarration=soundNarration;
 	}
 	
 	public int getId() {
@@ -128,14 +173,6 @@ public abstract class QuestPoint implements DescribeQuest {
 
 	public String getQuestName() {
 		return QuestName;
-	}
-
-	public ArrayList<String> getQuestDescription() {
-		return questDescription;
-	}
-
-	public void setQuestDescription(ArrayList<String> paragraph) {
-		this.questDescription = paragraph;
 	}
 
 	public abstract void setGoTo(String goTo); 

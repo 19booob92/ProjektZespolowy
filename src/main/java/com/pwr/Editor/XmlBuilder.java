@@ -112,12 +112,13 @@ public class XmlBuilder {
         outroElement.appendChild(outroModule);
         }    
     }
-    public void addQuizGPS(String title,ArrayList<String> imageList,ArrayList<String> soundList, 
-            ArrayList<String> paragraphList, String preNote, String postNote, String goTo, int points, String date,double y,double x,
+    public void addQuizGPS(String title,ArrayList<String> imageList, ArrayList<Boolean> imageInventoryList,ArrayList<String> soundList,
+    		ArrayList<Boolean> soundInventoryList, int narration,String paragraphList, String preNote, String postNote,
+    		String goTo, int points, String date,double y,double x,
             double width, double height, int timestop, String wrong)
     {
         Element quizModule = doc.createElement("quiz");
-        createQuiz(title,imageList,soundList,paragraphList,preNote,postNote,quizModule);
+        createQuiz(title,imageList,imageInventoryList,soundList,soundInventoryList,narration,paragraphList,preNote,postNote,quizModule);
         
         Element answerModule = doc.createElement("answermodule");
         quizModule.appendChild(answerModule);
@@ -148,12 +149,13 @@ public class XmlBuilder {
         coordinatesModule.appendChild(heightElement);
     }
     
-    public void addQuizText(String title,ArrayList<String> imageList,ArrayList<String> soundList, 
-            ArrayList<String> paragraphList, String preNote, String postNote,String goTo, int points, String date, ArrayList<String> answerList,
+    public void addQuizText(String title,ArrayList<String> imageList, ArrayList<Boolean> imageInventoryList,ArrayList<String> soundList,
+    		ArrayList<Boolean> soundInventoryList, int narration,
+    		String paragraphList, String preNote, String postNote,String goTo, int points, String date, ArrayList<String> answerList,
             int timestop, String wrong)
     {
         Element quizModule = doc.createElement("quiz");
-        createQuiz(title,imageList,soundList,paragraphList,preNote,postNote,quizModule);
+        createQuiz(title,imageList,imageInventoryList,soundList,soundInventoryList,narration,paragraphList,preNote,postNote,quizModule);
         
         Element answerModule = doc.createElement("answermodule");
         quizModule.appendChild(answerModule);
@@ -170,12 +172,13 @@ public class XmlBuilder {
         }
     }
     
-    public void addQuizDecision(String title,ArrayList<String> imageList,ArrayList<String> soundList, 
-            ArrayList<String> paragraphList, String preNote, String postNote, int points, String date,ArrayList<String> goToList,
+    public void addQuizDecision(String title,ArrayList<String> imageList, ArrayList<Boolean> imageInventoryList,ArrayList<String> soundList,
+    		ArrayList<Boolean> soundInventoryList, int narration,
+    		String paragraphList, String preNote, String postNote, int points, String date,ArrayList<String> goToList,
             ArrayList<String> answerList, int timestop, String wrong)
     {
         Element quizModule = doc.createElement("quiz");
-        createQuiz(title,imageList,soundList,paragraphList,preNote,postNote,quizModule);
+        createQuiz(title,imageList,imageInventoryList,soundList,soundInventoryList,narration,paragraphList,preNote,postNote,quizModule);
         
         Element answerModule = doc.createElement("answermodule");
         quizModule.appendChild(answerModule);
@@ -196,12 +199,13 @@ public class XmlBuilder {
         }
     }
     
-    public void addQuizMofn(String title,ArrayList<String> imageList,ArrayList<String> soundList, 
-            ArrayList<String> paragraphList, String preNote, String postNote, String goTo, int points, String date,
+    public void addQuizMofn(String title,ArrayList<String> imageList, ArrayList<Boolean> imageInventoryList,ArrayList<String> soundList,
+    		ArrayList<Boolean> soundInventoryList, int narration,
+    		String paragraphList, String preNote, String postNote, String goTo, int points, String date,
             ArrayList<String> answerList, ArrayList<Boolean> answerListBool, int timestop, String wrong)
     {
         Element quizModule = doc.createElement("quiz");
-        createQuiz(title,imageList,soundList,paragraphList,preNote,postNote,quizModule);
+        createQuiz(title,imageList,imageInventoryList,soundList,soundInventoryList,narration,paragraphList,preNote,postNote,quizModule);
         
         Element answerModule = doc.createElement("answermodule");
         quizModule.appendChild(answerModule);
@@ -221,12 +225,13 @@ public class XmlBuilder {
         }
     }
     
-    public void addQuizPermutation(String title,ArrayList<String> imageList,ArrayList<String> soundList, 
-            ArrayList<String> paragraphList, String preNote, String postNote, String goTo, int points,
+    public void addQuizPermutation(String title,ArrayList<String> imageList, ArrayList<Boolean> imageInventoryList,ArrayList<String> soundList,
+    		ArrayList<Boolean> soundInventoryList, int narration,
+    		String paragraphList, String preNote, String postNote, String goTo, int points,
             String date, String wrong, int timestop, ArrayList<String> answerList)
     {
         Element quizModule = doc.createElement("quiz");
-        createQuiz(title,imageList,soundList,paragraphList,preNote,postNote,quizModule);
+        createQuiz(title,imageList,imageInventoryList,soundList,soundInventoryList,narration,paragraphList,preNote,postNote,quizModule);
         
         Element answerModule = doc.createElement("answermodule");
         quizModule.appendChild(answerModule);
@@ -276,8 +281,9 @@ public class XmlBuilder {
         noteModule.appendChild(doc.createTextNode(note));
         treasureBoxModule.appendChild(noteModule);
     }
-    private void createQuiz(String title,ArrayList<String> imageList,ArrayList<String> soundList, 
-            ArrayList<String> paragraphList, String preNote, String postNote, Element quizModule)
+    private void createQuiz(String title,ArrayList<String> imageList, ArrayList<Boolean> imageInventoryList,ArrayList<String> soundList,
+    		ArrayList<Boolean> soundInventoryList, int narration, 
+    		String paragraphList, String preNote, String postNote, Element quizModule)
     {
         quizTriggerId++;
         
@@ -307,23 +313,30 @@ public class XmlBuilder {
             if(!path.getFileName().toString().equals("")){
             attr.setValue(path.getFileName().toString());
             imageElement.setAttributeNode(attr);
+            
+            if(imageInventoryList.size()>=i+1)
+            {
+	            if(imageInventoryList.get(i))
+	            {
+	            	attr = doc.createAttribute("inventory");
+	            	attr.setValue("true");
+	                imageElement.setAttributeNode(attr);
+	            }
+            }
             imageModule.appendChild(imageElement);}
         }
         
         Element questionmoduleElement = doc.createElement("questionmodule");
         quizModule.appendChild(questionmoduleElement);
         
-        if(paragraphList.size()==0)
+        if(paragraphList.equals(""))
         {
         	questionmoduleElement.appendChild(doc.createTextNode(""));
         }
         
-        for(int i=0;i<paragraphList.size();i++)
-        {
             Element paragraphElement = doc.createElement("paragraph");
-            paragraphElement.appendChild(doc.createTextNode(paragraphList.get(i)));
+            paragraphElement.appendChild(doc.createTextNode(paragraphList));
             questionmoduleElement.appendChild(paragraphElement);
-        }
         
         Element soundModule = doc.createElement("soundmodule");
         
@@ -343,6 +356,22 @@ public class XmlBuilder {
             if(!path.getFileName().toString().equals("")){
             attr.setValue(path.getFileName().toString());
             soundElement.setAttributeNode(attr);
+            
+            if(soundInventoryList.size()>=i+1)
+            {
+	            if(soundInventoryList.get(i))
+	            {
+		           	 attr = doc.createAttribute("inventory");
+		             attr.setValue("true");
+		             soundElement.setAttributeNode(attr);
+	            }
+            }
+            if(narration==i)
+            {
+            	 attr = doc.createAttribute("narration");
+                 attr.setValue("true");
+                 soundElement.setAttributeNode(attr);
+            }
             soundModule.appendChild(soundElement);}
         }
         

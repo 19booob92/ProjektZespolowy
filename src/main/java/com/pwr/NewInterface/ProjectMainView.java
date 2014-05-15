@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -290,6 +291,10 @@ public class ProjectMainView extends JFrame implements Serializable {
 		btnNowaGra.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
+				campaign.setGameTitle(projectTabPane.getGameTitle());
+				campaign.setGameDate(projectTabPane.getGameDate());
+				campaign.setIntroPics(rewriteJListToArrayList(projectTabPane.introPics));
+				campaign.setOutroPics(rewriteJListToArrayList(projectTabPane.outroPics));
 				campaign.createXml();
 			}
 		});
@@ -302,6 +307,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				campaign.loadXml(getXML());
+				projectTabPane.initiateGameFields();
 				projectTabPane.updateGraph();
 				repaint();
 			}
@@ -327,7 +333,16 @@ public class ProjectMainView extends JFrame implements Serializable {
 		
 		leftSidePanel.add(btnSendPackageToSerwer);
 	}
-
+	
+	private ArrayList rewriteJListToArrayList(JList list) {
+		ArrayList newList = new ArrayList();
+		for (int i = 0; i < list.getModel().getSize(); i++) {
+			if (list.getModel().getElementAt(i) != null)
+				newList.add(list.getModel().getElementAt(i));
+		}
+		return newList;
+	}
+	
 	private void createRightSidePanel() {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 0, 1000, 816);

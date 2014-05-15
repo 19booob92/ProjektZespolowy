@@ -38,8 +38,8 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	private static GraphFacade graphFacade;
 	
 	
-	private JList introPics;
-	private JList outroPics;
+	protected JList introPics;
+	protected JList outroPics;
 
 	protected DefaultListModel<String> introPicsListModel;
 	protected DefaultListModel<String> outroPicsListModel;
@@ -101,6 +101,17 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		addIntroOutroButtons();
 	}
 
+	public void initiateGameFields() {
+		this.tfGameTitle.setText(campaign.getGameTitle());
+		this.tfStartDate.setText(campaign.getGameDate());
+		for (String q : campaign.getIntroPics()) {
+			this.introPicsListModel.addElement(q);			
+		}
+		for (String q : campaign.getOutroPics()) {
+			this.introPicsListModel.addElement(q);			
+		}
+	}
+	
 	public void addIntroOutroButtons() {
 		btnAddIntro = new JButton("Dodaj");
 		btnAddIntro.setBounds(101, 206, 89, 23);
@@ -231,5 +242,12 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		} else if (campaign.getEdited() == true) {
 			campaign.editedFalse();
 		}
+	}
+	public String getGameTitle() {
+		return tfGameTitle.getText();
+	}
+	
+	public String getGameDate() {
+		return tfStartDate.getText();
 	}
 }

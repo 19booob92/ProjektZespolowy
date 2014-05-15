@@ -8,6 +8,9 @@ import java.util.logging.Logger;
 
 import javax.xml.transform.TransformerException;
 
+import org.apache.commons.io.FileUtils;
+
+import com.pwr.Editor.PackageCoder;
 import com.pwr.Editor.XmlBuilder;
 import com.pwr.Editor.XmlLoader;
 import com.pwr.Editor.ZipPacker;
@@ -17,6 +20,8 @@ import com.pwr.NewInterface.NewQuizView;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Campaign extends Observable {
 
@@ -33,6 +38,7 @@ public class Campaign extends Observable {
 	private boolean saved = true;
 	
 	private String gameTitle="";
+	private String date="";
 
 	public Campaign() {
 		quests = new ArrayList();
@@ -131,12 +137,14 @@ public class Campaign extends Observable {
 		xml.createIntro(introPics, introPics);
 		xml.createOutro(outroPics, outroPics);
 		for (int i = 0; i < quests.size(); i++) {
-			ZipPacking(quests.get(i));
+			FileTransfer(quests.get(i));
 			QuestPoint tempQuest = quests.get(i);
 			if (tempQuest.getQuestType() == QuestType.TEXTQUEST) {
 				TextQuest quest = (TextQuest) tempQuest;
 				xml.addQuizText(quest.getQuestName(), quest.getPicturePaths(),
-						quest.getSoundPaths(), quest.getQuestDescription(),
+						quest.getPictureInventoryList(),
+						quest.getSoundPaths(), quest.getSoundInventoryList(), quest.soundNarration(),
+						quest.getParagraph(),
 						quest.getPreNote(), quest.getPostNote(),
 						quest.getGoTo(), quest.getPoints(), quest.getDate(),
 						quest.getQuestAnswer(), quest.getQuestTimeout(),
@@ -144,7 +152,9 @@ public class Campaign extends Observable {
 			} else if (tempQuest.getQuestType() == QuestType.FIELDQUEST) {
 				FieldQuest quest = (FieldQuest) tempQuest;
 				xml.addQuizGPS(quest.getQuestName(), quest.getPicturePaths(),
-						quest.getSoundPaths(), quest.getQuestDescription(),
+						quest.getPictureInventoryList(),
+						quest.getSoundPaths(), quest.getSoundInventoryList(), quest.soundNarration(), 
+						quest.getParagraph(),
 						quest.getPreNote(), quest.getPostNote(),
 						quest.getGoTo(), quest.getPoints(), quest.getDate(),
 						quest.getXCoordinate(), quest.getYCoordinate(),
@@ -153,8 +163,11 @@ public class Campaign extends Observable {
 			} else if (tempQuest.getQuestType() == QuestType.DECISIONQUEST) {
 				DecisionQuest quest = (DecisionQuest) tempQuest;
 				xml.addQuizDecision(quest.getQuestName(),
-						quest.getPicturePaths(), quest.getSoundPaths(),
-						quest.getQuestDescription(), quest.getPreNote(),
+						quest.getPicturePaths(),
+						quest.getPictureInventoryList(),
+						quest.getSoundPaths(), quest.getSoundInventoryList(), 
+						quest.soundNarration(),
+						quest.getParagraph(), quest.getPreNote(),
 						quest.getPostNote(), quest.getPoints(),
 						quest.getDate(), quest.getGoToList(),
 						quest.getQuestAnswer(), quest.getQuestTimeout(),
@@ -162,7 +175,9 @@ public class Campaign extends Observable {
 			} else if (tempQuest.getQuestType() == QuestType.CHOICEQUEST) {
 				ChoiceQuest quest = (ChoiceQuest) tempQuest;
 				xml.addQuizMofn(quest.getQuestName(), quest.getPicturePaths(),
-						quest.getSoundPaths(), quest.getQuestDescription(),
+						quest.getPictureInventoryList(),
+						quest.getSoundPaths(), quest.getSoundInventoryList(), quest.soundNarration(),
+						quest.getParagraph(),
 						quest.getPreNote(), quest.getPostNote(),
 						quest.getGoTo(), quest.getPoints(), quest.getDate(),
 						quest.getQuestAnswer(), quest.getQuestAnswerCorrect(),
@@ -170,8 +185,11 @@ public class Campaign extends Observable {
 			} else if (tempQuest.getQuestType() == QuestType.ORDERQUEST) {
 				OrderQuest quest = (OrderQuest) tempQuest;
 				xml.addQuizPermutation(quest.getQuestName(),
-						quest.getPicturePaths(), quest.getSoundPaths(),
-						quest.getQuestDescription(), quest.getPreNote(),
+						quest.getPicturePaths(),
+						quest.getPictureInventoryList(),
+						quest.getSoundPaths(), quest.getSoundInventoryList(),
+						quest.soundNarration(),
+						quest.getParagraph(), quest.getPreNote(),
 						quest.getPostNote(), quest.getGoTo(),
 						quest.getPoints(), quest.getDate(), quest.getWrong(),
 						quest.getQuestTimeout(), quest.getQuestAnswer());
@@ -190,34 +208,92 @@ public class Campaign extends Observable {
 			Logger.getLogger(Campaign.class.getName()).log(Level.SEVERE, null,
 					ex);
 		}
-
+/*
 		try {
-			zip.addFile("Config.xml");
+			zip.addFile("temp"+File.pathSeparator+"Config.xml");
 		} catch (IOException ex) {
 			Logger.getLogger(NewQuizView.class.getName()).log(Level.SEVERE,
 					null, ex);
+		}*/
+		File srcFile = new File("Config.xml");
+		File destFolder = new File("temp");
+		
+		
+		if(destFolder.exists())
+		{
+			try {
+				FileUtils.copyFileToDirectory(srcFile, destFolder);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			srcFile.delete();
+			PackageCoder.codeAllFilesInDirectoryExceptSound("temp");
+			File [] files = destFolder.listFiles();
+			for(int i=0;i<files.length;i++)
+			{
+				try {
+					zip.addFile(files[i].getPath());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				files[i].delete();
+			}
+			destFolder.delete();
 		}
+		
 		zip.closeZip();
 	}
 
-	private void ZipPacking(QuestPoint newQuest) {
+	private void FileTransfer(QuestPoint newQuest) {
+		
+		File destFolder = new File("temp");
+		
+		if(!destFolder.exists())
+		{
+			destFolder.mkdir();
+		}
+		
 		for (int i = 0; i < newQuest.getPicturePaths().size(); i++) {
+			Path path = Paths.get(newQuest.getPicturePaths().get(i));
+			File sourceFile = new File(path.toString());
+			
+			try {
+				FileUtils.copyFileToDirectory(sourceFile, destFolder);
+				//FileUtils.copyDirectory(sourceFile, destFolder);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			/*
 			try {
 				zip.addFile(newQuest.getPicturePaths().get(i));
 			} catch (IOException ex) {
 				Logger.getLogger(NewQuizView.class.getName()).log(Level.SEVERE,
 						null, ex);
-			}
+			}*/
 		}
 
 		for (int i = 0; i < newQuest.getSoundPaths().size(); i++) {
+			Path path = Paths.get(newQuest.getSoundPaths().get(i));
+			File sourceFile = new File(path.toString());
 			try {
+				FileUtils.copyFileToDirectory(sourceFile, destFolder);
+				//FileUtils.copyDirectory(sourceFile, destFolder);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		/*	try {
 				zip.addFile(newQuest.getSoundPaths().get(i));
 			} catch (IOException ex) {
 				Logger.getLogger(NewQuizView.class.getName()).log(Level.SEVERE,
 						null, ex);
-			}
-		}
+			}*/
+		
 
 	}
 	
@@ -225,6 +301,9 @@ public class Campaign extends Observable {
 	{
 		zipUnpacker = new ZipUnpacker(file);
 		zipUnpacker.unZip();
+		
+		PackageCoder.decodeAllFilesInDirectory("temp");
+		
 		XmlLoader xml = new XmlLoader("temp"+File.separator+"Config.xml");
 		xml.LoadXml(this);
 		saved=true;
@@ -262,5 +341,20 @@ public class Campaign extends Observable {
 	public void setGameTitle(String title)
 	{
 		gameTitle=title;
+	}
+	public String getGameTitle() {
+		return gameTitle;
+	}
+	public void setGameDate(String date) {
+		this.date = date;
+	}
+	public String getGameDate() {
+		return date;
+	}
+	public ArrayList<String> getIntroPics() {
+		return introPics;
+	}
+	public ArrayList<String> getOutroPics() {
+		return outroPics;
 	}
 }
