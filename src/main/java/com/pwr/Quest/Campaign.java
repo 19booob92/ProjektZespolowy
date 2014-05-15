@@ -299,14 +299,15 @@ public class Campaign extends Observable {
 	
 	public void loadXml(String file)
 	{
-		zipUnpacker = new ZipUnpacker(file);
-		zipUnpacker.unZip();
-		
-		PackageCoder.decodeAllFilesInDirectory("temp");
-		
-		XmlLoader xml = new XmlLoader("temp"+File.separator+"Config.xml");
-		xml.LoadXml(this);
-		saved=true;
+		if (!file.equals("")) {
+			zipUnpacker = new ZipUnpacker(file);
+			zipUnpacker.unZip();
+			PackageCoder.decodeAllFilesInDirectory("temp");
+			
+			XmlLoader xml = new XmlLoader("temp"+File.separator+"Config.xml");
+			xml.LoadXml(this);
+			saved=true;
+		}
 	}
 	
 	public void closeCampaign()

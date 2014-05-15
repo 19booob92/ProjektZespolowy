@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -22,6 +23,7 @@ import javax.swing.ScrollPaneLayout;
 import javax.swing.border.EtchedBorder;
 
 import com.pwr.Graph.GraphFacade;
+import com.pwr.Other.NoDataInFieldException;
 import com.pwr.Quest.Campaign;
 
 public class ProjectOptionsView extends JPanel implements Observer {
@@ -37,34 +39,33 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	private JLabel lblStartDate;
 	private JLabel lblLista;
 	private static GraphFacade graphFacade;
-	
-	
+
 	protected JList introPics;
 	protected JList outroPics;
 
 	protected DefaultListModel<String> introPicsListModel;
 	protected DefaultListModel<String> outroPicsListModel;
 	protected DefaultListModel<String> quizListModel;
-	
+
 	private JButton btnAddIntro;
 	private JButton btnDelIntro;
 	private JButton btnAddOutro;
 	private JButton btnDelOutro;
 	private JButton btnEdit;
 	private JList listOfQuizes;
-	
+
 	private Campaign campaign;
 
 	public ProjectOptionsView(Campaign camp) {
 		this.setSize(panelWidth, panelHeight);
 		setLayout(null);
-		
+
 		campaign = camp;
 		camp.addObserver(this);
 		introPicsListModel = new DefaultListModel<String>();
 		outroPicsListModel = new DefaultListModel<String>();
 		quizListModel = new DefaultListModel<String>();
-		
+
 		lblGameTitle = new JLabel("Tytuł gry");
 		lblGameTitle.setBounds(10, 28, 81, 14);
 		add(lblGameTitle);
@@ -93,9 +94,10 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		add(outroPics);
 
 		listOfQuizes = new JList(quizListModel);
-		listOfQuizes.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		listOfQuizes.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null,
+				null));
 		listOfQuizes.setBounds(10, 465, 290, 253);
-		
+
 		for (String s : campaign.getQuizesNames())
 			quizListModel.addElement(s);
 		add(listOfQuizes);
@@ -106,13 +108,13 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		this.tfGameTitle.setText(campaign.getGameTitle());
 		this.tfStartDate.setText(campaign.getGameDate());
 		for (String q : campaign.getIntroPics()) {
-			this.introPicsListModel.addElement(q);			
+			this.introPicsListModel.addElement(q);
 		}
 		for (String q : campaign.getOutroPics()) {
-			this.outroPicsListModel.addElement(q);			
+			this.outroPicsListModel.addElement(q);
 		}
 	}
-	
+
 	public void addIntroOutroButtons() {
 		btnAddIntro = new JButton("Dodaj");
 		btnAddIntro.setBounds(101, 206, 89, 23);
@@ -138,30 +140,32 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		tfStartDate.setBounds(10, 125, 290, 28);
 		add(tfStartDate);
 		tfStartDate.setColumns(10);
-		
+
 		graphFacade = new GraphFacade();
-		graphFacade.getGraphPanel().setQuizListFromArrayList(campaign.convertQuiz());
-		graphFacade.getGraphPanel().setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		graphFacade.getGraphPanel().setQuizListFromArrayList(
+				campaign.convertQuiz());
+		graphFacade.getGraphPanel().setBorder(
+				new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		graphFacade.getGraphPanel().setBounds(310, 53, 900, 900);
-		
+
 		JScrollPane graphScrollPane = new JScrollPane();
 		graphScrollPane.setLayout(new ScrollPaneLayout());
 		graphScrollPane.setBounds(310, 53, 600, 600);
 		graphScrollPane.setViewportView(graphFacade.getGraphPanel());
-		
+
 		add(graphScrollPane);
 		graphFacade.getGraphPanel().setPreferredSize(new Dimension(900, 900));
-		
+
 		lblLista = new JLabel("Lista");
 		lblLista.setBounds(10, 439, 85, 14);
 		add(lblLista);
-		
+
 		btnEdit = new JButton("Edytuj");
 		btnEdit.setBounds(211, 435, 89, 23);
 		add(btnEdit);
 		addButtonsListeners();
 	}
-	
+
 	private void addButtonsListeners() {
 		btnAddOutro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -174,9 +178,9 @@ public class ProjectOptionsView extends JPanel implements Observer {
 				getPicturesPath(introPicsListModel);
 			}
 		});
-		
+
 		btnEdit.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				int ind = listOfQuizes.getSelectedIndex();
 				if (ind >= 0) {
@@ -184,9 +188,9 @@ public class ProjectOptionsView extends JPanel implements Observer {
 				}
 			}
 		});
-		
+
 		btnDelIntro.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				int ind = introPics.getSelectedIndex();
 				if (ind >= 0) {
@@ -194,9 +198,9 @@ public class ProjectOptionsView extends JPanel implements Observer {
 				}
 			}
 		});
-		
+
 		btnDelOutro.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				int ind = outroPics.getSelectedIndex();
 				if (ind >= 0) {
@@ -205,7 +209,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			}
 		});
 	}
-	
+
 	private void getPicturesPath(DefaultListModel<String> list) {
 		JFileChooser chooser = new JFileChooser();
 		chooser.setCurrentDirectory(new java.io.File("."));
@@ -220,24 +224,25 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			System.out.println("No Selection ");
 		}
 	}
-	
+
 	public static void updateView() {
 		graphFacade.getGraphPanel().repaint();
 	}
-	
+
 	public DefaultListModel getQuizListModel() {
 		return quizListModel;
 	}
-	
-	public void updateGraph()
-	{
-		graphFacade.getGraphPanel().setQuizListFromArrayList(campaign.convertQuiz());
+
+	public void updateGraph() {
+		graphFacade.getGraphPanel().setQuizListFromArrayList(
+				campaign.convertQuiz());
 		graphFacade.getGraphPanel().repaint();
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		graphFacade.getGraphPanel().setQuizListFromArrayList(campaign.convertQuiz());
+		graphFacade.getGraphPanel().setQuizListFromArrayList(
+				campaign.convertQuiz());
 		graphFacade.getGraphPanel().repaint();
 		if (campaign.getCreated() == true) {
 			quizListModel.addElement(campaign.getLastQuiz().ToString());
@@ -246,11 +251,26 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			campaign.editedFalse();
 		}
 	}
+
 	public String getGameTitle() {
-		return tfGameTitle.getText();
+		if (tfGameTitle.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Podaj tytul");
+			throw new NoDataInFieldException();
+		} else {
+			return tfGameTitle.getText();
+		}
 	}
-	
+
 	public String getGameDate() {
-		return tfStartDate.getText();
+		if (!tfStartDate
+				.getText()
+				.matches(
+						"[0-3][0-9]-[0-1][0-9]-[0-9]{4} [0-2][0-9]:[0-6][0-9]:[0-6][0-9]")) {
+			JOptionPane.showMessageDialog(null,
+					"Podaj date w formacie dd-MM-rrrr hh:mm:ss");
+			throw new NoDataInFieldException();
+		} else {
+			return tfStartDate.getText();
+		}
 	}
 }
