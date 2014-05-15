@@ -199,7 +199,7 @@ public class XmlLoader {
 			ArrayList<String> soundList = new ArrayList();
 			ArrayList<Boolean> soundInventoryList = new ArrayList();
 			int narration = -1;
-			ArrayList<String> paragraphList = new ArrayList();
+			String paragraphList = "";
 			Node node = nList.item(i);
 			
 			if(node.getNodeType()==Node.ELEMENT_NODE)
@@ -262,7 +262,7 @@ public class XmlLoader {
 				{
 					if(paragraphSrcElement.getNodeType()==Element.ELEMENT_NODE)
 					{
-						paragraphList.add(paragraphSrcElement.getElementsByTagName("paragraph").item(j).getTextContent().trim());
+						paragraphList=(paragraphSrcElement.getElementsByTagName("paragraph").item(j).getTextContent().trim());
 					}
 				}
 				
@@ -382,7 +382,7 @@ public class XmlLoader {
 	}
 	
 	private void setQuest(QuestPoint quest, String title,ArrayList<String> imageList,ArrayList<Boolean> imageInventoryList,ArrayList<String> soundList, 
-            ArrayList<Boolean> soundInventoryList, int narration, ArrayList<String> paragraphList, String preNote, String postNote)
+            ArrayList<Boolean> soundInventoryList, int narration, String paragraphList, String preNote, String postNote)
 	{
 		quest.setQuestName(title);
 		quest.setPicturePaths(imageList);
@@ -390,7 +390,7 @@ public class XmlLoader {
 		quest.setSoundPaths(soundList);
 		quest.setSoundInventoryList(soundInventoryList);
 		quest.setSoundNarration(narration);
-		quest.setQuestDescription(paragraphList);
+		quest.setParagraph(paragraphList);
 		quest.setPreNote(preNote);
 		quest.setPostNote(postNote);
 	}

@@ -286,9 +286,9 @@ public class QuestDetailsView extends JFrame implements KeyListener {
 	private void constructTextQuestFields()
 	{
 		
-		questContent = new JTextArea(mapPoint.getQuest().getQuestDescription().get(0));
-		questContent.setBounds(12, 283, 500, 107);
-		generalPanel.add(questContent);
+		//questContent = new JTextArea(mapPoint.getQuest().getQuestDescription().get(0));
+		//questContent.setBounds(12, 283, 500, 107);
+		//generalPanel.add(questContent);
 		
 		lblQuestAnswer = new JLabel("Quest Answer");
 		lblQuestAnswer.setBounds(12, 409, 117, 14);
