@@ -39,33 +39,36 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	private JLabel lblStartDate;
 	private JLabel lblLista;
 	private static GraphFacade graphFacade;
-
+	private JScrollPane graphScrollPane;
+	private JScrollPane outroScroll;
+	private JScrollPane introScroll;
+	private JScrollPane listScroll;
 	protected JList introPics;
 	protected JList outroPics;
 
 	protected DefaultListModel<String> introPicsListModel;
 	protected DefaultListModel<String> outroPicsListModel;
 	protected DefaultListModel<String> quizListModel;
-
+	
 	private JButton btnAddIntro;
 	private JButton btnDelIntro;
 	private JButton btnAddOutro;
 	private JButton btnDelOutro;
 	private JButton btnEdit;
 	private JList listOfQuizes;
-
+	
 	private Campaign campaign;
 
 	public ProjectOptionsView(Campaign camp) {
 		this.setSize(panelWidth, panelHeight);
 		setLayout(null);
-
+		
 		campaign = camp;
 		camp.addObserver(this);
 		introPicsListModel = new DefaultListModel<String>();
 		outroPicsListModel = new DefaultListModel<String>();
 		quizListModel = new DefaultListModel<String>();
-
+		
 		lblGameTitle = new JLabel("Tytuł gry");
 		lblGameTitle.setBounds(10, 28, 81, 14);
 		add(lblGameTitle);
@@ -82,25 +85,27 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		lblOutroModulePics = new JLabel("Obrazy Outra");
 		lblOutroModulePics.setBounds(10, 317, 81, 14);
 		add(lblOutroModulePics);
-
+		
 		introPics = new JList(introPicsListModel);
-		introPics.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		introPics.setBounds(10, 233, 290, 69);
-		add(introPics);
+		introScroll = new JScrollPane(introPics);
+		introScroll.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		introScroll.setBounds(10, 233, 290, 69);
+		add(introScroll);
 
 		outroPics = new JList(outroPicsListModel);
-		outroPics.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		outroPics.setBounds(10, 342, 290, 69);
-		add(outroPics);
+		outroScroll = new JScrollPane(outroPics);
+		outroScroll.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		outroScroll.setBounds(10, 342, 290, 69);
+		add(outroScroll);
 
 		listOfQuizes = new JList(quizListModel);
-		listOfQuizes.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null,
-				null));
-		listOfQuizes.setBounds(10, 465, 290, 253);
-
+		listScroll = new JScrollPane(listOfQuizes);
+		listScroll.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		listScroll.setBounds(10, 465, 290, 253);
+		
 		for (String s : campaign.getQuizesNames())
 			quizListModel.addElement(s);
-		add(listOfQuizes);
+		add(listScroll);
 		addIntroOutroButtons();
 	}
 
@@ -108,13 +113,13 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		this.tfGameTitle.setText(campaign.getGameTitle());
 		this.tfStartDate.setText(campaign.getGameDate());
 		for (String q : campaign.getIntroPics()) {
-			this.introPicsListModel.addElement(q);
+			this.introPicsListModel.addElement(q);			
 		}
 		for (String q : campaign.getOutroPics()) {
-			this.outroPicsListModel.addElement(q);
+			this.outroPicsListModel.addElement(q);			
 		}
 	}
-
+	
 	public void addIntroOutroButtons() {
 		btnAddIntro = new JButton("Dodaj");
 		btnAddIntro.setBounds(101, 206, 89, 23);
@@ -140,15 +145,13 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		tfStartDate.setBounds(10, 125, 290, 28);
 		add(tfStartDate);
 		tfStartDate.setColumns(10);
-
+		
 		graphFacade = new GraphFacade();
-		graphFacade.getGraphPanel().setQuizListFromArrayList(
-				campaign.convertQuiz());
-		graphFacade.getGraphPanel().setBorder(
-				new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		graphFacade.getGraphPanel().setQuizListFromArrayList(campaign.convertQuiz());
+		graphFacade.getGraphPanel().setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		graphFacade.getGraphPanel().setBounds(310, 53, 900, 900);
-
-		JScrollPane graphScrollPane = new JScrollPane();
+		
+		graphScrollPane = new JScrollPane();
 		graphScrollPane.setLayout(new ScrollPaneLayout());
 		graphScrollPane.setBounds(310, 53, 600, 600);
 		graphScrollPane.setViewportView(graphFacade.getGraphPanel());
@@ -232,11 +235,12 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	public DefaultListModel getQuizListModel() {
 		return quizListModel;
 	}
-
-	public void updateGraph() {
-		graphFacade.getGraphPanel().setQuizListFromArrayList(
-				campaign.convertQuiz());
-		graphFacade.getGraphPanel().repaint();
+	
+	public void updateGraph()
+	{
+		graphFacade.getGraphPanel().setQuizListFromArrayList(campaign.convertQuiz());
+		graphScrollPane.repaint();
+		//graphFacade.getGraphPanel().repaint();
 	}
 
 	@Override
