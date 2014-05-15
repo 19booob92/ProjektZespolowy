@@ -28,6 +28,7 @@ public class GraphPanel extends JPanel  implements MouseListener{
 	static public int space =70;
 	static public int xOffset = 50;
 	static public int yOffset = 50;
+	static final int DEFAULT_PANEL_SIZE = 500;
 	int lineColor=0;
 	
 	ArrayList<GraphClick> oldClick= new ArrayList<GraphClick>();
@@ -40,7 +41,7 @@ public class GraphPanel extends JPanel  implements MouseListener{
 	public GraphPanel() {
 		super();
 		quizList = new ArrayList<QuizDataObject>();
-		setPreferredSize(new Dimension((int) (200+GraphPanel.xOffset+quizList.size() * (QuizDataObject.getSize()+GraphPanel.space)), (int)(200+GraphPanel.yOffset+quizList.size() * (QuizDataObject.getSize()+GraphPanel.space))));
+		setPreferredSize(new Dimension((int) (DEFAULT_PANEL_SIZE+GraphPanel.xOffset+quizList.size() * (QuizDataObject.getSize()+GraphPanel.space)), (int)(200+GraphPanel.yOffset+quizList.size() * (QuizDataObject.getSize()+GraphPanel.space))));
 		addMouseListener(this);
 	}
 
@@ -48,7 +49,7 @@ public class GraphPanel extends JPanel  implements MouseListener{
 		for (int n = 0; n < qDB.length; n++) {
 			quizList.add(qDB[n]);
 		}
-		setPreferredSize(new Dimension((int) (200+GraphPanel.xOffset+quizList.size() * (QuizDataObject.getSize()+GraphPanel.space)), (int)(200+GraphPanel.yOffset+quizList.size() * (QuizDataObject.getSize()+GraphPanel.space))));
+		setPreferredSize(new Dimension((int) (DEFAULT_PANEL_SIZE+GraphPanel.xOffset+quizList.size() * (QuizDataObject.getSize()+GraphPanel.space)), (int)(200+GraphPanel.yOffset+quizList.size() * (QuizDataObject.getSize()+GraphPanel.space))));
 		
 	}
 
@@ -57,7 +58,7 @@ public class GraphPanel extends JPanel  implements MouseListener{
 		for (QuizDataObject q : qDB) {
 			quizList.add(q);
 		}
-		setPreferredSize(new Dimension((int) (200+GraphPanel.xOffset+quizList.size() * (QuizDataObject.getSize()+GraphPanel.space)), (int)(200+GraphPanel.yOffset+quizList.size() * (QuizDataObject.getSize()+GraphPanel.space))));
+		setPreferredSize(new Dimension((int) (DEFAULT_PANEL_SIZE+GraphPanel.xOffset+quizList.size() * (QuizDataObject.getSize()+GraphPanel.space)), (int)(200+GraphPanel.yOffset+quizList.size() * (QuizDataObject.getSize()+GraphPanel.space))));
 	}
 	
 	@Override
