@@ -348,8 +348,13 @@ public class Campaign extends Observable {
 	public void setGameDate(String date) {
 		this.date = date;
 	}
-
 	public String getGameDate() {
 		return date;
+	}
+	public ArrayList<String> getIntroPics() {
+		return introPics;
+	}
+	public ArrayList<String> getOutroPics() {
+		return outroPics;
 	}
 }
