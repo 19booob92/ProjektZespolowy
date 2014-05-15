@@ -141,11 +141,11 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		graphFacade = new GraphFacade();
 		graphFacade.getGraphPanel().setQuizListFromArrayList(campaign.convertQuiz());
 		graphFacade.getGraphPanel().setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		graphFacade.getGraphPanel().setPreferredSize(new Dimension(700, 900));
+		graphFacade.getGraphPanel().setPreferredSize(new Dimension(900, 900));
 		
 		JScrollPane graphScrollPane = new JScrollPane();
 		graphScrollPane.setLayout(new ScrollPaneLayout());
-		graphScrollPane.setBounds(310, 53, 400, 400);
+		graphScrollPane.setBounds(310, 53, 600, 600);
 		graphScrollPane.setViewportView(graphFacade.getGraphPanel());
 		add(graphScrollPane);
 		
