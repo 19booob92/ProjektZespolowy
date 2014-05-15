@@ -44,7 +44,7 @@ public class UserDetailsView extends JFrame {
 	private static String userName;
 
 	public UserDetailsView() {
-		setBounds(100, 100, 293, 300);
+		setBounds(100, 100, 534, 300);
 		Toolkit toolkt = Toolkit.getDefaultToolkit();
 		Dimension screenSize = toolkt.getScreenSize();
 		this.setLocation(screenSize.width / 4, screenSize.height / 4);
@@ -89,7 +89,7 @@ public class UserDetailsView extends JFrame {
 			}
 		});
 
-		btnCreateGameForUser.setBounds(162, 192, 117, 25);
+		btnCreateGameForUser.setBounds(10, 132, 117, 25);
 		getContentPane().add(btnCreateGameForUser);
 
 		btnDeleteUser.addActionListener(new ActionListener() {
@@ -103,8 +103,8 @@ public class UserDetailsView extends JFrame {
 				}
 			}
 		});
-		btnDeleteUser.setBounds(17, 156, 117, 25);
-		btnDeleteAllDoneQuests.setBounds(162, 120, 117, 65);
+		btnDeleteUser.setBounds(391, 90, 117, 25);
+		btnDeleteAllDoneQuests.setBounds(38, 213, 196, 37);
 		contentPane.add(btnDeleteUser);
 		contentPane.add(btnDeleteAllDoneQuests);
 
@@ -122,7 +122,7 @@ public class UserDetailsView extends JFrame {
 				}
 			}
 		});
-		btnDeleteGame.setBounds(17, 192, 117, 25);
+		btnDeleteGame.setBounds(137, 132, 117, 25);
 		contentPane.add(btnDeleteGame);
 
 		JButton btnUpdate = new JButton("Update");
@@ -146,21 +146,21 @@ public class UserDetailsView extends JFrame {
 				setUserName(name);
 			}
 		});
-		btnUpdate.setBounds(17, 120, 117, 25);
+		btnUpdate.setBounds(264, 90, 117, 25);
 		contentPane.add(btnUpdate);
 
 		login = new JTextField();
-		login.setBounds(20, 30, 122, 30);
+		login.setBounds(10, 30, 246, 30);
 		contentPane.add(login);
 		login.setColumns(10);
 
 		pass = new JTextField();
-		pass.setBounds(144, 30, 122, 30);
+		pass.setBounds(262, 30, 246, 30);
 		contentPane.add(pass);
 		pass.setColumns(10);
 
 		email = new JTextField();
-		email.setBounds(20, 75, 122, 30);
+		email.setBounds(10, 87, 244, 30);
 		contentPane.add(email);
 		email.setColumns(10);
 
@@ -169,11 +169,11 @@ public class UserDetailsView extends JFrame {
 		contentPane.add(lblLogin);
 
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(143, 11, 70, 15);
+		lblPassword.setBounds(262, 11, 70, 15);
 		contentPane.add(lblPassword);
 
 		JLabel lblEmail = new JLabel("E-Mail");
-		lblEmail.setBounds(20, 60, 70, 15);
+		lblEmail.setBounds(20, 68, 70, 15);
 		contentPane.add(lblEmail);
 	}
 
