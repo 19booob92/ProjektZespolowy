@@ -25,6 +25,7 @@ import javax.swing.border.EtchedBorder;
 import com.pwr.Graph.GraphFacade;
 import com.pwr.Other.NoDataInFieldException;
 import com.pwr.Quest.Campaign;
+import com.pwr.Quest.QuestPoint;
 
 public class ProjectOptionsView extends JPanel implements Observer {
 
@@ -201,8 +202,16 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			
 			public void actionPerformed(ActionEvent e) {
 				int ind = listOfQuizes.getSelectedIndex();
-				if (quizListModel.size() != 0)
-					quizListModel.remove(ind);
+				if (quizListModel.size() != 0) {
+					for (QuestPoint q : campaign.getQuizes()) {
+						if (q.getQuestName() == quizListModel.get(ind)) {
+							campaign.getQuizes().remove(q);
+							updateGraph();
+							quizListModel.remove(ind);
+							break;
+						}
+					}
+				}
 			}
 		});
 
