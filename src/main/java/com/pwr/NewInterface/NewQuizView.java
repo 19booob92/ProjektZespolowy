@@ -470,11 +470,8 @@ public class NewQuizView extends JFrame {
 	}
 
 	private void GetGeneralQuestFields(QuestPoint newQuest, QuestView questView) {
-		if (newQuest.getPicturePaths().size() != 0
-				&& newQuest.getSoundPaths().size() != 0) {
-			newQuest.setPicturePaths(rewriteJListToArrayList(selectedCard.pics));
-			newQuest.setSoundPaths(rewriteJListToArrayList(selectedCard.sounds));
-		}
+		newQuest.setPicturePaths(rewriteJListToArrayList(selectedCard.pics));
+		newQuest.setSoundPaths(rewriteJListToArrayList(selectedCard.sounds));
 		newQuest.setParagraph(selectedCard.paragraph);
 		newQuest.setQuestTimeout(Integer.parseInt(timeoutField.getText()));
 
