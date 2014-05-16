@@ -50,7 +50,7 @@ public class Campaign extends Observable {
 	}
 
 	public List<QuizDataObject> convertQuiz() {
-		List<QuizDataObject> quizDTOs = new ArrayList<>();
+		List<QuizDataObject> quizDTOs = new ArrayList<QuizDataObject>();
 		for (QuestPoint q : quests) {
 			quizDTOs.add(q.convert());
 		}
