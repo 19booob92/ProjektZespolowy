@@ -10,10 +10,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jdesktop.swingx.calendar.SingleDaySelectionModel;
+import org.jdesktop.swingx.JXDatePicker;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -29,6 +35,7 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 import com.pwr.Editor.ZipPacker;
+import com.pwr.Other.DateTimePicker;
 import com.pwr.Other.NoDataInFieldException;
 import com.pwr.Quest.Campaign;
 import com.pwr.Quest.ChoiceQuest;
@@ -49,6 +56,8 @@ public class NewQuizView extends JFrame {
 	private JScrollPane leftScroll;
 	private JScrollPane rightScroll;
 
+	private Date datePickerDate;
+	private DateTimePicker dateTimePicker;
 	private JButton btnSaveQuiz;
 	private JLabel lblTimeout;
 	private JLabel lblType;
@@ -66,7 +75,6 @@ public class NewQuizView extends JFrame {
 	private JTextField timeoutField;
 	private JTextField tfQuizName;
 	protected JTextField points;
-	protected JTextField date;
 
 	private QuestView selectedCard;
 
@@ -87,6 +95,8 @@ public class NewQuizView extends JFrame {
 		quizIndex = qInd;
 		initWindow();
 		fillFieldsWithQuizData();
+		pack();
+		System.out.println(dateTimePicker.getDate());
 	}
 
 	/**
@@ -111,6 +121,15 @@ public class NewQuizView extends JFrame {
 		rightSidePanel
 				.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
 
+		datePickerDate = new Date();
+		dateTimePicker = new DateTimePicker(datePickerDate);
+		dateTimePicker.setBounds(24, 205, 226, 27);
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		dateTimePicker.setFormats( dateFormat );
+		dateTimePicker.setTimeFormat( DateFormat.getTimeInstance( DateFormat.MEDIUM ) );
+		dateTimePicker.setDate(datePickerDate);
+		leftSidePanel.add(dateTimePicker);
+		
 		leftScroll = new JScrollPane(leftSidePanel);
 		rightScroll = new JScrollPane(rightSidePanel);
 		rightScroll
@@ -157,6 +176,7 @@ public class NewQuizView extends JFrame {
 			fillWithGeneralData(q, textView);
 			fillWithTextQuestData((TextQuest) q);
 		}
+		System.out.println(dateTimePicker.getDate());
 	}
 
 	private void fillWithGeneralData(QuestPoint q, QuestView view) {
@@ -168,8 +188,16 @@ public class NewQuizView extends JFrame {
 		rewriteArrayListToJList(q.getPicturePaths(), view.picsListModel);
 		rewriteArrayListToJList(q.getSoundPaths(), view.soundsListModel);
 		points.setText(Integer.toString(q.getPoints()));
-		date.setText(q.getDate());
-		
+		SimpleDateFormat simple = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		try {
+			
+			datePickerDate=simple.parse(q.getDate());
+			dateTimePicker.setDate(simple.parse(q.getDate()));
+			dateTimePicker.updateUI();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		System.out.println(dateTimePicker.getDate());
 		view.paragraph=q.getParagraph();
 	}
 
@@ -251,10 +279,6 @@ public class NewQuizView extends JFrame {
 		wrong = new JTextField();
 		leftSidePanel.add(wrong);
 		wrong.setBounds(24, 258, 226, 27);
-
-		date = new JTextField("dd-MM-yyyy hh:mm:ss");
-		leftSidePanel.add(date);
-		date.setBounds(24, 205, 226, 27);
 
 		points = new JTextField();
 		leftSidePanel.add(points);
@@ -474,19 +498,20 @@ public class NewQuizView extends JFrame {
 		newQuest.setSoundPaths(rewriteJListToArrayList(selectedCard.sounds));
 		newQuest.setParagraph(selectedCard.paragraph);
 		newQuest.setQuestTimeout(Integer.parseInt(timeoutField.getText()));
-
+		SimpleDateFormat simpleFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		Date dsa=dateTimePicker.getDate();
+		newQuest.setDate(simpleFormat.format(dsa));
+		System.out.println(newQuest.getDate());
 		validateName(newQuest);
 		validateData(newQuest);
 		validatePoints(newQuest);
-		newQuest.setDate(date.getText());
+		//newQuest.setDate(date.getText());
 		newQuest.setPostNote(selectedCard.postNote.getText());
 		newQuest.setPreNote(selectedCard.preNote.getText());
 	}
 
 	private void validateData(QuestPoint newQuest) {
-		if (!this.date
-				.getText()
-				.matches(
+		if (!newQuest.getDate().matches(
 						"[0-3][0-9]-[0-1][0-9]-[0-9]{4} [0-2][0-9]:[0-6][0-9]:[0-6][0-9]")) {
 			JOptionPane.showMessageDialog(null,
 					"Podaj date w formacie dd-MM-rrrr hh:mm:ss");

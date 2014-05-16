@@ -75,8 +75,8 @@ public class GraphPanel extends JPanel  implements MouseListener{
 		quizWrong.clear();
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setColor(new Color(0.95f,0.95f,0.95f));
-		//g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
-		g2d.drawImage(Toolkit.getDefaultToolkit().getImage("grid.jpg"), 0, 0, null);
+		g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+		//g2d.drawImage(Toolkit.getDefaultToolkit().getImage("grid.jpg"), 0, 0, null);
 		g2d.setColor(new Color(0.7f, 0.1f, 0.1f));
 		drawQuizList(g);
 		g.setColor(Color.RED);
