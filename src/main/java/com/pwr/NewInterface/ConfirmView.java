@@ -22,7 +22,7 @@ public class ConfirmView extends JFrame {
 	private JButton btnCancel;
 	private JLabel confirm;
 
-	ConfirmView() {
+	public ConfirmView() {
 		super("Potwierdzenie");
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
