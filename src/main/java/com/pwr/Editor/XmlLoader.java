@@ -134,17 +134,23 @@ public class XmlLoader {
 			if (nodeSettings.getNodeType() == Element.ELEMENT_NODE) {
 				Element element = (Element) nodeSettings;
 				settingsStartdate = element.getAttribute("startdate").trim();
+				campaign.setGameDate(element.getAttribute("startdate").trim());
+				if(element.getElementsByTagName("backGround1").item(0)!=null)
 				settingsBackGround1 = element
 						.getElementsByTagName("backGround1").item(0)
 						.getTextContent().trim();
+				if(element.getElementsByTagName("backGround2").item(0)!=null)
 				settingsBackGround2 = element
 						.getElementsByTagName("backGround2").item(0)
 						.getTextContent().trim();
+				if(element.getElementsByTagName("backGround3").item(0)!=null)
 				settingsBackGround3 = element
 						.getElementsByTagName("backGround3").item(0)
 						.getTextContent().trim();
+				if(element.getElementsByTagName("logo1").item(0)!=null)
 				settingsLogo1 = element.getElementsByTagName("logo1").item(0)
 						.getTextContent().trim();
+				if(element.getElementsByTagName("button1").item(0)!=null)
 				settingsButton1 = element.getElementsByTagName("button1")
 						.item(0).getTextContent().trim();
 			}

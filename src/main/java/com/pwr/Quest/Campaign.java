@@ -195,12 +195,13 @@ public class Campaign extends Observable {
 						quest.getQuestTimeout(), quest.getQuestAnswer());
 			}
 		}
-
+		xml.addSettings(this.date);
 		for (int i = 0; i < boxes.size(); i++) {
 			TreasureBox box = boxes.get(i);
 			xml.addTreasureBox(box.getxCoordinate(), box.getyCoordinate(),
 					box.getWidth(), box.getHeight(), box.getNote());
 		}
+		
 
 		try {
 			xml.saveXml();
@@ -226,6 +227,27 @@ public class Campaign extends Observable {
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+			}
+			for(int i=0; i<introPics.size();i++)
+			{
+				srcFile = new File(introPics.get(i));
+				try {
+					FileUtils.copyFileToDirectory(srcFile, destFolder);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			for(int i=0; i<outroPics.size();i++)
+			{
+				srcFile = new File(outroPics.get(i));
+				try {
+					FileUtils.copyFileToDirectory(srcFile, destFolder);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			srcFile.delete();
 			PackageCoder.codeAllFilesInDirectoryExceptSound("temp");
