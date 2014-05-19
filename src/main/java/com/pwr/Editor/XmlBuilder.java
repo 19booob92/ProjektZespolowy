@@ -85,13 +85,15 @@ public class XmlBuilder {
     
     public void createIntro(ArrayList<String> imageList, ArrayList<String> descriptionList)
     {
+
         Element introElement = doc.createElement("intro");
         gameModule.appendChild(introElement);
         for(int i=0;i<imageList.size();i++)
         {
+        Path path = Paths.get(imageList.get(i));
         Element introModule = doc.createElement("introModule");
         Attr attr = doc.createAttribute("image");
-        attr.setValue(imageList.get(i));
+        attr.setValue(path.getFileName().toString());
         introModule.setAttributeNode(attr);
         introModule.appendChild(doc.createTextNode(descriptionList.get(i)));
         introElement.appendChild(introModule);
@@ -104,9 +106,10 @@ public class XmlBuilder {
         gameModule.appendChild(outroElement);
         for(int i=0;i<imageList.size();i++)
         {
+        Path path = Paths.get(imageList.get(i));
         Element outroModule = doc.createElement("outroModule");
         Attr attr = doc.createAttribute("image");
-        attr.setValue(imageList.get(i));
+        attr.setValue(path.getFileName().toString());
         outroModule.setAttributeNode(attr);
         outroModule.appendChild(doc.createTextNode(descriptionList.get(i)));
         outroElement.appendChild(outroModule);

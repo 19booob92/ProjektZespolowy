@@ -244,7 +244,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		chooser.setAcceptAllFileFilterUsed(false);
 
 		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-			String str = chooser.getSelectedFile().getName();
+			String str = chooser.getSelectedFile().getPath();
 			list.addElement(str);
 		} else {
 			System.out.println("No Selection ");

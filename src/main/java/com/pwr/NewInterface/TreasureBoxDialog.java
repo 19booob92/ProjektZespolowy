@@ -2,17 +2,12 @@ package com.pwr.NewInterface;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
-
-import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,14 +18,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import com.lowagie.text.pdf.TextField;
 import com.pwr.Map.GoogleMapPanel;
 import com.pwr.Quest.Campaign;
 import com.pwr.Quest.TreasureBox;
 
 public class TreasureBoxDialog extends JDialog{
 	
-	private JLabel noteLabel;
 	private JLabel xLabel;
 	private JLabel yLabel;
 	private JLabel widthLabel;
@@ -59,7 +52,6 @@ public class TreasureBoxDialog extends JDialog{
 	{
 		super();
 		this.campaignRef=campaign;
-		this.index=index;
 		this.setSize(800,600);
 		this.setLayout(new BorderLayout());
 		this.setResizable(false);
@@ -283,7 +275,6 @@ public class TreasureBoxDialog extends JDialog{
 	{
 		treasureComboBox.removeAllItems();
 		treasureComboBox.setModel(new DefaultComboBoxModel(campaignRef.getTreasureBoxes().toArray()));
-		//treasureComboBox.setSelectedIndex(0);
 	}
 
 }

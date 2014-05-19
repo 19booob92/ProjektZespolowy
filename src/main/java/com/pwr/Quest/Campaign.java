@@ -209,13 +209,7 @@ public class Campaign extends Observable {
 			Logger.getLogger(Campaign.class.getName()).log(Level.SEVERE, null,
 					ex);
 		}
-/*
-		try {
-			zip.addFile("temp"+File.pathSeparator+"Config.xml");
-		} catch (IOException ex) {
-			Logger.getLogger(NewQuizView.class.getName()).log(Level.SEVERE,
-					null, ex);
-		}*/
+
 		File srcFile = new File("Config.xml");
 		File destFolder = new File("temp");
 		
@@ -288,13 +282,6 @@ public class Campaign extends Observable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			/*
-			try {
-				zip.addFile(newQuest.getPicturePaths().get(i));
-			} catch (IOException ex) {
-				Logger.getLogger(NewQuizView.class.getName()).log(Level.SEVERE,
-						null, ex);
-			}*/
 		}
 
 		for (int i = 0; i < newQuest.getSoundPaths().size(); i++) {
@@ -308,15 +295,6 @@ public class Campaign extends Observable {
 				e.printStackTrace();
 			}
 		}
-		
-		/*	try {
-				zip.addFile(newQuest.getSoundPaths().get(i));
-			} catch (IOException ex) {
-				Logger.getLogger(NewQuizView.class.getName()).log(Level.SEVERE,
-						null, ex);
-			}*/
-		
-
 	}
 	
 	public void loadXml(String file)
