@@ -271,7 +271,7 @@ public class XmlBuilder {
         
         Element widthElement = doc.createElement("width");
         widthElement.appendChild(doc.createTextNode(Double.toString(width)));
-        coordinatesModule.appendChild(doc.createTextNode(Double.toString(width)));
+        coordinatesModule.appendChild(widthElement);
         
         Element heightElement = doc.createElement("height");
         heightElement.appendChild(doc.createTextNode(Double.toString(height)));

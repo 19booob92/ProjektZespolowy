@@ -250,7 +250,7 @@ public class Campaign extends Observable {
 				}
 			}
 			srcFile.delete();
-			PackageCoder.codeAllFilesInDirectoryExceptSound("temp");
+			//PackageCoder.codeAllFilesInDirectoryExceptSound("temp");
 			File [] files = destFolder.listFiles();
 			for(int i=0;i<files.length;i++)
 			{
@@ -324,7 +324,7 @@ public class Campaign extends Observable {
 		if (!file.equals("")) {
 			zipUnpacker = new ZipUnpacker(file);
 			zipUnpacker.unZip();
-			PackageCoder.decodeAllFilesInDirectory("temp");
+			//PackageCoder.decodeAllFilesInDirectory("temp");
 			
 			XmlLoader xml = new XmlLoader("temp"+File.separator+"Config.xml");
 			xml.LoadXml(this);
@@ -379,5 +379,13 @@ public class Campaign extends Observable {
 	}
 	public ArrayList<String> getOutroPics() {
 		return outroPics;
+	}
+	public void putTreasureBox(TreasureBox box, int index)
+	{
+		this.boxes.set(index, box);
+	}
+	public TreasureBox getTreasureBox(int index)
+	{
+		return boxes.get(index);
 	}
 }

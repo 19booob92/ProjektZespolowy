@@ -50,6 +50,11 @@ public class TreasureBox {
     public void setNote(String note) {
         this.note = note;
     }
+    
+    public String toString()
+    {
+    	return note;
+    }
         
         
 }

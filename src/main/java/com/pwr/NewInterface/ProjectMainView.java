@@ -79,6 +79,8 @@ public class ProjectMainView extends JFrame implements Serializable {
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
 	private JPanel userTabPane;
+	
+	private TreasureBoxDialog treasureBoxDialog;
 
 	private JScrollPane rightScroll;
 
@@ -100,6 +102,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 	private JButton btnLoadQuests;
 	private JButton btnDeleteQuestts;
 	private JButton btnSendPackageToSerwer;
+	private JButton btnAddTreasureBox;
 
 	private JLabel lblOpcjeProjektu;
 	private JLabel lblOpcjeUserow;
@@ -329,6 +332,21 @@ public class ProjectMainView extends JFrame implements Serializable {
 		});
 
 		leftSidePanel.add(btnSendPackageToSerwer);
+		
+		btnAddTreasureBox = new JButton("Zarządzanie skrytkami");
+		btnAddTreasureBox.setBounds(6,268,206,28);
+		
+		btnAddTreasureBox.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				treasureBoxDialog = new TreasureBoxDialog(campaign);
+			}
+			
+		});
+		
+		leftSidePanel.add(btnAddTreasureBox);
 	}
 
 	private void wczytajPaczke() {
