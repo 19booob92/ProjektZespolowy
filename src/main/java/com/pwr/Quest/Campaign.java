@@ -230,7 +230,9 @@ public class Campaign extends Observable {
 			for(int i=0; i<introPics.size();i++)
 			{
 				srcFile = new File(introPics.get(i));
+				Path path = Paths.get(introPics.get(i));
 				try {
+					if(!path.getParent().toString().equals("temp"))
 					FileUtils.copyFileToDirectory(srcFile, destFolder);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -241,7 +243,9 @@ public class Campaign extends Observable {
 			for(int i=0; i<outroPics.size();i++)
 			{
 				srcFile = new File(outroPics.get(i));
+				Path path = Paths.get(outroPics.get(i));
 				try {
+					if(!path.getParent().toString().equals("temp"))
 					FileUtils.copyFileToDirectory(srcFile, destFolder);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -259,9 +263,9 @@ public class Campaign extends Observable {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				files[i].delete();
+				//files[i].delete();
 			}
-			destFolder.delete();
+			//destFolder.delete();
 		}
 		
 		zip.closeZip();
@@ -281,6 +285,7 @@ public class Campaign extends Observable {
 			File sourceFile = new File(path.toString());
 			
 			try {
+				if(!path.getParent().toString().equals("temp"))
 				FileUtils.copyFileToDirectory(sourceFile, destFolder);
 				//FileUtils.copyDirectory(sourceFile, destFolder);
 			} catch (IOException e) {
@@ -293,12 +298,54 @@ public class Campaign extends Observable {
 			Path path = Paths.get(newQuest.getSoundPaths().get(i));
 			File sourceFile = new File(path.toString());
 			try {
+				if(!path.getParent().toString().equals("temp"))
 				FileUtils.copyFileToDirectory(sourceFile, destFolder);
 				//FileUtils.copyDirectory(sourceFile, destFolder);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+		
+		try {
+			if(!background1.equals(""))
+			{
+				Path path = Paths.get(background1);
+				File sourceFile = new File(path.toString());
+				if(!path.getParent().toString().equals("temp"))
+				FileUtils.copyFileToDirectory(sourceFile, destFolder);
+			}
+			if(!background2.equals(""))
+			{
+				Path path = Paths.get(background2);
+				File sourceFile = new File(path.toString());
+				if(!path.getParent().toString().equals("temp"))
+				FileUtils.copyFileToDirectory(sourceFile, destFolder);
+			}
+			if(!background3.equals(""))
+			{
+				Path path = Paths.get(background3);
+				File sourceFile = new File(path.toString());
+				if(!path.getParent().toString().equals("temp"))
+				FileUtils.copyFileToDirectory(sourceFile, destFolder);
+			}
+			if(!logo.equals(""))
+			{
+				Path path = Paths.get(logo);
+				File sourceFile = new File(path.toString());
+				if(!path.getParent().toString().equals("temp"))
+				FileUtils.copyFileToDirectory(sourceFile, destFolder);
+			}
+			if(!button.equals(""))
+			{
+				Path path = Paths.get(button);
+				File sourceFile = new File(path.toString());
+				if(!path.getParent().toString().equals("temp"))
+				FileUtils.copyFileToDirectory(sourceFile, destFolder);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -371,14 +418,32 @@ public class Campaign extends Observable {
 	{
 		return boxes.get(index);
 	}
-	public void setSettings(String background1, String background2, String background3, String logo, String button, String date, String title)
+	
+	public void setSettings(String background1, String background2, String background3, String logo, String button)
 	{
 		this.background1=background1;
 		this.background2=background2;
 		this.background3=background3;
 		this.logo=logo;
 		this.button=button;
+	}
+	public void setSettings(String background1, String background2, String background3, String logo, String button, String date, String title)
+	{
+		setSettings(background1,background2,background3,logo,button);
 		this.gameTitle=title;
 		this.date=date;
 	}
+	
+	public ArrayList<String> getSettings()
+	{
+		ArrayList<String> list = new ArrayList();
+		list.add(background1);
+		list.add(background2);
+		list.add(background3);
+		list.add(logo);
+		list.add(button);
+		return list;
+	}
+	
+	
 }

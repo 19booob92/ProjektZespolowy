@@ -46,7 +46,10 @@ public class ZipPacker {
     public ZipPacker(String directory)
     {
         file=new File(directory);
-        
+        if(file.exists())
+        {
+        	file.delete();
+        }
         try {
             output=new ZipOutputStream(new FileOutputStream(file));
         } catch (FileNotFoundException ex) {

@@ -117,7 +117,7 @@ public class XmlBuilder {
     }
     public void addQuizGPS(String title,ArrayList<String> imageList, ArrayList<Boolean> imageInventoryList,ArrayList<String> soundList,
     		ArrayList<Boolean> soundInventoryList, int narration,String paragraphList, String preNote, String postNote,
-    		String goTo, int points, String date,double y,double x,
+    		String goTo, int points, String date,double x,double y,
             double width, double height, int timestop, String wrong)
     {
         Element quizModule = doc.createElement("quiz");
@@ -444,33 +444,38 @@ public class XmlBuilder {
         
         if(!background1.equals(""))
         {
+        	Path path = Paths.get(background1);
 	        Element background1Element = doc.createElement("backGround1");
-	        background1Element.appendChild(doc.createTextNode(background1));
+	        background1Element.appendChild(doc.createTextNode(path.getFileName().toString()));
 	        settingsModule.appendChild(background1Element);
         }
         if(!background2.equals(""))
         {
+        	Path path = Paths.get(background2);
 	        Element background2Element = doc.createElement("backGround2");
-	        background2Element.appendChild(doc.createTextNode(background2));
+	        background2Element.appendChild(doc.createTextNode(path.getFileName().toString()));
 	        settingsModule.appendChild(background2Element);
         }
         
         if(!background3.equals(""))
         {
+        	Path path = Paths.get(background3);
 	        Element background3Element = doc.createElement("backGround3");
-	        background3Element.appendChild(doc.createTextNode(background3));
+	        background3Element.appendChild(doc.createTextNode(path.getFileName().toString()));
 	        settingsModule.appendChild(background3Element);
 	    }
         if(!logo.equals(""))
         {
+        	Path path = Paths.get(logo);
 	        Element logoElement = doc.createElement("logo1");
-	        logoElement.appendChild(doc.createTextNode(logo));
+	        logoElement.appendChild(doc.createTextNode(path.getFileName().toString()));
 	        settingsModule.appendChild(logoElement);
         }
         if(!button.equals(""))
         {
+        	Path path = Paths.get(button);
 	        Element buttonElement = doc.createElement("button1");
-	        buttonElement.appendChild(doc.createTextNode(button));
+	        buttonElement.appendChild(doc.createTextNode(path.getFileName().toString()));
 	        settingsModule.appendChild(buttonElement);
         }
     }

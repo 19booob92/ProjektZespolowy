@@ -81,6 +81,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 	private JPanel userTabPane;
 	
 	private TreasureBoxDialog treasureBoxDialog;
+	private GameSettingsDialog gameSettingsDialog;
 
 	private JScrollPane rightScroll;
 
@@ -103,6 +104,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 	private JButton btnDeleteQuestts;
 	private JButton btnSendPackageToSerwer;
 	private JButton btnAddTreasureBox;
+	private JButton btnEditGameSettings;
 
 	private JLabel lblOpcjeProjektu;
 	private JLabel lblOpcjeUserow;
@@ -347,6 +349,20 @@ public class ProjectMainView extends JFrame implements Serializable {
 		});
 		
 		leftSidePanel.add(btnAddTreasureBox);
+		
+		btnEditGameSettings = new JButton("Ustawienia gry");
+		btnEditGameSettings.setBounds(6,306,206,28);
+		btnEditGameSettings.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				gameSettingsDialog = new GameSettingsDialog(campaign);
+			}
+			
+		});
+		
+		leftSidePanel.add(btnEditGameSettings);
 	}
 
 	private void wczytajPaczke() {

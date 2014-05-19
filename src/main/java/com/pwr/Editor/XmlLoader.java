@@ -136,22 +136,27 @@ public class XmlLoader {
 				settingsStartdate = element.getElementsByTagName("startdate").item(0).getTextContent().trim();
 				//campaign.setGameDate(element.getAttribute("startdate").trim());
 				if(element.getElementsByTagName("backGround1").item(0)!=null)
-				settingsBackGround1 = element
+				settingsBackGround1 = "temp" + File.separator
+						+element
 						.getElementsByTagName("backGround1").item(0)
 						.getTextContent().trim();
 				if(element.getElementsByTagName("backGround2").item(0)!=null)
-				settingsBackGround2 = element
+				settingsBackGround2 = "temp" + File.separator
+						+element
 						.getElementsByTagName("backGround2").item(0)
 						.getTextContent().trim();
 				if(element.getElementsByTagName("backGround3").item(0)!=null)
-				settingsBackGround3 = element
+				settingsBackGround3 = "temp" + File.separator
+						+element
 						.getElementsByTagName("backGround3").item(0)
 						.getTextContent().trim();
 				if(element.getElementsByTagName("logo1").item(0)!=null)
-				settingsLogo1 = element.getElementsByTagName("logo1").item(0)
+				settingsLogo1 = "temp" + File.separator
+						+element.getElementsByTagName("logo1").item(0)
 						.getTextContent().trim();
 				if(element.getElementsByTagName("button1").item(0)!=null)
-				settingsButton1 = element.getElementsByTagName("button1")
+				settingsButton1 = "temp" + File.separator
+						+element.getElementsByTagName("button1")
 						.item(0).getTextContent().trim();
 			}
 			campaign.setSettings(settingsBackGround1, settingsBackGround2, settingsBackGround3, settingsLogo1, settingsButton1,settingsStartdate,gameTitle);
