@@ -5,6 +5,10 @@ import java.awt.FlowLayout;
 import java.awt.Scrollbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -23,6 +27,7 @@ import javax.swing.ScrollPaneLayout;
 import javax.swing.border.EtchedBorder;
 
 import com.pwr.Graph.GraphFacade;
+import com.pwr.Other.DateTimePicker;
 import com.pwr.Other.NoDataInFieldException;
 import com.pwr.Quest.Campaign;
 import com.pwr.Quest.QuestPoint;
@@ -33,6 +38,9 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	private static final int panelHeight = 750;
 	private JTextField tfGameTitle;
 	private JTextField tfStartDate;
+	
+	private DateTimePicker dateTimePicker;
+	private Date datePickerDate;
 
 	private JLabel lblGameTitle;
 	private JLabel lblIntroModulePics;
@@ -113,7 +121,18 @@ public class ProjectOptionsView extends JPanel implements Observer {
 
 	public void initiateGameFields() {
 		this.tfGameTitle.setText(campaign.getGameTitle());
-		this.tfStartDate.setText(campaign.getGameDate());
+		//this.tfStartDate.setText(campaign.getGameDate());
+		
+		SimpleDateFormat simple = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		
+		try {
+			datePickerDate=simple.parse(campaign.getGameDate());
+			dateTimePicker.setDate(simple.parse(campaign.getGameDate()));
+			dateTimePicker.updateUI();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for (String q : campaign.getIntroPics()) {
 			this.introPicsListModel.addElement(q);			
 		}
@@ -143,10 +162,19 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		lblStartDate.setBounds(10, 93, 81, 14);
 		add(lblStartDate);
 
-		tfStartDate = new JTextField();
+		/*tfStartDate = new JTextField();
 		tfStartDate.setBounds(10, 125, 290, 28);
 		add(tfStartDate);
-		tfStartDate.setColumns(10);
+		tfStartDate.setColumns(10);*/
+		
+		datePickerDate = new Date();
+		dateTimePicker = new DateTimePicker(datePickerDate);
+		dateTimePicker.setBounds(10, 125, 290, 28);
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		dateTimePicker.setFormats( dateFormat );
+		dateTimePicker.setTimeFormat( DateFormat.getTimeInstance( DateFormat.MEDIUM ) );
+		dateTimePicker.setDate(datePickerDate);
+		add(dateTimePicker);
 		
 		graphFacade = new GraphFacade();
 		graphFacade.getGraphPanel().setQuizListFromArrayList(campaign.convertQuiz());
