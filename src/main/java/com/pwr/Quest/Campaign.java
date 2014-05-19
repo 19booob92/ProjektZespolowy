@@ -39,6 +39,11 @@ public class Campaign extends Observable {
 	
 	private String gameTitle="";
 	private String date="";
+	private String background1="";
+	private String background2="";
+	private String background3="";
+	private String logo="";
+	private String button="";
 
 	public Campaign() {
 		quests = new ArrayList();
@@ -195,7 +200,7 @@ public class Campaign extends Observable {
 						quest.getQuestTimeout(), quest.getQuestAnswer());
 			}
 		}
-		xml.addSettings(this.date);
+		xml.addSettings(this.date,background1,background2,background3,logo,button);
 		for (int i = 0; i < boxes.size(); i++) {
 			TreasureBox box = boxes.get(i);
 			xml.addTreasureBox(box.getxCoordinate(), box.getyCoordinate(),
@@ -243,7 +248,7 @@ public class Campaign extends Observable {
 					e.printStackTrace();
 				}
 			}
-			srcFile.delete();
+			//srcFile.delete();
 			//PackageCoder.codeAllFilesInDirectoryExceptSound("temp");
 			File [] files = destFolder.listFiles();
 			for(int i=0;i<files.length;i++)
@@ -365,5 +370,15 @@ public class Campaign extends Observable {
 	public TreasureBox getTreasureBox(int index)
 	{
 		return boxes.get(index);
+	}
+	public void setSettings(String background1, String background2, String background3, String logo, String button, String date, String title)
+	{
+		this.background1=background1;
+		this.background2=background2;
+		this.background3=background3;
+		this.logo=logo;
+		this.button=button;
+		this.gameTitle=title;
+		this.date=date;
 	}
 }

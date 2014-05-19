@@ -433,7 +433,7 @@ public class XmlBuilder {
         }   
     }
     
-    public void addSettings(String date)
+    public void addSettings(String date, String background1, String background2, String background3, String logo, String button)
     {
         Element settingsModule = doc.createElement("settings");
         gameModule.appendChild(settingsModule);
@@ -441,6 +441,38 @@ public class XmlBuilder {
         Element startdateElement = doc.createElement("startdate");
         startdateElement.appendChild(doc.createTextNode(date));
         settingsModule.appendChild(startdateElement);
+        
+        if(!background1.equals(""))
+        {
+	        Element background1Element = doc.createElement("backGround1");
+	        background1Element.appendChild(doc.createTextNode(background1));
+	        settingsModule.appendChild(background1Element);
+        }
+        if(!background2.equals(""))
+        {
+	        Element background2Element = doc.createElement("backGround2");
+	        background2Element.appendChild(doc.createTextNode(background2));
+	        settingsModule.appendChild(background2Element);
+        }
+        
+        if(!background3.equals(""))
+        {
+	        Element background3Element = doc.createElement("backGround3");
+	        background3Element.appendChild(doc.createTextNode(background3));
+	        settingsModule.appendChild(background3Element);
+	    }
+        if(!logo.equals(""))
+        {
+	        Element logoElement = doc.createElement("logo1");
+	        logoElement.appendChild(doc.createTextNode(logo));
+	        settingsModule.appendChild(logoElement);
+        }
+        if(!button.equals(""))
+        {
+	        Element buttonElement = doc.createElement("button1");
+	        buttonElement.appendChild(doc.createTextNode(button));
+	        settingsModule.appendChild(buttonElement);
+        }
     }
     
     public void resetId()

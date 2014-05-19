@@ -59,14 +59,14 @@ public class XmlLoader {
 		ArrayList<String> treasureBoxWidthList = new ArrayList();
 		ArrayList<String> treasureBoxHeightList = new ArrayList();
 
-		String settingsStartdate;
-		String settingsBackGround1;
-		String settingsBackGround2;
-		String settingsBackGround3;
-		String settingsButton1;
-		String settingsLogo1;
+		String settingsStartdate="";
+		String settingsBackGround1="";
+		String settingsBackGround2="";
+		String settingsBackGround3="";
+		String settingsButton1="";
+		String settingsLogo1="";
 
-		String gameTitle;
+		String gameTitle="";
 
 		NodeList gameList = doc.getElementsByTagName("game");
 		Node gameNode = gameList.item(0);
@@ -133,8 +133,8 @@ public class XmlLoader {
 		if (nodeSettings != null) {
 			if (nodeSettings.getNodeType() == Element.ELEMENT_NODE) {
 				Element element = (Element) nodeSettings;
-				settingsStartdate = element.getAttribute("startdate").trim();
-				campaign.setGameDate(element.getAttribute("startdate").trim());
+				settingsStartdate = element.getElementsByTagName("startdate").item(0).getTextContent().trim();
+				//campaign.setGameDate(element.getAttribute("startdate").trim());
 				if(element.getElementsByTagName("backGround1").item(0)!=null)
 				settingsBackGround1 = element
 						.getElementsByTagName("backGround1").item(0)
@@ -154,6 +154,7 @@ public class XmlLoader {
 				settingsButton1 = element.getElementsByTagName("button1")
 						.item(0).getTextContent().trim();
 			}
+			campaign.setSettings(settingsBackGround1, settingsBackGround2, settingsBackGround3, settingsLogo1, settingsButton1,settingsStartdate,gameTitle);
 		}
 		NodeList treasureBoxList = doc.getElementsByTagName("treasurebox");
 
