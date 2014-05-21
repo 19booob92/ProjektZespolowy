@@ -406,7 +406,7 @@ public class XmlBuilder {
         attr.setValue(type);
         answerElement.setAttributeNode(attr);
         
-        if(goTo!=null)
+        if((goTo!=null)&&(!goTo.equals("")))
         {
         answerElement.setAttributeNode(attr);
         attr = doc.createAttribute("goto");
