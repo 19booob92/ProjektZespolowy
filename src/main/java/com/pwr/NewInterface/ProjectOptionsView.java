@@ -317,7 +317,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	}
 
 	public String getGameDate() {
-		if (!tfStartDate
+		/*if (!tfStartDate
 				.getText()
 				.matches(
 						"[0-3][0-9]-[0-1][0-9]-[0-9]{4} [0-2][0-9]:[0-6][0-9]:[0-6][0-9]")) {
@@ -326,6 +326,9 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			throw new NoDataInFieldException();
 		} else {
 			return tfStartDate.getText();
-		}
+		}*/
+		Date dsa=dateTimePicker.getDate();
+		SimpleDateFormat simpleFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		return simpleFormat.format(dsa);
 	}
 }

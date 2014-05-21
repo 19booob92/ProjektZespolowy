@@ -195,7 +195,9 @@ public class XmlBuilder {
         {
             Element optionElement = doc.createElement("option");
             Attr attr = doc.createAttribute("goto");
-            attr.setValue(goToList.get(i));
+            int gotoValue = Integer.parseInt(goToList.get(i));
+            attr.setValue(Integer.toString(gotoValue));
+            
             optionElement.setAttributeNode(attr);
             optionElement.appendChild(doc.createTextNode(answerList.get(i)));
             answerElement.appendChild(optionElement);
@@ -408,7 +410,9 @@ public class XmlBuilder {
         {
         answerElement.setAttributeNode(attr);
         attr = doc.createAttribute("goto");
-        attr.setValue(goTo);
+        int gotoValue = Integer.parseInt(goTo);
+        attr.setValue(Integer.toString(gotoValue));
+        
         answerElement.setAttributeNode(attr);
         }
         
@@ -425,10 +429,11 @@ public class XmlBuilder {
             answerElement.setAttributeNode(attr);
         }
         
-        if(wrong!=null)
+        if((wrong!=null)&&(!wrong.equals("")) )
         {
             attr = doc.createAttribute("wrong");
-            attr.setValue(wrong);
+            int wrongValue = Integer.parseInt(wrong);
+            attr.setValue(Integer.toString(wrongValue));
             answerElement.setAttributeNode(attr);
         }   
     }

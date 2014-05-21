@@ -307,7 +307,7 @@ public class XmlLoader {
 					}
 					quest = (TextQuest) QuestFactory
 							.createQuest(QuestType.TEXTQUEST);
-					setQuest(quest, title, imageList, imageInventoryList,
+					setQuest(id,quest, title, imageList, imageInventoryList,
 							soundList, imageInventoryList, narration,
 							paragraphList, preNote, postNote);
 					setQuestAnswer(quest, goTo, Integer.parseInt(points), date,
@@ -329,7 +329,7 @@ public class XmlLoader {
 							.getTextContent().trim();
 					quest = (FieldQuest) QuestFactory
 							.createQuest(QuestType.FIELDQUEST);
-					setQuest(quest, title, imageList, imageInventoryList,
+					setQuest(id,quest, title, imageList, imageInventoryList,
 							soundList, imageInventoryList, narration,
 							paragraphList, preNote, postNote);
 					setQuestAnswer(quest, goTo, Integer.parseInt(points), date,
@@ -357,7 +357,7 @@ public class XmlLoader {
 					}
 					quest = (ChoiceQuest) QuestFactory
 							.createQuest(QuestType.CHOICEQUEST);
-					setQuest(quest, title, imageList, imageInventoryList,
+					setQuest(id,quest, title, imageList, imageInventoryList,
 							soundList, imageInventoryList, narration,
 							paragraphList, preNote, postNote);
 					setQuestAnswer(quest, goTo, Integer.parseInt(points), date,
@@ -382,7 +382,7 @@ public class XmlLoader {
 					}
 					quest = (DecisionQuest) QuestFactory
 							.createQuest(QuestType.DECISIONQUEST);
-					setQuest(quest, title, imageList, imageInventoryList,
+					setQuest(id,quest, title, imageList, imageInventoryList,
 							soundList, imageInventoryList, narration,
 							paragraphList, preNote, postNote);
 					setQuestAnswer(quest, goTo, Integer.parseInt(points), date,
@@ -406,7 +406,7 @@ public class XmlLoader {
 								"index").trim());
 					}
 					quest = QuestFactory.createQuest(QuestType.ORDERQUEST);
-					setQuest(quest, title, imageList, imageInventoryList,
+					setQuest(id,quest, title, imageList, imageInventoryList,
 							soundList, imageInventoryList, narration,
 							paragraphList, preNote, postNote);
 					setQuestAnswer(quest, goTo, Integer.parseInt(points), date,
@@ -425,10 +425,11 @@ public class XmlLoader {
 
 	}
 
-	private void setQuest(QuestPoint quest, String title,
+	private void setQuest(String id,QuestPoint quest, String title,
 			ArrayList<String> imageList, ArrayList<Boolean> imageInventoryList,
 			ArrayList<String> soundList, ArrayList<Boolean> soundInventoryList,
 			int narration, String paragraphList, String preNote, String postNote) {
+		quest.setId(id);
 		quest.setQuestName(title);
 		quest.setPicturePaths(imageList);
 		quest.setPictureInventoryList(imageInventoryList);

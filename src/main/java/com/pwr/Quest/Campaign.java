@@ -92,6 +92,7 @@ public class Campaign extends Observable {
 	}
 
 	public void addQuiz(QuestPoint p) {
+		QuestPoint.incrementId();
 		saved=false;
 		quests.add(p);
 	}

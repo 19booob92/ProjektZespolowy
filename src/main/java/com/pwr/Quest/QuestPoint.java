@@ -16,7 +16,7 @@ public abstract class QuestPoint implements DescribeQuest {
 	private String QuestName;
 	private int QuestTimeout;
 	private int points;
-	private static int id = 0;
+	private static int id = 1;
 	private String preNote;
 	private int questId;
 	private String postNote;
@@ -87,7 +87,7 @@ public abstract class QuestPoint implements DescribeQuest {
 		questId = Integer.parseInt(id);
 	}
 	
-	public void incrementId() {
+	public static void incrementId() {
 		id++;
 	}
 	

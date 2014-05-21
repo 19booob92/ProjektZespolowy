@@ -308,7 +308,7 @@ public class NewQuizView extends JFrame {
 									.getComponents()) {
 								newQuest = whichTestCreate(newQuest, component);
 							}
-							newQuest.incrementId();
+							//newQuest.incrementId();
 							campaignRef.addQuiz(newQuest);
 							campaignRef.createdTrue();
 						} else {
