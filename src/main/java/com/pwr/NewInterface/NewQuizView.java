@@ -312,12 +312,12 @@ public class NewQuizView extends JFrame {
 							campaignRef.addQuiz(newQuest);
 							campaignRef.createdTrue();
 						} else {
-							newQuest = campaignRef.getQuizes().get(quizIndex);
+							newQuest = campaignRef.getQuizes().get(quizIndex-1);
 							for (Component comp : rightSidePanel
 									.getComponents()) {
 								choiceQuestType(newQuest, comp);
 							}
-							campaignRef.setQuiz(newQuest, quizIndex);
+							campaignRef.setQuiz(newQuest, quizIndex-1);
 							campaignRef.editedTrue();
 						}
 						dispose();
