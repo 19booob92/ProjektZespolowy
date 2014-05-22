@@ -47,9 +47,7 @@ public class DecisionQuest extends QuestPoint implements DescribeQuest {
 
 	@Override
 	public String getGoTo() {
-		return null;
-	}
-
-    
+		return null;//goToList;
+	} 
 }
 

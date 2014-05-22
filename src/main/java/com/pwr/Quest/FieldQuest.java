@@ -78,4 +78,10 @@ public class FieldQuest extends QuestPoint implements DescribeQuest {
     public ArrayList<String> getQuestAnswer() {
         return null;
     }
+
+	@Override
+	public ArrayList<String> getGoToList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

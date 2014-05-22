@@ -43,4 +43,10 @@ public class OrderQuest extends QuestPoint implements DescribeQuest {
     public void addQuestAnswer(String answ) {
         questAnswer.add(answ);
     }
+
+	@Override
+	public ArrayList<String> getGoToList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

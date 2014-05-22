@@ -56,4 +56,11 @@ public class ChoiceQuest extends QuestPoint implements DescribeQuest{
 		
 	}
 
+
+	@Override
+	public ArrayList<String> getGoToList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

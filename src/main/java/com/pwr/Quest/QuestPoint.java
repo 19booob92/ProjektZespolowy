@@ -179,7 +179,7 @@ public abstract class QuestPoint implements DescribeQuest {
 		//this.goTo = goTo;
 	
 	public abstract String getGoTo() ;
-	
+	public abstract ArrayList<String> getGoToList();
 	public QuizDataObject convert() {
 		//MessageDigest md;
 		//String id = "";
@@ -193,7 +193,12 @@ public abstract class QuestPoint implements DescribeQuest {
 		//} catch (NoSuchAlgorithmException e) {
 			//e.printStackTrace();
 		//}
-		quizDTO = new QuizDataObject(QuestName, new String[] {getGoTo()},wrong,Integer.toString(questId));
-		return quizDTO;
+		if (type == QuestType.DECISIONQUEST) {
+			quizDTO = new QuizDataObject(QuestName, getGoToList().toArray(new String[getGoToList().size()]),wrong,Integer.toString(questId));			
+			return quizDTO;
+		} else {
+			quizDTO = new QuizDataObject(QuestName, new String[]{getGoTo()},wrong,Integer.toString(questId));
+			return quizDTO;
+		}
 	}
 }
