@@ -36,14 +36,15 @@ public class Campaign extends Observable {
 	private boolean created = false;
 	private boolean edited = false;
 	private boolean saved = true;
-	
-	private String gameTitle="";
-	private String date="";
-	private String background1="";
-	private String background2="";
-	private String background3="";
-	private String logo="";
-	private String button="";
+	private boolean deleted = false;
+
+	private String gameTitle = "";
+	private String date = "";
+	private String background1 = "";
+	private String background2 = "";
+	private String background3 = "";
+	private String logo = "";
+	private String button = "";
 
 	public Campaign() {
 		quests = new ArrayList();
@@ -60,6 +61,16 @@ public class Campaign extends Observable {
 			quizDTOs.add(q.convert());
 		}
 		return quizDTOs;
+	}
+
+	public void deleteTrue() {
+		deleted = true;
+		setChanged();
+		notifyObservers();
+	}
+
+	public void deleteFalse() {
+		deleted = false;
 	}
 
 	public void createdTrue() {
@@ -83,6 +94,10 @@ public class Campaign extends Observable {
 		edited = false;
 	}
 
+	public boolean getDeleted() {
+		return deleted;
+	}
+
 	public boolean getCreated() {
 		return created;
 	}
@@ -91,23 +106,27 @@ public class Campaign extends Observable {
 		return edited;
 	}
 
+	public void removeQuiz(QuestPoint q) {
+		deleted = true;
+		quests.remove(q);
+	}
+
 	public void addQuiz(QuestPoint p) {
 		QuestPoint.incrementId();
-		saved=false;
+		saved = false;
 		quests.add(p);
 	}
 
 	public void addTreasureBox(TreasureBox b) {
-		saved=false;
+		saved = false;
 		boxes.add(b);
 	}
 
 	public void setQuiz() {
 
 	}
-	
-	public void setQuiz(QuestPoint p,int index)
-	{
+
+	public void setQuiz(QuestPoint p, int index) {
 		quests.set(index, p);
 	}
 
@@ -126,7 +145,7 @@ public class Campaign extends Observable {
 	public ArrayList<String> getQuizesNames() {
 		ArrayList names = new ArrayList();
 		for (QuestPoint p : quests) {
-			names.add(p.toString());
+			names.add(p.getQuestName());
 		}
 		return names;
 	}
@@ -136,7 +155,7 @@ public class Campaign extends Observable {
 	}
 
 	public void createXml() {
-		saved=true;
+		saved = true;
 		XmlBuilder xml = new XmlBuilder(gameTitle);
 		xml.resetId();
 		zip = new ZipPacker("paczka.zip");
@@ -148,21 +167,21 @@ public class Campaign extends Observable {
 			if (tempQuest.getQuestType() == QuestType.TEXTQUEST) {
 				TextQuest quest = (TextQuest) tempQuest;
 				xml.addQuizText(quest.getQuestName(), quest.getPicturePaths(),
-						quest.getPictureInventoryList(),
-						quest.getSoundPaths(), quest.getSoundInventoryList(), quest.soundNarration(),
-						quest.getParagraph(),
-						quest.getPreNote(), quest.getPostNote(),
-						quest.getGoTo(), quest.getPoints(), quest.getDate(),
+						quest.getPictureInventoryList(), quest.getSoundPaths(),
+						quest.getSoundInventoryList(), quest.soundNarration(),
+						quest.getParagraph(), quest.getPreNote(),
+						quest.getPostNote(), quest.getGoTo(),
+						quest.getPoints(), quest.getDate(),
 						quest.getQuestAnswer(), quest.getQuestTimeout(),
 						quest.getWrong());
 			} else if (tempQuest.getQuestType() == QuestType.FIELDQUEST) {
 				FieldQuest quest = (FieldQuest) tempQuest;
 				xml.addQuizGPS(quest.getQuestName(), quest.getPicturePaths(),
-						quest.getPictureInventoryList(),
-						quest.getSoundPaths(), quest.getSoundInventoryList(), quest.soundNarration(), 
-						quest.getParagraph(),
-						quest.getPreNote(), quest.getPostNote(),
-						quest.getGoTo(), quest.getPoints(), quest.getDate(),
+						quest.getPictureInventoryList(), quest.getSoundPaths(),
+						quest.getSoundInventoryList(), quest.soundNarration(),
+						quest.getParagraph(), quest.getPreNote(),
+						quest.getPostNote(), quest.getGoTo(),
+						quest.getPoints(), quest.getDate(),
 						quest.getXCoordinate(), quest.getYCoordinate(),
 						quest.getWidth(), quest.getHeight(),
 						quest.getQuestTimeout(), quest.getWrong());
@@ -170,9 +189,8 @@ public class Campaign extends Observable {
 				DecisionQuest quest = (DecisionQuest) tempQuest;
 				xml.addQuizDecision(quest.getQuestName(),
 						quest.getPicturePaths(),
-						quest.getPictureInventoryList(),
-						quest.getSoundPaths(), quest.getSoundInventoryList(), 
-						quest.soundNarration(),
+						quest.getPictureInventoryList(), quest.getSoundPaths(),
+						quest.getSoundInventoryList(), quest.soundNarration(),
 						quest.getParagraph(), quest.getPreNote(),
 						quest.getPostNote(), quest.getPoints(),
 						quest.getDate(), quest.getGoToList(),
@@ -181,33 +199,32 @@ public class Campaign extends Observable {
 			} else if (tempQuest.getQuestType() == QuestType.CHOICEQUEST) {
 				ChoiceQuest quest = (ChoiceQuest) tempQuest;
 				xml.addQuizMofn(quest.getQuestName(), quest.getPicturePaths(),
-						quest.getPictureInventoryList(),
-						quest.getSoundPaths(), quest.getSoundInventoryList(), quest.soundNarration(),
-						quest.getParagraph(),
-						quest.getPreNote(), quest.getPostNote(),
-						quest.getGoTo(), quest.getPoints(), quest.getDate(),
+						quest.getPictureInventoryList(), quest.getSoundPaths(),
+						quest.getSoundInventoryList(), quest.soundNarration(),
+						quest.getParagraph(), quest.getPreNote(),
+						quest.getPostNote(), quest.getGoTo(),
+						quest.getPoints(), quest.getDate(),
 						quest.getQuestAnswer(), quest.getQuestAnswerCorrect(),
 						quest.getQuestTimeout(), quest.getWrong());
 			} else if (tempQuest.getQuestType() == QuestType.ORDERQUEST) {
 				OrderQuest quest = (OrderQuest) tempQuest;
 				xml.addQuizPermutation(quest.getQuestName(),
 						quest.getPicturePaths(),
-						quest.getPictureInventoryList(),
-						quest.getSoundPaths(), quest.getSoundInventoryList(),
-						quest.soundNarration(),
+						quest.getPictureInventoryList(), quest.getSoundPaths(),
+						quest.getSoundInventoryList(), quest.soundNarration(),
 						quest.getParagraph(), quest.getPreNote(),
 						quest.getPostNote(), quest.getGoTo(),
 						quest.getPoints(), quest.getDate(), quest.getWrong(),
 						quest.getQuestTimeout(), quest.getQuestAnswer());
 			}
 		}
-		xml.addSettings(this.date,background1,background2,background3,logo,button);
+		xml.addSettings(this.date, background1, background2, background3, logo,
+				button);
 		for (int i = 0; i < boxes.size(); i++) {
 			TreasureBox box = boxes.get(i);
 			xml.addTreasureBox(box.getxCoordinate(), box.getyCoordinate(),
 					box.getWidth(), box.getHeight(), box.getNote());
 		}
-		
 
 		try {
 			xml.saveXml();
@@ -218,77 +235,71 @@ public class Campaign extends Observable {
 
 		File srcFile = new File("Config.xml");
 		File destFolder = new File("temp");
-		
-		
-		if(destFolder.exists())
-		{
+
+		if (destFolder.exists()) {
 			try {
 				FileUtils.copyFileToDirectory(srcFile, destFolder);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			for(int i=0; i<introPics.size();i++)
-			{
+			for (int i = 0; i < introPics.size(); i++) {
 				srcFile = new File(introPics.get(i));
 				Path path = Paths.get(introPics.get(i));
 				try {
-					if(!path.getParent().toString().equals("temp"))
-					FileUtils.copyFileToDirectory(srcFile, destFolder);
+					if (!path.getParent().toString().equals("temp"))
+						FileUtils.copyFileToDirectory(srcFile, destFolder);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-			
-			for(int i=0; i<outroPics.size();i++)
-			{
+
+			for (int i = 0; i < outroPics.size(); i++) {
 				srcFile = new File(outroPics.get(i));
 				Path path = Paths.get(outroPics.get(i));
 				try {
-					if(!path.getParent().toString().equals("temp"))
-					FileUtils.copyFileToDirectory(srcFile, destFolder);
+					if (!path.getParent().toString().equals("temp"))
+						FileUtils.copyFileToDirectory(srcFile, destFolder);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-			//srcFile.delete();
-			//PackageCoder.codeAllFilesInDirectoryExceptSound("temp");
-			File [] files = destFolder.listFiles();
-			for(int i=0;i<files.length;i++)
-			{
+			// srcFile.delete();
+			// PackageCoder.codeAllFilesInDirectoryExceptSound("temp");
+			File[] files = destFolder.listFiles();
+			for (int i = 0; i < files.length; i++) {
 				try {
 					zip.addFile(files[i].getPath());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				//files[i].delete();
+				// files[i].delete();
 			}
-			//destFolder.delete();
+			// destFolder.delete();
 		}
-		
+
 		zip.closeZip();
 	}
 
 	private void FileTransfer(QuestPoint newQuest) {
-		
+
 		File destFolder = new File("temp");
-		
-		if(!destFolder.exists())
-		{
+
+		if (!destFolder.exists()) {
 			destFolder.mkdir();
 		}
-		
+
 		for (int i = 0; i < newQuest.getPicturePaths().size(); i++) {
 			Path path = Paths.get(newQuest.getPicturePaths().get(i));
 			File sourceFile = new File(path.toString());
-			
+
 			try {
-				if(!path.getParent().toString().equals("temp"))
-				FileUtils.copyFileToDirectory(sourceFile, destFolder);
-				//FileUtils.copyDirectory(sourceFile, destFolder);
+				if (!path.getParent().toString().equals("temp"))
+					FileUtils.copyFileToDirectory(sourceFile, destFolder);
+				// FileUtils.copyDirectory(sourceFile, destFolder);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -299,152 +310,149 @@ public class Campaign extends Observable {
 			Path path = Paths.get(newQuest.getSoundPaths().get(i));
 			File sourceFile = new File(path.toString());
 			try {
-				if(!path.getParent().toString().equals("temp"))
-				FileUtils.copyFileToDirectory(sourceFile, destFolder);
-				//FileUtils.copyDirectory(sourceFile, destFolder);
+				if (!path.getParent().toString().equals("temp"))
+					FileUtils.copyFileToDirectory(sourceFile, destFolder);
+				// FileUtils.copyDirectory(sourceFile, destFolder);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
+
 		try {
-			if(!background1.equals(""))
-			{
+			if (!background1.equals("")) {
 				Path path = Paths.get(background1);
 				File sourceFile = new File(path.toString());
-				if(!path.getParent().toString().equals("temp"))
-				FileUtils.copyFileToDirectory(sourceFile, destFolder);
+				if (!path.getParent().toString().equals("temp"))
+					FileUtils.copyFileToDirectory(sourceFile, destFolder);
 			}
-			if(!background2.equals(""))
-			{
+			if (!background2.equals("")) {
 				Path path = Paths.get(background2);
 				File sourceFile = new File(path.toString());
-				if(!path.getParent().toString().equals("temp"))
-				FileUtils.copyFileToDirectory(sourceFile, destFolder);
+				if (!path.getParent().toString().equals("temp"))
+					FileUtils.copyFileToDirectory(sourceFile, destFolder);
 			}
-			if(!background3.equals(""))
-			{
+			if (!background3.equals("")) {
 				Path path = Paths.get(background3);
 				File sourceFile = new File(path.toString());
-				if(!path.getParent().toString().equals("temp"))
-				FileUtils.copyFileToDirectory(sourceFile, destFolder);
+				if (!path.getParent().toString().equals("temp"))
+					FileUtils.copyFileToDirectory(sourceFile, destFolder);
 			}
-			if(!logo.equals(""))
-			{
+			if (!logo.equals("")) {
 				Path path = Paths.get(logo);
 				File sourceFile = new File(path.toString());
-				if(!path.getParent().toString().equals("temp"))
-				FileUtils.copyFileToDirectory(sourceFile, destFolder);
+				if (!path.getParent().toString().equals("temp"))
+					FileUtils.copyFileToDirectory(sourceFile, destFolder);
 			}
-			if(!button.equals(""))
-			{
+			if (!button.equals("")) {
 				Path path = Paths.get(button);
 				File sourceFile = new File(path.toString());
-				if(!path.getParent().toString().equals("temp"))
-				FileUtils.copyFileToDirectory(sourceFile, destFolder);
+				if (!path.getParent().toString().equals("temp"))
+					FileUtils.copyFileToDirectory(sourceFile, destFolder);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	public void loadXml(String file)
-	{
+
+	public void loadXml(String file) {
 		if (!file.equals("")) {
 			zipUnpacker = new ZipUnpacker(file);
 			zipUnpacker.unZip();
-			//PackageCoder.decodeAllFilesInDirectory("temp");
-			
-			XmlLoader xml = new XmlLoader("temp"+File.separator+"Config.xml");
+			// PackageCoder.decodeAllFilesInDirectory("temp");
+
+			XmlLoader xml = new XmlLoader("temp" + File.separator
+					+ "Config.xml");
 			xml.LoadXml(this);
-			saved=true;
+			saved = true;
 		}
 	}
-	
-	public void closeCampaign()
-	{
-		if(zipUnpacker!=null)
-		{
+
+	public void closeCampaign() {
+		if (zipUnpacker != null) {
 			zipUnpacker.close();
 		}
 	}
-	
-	public boolean isSaved()
-	{
+
+	public boolean isSaved() {
 		return saved;
 	}
-	public void setIntroPics(ArrayList<String> list)
-	{
-		introPics=list;
+
+	public void setIntroPics(ArrayList<String> list) {
+		introPics = list;
 	}
-	
-	public void setOutroPics(ArrayList<String> list)
-	{
-		outroPics=list;
+
+	public void setOutroPics(ArrayList<String> list) {
+		outroPics = list;
 	}
-	public void setIntroText(ArrayList<String> list)
-	{
-		introText=list;
+
+	public void setIntroText(ArrayList<String> list) {
+		introText = list;
 	}
-	public void setOutroText(ArrayList<String> list)
-	{
-		outroText=list;
+
+	public void setOutroText(ArrayList<String> list) {
+		outroText = list;
 	}
-	public ArrayList<String> getOutroText()
-	{
+
+	public ArrayList<String> getOutroText() {
 		return outroText;
 	}
-	public ArrayList<String> getIntroText()
-	{
+
+	public ArrayList<String> getIntroText() {
 		return introText;
 	}
-	public void setGameTitle(String title)
-	{
-		gameTitle=title;
+
+	public void setGameTitle(String title) {
+		gameTitle = title;
 	}
+
 	public String getGameTitle() {
 		return gameTitle;
 	}
+
 	public void setGameDate(String date) {
 		this.date = date;
 	}
+
 	public String getGameDate() {
 		return date;
 	}
+
 	public ArrayList<String> getIntroPics() {
 		return introPics;
 	}
+
 	public ArrayList<String> getOutroPics() {
 		return outroPics;
 	}
-	public void putTreasureBox(TreasureBox box, int index)
-	{
+
+	public void putTreasureBox(TreasureBox box, int index) {
 		this.boxes.set(index, box);
 	}
-	public TreasureBox getTreasureBox(int index)
-	{
+
+	public TreasureBox getTreasureBox(int index) {
 		return boxes.get(index);
 	}
-	
-	public void setSettings(String background1, String background2, String background3, String logo, String button)
-	{
-		this.background1=background1;
-		this.background2=background2;
-		this.background3=background3;
-		this.logo=logo;
-		this.button=button;
+
+	public void setSettings(String background1, String background2,
+			String background3, String logo, String button) {
+		this.background1 = background1;
+		this.background2 = background2;
+		this.background3 = background3;
+		this.logo = logo;
+		this.button = button;
 	}
-	public void setSettings(String background1, String background2, String background3, String logo, String button, String date, String title)
-	{
-		setSettings(background1,background2,background3,logo,button);
-		this.gameTitle=title;
-		this.date=date;
+
+	public void setSettings(String background1, String background2,
+			String background3, String logo, String button, String date,
+			String title) {
+		setSettings(background1, background2, background3, logo, button);
+		this.gameTitle = title;
+		this.date = date;
 	}
-	
-	public ArrayList<String> getSettings()
-	{
+
+	public ArrayList<String> getSettings() {
 		ArrayList<String> list = new ArrayList();
 		list.add(background1);
 		list.add(background2);
@@ -453,6 +461,5 @@ public class Campaign extends Observable {
 		list.add(button);
 		return list;
 	}
-	
-	
+
 }

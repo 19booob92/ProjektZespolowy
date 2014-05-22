@@ -89,6 +89,8 @@ public class NewQuizView extends JFrame {
 	private OrderQuestView orderView = new OrderQuestView();
 	private DecisionQuestView decisionView = new DecisionQuestView();
 
+	private String thisName;
+	
 	public NewQuizView(Campaign campaign, int qInd) {
 		super();
 		campaignRef = campaign;
@@ -185,6 +187,7 @@ public class NewQuizView extends JFrame {
 		view.preNote.setText(q.getPreNote());
 		view.postNote.setText(q.getPostNote());
 		this.tfQuizName.setText(q.getQuestName());
+		thisName = this.tfQuizName.getText();
 		this.timeoutField.setText(Integer.toString(q.getQuestTimeout()));
 		rewriteArrayListToJList(q.getPicturePaths(), view.picsListModel);
 		rewriteArrayListToJList(q.getSoundPaths(), view.soundsListModel);
@@ -546,13 +549,25 @@ public class NewQuizView extends JFrame {
 			throw new EmptyStackException();
 		}
 	}
-
+	// jeśli tworzymy quesr musi on mieć indywidualną nazwę,
+	// jeśli edytujemy nazwa może się powtarzać
 	private void validateName(QuestPoint newQuest) {
 		if (!tfQuizName.getText().equals("")) {
-			newQuest.setQuestName(tfQuizName.getText());
+			// jesli jest edytowana
+			if (this.tfQuizName.getText().equals(thisName)) {
+				newQuest.setQuestName(tfQuizName.getText());
+			// jesli jest tworzona nowa zagadka
+			} else {
+				if (!campaignRef.getQuizesNames().contains(
+						tfQuizName.getText())) {
+					newQuest.setQuestName(tfQuizName.getText());
+				} else {
+					JOptionPane.showMessageDialog(null, "Podaj inną nazwę zagadki");
+					throw new NoDataInFieldException();
+				}
+			}
 		} else {
-
-			JOptionPane.showMessageDialog(null, "Podaj nazwę zagadki");
+			JOptionPane.showMessageDialog(null, "Podaj inną nazwę zagadki");
 			throw new NoDataInFieldException();
 		}
 	}
