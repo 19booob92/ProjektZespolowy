@@ -149,7 +149,7 @@ public class NewQuizView extends JFrame {
 	}
 
 	private void fillFieldsWithQuizData() {
-		QuestPoint q = campaignRef.getQuizes().get(quizIndex);
+		QuestPoint q = campaignRef.getQuizes().get(quizIndex-1);
 		choiceView.setVisible(false);
 		decisionView.setVisible(false);
 		orderView.setVisible(false);
