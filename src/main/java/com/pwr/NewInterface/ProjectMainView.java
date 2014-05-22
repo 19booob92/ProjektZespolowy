@@ -373,6 +373,8 @@ public class ProjectMainView extends JFrame implements Serializable {
 	}
 
 	private void tworzNowaGre() {
+		campaign.setIntroText(projectTabPane.introTextList);
+		campaign.setOutroText(projectTabPane.outroTextList);
 		campaign.setGameTitle(projectTabPane.getGameTitle());
 		campaign.setGameDate(projectTabPane.getGameDate());
 		campaign.setIntroPics(rewriteJListToArrayList(projectTabPane.introPics));

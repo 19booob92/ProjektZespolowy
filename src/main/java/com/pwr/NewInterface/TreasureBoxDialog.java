@@ -107,6 +107,8 @@ public class TreasureBoxDialog extends JDialog{
 				
 		textArea = new JTextArea();
 		textArea.setPreferredSize(new Dimension(380,300));
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
 		this.add(textArea,BorderLayout.EAST);
 		
 		

@@ -1,19 +1,24 @@
 package com.pwr.NewInterface;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Scrollbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -21,6 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
@@ -54,6 +60,8 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	private JScrollPane listScroll;
 	protected JList introPics;
 	protected JList outroPics;
+	protected ArrayList<String> introTextList;
+	protected ArrayList<String> outroTextList;
 
 	protected DefaultListModel<String> introPicsListModel;
 	protected DefaultListModel<String> outroPicsListModel;
@@ -61,15 +69,21 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	
 	private JButton btnAddIntro;
 	private JButton btnDelIntro;
+	private JButton btnEditIntro;
 	private JButton btnAddOutro;
 	private JButton btnDelOutro;
+	private JButton btnEditOutro;
 	private JButton btnEdit;
 	private JButton btnDel;
 	private JList listOfQuizes;
 	
+	private boolean introClicked=true;
+	
 	private Campaign campaign;
 
 	public ProjectOptionsView(Campaign camp) {
+		introTextList = new ArrayList();
+		outroTextList = new ArrayList();
 		this.setSize(panelWidth, panelHeight);
 		setLayout(null);
 		
@@ -88,11 +102,11 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		add(tfGameTitle);
 		tfGameTitle.setColumns(10);
 
-		lblIntroModulePics = new JLabel("Obrazy Intra");
+		lblIntroModulePics = new JLabel("Intro");
 		lblIntroModulePics.setBounds(10, 210, 81, 14);
 		add(lblIntroModulePics);
 
-		lblOutroModulePics = new JLabel("Obrazy Outra");
+		lblOutroModulePics = new JLabel("Outro");
 		lblOutroModulePics.setBounds(10, 317, 81, 14);
 		add(lblOutroModulePics);
 		
@@ -139,23 +153,33 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		for (String q : campaign.getOutroPics()) {
 			this.outroPicsListModel.addElement(q);			
 		}
+		introTextList = campaign.getIntroText();
+		outroTextList = campaign.getOutroText();
 	}
 	
 	public void addIntroOutroButtons() {
 		btnAddIntro = new JButton("Dodaj");
-		btnAddIntro.setBounds(101, 206, 89, 23);
+		btnAddIntro.setBounds(81, 206, 69, 23);
 		add(btnAddIntro);
 
 		btnDelIntro = new JButton("Usun");
-		btnDelIntro.setBounds(211, 206, 89, 23);
+		btnDelIntro.setBounds(219, 206, 69, 23);
 		add(btnDelIntro);
-
+		
+		btnEditIntro = new JButton("Tekst");
+		btnEditIntro.setBounds(150,206,69,23);
+		add(btnEditIntro);
+		
 		btnAddOutro = new JButton("Dodaj");
-		btnAddOutro.setBounds(101, 313, 89, 23);
+		btnAddOutro.setBounds(81, 313, 69, 23);
 		add(btnAddOutro);
+		
+		btnEditOutro = new JButton("Tekst");
+		btnEditOutro.setBounds(150,313,69,23);
+		add(btnEditOutro);
 
 		btnDelOutro = new JButton("Usun");
-		btnDelOutro.setBounds(211, 313, 89, 23);
+		btnDelOutro.setBounds(219, 313, 69, 23);
 		add(btnDelOutro);
 
 		lblStartDate = new JLabel("Data startu");
@@ -215,6 +239,42 @@ public class ProjectOptionsView extends JPanel implements Observer {
 				getPicturesPath(introPicsListModel);
 			}
 		});
+		
+		btnEditOutro.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				introClicked=false;
+				if(outroPics.getSelectedIndex()>=0)
+				{
+					if(outroTextList.size()==outroPics.getSelectedIndex())
+					{
+						outroTextList.add("");
+					}
+					createDialog();
+				}	
+			}
+			
+		});
+		
+		btnEditIntro.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				introClicked=true;
+				if(introPics.getSelectedIndex()>=0)
+				{
+					if(introTextList.size()==introPics.getSelectedIndex())
+					{
+						introTextList.add("");
+					}
+					createDialog();
+				}	
+			}
+			
+		});
 
 		btnEdit.addActionListener(new ActionListener() {
 
@@ -249,6 +309,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 				int ind = introPics.getSelectedIndex();
 				if (ind >= 0) {
 					introPicsListModel.remove(ind);
+					introTextList.remove(ind);
 				}
 			}
 		});
@@ -259,6 +320,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 				int ind = outroPics.getSelectedIndex();
 				if (ind >= 0) {
 					outroPicsListModel.remove(ind);
+					outroTextList.remove(ind);
 				}
 			}
 		});
@@ -330,5 +392,49 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		Date dsa=dateTimePicker.getDate();
 		SimpleDateFormat simpleFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		return simpleFormat.format(dsa);
+	}
+	
+	private void createDialog() 
+	{
+
+		final JTextArea textArea;
+		JScrollPane scroll;
+		
+		JButton okBtn;
+		final JDialog dialog = new JDialog();
+
+		dialog.setSize(new Dimension(400,400));
+		dialog.setLayout(new BorderLayout());
+		
+		textArea = new JTextArea();
+		textArea.setPreferredSize(new Dimension(360,300));
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+		if(introClicked)
+			textArea.setText(introTextList.get(introPics.getSelectedIndex()));
+		if(!introClicked)
+			textArea.setText(outroTextList.get(outroPics.getSelectedIndex()));
+		scroll = new JScrollPane(textArea);
+		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		dialog.add(scroll,BorderLayout.NORTH);
+		
+		okBtn = new JButton("Ok");
+		okBtn.setPreferredSize(new Dimension(60,30));
+		okBtn.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(introClicked)
+					introTextList.set(introPics.getSelectedIndex(), textArea.getText());
+				if(!introClicked)
+					outroTextList.set(outroPics.getSelectedIndex(), textArea.getText());
+				dialog.dispose();
+			}
+			
+		});
+		dialog.add(okBtn,BorderLayout.SOUTH);
+		
+		dialog.setVisible(true);
 	}
 }

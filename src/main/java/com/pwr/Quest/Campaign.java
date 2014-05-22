@@ -140,8 +140,8 @@ public class Campaign extends Observable {
 		XmlBuilder xml = new XmlBuilder(gameTitle);
 		xml.resetId();
 		zip = new ZipPacker("paczka.zip");
-		xml.createIntro(introPics, introPics);
-		xml.createOutro(outroPics, outroPics);
+		xml.createIntro(introPics, introText);
+		xml.createOutro(outroPics, outroText);
 		for (int i = 0; i < quests.size(); i++) {
 			FileTransfer(quests.get(i));
 			QuestPoint tempQuest = quests.get(i);
@@ -391,6 +391,14 @@ public class Campaign extends Observable {
 	public void setOutroText(ArrayList<String> list)
 	{
 		outroText=list;
+	}
+	public ArrayList<String> getOutroText()
+	{
+		return outroText;
+	}
+	public ArrayList<String> getIntroText()
+	{
+		return introText;
 	}
 	public void setGameTitle(String title)
 	{

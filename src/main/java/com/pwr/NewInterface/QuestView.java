@@ -18,16 +18,18 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableModel;
 
 public class QuestView extends JPanel implements DescribeView {
 	protected JList<String> pics;
 	protected JList<String> sounds;
 	protected Set<String> setOfpath;
 	protected String paragraph="";
-
+	protected ArrayList<Boolean> imageInventoryList;
 
 	protected DefaultListModel<String> picsListModel;
 	protected DefaultListModel<String> soundsListModel;
@@ -66,8 +68,10 @@ public class QuestView extends JPanel implements DescribeView {
 
 		picsListModel = new DefaultListModel<String>();
 		soundsListModel = new DefaultListModel<String>();
-
+		imageInventoryList = new ArrayList();
+		
 		sounds = new JList(soundsListModel);
+		
 		sounds.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		soundsScrollPane = new JScrollPane(sounds);
 		soundsScrollPane.setBounds(23, 163, 302, 60);
@@ -223,4 +227,5 @@ public class QuestView extends JPanel implements DescribeView {
 	public String introduceYourself() {
 		return null;
 	}
+	
 }
