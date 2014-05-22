@@ -362,7 +362,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 				campaign.convertQuiz());
 		graphFacade.getGraphPanel().repaint();
 		if (campaign.getCreated() == true) {
-			quizListModel.addElement(campaign.getLastQuiz().ToString());
+			quizListModel.addElement(campaign.getLastQuiz().toString());
 			campaign.createdFalse();
 		} else if (campaign.getEdited() == true) {
 			campaign.editedFalse();

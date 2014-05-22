@@ -125,11 +125,12 @@ public class NewQuizView extends JFrame {
 		dateTimePicker = new DateTimePicker(datePickerDate);
 		dateTimePicker.setBounds(24, 205, 226, 27);
 		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		dateTimePicker.setFormats( dateFormat );
-		dateTimePicker.setTimeFormat( DateFormat.getTimeInstance( DateFormat.MEDIUM ) );
+		dateTimePicker.setFormats(dateFormat);
+		dateTimePicker.setTimeFormat(DateFormat
+				.getTimeInstance(DateFormat.MEDIUM));
 		dateTimePicker.setDate(datePickerDate);
 		leftSidePanel.add(dateTimePicker);
-		
+
 		leftScroll = new JScrollPane(leftSidePanel);
 		rightScroll = new JScrollPane(rightSidePanel);
 		rightScroll
@@ -149,7 +150,7 @@ public class NewQuizView extends JFrame {
 	}
 
 	private void fillFieldsWithQuizData() {
-		QuestPoint q = campaignRef.getQuizes().get(quizIndex-1);
+		QuestPoint q = campaignRef.getQuizes().get(quizIndex - 1);
 		choiceView.setVisible(false);
 		decisionView.setVisible(false);
 		orderView.setVisible(false);
@@ -190,15 +191,15 @@ public class NewQuizView extends JFrame {
 		points.setText(Integer.toString(q.getPoints()));
 		SimpleDateFormat simple = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		try {
-			
-			datePickerDate=simple.parse(q.getDate());
+
+			datePickerDate = simple.parse(q.getDate());
 			dateTimePicker.setDate(simple.parse(q.getDate()));
 			dateTimePicker.updateUI();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		System.out.println(dateTimePicker.getDate());
-		view.paragraph=q.getParagraph();
+		view.paragraph = q.getParagraph();
 	}
 
 	private void fillWithFieldQuestData(FieldQuest q) {
@@ -234,9 +235,23 @@ public class NewQuizView extends JFrame {
 	}
 
 	private void fillWithDecisionQuestData(DecisionQuest q) {
+//		for (int i = 0; i < q.getQuestAnswer().size(); i++) {
+//			String qname = "";
+//			for (int j = 0; j < ProjectMainView.getCampaign().getQuizes()
+//					.size(); j++) {
+//				if (ProjectMainView.getCampaign().getQuizes().get(j).getId() == Integer
+//						.parseInt(q.getGoToList().get(i))) {
+//					qname = ProjectMainView.getCampaign().getQuizes().get(j).getQuestName();
+//					break;
+//				}
+//			}
+//			decisionView.tableModel.addRow(new Object[] { "",
+//					q.getQuestAnswer().get(i), q.getGoToList().get(i),
+//					qname });
+//		}
 		for (int i = 0; i < q.getQuestAnswer().size(); i++) {
 			decisionView.tableModel.addRow(new Object[] { "",
-					q.getQuestAnswer().get(i), q.getGoToList().get(i) });
+					q.getQuestAnswer().get(i), q.getGoToList().get(i), q.getGoToList().get(i)});
 		}
 	}
 
@@ -308,16 +323,17 @@ public class NewQuizView extends JFrame {
 									.getComponents()) {
 								newQuest = whichTestCreate(newQuest, component);
 							}
-							//newQuest.incrementId();
+							// newQuest.incrementId();
 							campaignRef.addQuiz(newQuest);
 							campaignRef.createdTrue();
 						} else {
-							newQuest = campaignRef.getQuizes().get(quizIndex-1);
+							newQuest = campaignRef.getQuizes().get(
+									quizIndex - 1);
 							for (Component comp : rightSidePanel
 									.getComponents()) {
 								choiceQuestType(newQuest, comp);
 							}
-							campaignRef.setQuiz(newQuest, quizIndex-1);
+							campaignRef.setQuiz(newQuest, quizIndex - 1);
 							campaignRef.editedTrue();
 						}
 						dispose();
@@ -484,12 +500,12 @@ public class NewQuizView extends JFrame {
 			}
 		}
 
-		/*try {
-			zip.addFile("temp"+java.io.File.separator+"Config.xml");
-		} catch (IOException ex) {
-			Logger.getLogger(NewQuizView.class.getName()).log(Level.SEVERE,
-					null, ex);
-		}*/
+		/*
+		 * try { zip.addFile("temp"+java.io.File.separator+"Config.xml"); }
+		 * catch (IOException ex) {
+		 * Logger.getLogger(NewQuizView.class.getName()).log(Level.SEVERE, null,
+		 * ex); }
+		 */
 		zip.closeZip();
 	}
 
@@ -498,20 +514,23 @@ public class NewQuizView extends JFrame {
 		newQuest.setSoundPaths(rewriteJListToArrayList(selectedCard.sounds));
 		newQuest.setParagraph(selectedCard.paragraph);
 		newQuest.setQuestTimeout(Integer.parseInt(timeoutField.getText()));
-		SimpleDateFormat simpleFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		Date dsa=dateTimePicker.getDate();
+		SimpleDateFormat simpleFormat = new SimpleDateFormat(
+				"dd-MM-yyyy HH:mm:ss");
+		Date dsa = dateTimePicker.getDate();
 		newQuest.setDate(simpleFormat.format(dsa));
 		System.out.println(newQuest.getDate());
 		validateName(newQuest);
 		validateData(newQuest);
 		validatePoints(newQuest);
-		//newQuest.setDate(date.getText());
+		// newQuest.setDate(date.getText());
 		newQuest.setPostNote(selectedCard.postNote.getText());
 		newQuest.setPreNote(selectedCard.preNote.getText());
 	}
 
 	private void validateData(QuestPoint newQuest) {
-		if (!newQuest.getDate().matches(
+		if (!newQuest
+				.getDate()
+				.matches(
 						"[0-3][0-9]-[0-1][0-9]-[0-9]{4} [0-2][0-9]:[0-6][0-9]:[0-6][0-9]")) {
 			JOptionPane.showMessageDialog(null,
 					"Podaj date w formacie dd-MM-rrrr hh:mm:ss");

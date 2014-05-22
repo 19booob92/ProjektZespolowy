@@ -53,6 +53,4 @@ public class TextQuest extends QuestPoint implements DescribeQuest{
 		// TODO Auto-generated method stub
 		return null;
 	}
-        
-
 }

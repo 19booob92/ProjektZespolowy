@@ -138,8 +138,8 @@ public abstract class QuestPoint implements DescribeQuest {
 	public void setQuestType(QuestType type) {
 		this.type = type;
 	}
-
-	public String ToString() {
+	@Override
+	public String toString() {
 		return QuestName;
 	}
 
@@ -193,8 +193,9 @@ public abstract class QuestPoint implements DescribeQuest {
 		//} catch (NoSuchAlgorithmException e) {
 			//e.printStackTrace();
 		//}
-		if (type == QuestType.DECISIONQUEST) {
-			quizDTO = new QuizDataObject(QuestName, getGoToList().toArray(new String[getGoToList().size()]),wrong,Integer.toString(questId));			
+		if (this.type == QuestType.DECISIONQUEST) {
+			String [] arr = getGoToList().toArray(new String[getGoToList().size()]);
+			quizDTO = new QuizDataObject(QuestName, arr,wrong,Integer.toString(questId));			
 			return quizDTO;
 		} else {
 			quizDTO = new QuizDataObject(QuestName, new String[]{getGoTo()},wrong,Integer.toString(questId));
