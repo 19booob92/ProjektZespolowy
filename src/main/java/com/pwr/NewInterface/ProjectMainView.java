@@ -79,7 +79,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
 	private JPanel userTabPane;
-	
+
 	private TreasureBoxDialog treasureBoxDialog;
 	private GameSettingsDialog gameSettingsDialog;
 
@@ -334,34 +334,32 @@ public class ProjectMainView extends JFrame implements Serializable {
 		});
 
 		leftSidePanel.add(btnSendPackageToSerwer);
-		
+
 		btnAddTreasureBox = new JButton("Zarządzanie skrytkami");
-		btnAddTreasureBox.setBounds(6,268,206,28);
-		
-		btnAddTreasureBox.addActionListener(new ActionListener()
-		{
+		btnAddTreasureBox.setBounds(6, 268, 206, 28);
+
+		btnAddTreasureBox.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				treasureBoxDialog = new TreasureBoxDialog(campaign);
 			}
-			
+
 		});
-		
+
 		leftSidePanel.add(btnAddTreasureBox);
-		
+
 		btnEditGameSettings = new JButton("Ustawienia gry");
-		btnEditGameSettings.setBounds(6,306,206,28);
-		btnEditGameSettings.addActionListener(new ActionListener()
-		{
+		btnEditGameSettings.setBounds(6, 306, 206, 28);
+		btnEditGameSettings.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				gameSettingsDialog = new GameSettingsDialog(campaign);
 			}
-			
+
 		});
-		
+
 		leftSidePanel.add(btnEditGameSettings);
 	}
 
@@ -379,7 +377,13 @@ public class ProjectMainView extends JFrame implements Serializable {
 		campaign.setGameDate(projectTabPane.getGameDate());
 		campaign.setIntroPics(rewriteJListToArrayList(projectTabPane.introPics));
 		campaign.setOutroPics(rewriteJListToArrayList(projectTabPane.outroPics));
-		campaign.createXml();
+		try {
+			campaign.createXml();
+			JOptionPane.showMessageDialog(null, "Zapisano grę");
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Nie udało się zapisać gry");
+		}
+
 	}
 
 	private ArrayList rewriteJListToArrayList(JList list) {
@@ -627,8 +631,9 @@ public class ProjectMainView extends JFrame implements Serializable {
 	public static void invokeQuizRemoving(int id) {
 		for (QuestPoint q : campaign.getQuizes()) {
 			if (q.getId() == id) {
-				campaign.getQuizes().remove(q);
-				
+				campaign.removeQuiz(q);
+				;
+				campaign.deleteTrue();
 				ProjectOptionsView.updateView();
 				break;
 			}

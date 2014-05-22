@@ -279,9 +279,10 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		btnEdit.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				int ind = listOfQuizes.getSelectedIndex();
-				if (ind >= 0) {
-					NewQuizView quizEditView = new NewQuizView(campaign, ind);
+				for (QuestPoint quest : campaign.getQuizes()) {
+					if (listOfQuizes.getSelectedValue().toString().equals(quest.getQuestName())) {
+						NewQuizView quizEditView = new NewQuizView(campaign, quest.getId());
+					}
 				}
 			}
 		});
@@ -301,6 +302,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 					}
 				}
 			}
+
 		});
 
 		btnDelIntro.addActionListener(new ActionListener() {
@@ -365,7 +367,19 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			quizListModel.addElement(campaign.getLastQuiz().ToString());
 			campaign.createdFalse();
 		} else if (campaign.getEdited() == true) {
+			updateQuestList();
 			campaign.editedFalse();
+		} else if (campaign.getDeleted()) {
+			updateQuestList();
+			campaign.deleteFalse();
+		}
+	}
+
+	private void updateQuestList() {
+		listOfQuizes.removeAll();
+		quizListModel.removeAllElements();
+		for (String questName : campaign.getQuizesNames()) {
+			quizListModel.addElement(questName);
 		}
 	}
 
@@ -433,8 +447,8 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			}
 			
 		});
-		dialog.add(okBtn,BorderLayout.SOUTH);
-		
+		dialog.add(okBtn, BorderLayout.SOUTH);
+
 		dialog.setVisible(true);
 	}
 }

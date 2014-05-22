@@ -90,7 +90,7 @@ public abstract class QuestPoint implements DescribeQuest {
 	public static void incrementId() {
 		id++;
 	}
-	
+
 	public QuestType getQuestType() {
 		return type;
 	}
