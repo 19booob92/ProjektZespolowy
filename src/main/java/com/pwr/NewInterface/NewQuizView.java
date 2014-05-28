@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -55,7 +56,7 @@ public class NewQuizView extends JFrame {
 	private JSplitPane splitPane;
 	private JScrollPane leftScroll;
 	private JScrollPane rightScroll;
-
+	static Toolkit toolkit;
 	private Date datePickerDate;
 	private DateTimePicker dateTimePicker;
 	private JButton btnSaveQuiz;
@@ -64,12 +65,11 @@ public class NewQuizView extends JFrame {
 	private JLabel lblWrong;
 	private JLabel lblPoints;
 	private JLabel lblDate;
-
-	private static final int PANEL_WIDTH = 650;
-	private static final int PANEL_HEIGHT = 900;
+	private static final int PANEL_WIDTH = 1000;
+	private static final int PANEL_HEIGHT = 700;
 
 	private static final int WINDOW_WIDTH = 1000;
-	private static final int WINDOW_HEIGHT = 500;
+	private static final int WINDOW_HEIGHT = 700;
 
 	protected JTextField wrong;
 	private JTextField timeoutField;

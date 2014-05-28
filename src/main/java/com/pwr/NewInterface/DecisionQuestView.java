@@ -53,7 +53,7 @@ public class DecisionQuestView extends QuestView implements DescribeView {
 	private void addAnswersTable() {
 		tablePanel = new JPanel();
 		tableModel = new DefaultTableModel(new String[] { "Nr",
-				"Treść odpowiedzi", "Kolejna zagadka", "Combo zagadka" }, 0);
+				"Treść odpowiedzi", "Combo zagadka" }, 0);
 
 		tablePanel.setBounds(23, 286, 518, 203);
 		tablePanel.setLayout(new BorderLayout());
@@ -62,8 +62,6 @@ public class DecisionQuestView extends QuestView implements DescribeView {
 
 		table.getColumn("Nr").setMinWidth(30);
 		table.getColumn("Nr").setMaxWidth(30);
-		table.getColumn("Kolejna zagadka").setMinWidth(80);
-		table.getColumn("Kolejna zagadka").setMaxWidth(80);
 		table.getColumn("Combo zagadka").setMinWidth(100);
 		table.getColumn("Combo zagadka").setMaxWidth(100);
 
@@ -115,10 +113,10 @@ public class DecisionQuestView extends QuestView implements DescribeView {
 
 	private void setUpComboBoxColumn() {
 		createComboBox();
-		table.getColumnModel().getColumn(3)
+		table.getColumnModel().getColumn(2)
 				.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		table.getColumnModel().getColumn(3).setCellRenderer(renderer);
+		table.getColumnModel().getColumn(2).setCellRenderer(renderer);
 	}
 
 	private void createComboBox() {
@@ -191,7 +189,7 @@ public class DecisionQuestView extends QuestView implements DescribeView {
 		ArrayList collectedAnswers = new ArrayList();
 
 		for (int i = 0; i < table.getModel().getRowCount(); i++) {
-			collectedAnswers.add(tableModel.getValueAt(i, 3));
+			collectedAnswers.add(tableModel.getValueAt(i, 2));
 		}
 		return collectedAnswers;
 	}

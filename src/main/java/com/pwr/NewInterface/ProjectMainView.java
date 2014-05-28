@@ -1,6 +1,7 @@
 package com.pwr.NewInterface;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -27,9 +29,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
+import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
@@ -79,6 +83,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
 	private JPanel userTabPane;
+	private JPanel statusPanel;
 
 	private TreasureBoxDialog treasureBoxDialog;
 	private GameSettingsDialog gameSettingsDialog;
@@ -110,8 +115,8 @@ public class ProjectMainView extends JFrame implements Serializable {
 	private JLabel lblOpcjeUserow;
 	private JLabel lblOperacjeNaProjekcie;
 
-	private static int windowWidth = 800;
-	private static int windowHeight = 500;
+	private static int windowWidth = 1200;
+	private static int windowHeight = 600;
 
 	private JTable table;
 	private DefaultTableModel tableModel;
@@ -149,12 +154,25 @@ public class ProjectMainView extends JFrame implements Serializable {
 		getContentPane().setLayout(new BorderLayout());
 		setSize(windowWidth, windowHeight);
 
+		statusPanel = new JPanel();
+		statusPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
+		statusPanel.setPreferredSize(new Dimension(this.getWidth(), 20));
+		statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
+		statusPanel.setBackground(Color.WHITE);
+		JLabel info = new JLabel(
+				"Info o projekcie w skrocie np liczba quizow itp, tu mozna tez wyswietlac bledy i zmieniac tlo na czerwone");
+		info.setHorizontalAlignment(SwingConstants.LEFT);
+		statusPanel.add(info);
+		getContentPane().add(statusPanel, BorderLayout.SOUTH);
+
 		leftSidePanel = new JPanel();
 		rightSidePanel = new JPanel();
 		rightSidePanel.setPreferredSize(new Dimension(1000, 750));
 		rightScroll = new JScrollPane(rightSidePanel);
 		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftSidePanel,
 				rightScroll);
+		splitPane.setEnabled(false);
+		splitPane.setDividerLocation(220);
 
 		leftSidePanel.setLayout(null);
 		rightSidePanel.setLayout(null);
@@ -166,7 +184,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		// createLeftSidePanelForProject();
 		// createRightSidePanel();
 
-		splitPane.setResizeWeight(0.3);
+		// splitPane.setResizeWeight(0.3);
 		splitPane.setBounds(10, 11, 764, 418);
 		getContentPane().add(splitPane);
 		// createMenu();
