@@ -167,7 +167,7 @@ public class Requests implements Serializable {
 
 	private FormDataMultiPart createInstance() {
 		File f = new File("paczka.zip");
-		FileDataBodyPart fdp = new FileDataBodyPart("paczka", f,
+		FileDataBodyPart fdp = new FileDataBodyPart("file", f,
 				MediaType.APPLICATION_OCTET_STREAM_TYPE);
 
 		FormDataMultiPart formDataMultiPart = new FormDataMultiPart();
