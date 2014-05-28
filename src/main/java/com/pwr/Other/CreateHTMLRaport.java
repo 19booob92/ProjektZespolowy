@@ -1,9 +1,13 @@
 package com.pwr.Other;
 
 import java.awt.Desktop;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,16 +39,34 @@ public class CreateHTMLRaport {
 
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 			bw.write("<html>");
+			bw.write("<head>");
+
+			bw.write("<style>");
+
+			bw.write("<!--");
+			
+			FileInputStream fstream = new FileInputStream("style.css");
+			DataInputStream in = new DataInputStream(fstream);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String strLine;
+			while((strLine = br.readLine())!= null) {
+				bw.write(strLine);
+			}
+
+			bw.write("-->");
+
+			bw.write("</style>");
+
+			bw.write("</head>");
 			bw.write("<body>");
 			bw.write("<h1 align=\"center\">Raport</h1>");
 
-			bw.write("<table border=\"2\" align=\"center\">");
-
+			bw.write("<table class=\"stats\" border=\"2\" align=\"center\">");
 			// to jest chyba nie wydajne !!!
-			bw.write("<td bgcolor=\"#00FF00\" align=\"center\">Login</td>");
-			bw.write("<td bgcolor=\"#00FF00\" align=\"center\">Punkty</td>");
-			bw.write("<td bgcolor=\"#00FF00\" align=\"center\">Data Ukonczenia</td>");
-			
+			bw.write("<td align=\"center\">Login</td>");
+			bw.write("<td align=\"center\">Punkty</td>");
+			bw.write("<td align=\"center\">Data Ukonczenia</td>");
+
 			for (UserDTO userDTO : listaUserow) {
 				UserGameDTO userGameDTO = userDTO.getUserGame();
 				bw.write("<tr align=\"center\">");
@@ -71,7 +93,8 @@ public class CreateHTMLRaport {
 			Desktop.getDesktop().browse(file.toURI());
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Nie udalo sie utworzyc raportu");
+			JOptionPane.showMessageDialog(null,
+					"Nie udalo sie utworzyc raportu");
 			e.printStackTrace();
 		}
 	}
