@@ -44,12 +44,12 @@ public class CreateHTMLRaport {
 			bw.write("<style>");
 
 			bw.write("<!--");
-			
+
 			FileInputStream fstream = new FileInputStream("style.css");
 			DataInputStream in = new DataInputStream(fstream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			String strLine;
-			while((strLine = br.readLine())!= null) {
+			while ((strLine = br.readLine()) != null) {
 				bw.write(strLine);
 			}
 
@@ -63,9 +63,8 @@ public class CreateHTMLRaport {
 
 			bw.write("<table class=\"stats\" border=\"2\" align=\"center\">");
 			// to jest chyba nie wydajne !!!
-			bw.write("<td align=\"center\">Login</td>");
-			bw.write("<td align=\"center\">Punkty</td>");
-			bw.write("<td align=\"center\">Data Ukonczenia</td>");
+			bw.write("<thead><tr><th scope=\"col\">Login</th><th scope=\"col\">Punkty"
+					+ "</th><th scope=\"col\">Data Ukonczenia</th></tr></thead>");
 
 			for (UserDTO userDTO : listaUserow) {
 				UserGameDTO userGameDTO = userDTO.getUserGame();
