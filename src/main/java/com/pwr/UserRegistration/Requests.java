@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.ws.rs.core.MediaType;
 
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
@@ -13,12 +14,15 @@ import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
 import com.pwr.NewInterface.SplashWindow;
+import com.pwr.Other.NoDataInFieldException;
+import com.pwr.Other.SendPackageListenerFactory;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.api.client.filter.ConnectionListenerFilter;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.multipart.FormDataMultiPart;
@@ -39,13 +43,13 @@ public class Requests implements Serializable {
 	public Requests() {
 	}
 
-	
-	public void crossPoint(SplashWindow splashWindow) {}
-	
+	public void crossPoint(SplashWindow splashWindow) {
+	}
+
 	private void prepareConnection() {
 		ClientConfig config = new DefaultClientConfig();
 		client = Client.create(config);
-		client.addFilter(new LoggingFilter());
+		//client.addFilter(new LoggingFilter());
 		client.addFilter(new HTTPBasicAuthFilter(login, pass));
 	}
 
@@ -64,8 +68,7 @@ public class Requests implements Serializable {
 		return response.getStatus();
 	}
 
-	public List<UserDTO> getAllUsers()
-			throws Exception {
+	public List<UserDTO> getAllUsers() throws Exception {
 
 		ClientConfig clientConfig = new DefaultClientConfig();
 		clientConfig.getClasses().add(JacksonJsonProvider.class);
@@ -78,7 +81,7 @@ public class Requests implements Serializable {
 				.get(new GenericType<List<UserDTO>>() {
 				});
 	}
-	
+
 	public <T> int sendData(T data, String typeURI) throws Exception {
 		Gson gson = new Gson();
 		String json = gson.toJson(data);
@@ -132,7 +135,7 @@ public class Requests implements Serializable {
 	}
 
 	public List<QuestDTO> getAllQuests() throws Exception {
-		
+
 		ClientConfig clientConfig = new DefaultClientConfig();
 		clientConfig.getClasses().add(JacksonJsonProvider.class);
 		Client client = Client.create(clientConfig);
@@ -156,23 +159,40 @@ public class Requests implements Serializable {
 		return response.getStatus();
 	}
 
-	public int sendFile() {
+	public void sendFile(final String filePath) {
 		prepareConnection();
-		webResource = client.resource(address + "adminPanel/upload/");
-		ClientResponse response = webResource.type(
-				MediaType.MULTIPART_FORM_DATA_TYPE).post(ClientResponse.class,
-				createInstance());
-		return response.getStatus();
+
+		Thread queryThread = new Thread() {
+			public void run() {
+				try {
+					webResource = client.resource(address + "adminPanel/upload/");
+					webResource.addFilter(new ConnectionListenerFilter(
+							new SendPackageListenerFactory()));
+					ClientResponse response = webResource.type(
+							MediaType.MULTIPART_FORM_DATA_TYPE).post(
+							ClientResponse.class, createInstance(filePath));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		queryThread.start();
 	}
 
-	private FormDataMultiPart createInstance() {
-		File f = new File("paczka.zip");
-		FileDataBodyPart fdp = new FileDataBodyPart("file", f,
-				MediaType.APPLICATION_OCTET_STREAM_TYPE);
+	private FormDataMultiPart createInstance(String filePath) {
+		File f = new File(filePath);
 
-		FormDataMultiPart formDataMultiPart = new FormDataMultiPart();
-
-		formDataMultiPart.bodyPart(fdp);
-		return formDataMultiPart;
+		if (f.isFile()) {
+			FileDataBodyPart fdp = new FileDataBodyPart("file", f,
+					MediaType.APPLICATION_OCTET_STREAM_TYPE);
+			
+			FormDataMultiPart formDataMultiPart = new FormDataMultiPart();
+			
+			formDataMultiPart.bodyPart(fdp);
+			return formDataMultiPart;
+		} else {
+			JOptionPane.showMessageDialog(null, "Nie można znaleźć pliku do wysłania");
+			throw new NoDataInFieldException();
+		}
 	}
 }

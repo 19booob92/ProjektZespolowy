@@ -144,8 +144,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			dateTimePicker.setDate(simple.parse(campaign.getGameDate()));
 			dateTimePicker.updateUI();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new NoDataInFieldException();
 		}
 		for (String q : campaign.getIntroPics()) {
 			this.introPicsListModel.addElement(q);			

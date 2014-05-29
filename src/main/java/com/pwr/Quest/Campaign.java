@@ -6,6 +6,8 @@ import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.xml.transform.TransformerException;
 
 import org.apache.commons.io.FileUtils;
@@ -45,7 +47,8 @@ public class Campaign extends Observable {
 	private String background3 = "";
 	private String logo = "";
 	private String button = "";
-
+	private String pathToFile;
+	
 	public Campaign() {
 		quests = new ArrayList();
 		boxes = new ArrayList();
@@ -158,7 +161,8 @@ public class Campaign extends Observable {
 		saved = true;
 		XmlBuilder xml = new XmlBuilder(gameTitle);
 		xml.resetId();
-		zip = new ZipPacker("paczka.zip");
+		pathToFile = selectFile();
+		zip = new ZipPacker(pathToFile);
 		xml.createIntro(introPics, introText);
 		xml.createOutro(outroPics, outroText);
 		for (int i = 0; i < quests.size(); i++) {
@@ -240,7 +244,6 @@ public class Campaign extends Observable {
 			try {
 				FileUtils.copyFileToDirectory(srcFile, destFolder);
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			for (int i = 0; i < introPics.size(); i++) {
@@ -273,7 +276,6 @@ public class Campaign extends Observable {
 				try {
 					zip.addFile(files[i].getPath());
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				// files[i].delete();
@@ -282,6 +284,13 @@ public class Campaign extends Observable {
 		}
 
 		zip.closeZip();
+	}
+
+	private String selectFile() {
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setSelectedFile(new File(gameTitle + ".zip"));
+		fileChooser.showSaveDialog(new JFrame());
+		return fileChooser.getSelectedFile().getAbsolutePath();
 	}
 
 	private void FileTransfer(QuestPoint newQuest) {
