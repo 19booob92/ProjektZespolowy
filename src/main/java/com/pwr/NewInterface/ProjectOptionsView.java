@@ -280,7 +280,8 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			public void actionPerformed(ActionEvent e) {
 				for (QuestPoint quest : campaign.getQuizes()) {
 					if (listOfQuizes.getSelectedValue().toString().equals(quest.getQuestName())) {
-						NewQuizView quizEditView = new NewQuizView(campaign, quest.getId());
+						NewQuizView quizEditView = NewQuizView.getInstance(campaign, quest.getId());
+						quizEditView.show();
 					}
 				}
 			}
