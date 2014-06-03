@@ -264,18 +264,18 @@ public class ProjectMainView extends JFrame implements Serializable {
 	}
 
 	public static void invokeNewQuizView(final int id) {
-		new NewQuizView(campaign, id);
+		NewQuizView.getInstance(campaign, id).show();
 	}
 
 	public static void invokeNewQuizView() {
-		new NewQuizView(campaign);
+		NewQuizView.getInstance(campaign).show();
 	}
 
 	private void createLeftSidePanelForProject() {
 		btnNewQuiz = new JButton("Nowy quest");
 		btnNewQuiz.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new NewQuizView(campaign);
+				NewQuizView.getInstance(campaign).show();
 			}
 		});
 
@@ -337,7 +337,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 				    		  updateStatusPanel(progressBar);
 				    		  requests.sendFile(filePath);
 				    	  } catch (Exception e) {
-				    		  e.printStackTrace();
+				    		  JOptionPane.showMessageDialog(null, "Upłynął czas na połączenie z serwerem");
 				    	  }
 				      }
 				    };
