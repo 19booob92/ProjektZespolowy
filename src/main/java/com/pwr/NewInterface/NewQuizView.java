@@ -91,7 +91,9 @@ public class NewQuizView extends JFrame {
 
 	private String thisName;
 	
-	public NewQuizView(Campaign campaign, int qInd) {
+	private static NewQuizView instanceOfNewQuizView = null;
+	
+	private NewQuizView(Campaign campaign, int qInd) {
 		super();
 		campaignRef = campaign;
 		quizIndex = qInd;
@@ -101,10 +103,25 @@ public class NewQuizView extends JFrame {
 		System.out.println(dateTimePicker.getDate());
 	}
 
+	public static NewQuizView getInstance(Campaign campaign, int qInd) {
+		
+		if (instanceOfNewQuizView == null) {
+			instanceOfNewQuizView = new NewQuizView(campaign, qInd);
+		}
+		return instanceOfNewQuizView;
+	}
+
+	public static NewQuizView getInstance(Campaign campaign) {
+		
+		if (instanceOfNewQuizView == null) {
+			instanceOfNewQuizView = new NewQuizView(campaign);
+		}
+		return instanceOfNewQuizView;
+	}
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public NewQuizView(Campaign campaign) {
+	private NewQuizView(Campaign campaign) {
 		super();
 		campaignRef = campaign;
 		quizIndex = -1;
