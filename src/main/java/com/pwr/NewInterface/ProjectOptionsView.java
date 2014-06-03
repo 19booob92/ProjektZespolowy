@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -230,12 +231,14 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		btnAddOutro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getPicturesPath(outroPicsListModel);
+				outroTextList.add("");
 			}
 		});
 
 		btnAddIntro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getPicturesPath(introPicsListModel);
+				introTextList.add("");
 			}
 		});
 		
@@ -247,10 +250,6 @@ public class ProjectOptionsView extends JPanel implements Observer {
 				introClicked=false;
 				if(outroPics.getSelectedIndex()>=0)
 				{
-					if(outroTextList.size()==outroPics.getSelectedIndex())
-					{
-						outroTextList.add("");
-					}
 					createDialog();
 				}	
 			}
@@ -265,10 +264,6 @@ public class ProjectOptionsView extends JPanel implements Observer {
 				introClicked=true;
 				if(introPics.getSelectedIndex()>=0)
 				{
-					if(introTextList.size()==introPics.getSelectedIndex())
-					{
-						introTextList.add("");
-					}
 					createDialog();
 				}	
 			}
@@ -310,6 +305,8 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			public void actionPerformed(ActionEvent e) {
 				int ind = introPics.getSelectedIndex();
 				if (ind >= 0) {
+					String path = introPicsListModel.getElementAt(ind);
+					deleteFile(path);
 					introPicsListModel.remove(ind);
 					introTextList.remove(ind);
 				}
@@ -321,6 +318,8 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			public void actionPerformed(ActionEvent e) {
 				int ind = outroPics.getSelectedIndex();
 				if (ind >= 0) {
+					String path = outroPicsListModel.getElementAt(ind);
+					deleteFile(path);
 					outroPicsListModel.remove(ind);
 					outroTextList.remove(ind);
 				}
@@ -450,5 +449,18 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		dialog.add(okBtn, BorderLayout.SOUTH);
 
 		dialog.setVisible(true);
+	}
+	
+	private void deleteFile(String path)
+	{
+		File file = new File(path);
+		if(file.exists())
+		{
+			String folder = file.getParent();
+			if(folder.equals("temp"))
+			{
+				file.delete();
+			}
+		}
 	}
 }

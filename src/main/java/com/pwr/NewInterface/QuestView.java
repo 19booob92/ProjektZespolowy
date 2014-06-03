@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -54,6 +55,10 @@ public class QuestView extends JPanel implements DescribeView {
 	private JLabel lblSounds;
 	private JLabel lblPreNote;
 	private JLabel lblPostNote;
+	private JLabel lblNarration;
+	
+	protected JComboBox comboBoxNarration;
+	private ArrayList<String> listNarration;
 
 	protected final static int PANEL_WIDTH = 900;
 	protected final static int PANEL_HEIGHT = 800;
@@ -86,7 +91,18 @@ public class QuestView extends JPanel implements DescribeView {
 		picsScrollPane = new JScrollPane(pics);
 		picsScrollPane.setBounds(23, 67, 302, 60);
 		add(picsScrollPane);
-
+		
+		lblNarration = new JLabel("Dźwięk do narracji");
+		lblNarration.setBounds(23,220,120,23);
+		add(lblNarration);
+		
+		listNarration = new ArrayList();
+		listNarration.add("0");
+		
+		comboBoxNarration = new JComboBox(listNarration.toArray());
+		comboBoxNarration.setBounds(163,220,60,23);
+		add(comboBoxNarration);
+		
 		btnAddParagraph = new JButton("Edytuj paragraf");
 		btnAddParagraph.setBounds(23, 243, 120, 23);
 		add(btnAddParagraph);
@@ -151,14 +167,30 @@ public class QuestView extends JPanel implements DescribeView {
 		btnDelPics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (picsListModel.getSize() != 0)
+				{
+					String path = picsListModel.getElementAt(pics.getSelectedIndex());
+					deleteFile(path);
 					picsListModel.remove(pics.getSelectedIndex());
+				}
 			}
 		});
 
 		btnDelSounds.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (soundsListModel.getSize() != 0)
+				{
+					String path = soundsListModel.getElementAt(sounds.getSelectedIndex());
+					deleteFile(path);
 					soundsListModel.remove(sounds.getSelectedIndex());
+					int size = listNarration.size();
+					listNarration = new ArrayList();
+					for(int i=0;i<size-1;i++)
+					{
+						listNarration.add(Integer.toString(i));
+					}
+					comboBoxNarration.removeAllItems();
+					comboBoxNarration.setModel(new DefaultComboBoxModel(listNarration.toArray()));
+				}
 			}
 		});
 
@@ -196,6 +228,9 @@ public class QuestView extends JPanel implements DescribeView {
 			//String str = chooser.getSelectedFile().getName();
 			String str = chooser.getSelectedFile().getPath();
 			list.addElement(str);
+			listNarration.add(Integer.toString(list.size()));
+			comboBoxNarration.removeAllItems();
+			comboBoxNarration.setModel(new DefaultComboBoxModel(listNarration.toArray()));
 			setOfpath.add(chooser.getCurrentDirectory().toString()
 					+ chooser.getSelectedFile());
 			System.out.println(setOfpath);
@@ -226,6 +261,19 @@ public class QuestView extends JPanel implements DescribeView {
 	@Override
 	public String introduceYourself() {
 		return null;
+	}
+	
+	private void deleteFile(String path)
+	{
+		File file = new File(path);
+		if(file.exists())
+		{
+			String folder = file.getParent();
+			if(folder.equals("temp"))
+			{
+				file.delete();
+			}
+		}
 	}
 	
 }

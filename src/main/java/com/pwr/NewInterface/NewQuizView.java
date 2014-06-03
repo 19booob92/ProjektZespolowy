@@ -530,6 +530,7 @@ public class NewQuizView extends JFrame {
 	}
 
 	private void GetGeneralQuestFields(QuestPoint newQuest, QuestView questView) {
+		newQuest.setSoundNarration(selectedCard.comboBoxNarration.getSelectedIndex()-1);
 		newQuest.setPicturePaths(rewriteJListToArrayList(selectedCard.pics));
 		newQuest.setSoundPaths(rewriteJListToArrayList(selectedCard.sounds));
 		newQuest.setParagraph(selectedCard.paragraph);

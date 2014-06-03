@@ -42,7 +42,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
-import org.crsh.shell.impl.command.system.repl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -394,6 +393,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 			JOptionPane.showMessageDialog(null, "Zapisano grę");
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Nie udało się zapisać gry");
+			ex.printStackTrace();
 		}
 
 	}
