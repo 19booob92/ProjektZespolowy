@@ -7,7 +7,8 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
-import com.pwr.NewInterface.AspectLogging;
+import com.pwr.MainView.AspectLogging;
+
 
 @Configuration
 @ComponentScan(basePackages = "com.pwr.")

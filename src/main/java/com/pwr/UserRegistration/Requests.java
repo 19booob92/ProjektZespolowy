@@ -11,8 +11,9 @@ import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+
 import com.google.gson.Gson;
-import com.pwr.NewInterface.SplashWindow;
+import com.pwr.MainView.SplashWindow;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;

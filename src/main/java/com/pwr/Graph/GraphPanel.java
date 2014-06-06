@@ -22,7 +22,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
-import com.pwr.NewInterface.ProjectMainView;
+
+import com.pwr.MainView.ProjectMainView;
 import com.pwr.Quest.Campaign;
 import com.pwr.Quest.QuestPoint;
 

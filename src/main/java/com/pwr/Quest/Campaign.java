@@ -10,13 +10,14 @@ import javax.xml.transform.TransformerException;
 
 import org.apache.commons.io.FileUtils;
 
-import com.pwr.Editor.PackageCoder;
-import com.pwr.Editor.XmlBuilder;
-import com.pwr.Editor.XmlLoader;
-import com.pwr.Editor.ZipPacker;
-import com.pwr.Editor.ZipUnpacker;
+
 import com.pwr.Graph.QuizDataObject;
-import com.pwr.NewInterface.NewQuizView;
+import com.pwr.Package.PackageCoder;
+import com.pwr.Package.XmlBuilder;
+import com.pwr.Package.XmlLoader;
+import com.pwr.Package.ZipPacker;
+import com.pwr.Package.ZipUnpacker;
+import com.pwr.QuestView.NewQuizView;
 
 import java.io.File;
 import java.io.IOException;
