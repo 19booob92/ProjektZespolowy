@@ -485,6 +485,7 @@ public class XmlBuilder {
         }
     }
     
+    
     public void resetId()
     {
     	quizTriggerId=0;
