@@ -70,7 +70,7 @@ public abstract class QuestPoint implements DescribeQuest {
 	{
 		this.soundInventoryList=soundInventoryList;
 	}
-	public int soundNarration()
+	public int getSoundNarration()
 	{
 		return soundNarration;
 	}

@@ -10,10 +10,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -25,6 +27,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
@@ -34,6 +37,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
@@ -63,6 +67,7 @@ import com.pwr.QuestView.NewQuizView;
 import com.pwr.UserRegistration.Requests;
 import com.pwr.UserRegistration.UserDTO;
 import com.pwr.UserRegistration.UserDataRegister;
+import com.sun.xml.bind.v2.runtime.unmarshaller.UnmarshallingContext.State;
 
 @Component
 public class ProjectMainView extends JFrame implements Serializable {
@@ -90,11 +95,13 @@ public class ProjectMainView extends JFrame implements Serializable {
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
 	private JPanel userTabPane;
-	private JPanel statusPanel;
+	private static JPanel statusPanel;
+	private static JProgressBar progressBar;
 
 	private TreasureBoxDialog treasureBoxDialog;
 	private GameSettingsDialog gameSettingsDialog;
 
+	private String filePath;
 	private JScrollPane rightScroll;
 
 	private ProjectOptionsView projectTabPane;
@@ -114,7 +121,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 	private JButton btnDeleteAllDoneQuests;
 	private JButton btnLoadQuests;
 	private JButton btnDeleteQuestts;
-	private JButton btnSendPackageToSerwer;
+	private JButton btnSendPackageToServer;
 	private JButton btnAddTreasureBox;
 	private JButton btnEditGameSettings;
 
@@ -160,6 +167,9 @@ public class ProjectMainView extends JFrame implements Serializable {
 		});
 		getContentPane().setLayout(new BorderLayout());
 		setSize(windowWidth, windowHeight);
+
+		progressBar = new JProgressBar();
+		progressBar.setStringPainted(true);
 
 		statusPanel = new JPanel();
 		statusPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
@@ -242,13 +252,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		btnDeleteQuestts.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				EventQueue.invokeLater(new Runnable() {
-
-					@Override
-					public void run() {
-						questTableView.setVisible(true);
-					}
-				});
+				questTableView.setVisible(true);
 			}
 		});
 
@@ -266,30 +270,18 @@ public class ProjectMainView extends JFrame implements Serializable {
 	}
 
 	public static void invokeNewQuizView(final int id) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new NewQuizView(campaign, id);
-			}
-		});
+		NewQuizView.getInstance(campaign, id).show();
 	}
 
 	public static void invokeNewQuizView() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new NewQuizView(campaign);
-			}
-		});
+		NewQuizView.getInstance(campaign).show();
 	}
 
 	private void createLeftSidePanelForProject() {
 		btnNewQuiz = new JButton("Nowy quest");
 		btnNewQuiz.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						new NewQuizView(campaign);
-					}
-				});
+				NewQuizView.getInstance(campaign).show();
 			}
 		});
 
@@ -309,15 +301,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		btnGenerateRaport.setBounds(6, 152, 207, 28);
 		leftSidePanel.add(btnGenerateRaport);
 
-		JButton btnZapiszUstawieniaGry = new JButton("Zapisz ustawienia gry");
-		btnZapiszUstawieniaGry.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnZapiszUstawieniaGry.setBounds(6, 72, 207, 28);
-		leftSidePanel.add(btnZapiszUstawieniaGry);
-
-		JButton btnNowaGra = new JButton("Nowa gra");
+		JButton btnNowaGra = new JButton("Zapisz grę");
 		btnNowaGra.setBounds(6, 32, 206, 28);
 		leftSidePanel.add(btnNowaGra);
 
@@ -329,7 +313,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 		});
 
-		btnLoadQuests = new JButton("Wczytaj zagadki");
+		btnLoadQuests = new JButton("Wczytaj grę");
 		btnLoadQuests.setBounds(6, 190, 206, 28);
 
 		btnLoadQuests.addActionListener(new ActionListener() {
@@ -343,22 +327,31 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 		leftSidePanel.add(btnLoadQuests);
 
-		btnSendPackageToSerwer = new JButton("Wyslij paczke");
-		btnSendPackageToSerwer.setBounds(6, 230, 206, 28);
+		btnSendPackageToServer = new JButton("Wyslij paczke");
+		btnSendPackageToServer.setBounds(6, 230, 206, 28);
 
-		btnSendPackageToSerwer.addActionListener(new ActionListener() {
+		btnSendPackageToServer.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					requests.sendFile();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				 Thread queryThread = new Thread() {
+				      public void run() {
+				    	  try {
+				    		  JFileChooser fileChooser = new JFileChooser();
+				    		  fileChooser.showSaveDialog(confirmView);
+				    		  filePath = fileChooser.getSelectedFile().getAbsolutePath();
+				    		  updateStatusPanel(progressBar);
+				    		  requests.sendFile(filePath);
+				    	  } catch (Exception e) {
+				    		  JOptionPane.showMessageDialog(null, "Upłynął czas na połączenie z serwerem");
+				    	  }
+				      }
+				    };
+				    queryThread.start();
 			}
 		});
 
-		leftSidePanel.add(btnSendPackageToSerwer);
+		leftSidePanel.add(btnSendPackageToServer);
 
 		btnAddTreasureBox = new JButton("Zarządzanie skrytkami");
 		btnAddTreasureBox.setBounds(6, 268, 206, 28);
@@ -407,6 +400,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 			JOptionPane.showMessageDialog(null, "Zapisano grę");
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Nie udało się zapisać gry");
+			ex.printStackTrace();
 		}
 
 	}
@@ -657,13 +651,28 @@ public class ProjectMainView extends JFrame implements Serializable {
 		for (QuestPoint q : campaign.getQuizes()) {
 			if (q.getId() == id) {
 				campaign.removeQuiz(q);
-				;
 				campaign.deleteTrue();
 				ProjectOptionsView.updateView();
 				break;
 			}
 		}
+	}
 
+	public void updateStatusPanel(java.awt.Component component) {
+		File f = new File(filePath);
+		if (f.isFile()) {
+			progressBar.setMaximum((int)(f.length()));
+			statusPanel.removeAll();
+			statusPanel.add(component);
+			statusPanel.revalidate();
+			statusPanel.repaint();
+		}
+	}
+
+	public static void updateProgressBar(final long bytes) {
+		progressBar.setValue((int) bytes);
+		statusPanel.revalidate();
+		statusPanel.repaint();
 	}
 
 	public static void quizConnectionsChanged(ArrayList<QuizDataObject> quizList) {
