@@ -49,10 +49,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.stereotype.Component;
 
 
-import UserView.ConfirmView;
-import UserView.QuestTableView;
-import UserView.UserDetailsView;
-import UserView.UserOptionsView;
 
 import com.pwr.DetailsView.GameSettingsDialog;
 import com.pwr.DetailsView.TreasureBoxDialog;
@@ -67,6 +63,10 @@ import com.pwr.QuestView.NewQuizView;
 import com.pwr.UserRegistration.Requests;
 import com.pwr.UserRegistration.UserDTO;
 import com.pwr.UserRegistration.UserDataRegister;
+import com.pwr.UserView.ConfirmView;
+import com.pwr.UserView.QuestTableView;
+import com.pwr.UserView.UserDetailsView;
+import com.pwr.UserView.UserOptionsView;
 import com.sun.xml.bind.v2.runtime.unmarshaller.UnmarshallingContext.State;
 
 @Component

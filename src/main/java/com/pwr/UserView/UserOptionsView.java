@@ -1,4 +1,4 @@
-package UserView;
+package com.pwr.UserView;
 
 import javax.swing.JPanel;
 

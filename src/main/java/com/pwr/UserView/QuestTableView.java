@@ -1,4 +1,4 @@
-package UserView;
+package com.pwr.UserView;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
