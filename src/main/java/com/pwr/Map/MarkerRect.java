@@ -27,6 +27,8 @@ public class MarkerRect {
     private double latitudeV=0;
     private double longtitudeV=0;
     
+    private boolean draw = false;
+    
     private boolean selected = false;
     private boolean selectedWidth = false;
     private boolean selectedHeight = false;
@@ -65,7 +67,7 @@ public class MarkerRect {
     
     public double getHeightCoordinates()
     {
-        return height*MapGetter.getYToMap();
+        return -1*height*MapGetter.getYToMap();
     }
     
     public void changeZoom()
@@ -242,32 +244,42 @@ public class MarkerRect {
         }
 
     }
-    
+    public void draw()
+    {
+    	draw=true;
+    }
+    public void stopDraw()
+    {
+    	draw=false;
+    }
+        
     public void doDrawing(Graphics g)
     {
-        if(selected)
-        {
-            g.setColor(Color.red);
-        }
-        //x = (int) (latitude - MapGetter.getLatitude() -MapGetter.getImageSizeH()/2*MapGetter.getYToMap());
-        x = ((leftUpperLongtitude+longtitudeV) - MapGetter.getLongtitude())/MapGetter.getXToMap() + MapGetter.getImageSizeW()/2;
-        //y = (int) (longtitude - MapGetter.getLongtitude() - MapGetter.getImageSizeH()/2*MapGetter.getXToMap());
-        y = -((leftUpperLatitude-latitudeV) - MapGetter.getLatitude())/MapGetter.getYToMap() + MapGetter.getImageSizeH()/2;
-        
-        g.drawRect((int) x, (int)y, width + widthV, height + heightV);
-        g.setFont(new Font("TimesRoman", Font.PLAIN, 18)); 
-        
-        if(selected)
-        {
-            g.drawRect((int)x+width+widthV-barWidth, (int)y, barWidth, height+heightV-barWidth);
-            g.drawRect((int) x, (int) y +height+heightV-barHeight, width+widthV-barHeight, barHeight);
-        }
-        g.setColor(Color.black);
-        if(label!=null)
-        {
-            g.drawString(label, (int) x, (int) y+18);
-        }
-        
+    	if(draw)
+    	{
+	        if(selected)
+	        {
+	            g.setColor(Color.red);
+	        }
+	        //x = (int) (latitude - MapGetter.getLatitude() -MapGetter.getImageSizeH()/2*MapGetter.getYToMap());
+	        x = ((leftUpperLongtitude+longtitudeV) - MapGetter.getLongtitude())/MapGetter.getXToMap() + MapGetter.getImageSizeW()/2;
+	        //y = (int) (longtitude - MapGetter.getLongtitude() - MapGetter.getImageSizeH()/2*MapGetter.getXToMap());
+	        y = -((leftUpperLatitude-latitudeV) - MapGetter.getLatitude())/MapGetter.getYToMap() + MapGetter.getImageSizeH()/2;
+	        
+	        g.drawRect((int) x, (int)y, width + widthV, height + heightV);
+	        g.setFont(new Font("TimesRoman", Font.PLAIN, 18)); 
+	        
+	        if(selected)
+	        {
+	            g.drawRect((int)x+width+widthV-barWidth, (int)y, barWidth, height+heightV-barWidth);
+	            g.drawRect((int) x, (int) y +height+heightV-barHeight, width+widthV-barHeight, barHeight);
+	        }
+	        g.setColor(Color.black);
+	        if(label!=null)
+	        {
+	            g.drawString(label, (int) x, (int) y+18);
+	        }
+    	}
 
     }
 }

@@ -124,20 +124,21 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
    }
 
     public void mouseDragged(MouseEvent e) {
-        
+    	
         if(e.isControlDown())
         {
+        	markerRect.draw();
             markerRect.setWidth(-(mouseStartX-e.getX()));
             markerRect.setHeight(-(mouseStartY-e.getY()));
             repaint();
         }
-        else if(markerRect.isSelectedDrag())
+       /* else if(markerRect.isSelectedDrag())
         {
             markerRect.setX(-(mouseStartX-e.getX()));
             markerRect.setY(-(mouseStartY-e.getY()));
             repaint();
-        }
-        else if((markerRect.isSelectedWidth())||(markerRect.isSelectedHeight()))
+        }*/
+      /*  else if((markerRect.isSelectedWidth())||(markerRect.isSelectedHeight()))
         {
             if(markerRect.isSelectedWidth()){
             markerRect.changeWidth(-(mouseStartX-e.getX()));}
@@ -146,7 +147,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
                 markerRect.changeHeight(-(mouseStartY-e.getY()));
             }
             repaint();
-        }
+        }*/
 //        else if(markerArray.isSelecetedHeigh())
 //        {
 //            markerArray.changeHeight(-(mouseStartY-e.getY()));
@@ -162,16 +163,18 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         repaint();
         System.out.println("ruch");
         }
+        repaint();
         
         
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void mouseMoved(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void mouseClicked(MouseEvent e) {
+    	
+        
         if(e.getButton()==BUTTON3){
         mouseX=e.getX();
         mouseY=e.getY();
@@ -186,7 +189,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         
         if(markerRect!=null)
         {
-            if(markerRect.isSelected())
+   /*         if(markerRect.isSelected())
             {
                 markerRect.selectMarker(e.getX(), e.getY());
                 if(markerRect.isSelected()){
@@ -194,14 +197,15 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
                 }
             }
             markerRect.selectMarker(e.getX(), e.getY());
-            markerRect.cleanUp();
+            markerRect.cleanUp();*/
         }
         
         repaint();
     }
 
     public void mousePressed(MouseEvent e) {
-        
+    	
+    	
         if((e.isControlDown())&&(e.getButton()==BUTTON1))
         {
             markerRect=new MarkerRect(MapGetter.getLatitude(e.getY()),MapGetter.getLongtitude(e.getX()));
@@ -224,16 +228,21 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         //mouse_x=0;
         //mouse_y=0;
         mDragged=false;
+        markerRect.stopDraw();
+        if(markerRect!=null){
+        markerRect.cleanUp();}
         
         if(e.isControlDown()){
+        	MapGetter.setGoogleMarkers(markerRect);
+        	 MapGetter.getMapImage(MapGetter.createUrl(0, 0));
         }
-        else if(((markerRect.isSelectedWidth())||markerRect.isSelectedHeight())||(markerRect.isSelectedDrag()))
+      /*  else if(((markerRect.isSelectedWidth())||markerRect.isSelectedHeight())||(markerRect.isSelectedDrag()))
         {
             //int index = markerRect.getSelectedIndex();
             //if(index!=-1){
             //MainView.setPoint(index,markerArray.getLongtitude(),markerArray.getLatitude());}
             //}
-        }
+        }*/
         else
         {
         imageVX=0;
@@ -243,12 +252,12 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         MapGetter.getMapImage(MapGetter.createUrl(mouseStartX-mouseX,mouseY-mouseStartY));
         System.out.println("Roznica X:"+Integer.toString(mouseStartX-mouseX));
         System.out.println("Roznica Y:"+Integer.toString(mouseY-mouseStartY));
+       
         //mouse_x=0;
         //mouse_y=0;
         }
         
-        if(markerRect!=null){
-        markerRect.cleanUp();}
+
         repaint();
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

@@ -19,8 +19,8 @@ import java.net.URL;
  */
 public class MapGetter {
     private static double step= 0.003;
-    private static double[] xToMap= {0.0001807692307692,0.00006184210526315736,0.000040869565217391,0.0000215596330275229};
-    private static double[] yToMap= {0.00011240625,0.000053686567164179,0.000025692857142857,0.00001327306273062};
+    private static double[] xToMap= {0.0001807692307692,0.00006184210526315736,0.000040869565217391,0.0000215596330275229,0.00001187878787878787878787};
+    private static double[] yToMap= {0.00011240625,0.000053686567164179,0.000025692857142857,0.00001327306273062,0.0000067510729613733};
     
     private static int zoom=15;
     private static int zoomIndex=2;
@@ -34,9 +34,14 @@ public class MapGetter {
     public static Marker[] markersArray = new Marker[20];
     public static int markers=0;
     
+    private static double[] markerX={0,0,0,0};
+    private static double[] markerY={0,0,0,0};
+    private static double marker2x=0;  
+    private static double marker2y=0;
+    
     static public void zoomIn()
     {
-        if(zoom<16)
+        if(zoom<17)
         {
         zoom++;
         zoomIndex++;
@@ -151,12 +156,16 @@ public class MapGetter {
         url+="x";
         url+=Integer.toString(imageSizeH);
         
-        /*if(markers!=0){
-        url+="&markers=color:blue%7Clabel:P%7C";
-        url+=Double.toString(marker_x);
+        
+        url+="&path=color:0x00000000|weight:5|fillcolor:orange";
+        for(int i=0;i<4;i++)
+        {
+        //url+="&markers=";
+        url+="|";
+        url+=Double.toString(markerX[i]);
         url+=",";
-        url+=Double.toString(marker_y);
-        }*/
+        url+=Double.toString(markerY[i]);
+        }
         
         for(int i=0;i<markers;i++)
         {
@@ -186,13 +195,16 @@ public class MapGetter {
         url+="x";
         url+=Integer.toString(imageSizeH);
         
-        /*if(markers!=0){
-        url+="&markers=color:blue%7Clabel:P%7C";
-        url+=Double.toString(marker_x);
+        url+="path=color:0x00000000|weight:5|fillcolor:orange";
+        for(int i=0;i<4;i++)
+        {
+        //url+="&markers=";
+        url+="|";
+        url+=Double.toString(markerX[i]);
         url+=",";
-        url+=Double.toString(marker_y);
-        }*/
-        
+        url+=Double.toString(markerY[i]);
+        }
+
         for(int i=0;i<markers;i++)
         {
             url+=markersArray[i].toString();
@@ -203,8 +215,22 @@ public class MapGetter {
         url+="&key=";
         url+=googleKey;
         //url+="&format=jpg";
+        
         return url;
     }
+        
+        static public void setGoogleMarkers(MarkerRect marker)
+        {
+        	 
+        	markerX[0]=marker.getLatitude();
+        	markerY[0]=marker.getLongtitude();
+        	markerX[1]=marker.getLatitude()+marker.getHeightCoordinates();
+        	markerY[1]=marker.getLongtitude();
+        	markerX[2]=marker.getLatitude()+marker.getHeightCoordinates();
+        	markerY[2]=marker.getLongtitude()+marker.getWidthCoordinates();
+        	markerX[3]=marker.getLatitude();
+        	markerY[3]=marker.getLongtitude()+marker.getWidthCoordinates();
+        }
         
     static public void getMapImage(String imageUrl)
     {
@@ -212,7 +238,7 @@ public class MapGetter {
         //    String imageUrl = "http://maps.google.com/staticmap?center=51.110851,17.029839&zoom=15&size=800x600&maptype=satellite&key=AIzaSyD9KVTMcGRQ37C0vVq5h2mq0S6N_GU6vCk
 //&format=jpg";
 
-            
+        	 System.out.println("Url:"+imageUrl);
             String destinationFile = "image.jpg";
             String str = destinationFile;
             URL url = new URL(imageUrl);
