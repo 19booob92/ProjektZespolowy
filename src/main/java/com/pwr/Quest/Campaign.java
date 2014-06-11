@@ -271,7 +271,7 @@ public class Campaign extends Observable {
 				}
 			}
 			// srcFile.delete();
-			// PackageCoder.codeAllFilesInDirectoryExceptSound("temp");
+			 PackageCoder.codeAllFilesInDirectoryExceptSound("temp");
 			File[] files = destFolder.listFiles();
 			for (int i = 0; i < files.length; i++) {
 				try {
@@ -370,7 +370,7 @@ public class Campaign extends Observable {
 		if (!file.equals("")) {
 			zipUnpacker = new ZipUnpacker(file);
 			zipUnpacker.unZip();
-			// PackageCoder.decodeAllFilesInDirectory("temp");
+			 PackageCoder.decodeAllFilesInDirectory("temp");
 
 			XmlLoader xml = new XmlLoader("temp" + File.separator
 					+ "Config.xml");
