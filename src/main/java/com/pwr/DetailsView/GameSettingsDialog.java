@@ -45,109 +45,114 @@ public class GameSettingsDialog extends JDialog{
 	private JButton delButtonBtn;
 	
 	private JButton okBtn;
+	private JButton btnCancel;
 	
 	public GameSettingsDialog(Campaign campaign)
 	{
 		super();
-		this.setSize(new Dimension(600,400));
+		this.setSize(new Dimension(600, 262));
 		this.campaignRef=campaign;
 		this.setVisible(true);
 		this.setResizable(false);
-		this.setLayout(new FlowLayout());
+		getContentPane().setLayout(new FlowLayout());
 		
-		background1Label=new JLabel("Tło 1");
+		background1Label=new JLabel("T\u0142o 1");
 		background1Label.setPreferredSize(new Dimension(80,30));
-		this.add(background1Label);
+		getContentPane().add(background1Label);
 		
 		background1Field = new JTextField();
 		background1Field.setPreferredSize(new Dimension(300,30));
 		background1Field.setEditable(false);
-		this.add(background1Field);
+		getContentPane().add(background1Field);
 		
 		addBackground1btn = new JButton("Dodaj");
 		addBackground1btn.setPreferredSize(new Dimension(80,30));
-		this.add(addBackground1btn);
+		getContentPane().add(addBackground1btn);
 		
-		delBackground1btn = new JButton("Usuń");
+		delBackground1btn = new JButton("Usu\u0144");
 		delBackground1btn.setPreferredSize(new Dimension(80,30));
-		this.add(delBackground1btn);
+		getContentPane().add(delBackground1btn);
 		
-		background2Label=new JLabel("Tło 2");
+		background2Label=new JLabel("T\u0142o 2");
 		background2Label.setPreferredSize(new Dimension(80,30));
-		this.add(background2Label);
+		getContentPane().add(background2Label);
 		
 		background2Field = new JTextField();
 		background2Field.setPreferredSize(new Dimension(300,30));
 		background2Field.setEditable(false);
-		this.add(background2Field);
+		getContentPane().add(background2Field);
 		
 		addBackground2btn = new JButton("Dodaj");
 		addBackground2btn.setPreferredSize(new Dimension(80,30));
-		this.add(addBackground2btn);
+		getContentPane().add(addBackground2btn);
 		
-		delBackground2btn = new JButton("Usuń");
+		delBackground2btn = new JButton("Usu\u0144");
 		delBackground2btn.setPreferredSize(new Dimension(80,30));
-		this.add(delBackground2btn);
+		getContentPane().add(delBackground2btn);
 		
-		background3Label=new JLabel("Tło 3");
+		background3Label=new JLabel("T\u0142o 3");
 		background3Label.setPreferredSize(new Dimension(80,30));
-		this.add(background3Label);
+		getContentPane().add(background3Label);
 		
 		background3Field = new JTextField();
 		background3Field.setPreferredSize(new Dimension(300,30));
 		background3Field.setEditable(false);
-		this.add(background3Field);
+		getContentPane().add(background3Field);
 		
 		addBackground3btn = new JButton("Dodaj");
 		addBackground3btn.setPreferredSize(new Dimension(80,30));
-		this.add(addBackground3btn);
+		getContentPane().add(addBackground3btn);
 		
-		delBackground3btn = new JButton("Usuń");
+		delBackground3btn = new JButton("Usu\u0144");
 		delBackground3btn.setPreferredSize(new Dimension(80,30));
-		this.add(delBackground3btn);
+		getContentPane().add(delBackground3btn);
 
 		
 		
 		
 		logoLabel=new JLabel("Logo");
 		logoLabel.setPreferredSize(new Dimension(80,30));
-		this.add(logoLabel);
+		getContentPane().add(logoLabel);
 		
 		logoField = new JTextField();
 		logoField.setPreferredSize(new Dimension(300,30));
 		logoField.setEditable(false);
-		this.add(logoField);
+		getContentPane().add(logoField);
 		
 		addLogoBtn = new JButton("Dodaj");
 		addLogoBtn.setPreferredSize(new Dimension(80,30));
-		this.add(addLogoBtn);
+		getContentPane().add(addLogoBtn);
 		
-		delLogoBtn = new JButton("Usuń");
+		delLogoBtn = new JButton("Usu\u0144");
 		delLogoBtn.setPreferredSize(new Dimension(80,30));
-		this.add(delLogoBtn);
+		getContentPane().add(delLogoBtn);
 		
 		
 		
 		buttonLabel=new JLabel("Przycisk");
 		buttonLabel.setPreferredSize(new Dimension(80,30));
-		this.add(buttonLabel);
+		getContentPane().add(buttonLabel);
 		
 		buttonField = new JTextField();
 		buttonField.setPreferredSize(new Dimension(300,30));
 		buttonField.setEditable(false);
-		this.add(buttonField);
+		getContentPane().add(buttonField);
 		
 		addButtonBtn = new JButton("Dodaj");
 		addButtonBtn.setPreferredSize(new Dimension(80,30));
-		this.add(addButtonBtn);
+		getContentPane().add(addButtonBtn);
 		
-		delButtonBtn = new JButton("Usuń");
+		delButtonBtn = new JButton("Usu\u0144");
 		delButtonBtn.setPreferredSize(new Dimension(80,30));
-		this.add(delButtonBtn);
+		getContentPane().add(delButtonBtn);
 		
 		okBtn = new JButton("Ok");
-		okBtn.setPreferredSize(new Dimension(60,30));
-		this.add(okBtn);
+		okBtn.setPreferredSize(new Dimension(70,30));
+		getContentPane().add(okBtn);
+		
+		btnCancel = new JButton("Anuluj");
+		btnCancel.setPreferredSize(new Dimension(70,30));
+		getContentPane().add(btnCancel);
 		
 		addActionListeners();
 		setData();
@@ -274,6 +279,14 @@ public class GameSettingsDialog extends JDialog{
 				dispose();
 			}
 			
+		});
+		
+		btnCancel.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
 		});
 	}
 	

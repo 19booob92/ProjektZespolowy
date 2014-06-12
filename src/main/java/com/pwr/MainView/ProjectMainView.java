@@ -177,7 +177,8 @@ public class ProjectMainView extends JFrame implements Serializable {
 		statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
 		statusPanel.setBackground(Color.WHITE);
 		JLabel info = new JLabel(
-				"Info o projekcie w skrocie np liczba quizow itp, tu mozna tez wyswietlac bledy i zmieniac tlo na czerwone");
+				"Informacje o projekcie.");
+		//Data startu: "+campaign.getGameDate()+"/Liczba quizów: "+campaign.getQuizes().size()+"/"
 		info.setHorizontalAlignment(SwingConstants.LEFT);
 		statusPanel.add(info);
 		getContentPane().add(statusPanel, BorderLayout.SOUTH);
@@ -198,16 +199,9 @@ public class ProjectMainView extends JFrame implements Serializable {
 		lblOperacjeNaProjekcie.setBounds(48, 6, 164, 14);
 		leftSidePanel.add(lblOperacjeNaProjekcie);
 
-		// createLeftSidePanelForProject();
-		// createRightSidePanel();
-
-		// splitPane.setResizeWeight(0.3);
 		splitPane.setBounds(10, 11, 764, 418);
 		getContentPane().add(splitPane);
-		// createMenu();
-		//
-		// addListenerForTabbedPane();
-		//
+
 		setVisible(true);
 	}
 
@@ -278,14 +272,14 @@ public class ProjectMainView extends JFrame implements Serializable {
 	}
 
 	private void createLeftSidePanelForProject() {
-		btnNewQuiz = new JButton("Nowy quest");
+		btnNewQuiz = new JButton("Nowa zagadka");
 		btnNewQuiz.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				NewQuizView.getInstance(campaign).show();
 			}
 		});
 
-		btnNewQuiz.setBounds(6, 112, 207, 28);
+		btnNewQuiz.setBounds(6, 230, 206, 28);
 		leftSidePanel.add(btnNewQuiz);
 
 		btnGenerateRaport = new JButton("Raport");
@@ -298,7 +292,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 			}
 		});
 
-		btnGenerateRaport.setBounds(6, 152, 207, 28);
+		btnGenerateRaport.setBounds(6, 306, 206, 28);
 		leftSidePanel.add(btnGenerateRaport);
 
 		JButton btnNowaGra = new JButton("Zapisz grę");
@@ -314,7 +308,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		});
 
 		btnLoadQuests = new JButton("Wczytaj grę");
-		btnLoadQuests.setBounds(6, 190, 206, 28);
+		btnLoadQuests.setBounds(6, 70, 206, 28);
 
 		btnLoadQuests.addActionListener(new ActionListener() {
 
@@ -328,7 +322,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		leftSidePanel.add(btnLoadQuests);
 
 		btnSendPackageToServer = new JButton("Wyslij paczke");
-		btnSendPackageToServer.setBounds(6, 230, 206, 28);
+		btnSendPackageToServer.setBounds(6, 152, 207, 28);
 
 		btnSendPackageToServer.addActionListener(new ActionListener() {
 
@@ -368,7 +362,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		leftSidePanel.add(btnAddTreasureBox);
 
 		btnEditGameSettings = new JButton("Ustawienia gry");
-		btnEditGameSettings.setBounds(6, 306, 206, 28);
+		btnEditGameSettings.setBounds(6, 112, 207, 28);
 		btnEditGameSettings.addActionListener(new ActionListener() {
 
 			@Override
