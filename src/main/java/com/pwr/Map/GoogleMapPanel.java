@@ -47,6 +47,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
     private JButton buttonViewMode = null;
     private JButton buttonZoomIn = null;
     private JButton buttonZoomOut = null;
+    private JButton buttonHelp = null;
     
     public GoogleMapPanel(int width, int height)
     {
@@ -71,6 +72,10 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         buttonZoomOut = new JButton("Zoom -");
         buttonZoomOut.addActionListener(this);
         add(buttonZoomOut);
+        
+        buttonHelp = new JButton("Pomoc");
+        buttonHelp.addActionListener(this);
+        add(buttonHelp);
         
         MapGetter.getMapImage(MapGetter.createUrl(0, 0));
         repaint();
@@ -314,6 +319,12 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         if(src==buttonZoomOut)
         {
             zoomOut();
+        }
+        if(src==buttonHelp)
+        {
+        	JOptionPane.showMessageDialog(null, "Aby zaznaczyć teren przytrzymaj przycisk \"Ctrl\" i przeciągnij myszką.\n"
+        			+"Przemieszczanie po mapie wykonuje się poprzez kliknięcie i przeciągnięcie myszy.\n"
+        			+"Do przybliżania i oddalania można użyć rolki.");
         }
         
     }

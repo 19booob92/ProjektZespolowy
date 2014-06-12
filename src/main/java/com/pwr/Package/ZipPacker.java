@@ -45,6 +45,12 @@ public class ZipPacker {
     
     public ZipPacker(String directory)
     {
+    	Path path = Paths.get(directory);
+    	String fileName=path.getFileName().toString();
+    	String folder = directory.replaceAll(fileName, "");
+    	fileName=fileName.replaceAll(" ","");
+    	fileName=fileName.replaceAll("[^A-Za-z0-9]", "_");
+    	directory=folder+fileName;
         file=new File(directory);
         if(file.exists())
         {

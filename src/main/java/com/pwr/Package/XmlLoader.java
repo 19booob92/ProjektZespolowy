@@ -474,7 +474,23 @@ public class XmlLoader {
 
 	private void setPermutationQuest(OrderQuest quest,
 			ArrayList<String> answerList, ArrayList<String> indexList) {
-		quest.setQuestAnswer(answerList);
+		
+		int index=1;
+		ArrayList<String> list = new ArrayList();
+		
+		for(int j=0;j<answerList.size();j++)
+		{
+			for(int i=0;i<answerList.size();i++)
+			{
+				if(Integer.parseInt(indexList.get(i))==index)
+				{
+					list.add(answerList.get(i));
+					index++;
+					break;
+				}
+			}
+		}
+		quest.setQuestAnswer(list);
 	}
 
 }

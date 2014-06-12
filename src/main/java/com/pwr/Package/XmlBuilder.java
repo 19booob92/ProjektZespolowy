@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -246,13 +247,42 @@ public class XmlBuilder {
         
         answerModule.appendChild(answerElement);
         
+        boolean shuffle[] = new boolean[answerList.size()];
+        for(int i=0;i<shuffle.length;i++)
+        {
+        	shuffle[i]=false;
+        }
+        
         for(int i=0;i<answerList.size();i++)
         {
             Element optionElement = doc.createElement("option");
             Attr attr = doc.createAttribute("index");
-            attr.setValue(Integer.toString(i));
+            Random generator = new Random(); 
+            
+            int index = 0;
+            while(true)
+            {
+            	index = generator.nextInt(answerList.size());
+            	boolean end=true;
+            	for(int t=0;t<shuffle.length;t++)
+            	{
+            		if(!shuffle[t])
+            		{
+            			end=false;
+            		}
+            	}
+            	if(end)break;
+            	if(!shuffle[index])
+            		{
+            			shuffle[index]=true;
+            			break;
+            		}
+            }
+
+            
+            attr.setValue(Integer.toString(index+1));
             optionElement.setAttributeNode(attr);
-            optionElement.appendChild(doc.createTextNode(answerList.get(i)));
+            optionElement.appendChild(doc.createTextNode(answerList.get(index)));
             answerElement.appendChild(optionElement);
         }
         
