@@ -161,27 +161,27 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	
 	public void addIntroOutroButtons() {
 		btnAddIntro = new JButton("Dodaj");
-		btnAddIntro.setBounds(81, 206, 69, 23);
+		btnAddIntro.setBounds(93, 206, 69, 23);
 		add(btnAddIntro);
 
 		btnDelIntro = new JButton("Usun");
-		btnDelIntro.setBounds(219, 206, 69, 23);
+		btnDelIntro.setBounds(231, 206, 69, 23);
 		add(btnDelIntro);
 		
 		btnEditIntro = new JButton("Tekst");
-		btnEditIntro.setBounds(150,206,69,23);
+		btnEditIntro.setBounds(162,206,69,23);
 		add(btnEditIntro);
 		
 		btnAddOutro = new JButton("Dodaj");
-		btnAddOutro.setBounds(81, 313, 69, 23);
+		btnAddOutro.setBounds(93, 313, 69, 23);
 		add(btnAddOutro);
 		
 		btnEditOutro = new JButton("Tekst");
-		btnEditOutro.setBounds(150,313,69,23);
+		btnEditOutro.setBounds(162,313,69,23);
 		add(btnEditOutro);
 
 		btnDelOutro = new JButton("Usun");
-		btnDelOutro.setBounds(219, 313, 69, 23);
+		btnDelOutro.setBounds(231, 313, 69, 23);
 		add(btnDelOutro);
 
 		lblStartDate = new JLabel("Data startu");
@@ -209,7 +209,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		
 		graphScrollPane = new JScrollPane();
 		graphScrollPane.setLayout(new ScrollPaneLayout());
-		graphScrollPane.setBounds(310, 79, 600, 600);
+		graphScrollPane.setBounds(310, 28, 600, 600);
 		graphScrollPane.setViewportView(graphFacade.getGraphPanel());
 
 		add(graphScrollPane);
@@ -220,11 +220,11 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		add(lblLista);
 
 		btnEdit = new JButton("Edytuj");
-		btnEdit.setBounds(101, 435, 89, 23);
+		btnEdit.setBounds(162, 435, 69, 23);
 		add(btnEdit);
 		
 		btnDel = new JButton("Usuń");
-		btnDel.setBounds(211, 435, 89, 23);
+		btnDel.setBounds(231, 435, 69, 23);
 		add(btnDel);
 		addButtonsListeners();
 	}
@@ -419,7 +419,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		final JDialog dialog = new JDialog();
 
 		dialog.setSize(new Dimension(400,400));
-		dialog.setLayout(new BorderLayout());
+		dialog.getContentPane().setLayout(new BorderLayout());
 		
 		textArea = new JTextArea();
 		textArea.setPreferredSize(new Dimension(360,300));
@@ -431,7 +431,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			textArea.setText(outroTextList.get(outroPics.getSelectedIndex()));
 		scroll = new JScrollPane(textArea);
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		dialog.add(scroll,BorderLayout.NORTH);
+		dialog.getContentPane().add(scroll,BorderLayout.NORTH);
 		
 		okBtn = new JButton("Ok");
 		okBtn.setPreferredSize(new Dimension(60,30));
@@ -448,7 +448,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			}
 			
 		});
-		dialog.add(okBtn, BorderLayout.SOUTH);
+		dialog.getContentPane().add(okBtn, BorderLayout.SOUTH);
 
 		dialog.setVisible(true);
 	}

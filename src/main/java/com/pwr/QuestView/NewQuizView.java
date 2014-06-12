@@ -105,7 +105,6 @@ public class NewQuizView extends JFrame {
 		
 		if (instanceOfNewQuizView == null) {
 			instanceOfNewQuizView = new NewQuizView(campaign);
-			//instanceOfNewQuizView.initWindow();
 		} else {
 			quizIndex = qInd;
 			campaignRef = campaign;
@@ -125,7 +124,7 @@ public class NewQuizView extends JFrame {
 		return instanceOfNewQuizView;
 	}
 	private void clearFields() {
-		//initWindow();
+
 	}
 
 	/**
@@ -133,6 +132,7 @@ public class NewQuizView extends JFrame {
 	 */
 	private NewQuizView(Campaign campaign) {
 		super();
+		setTitle("Edytor zagadki");
 		campaignRef = campaign;
 		quizIndex = -1;
 		initWindow();
@@ -317,7 +317,7 @@ public class NewQuizView extends JFrame {
 		lblType.setBounds(24, 296, 46, 14);
 		leftSidePanel.add(lblType);
 
-		btnSaveQuiz = new JButton("Zapisz quest");
+		btnSaveQuiz = new JButton("Zapisz zagadkę");
 		btnSaveQuiz.setBounds(24, 359, 226, 23);
 		leftSidePanel.add(btnSaveQuiz);
 
