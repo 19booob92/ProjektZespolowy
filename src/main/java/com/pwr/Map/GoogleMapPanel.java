@@ -398,6 +398,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
 	{
 		markerRect = new MarkerRect(longtitude,latitude,width,height);
 		MapGetter.setGoogleMarkers(markerRect);
+		MapGetter.getMapImage(MapGetter.createUrl(0, 0));
 		repaint();
 	}
 }
