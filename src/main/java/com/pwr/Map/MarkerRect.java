@@ -59,6 +59,7 @@ public class MarkerRect {
         leftUpperLongtitude=tLongtitude;
         width = (int) (tWidth/MapGetter.getXToMap());
         height = (int) (tHeight/MapGetter.getYToMap());
+        if(height<0){height*=-1;}
     }
     public double getWidthCoordinates()
     {
@@ -67,7 +68,7 @@ public class MarkerRect {
     
     public double getHeightCoordinates()
     {
-        return -1*height*MapGetter.getYToMap();
+        return -height*MapGetter.getYToMap();
     }
     
     public void changeZoom()
