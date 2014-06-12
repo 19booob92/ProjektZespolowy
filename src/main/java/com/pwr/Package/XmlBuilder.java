@@ -170,9 +170,12 @@ public class XmlBuilder {
         answerModule.appendChild(answerElement);
         
         for(int i=0;i<answerList.size();i++){
-        Element correctElement = doc.createElement("correct");
-        correctElement.appendChild(doc.createTextNode(answerList.get(i)));
-        answerElement.appendChild(correctElement);
+        	if(!answerList.get(i).equals(""))
+        	{
+		        Element correctElement = doc.createElement("correct");
+		        correctElement.appendChild(doc.createTextNode(answerList.get(i)));
+		        answerElement.appendChild(correctElement);
+        	}
         }
     }
     
@@ -194,14 +197,17 @@ public class XmlBuilder {
         answerModule.appendChild(answerElement);
         for(int i=0;i<answerList.size();i++)
         {
-            Element optionElement = doc.createElement("option");
-            Attr attr = doc.createAttribute("goto");
-            int gotoValue = Integer.parseInt(goToList.get(i));
-            attr.setValue(Integer.toString(gotoValue));
-            
-            optionElement.setAttributeNode(attr);
-            optionElement.appendChild(doc.createTextNode(answerList.get(i)));
-            answerElement.appendChild(optionElement);
+        	if(!answerList.get(i).equals(""))
+        	{
+	            Element optionElement = doc.createElement("option");
+	            Attr attr = doc.createAttribute("goto");
+	            int gotoValue = Integer.parseInt(goToList.get(i));
+	            attr.setValue(Integer.toString(gotoValue));
+	            
+	            optionElement.setAttributeNode(attr);
+	            optionElement.appendChild(doc.createTextNode(answerList.get(i)));
+	            answerElement.appendChild(optionElement);
+        	}
         }
     }
     
@@ -222,12 +228,15 @@ public class XmlBuilder {
         
         for(int i=0;i<answerList.size();i++)
         {
-            Element optionElement = doc.createElement("option");
-            Attr attr = doc.createAttribute("correct");
-            attr.setValue(Boolean.toString(answerListBool.get(i)));
-            optionElement.setAttributeNode(attr);
-            optionElement.appendChild(doc.createTextNode(answerList.get(i)));
-            answerElement.appendChild(optionElement);
+        	if(!answerList.get(i).equals(""))
+        	{
+	            Element optionElement = doc.createElement("option");
+	            Attr attr = doc.createAttribute("correct");
+	            attr.setValue(Boolean.toString(answerListBool.get(i)));
+	            optionElement.setAttributeNode(attr);
+	            optionElement.appendChild(doc.createTextNode(answerList.get(i)));
+	            answerElement.appendChild(optionElement);
+        	}
         }
     }
     
@@ -255,10 +264,7 @@ public class XmlBuilder {
         
         for(int i=0;i<answerList.size();i++)
         {
-            Element optionElement = doc.createElement("option");
-            Attr attr = doc.createAttribute("index");
-            Random generator = new Random(); 
-            
+        	Random generator = new Random(); 
             int index = 0;
             while(true)
             {
@@ -279,11 +285,24 @@ public class XmlBuilder {
             		}
             }
 
+            if(!answerList.get(index).equals(""))
+            {
+            Element optionElement = doc.createElement("option");
+            Attr attr = doc.createAttribute("index");
+            
+            
+
             
             attr.setValue(Integer.toString(index+1));
             optionElement.setAttributeNode(attr);
             optionElement.appendChild(doc.createTextNode(answerList.get(index)));
             answerElement.appendChild(optionElement);
+            }
+            else
+            {
+            	answerList.remove(index-1);
+            	index--;
+            }
         }
         
     }
