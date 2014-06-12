@@ -52,10 +52,10 @@ public class TreasureBoxDialog extends JDialog{
 	{
 		super();
 		this.campaignRef=campaign;
-		this.setSize(800,600);
-		this.setLayout(new BorderLayout());
+		this.setSize(904,492);
 		this.setResizable(false);
 		googlePanel = new GoogleMapPanel(400,400);
+		googlePanel.setBounds(10, 11, 380, 371);
 		googlePanel.addMouseListener(googlePanel);
 		googlePanel.addMouseMotionListener(googlePanel);
 		googlePanel.addMouseWheelListener(googlePanel);
@@ -101,67 +101,70 @@ public class TreasureBoxDialog extends JDialog{
 						.getMarkerHeight()));
 			}
 		});
+		getContentPane().setLayout(null);
 		
-		add(googlePanel,BorderLayout.WEST);
+		getContentPane().add(googlePanel);
 		
 				
 		textArea = new JTextArea();
+		textArea.setBounds(400, 11, 486, 173);
 		textArea.setPreferredSize(new Dimension(380,300));
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
-		this.add(textArea,BorderLayout.EAST);
+		getContentPane().add(textArea);
 		
 		
 		dataPanel = new JPanel();
+		dataPanel.setBounds(400, 195, 486, 187);
 		dataPanel.setPreferredSize(new Dimension(800,200));
 		dataPanel.setLayout(null);
 		
 		xLabel = new JLabel("X");
 		xLabel.setPreferredSize(new Dimension(40,30));
-		xLabel.setBounds(20,20,20,30);
+		xLabel.setBounds(30,11,20,30);
 		dataPanel.add(xLabel);
 		
 		xField = new JTextField();
 		xField.setPreferredSize(new Dimension(40,30));
-		xField.setBounds(50,20,150,30);
+		xField.setBounds(60,11,150,30);
 		xField.setEditable(false);
 		dataPanel.add(xField);
 		
 		yLabel = new JLabel("Y");
 		yLabel.setPreferredSize(new Dimension(40,30));
-		yLabel.setBounds(20,60,20,30);
+		yLabel.setBounds(30,52,20,30);
 		dataPanel.add(yLabel);
 		
 		yField = new JTextField();
 		yField.setPreferredSize(new Dimension(40,30));
-		yField.setBounds(50,60,150,30);
+		yField.setBounds(60,52,150,30);
 		yField.setEditable(false);
 		dataPanel.add(yField);
 		
-		widthLabel = new JLabel("Szerokość");
+		widthLabel = new JLabel("Szeroko\u015B\u0107");
 		widthLabel.setPreferredSize(new Dimension(200,30));
-		widthLabel.setBounds(210,20,80,30);
+		widthLabel.setBounds(234,11,80,30);
 		dataPanel.add(widthLabel);
 		
 		widthField = new JTextField();
 		widthField.setPreferredSize(new Dimension(40,30));
-		widthField.setBounds(300,20,150,30);
+		widthField.setBounds(320,11,150,30);
 		widthField.setEditable(false);
 		dataPanel.add(widthField);
 		
-		heightLabel = new JLabel("Wysokość");
+		heightLabel = new JLabel("Wysoko\u015B\u0107");
 		heightLabel.setPreferredSize(new Dimension(200,30));
-		heightLabel.setBounds(210,60,80,30);
+		heightLabel.setBounds(234,51,80,30);
 		dataPanel.add(heightLabel);
 		
 		heightField = new JTextField();
 		heightField.setPreferredSize(new Dimension(40,30));
-		heightField.setBounds(300,60,150,30);
+		heightField.setBounds(320,51,150,30);
 		heightField.setEditable(false);
 		dataPanel.add(heightField);
 		
 		btnAdd = new JButton("Dodaj");
-		btnAdd.setBounds(460,30,120,30);
+		btnAdd.setBounds(60,105,150,30);
 		
 		btnAdd.addActionListener(new ActionListener()
 		{
@@ -175,7 +178,7 @@ public class TreasureBoxDialog extends JDialog{
 		dataPanel.add(btnAdd);
 		
 		btnSave = new JButton("Zapisz");
-		btnSave.setBounds(460,60,120,30);
+		btnSave.setBounds(60,146,150,30);
 		btnSave.addActionListener(new ActionListener()
 		{
 
@@ -188,11 +191,11 @@ public class TreasureBoxDialog extends JDialog{
 		
 		dataPanel.add(btnSave);
 		treasureBoxLabel = new JLabel("Skrytki");
-		treasureBoxLabel.setBounds(600,10,60,30);
+		treasureBoxLabel.setBounds(10,105,60,30);
 		dataPanel.add(treasureBoxLabel);
 		
 		treasureComboBox = new JComboBox(campaignRef.getTreasureBoxes().toArray());
-		treasureComboBox.setBounds(600,40,120,30);
+		treasureComboBox.setBounds(320,105,150,30);
 		treasureComboBox.setSelectedIndex(-1);
 		treasureComboBox.addItemListener(new ItemListener()
 		{
@@ -208,7 +211,7 @@ public class TreasureBoxDialog extends JDialog{
 		});
 		dataPanel.add(treasureComboBox);
 		
-		this.add(dataPanel,BorderLayout.SOUTH);
+		getContentPane().add(dataPanel);
 		
 		this.setVisible(true);
 	}
