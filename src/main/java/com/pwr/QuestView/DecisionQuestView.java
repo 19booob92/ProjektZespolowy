@@ -178,7 +178,7 @@ public class DecisionQuestView extends QuestView implements DescribeView {
 	public String introduceYourself() {
 		return "DecisionQuest";
 	}
-
+	
 	public ArrayList<String> getAnswers() {
 		ArrayList collectedAnswers = new ArrayList();
 

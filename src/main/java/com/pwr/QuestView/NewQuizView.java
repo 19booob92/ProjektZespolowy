@@ -63,7 +63,6 @@ public class NewQuizView extends JFrame {
 	private JButton btnSaveQuiz;
 	private JLabel lblTimeout;
 	private JLabel lblType;
-	private JLabel lblWrong;
 	private JLabel lblPoints;
 	private JLabel lblDate;
 	private static final int PANEL_WIDTH = 1000;
@@ -71,8 +70,6 @@ public class NewQuizView extends JFrame {
 
 	private static final int WINDOW_WIDTH = 1000;
 	private static final int WINDOW_HEIGHT = 700;
-
-	protected JTextField wrong;
 	private JTextField timeoutField;
 	private JTextField tfQuizName;
 	protected JTextField points;
@@ -80,7 +77,7 @@ public class NewQuizView extends JFrame {
 	private QuestView selectedCard;
 
 	// Quest vars
-	private Campaign campaignRef;
+	private static Campaign campaignRef;
 	private static int quizIndex;
 
 	// Quest Card Views
@@ -107,7 +104,12 @@ public class NewQuizView extends JFrame {
 	public static NewQuizView getInstance(Campaign campaign, int qInd) {
 		
 		if (instanceOfNewQuizView == null) {
-			instanceOfNewQuizView = new NewQuizView(campaign, qInd);
+			instanceOfNewQuizView = new NewQuizView(campaign);
+			//instanceOfNewQuizView.initWindow();
+		} else {
+			quizIndex = qInd;
+			campaignRef = campaign;
+			instanceOfNewQuizView.fillFieldsWithQuizData();			
 		}
 		return instanceOfNewQuizView;
 	}
@@ -116,9 +118,16 @@ public class NewQuizView extends JFrame {
 		
 		if (instanceOfNewQuizView == null) {
 			instanceOfNewQuizView = new NewQuizView(campaign);
+		} else {			
+			instanceOfNewQuizView.clearFields();
 		}
+		quizIndex = -1;
 		return instanceOfNewQuizView;
 	}
+	private void clearFields() {
+		//initWindow();
+	}
+
 	/**
 	 * @wbp.parser.constructor
 	 */
@@ -312,10 +321,6 @@ public class NewQuizView extends JFrame {
 		btnSaveQuiz.setBounds(24, 359, 226, 23);
 		leftSidePanel.add(btnSaveQuiz);
 
-		wrong = new JTextField();
-		leftSidePanel.add(wrong);
-		wrong.setBounds(24, 258, 226, 27);
-
 		points = new JTextField();
 		leftSidePanel.add(points);
 		points.setBounds(24, 148, 226, 27);
@@ -327,10 +332,6 @@ public class NewQuizView extends JFrame {
 		lblDate = new JLabel("Data");
 		leftSidePanel.add(lblDate);
 		lblDate.setBounds(24, 186, 46, 14);
-
-		lblWrong = new JLabel("Zagadka kara");
-		leftSidePanel.add(lblWrong);
-		lblWrong.setBounds(24, 243, 105, 14);
 
 		// Refactor it!
 		btnSaveQuiz.addActionListener(new ActionListener() {
