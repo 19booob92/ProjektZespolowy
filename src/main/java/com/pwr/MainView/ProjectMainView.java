@@ -127,7 +127,6 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 	private JLabel lblOpcjeProjektu;
 	private JLabel lblOpcjeUserow;
-	private JLabel lblOperacjeNaProjekcie;
 
 	private static int windowWidth = 1200;
 	private static int windowHeight = 600;
@@ -195,10 +194,6 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 		leftSidePanel.setLayout(null);
 		rightSidePanel.setLayout(null);
-
-		lblOperacjeNaProjekcie = new JLabel("Operacje na projekcie");
-		lblOperacjeNaProjekcie.setBounds(48, 6, 164, 14);
-		leftSidePanel.add(lblOperacjeNaProjekcie);
 
 		splitPane.setBounds(10, 11, 764, 418);
 		getContentPane().add(splitPane);
