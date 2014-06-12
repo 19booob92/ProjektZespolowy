@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import com.pwr.Map.GoogleMapPanel;
 import com.pwr.Quest.Campaign;
 import com.pwr.Quest.TreasureBox;
+import javax.swing.border.EtchedBorder;
 
 public class TreasureBoxDialog extends JDialog{
 	
@@ -47,15 +48,17 @@ public class TreasureBoxDialog extends JDialog{
 	
 	private Campaign campaignRef;
 	private int index;
+	private JButton btnClose;
 	
 	public TreasureBoxDialog(Campaign campaign)
 	{
 		super();
+		setTitle("Zarz\u0105dzanie skrytkami");
 		this.campaignRef=campaign;
-		this.setSize(904,492);
+		this.setSize(904,479);
 		this.setResizable(false);
 		googlePanel = new GoogleMapPanel(400,400);
-		googlePanel.setBounds(10, 11, 380, 371);
+		googlePanel.setBounds(10, 40, 380, 371);
 		googlePanel.addMouseListener(googlePanel);
 		googlePanel.addMouseMotionListener(googlePanel);
 		googlePanel.addMouseWheelListener(googlePanel);
@@ -107,7 +110,7 @@ public class TreasureBoxDialog extends JDialog{
 		
 				
 		textArea = new JTextArea();
-		textArea.setBounds(400, 11, 486, 173);
+		textArea.setBounds(400, 40, 486, 173);
 		textArea.setPreferredSize(new Dimension(380,300));
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
@@ -115,7 +118,8 @@ public class TreasureBoxDialog extends JDialog{
 		
 		
 		dataPanel = new JPanel();
-		dataPanel.setBounds(400, 195, 486, 187);
+		dataPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		dataPanel.setBounds(400, 224, 486, 187);
 		dataPanel.setPreferredSize(new Dimension(800,200));
 		dataPanel.setLayout(null);
 		
@@ -213,6 +217,27 @@ public class TreasureBoxDialog extends JDialog{
 		
 		getContentPane().add(dataPanel);
 		
+		JLabel lblNotka = new JLabel("Notka");
+		lblNotka.setBounds(401, 15, 83, 14);
+		getContentPane().add(lblNotka);
+		
+		JLabel lblMapaSkrytek = new JLabel("Po\u0142o\u017Cenie skrytki");
+		lblMapaSkrytek.setBounds(10, 15, 124, 14);
+		getContentPane().add(lblMapaSkrytek);
+		
+		btnClose = new JButton("Zamknij");
+		btnClose.setBounds(722, 416, 164, 23);
+		
+		btnClose.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		
+		getContentPane().add(btnClose);
+		
 		this.setVisible(true);
 	}
 	
@@ -281,5 +306,4 @@ public class TreasureBoxDialog extends JDialog{
 		treasureComboBox.removeAllItems();
 		treasureComboBox.setModel(new DefaultComboBoxModel(campaignRef.getTreasureBoxes().toArray()));
 	}
-
 }

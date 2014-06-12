@@ -142,6 +142,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 	private static ArrayList<QuestPoint> quest;
 
 	public ProjectMainView() {
+		setTitle("Edytor LoW");
 		campaign = new Campaign();
 
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);

@@ -50,6 +50,7 @@ public class GameSettingsDialog extends JDialog{
 	public GameSettingsDialog(Campaign campaign)
 	{
 		super();
+		setTitle("Ustawienia widok\u00F3w");
 		this.setSize(new Dimension(600, 262));
 		this.campaignRef=campaign;
 		this.setVisible(true);

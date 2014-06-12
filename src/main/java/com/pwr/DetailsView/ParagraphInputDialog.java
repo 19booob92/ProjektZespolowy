@@ -20,20 +20,20 @@ public class ParagraphInputDialog extends JDialog{
 	{
 		super();
 		setTitle("Podaj opis");
-		setSize(800,600);
-		setLayout(null);
+		setSize(794,458);
+		getContentPane().setLayout(null);
 		
 		textArea = new JTextArea();
 		textArea.setText(paragraph);
 		textArea.setBounds(20,20,740,500);
 		
 		scrollPane = new JScrollPane(textArea);
-		scrollPane.setBounds(20,20,740,500);
+		scrollPane.setBounds(20,20,740,346);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		add(scrollPane);
+		getContentPane().add(scrollPane);
 		
 		btnOk = new JButton("Ok");
-		btnOk.setBounds(370,520,60,60);
+		btnOk.setBounds(596,377,164,30);
 		
 		btnOk.addActionListener(new ActionListener()
 		{
@@ -44,7 +44,7 @@ public class ParagraphInputDialog extends JDialog{
 			}
 		}
 		);
-		add(btnOk);
+		getContentPane().add(btnOk);
 		
 		setVisible(true);
 	}

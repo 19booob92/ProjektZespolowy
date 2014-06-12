@@ -132,6 +132,7 @@ public class NewQuizView extends JFrame {
 	 */
 	private NewQuizView(Campaign campaign) {
 		super();
+		setTitle("Edytor zagadki");
 		campaignRef = campaign;
 		quizIndex = -1;
 		initWindow();
