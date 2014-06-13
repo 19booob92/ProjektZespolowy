@@ -233,7 +233,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		btnNewUser.setBounds(6, 112, 207, 28);
 		leftSidePanel.add(btnNewUser);
 
-		btnDeleteQuestts = new JButton("Usun questy");
+		btnDeleteQuestts = new JButton("Usun zagadki");
 		btnDeleteQuestts.setBounds(6, 72, 207, 28);
 		leftSidePanel.add(btnDeleteQuestts);
 
@@ -411,8 +411,8 @@ public class ProjectMainView extends JFrame implements Serializable {
 		createTabPage1();
 		createTabPage2();
 
-		tabbedPane.addTab("Project", projectTabPane);
-		tabbedPane.addTab("User", userTabPane);
+		tabbedPane.addTab("Gra", projectTabPane);
+		tabbedPane.addTab("Użytkownicy", userTabPane);
 		rightSidePanel.add(tabbedPane);
 	}
 
@@ -447,9 +447,12 @@ public class ProjectMainView extends JFrame implements Serializable {
 		JMenu mnPomoc = new JMenu("Pomoc");
 		menuBar.add(mnPomoc);
 
-		JMenuItem infoItem = new JMenuItem("Informacje");
-		mnPomoc.add(infoItem);
+		JMenuItem infoGameItem = new JMenuItem("Informacje o tworzeniu gier");
+		mnPomoc.add(infoGameItem);
 
+		JMenuItem infoUserItem = new JMenuItem("Informacje o zarządzaniu użytkownikami");
+		mnPomoc.add(infoUserItem);
+		
 		JMenuItem oProgramieItem = new JMenuItem("O programie");
 		mnPomoc.add(oProgramieItem);
 
@@ -478,7 +481,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 			}
 		});
 
-		infoItem.addActionListener(new ActionListener() {
+		infoGameItem.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
