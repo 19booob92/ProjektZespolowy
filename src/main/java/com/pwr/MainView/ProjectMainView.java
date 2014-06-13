@@ -423,13 +423,13 @@ public class ProjectMainView extends JFrame implements Serializable {
 		mnProject = new JMenu("Project");
 		menuBar.add(mnProject);
 
-		JMenuItem mntmNewProjectItem = new JMenuItem("Nowy projekt");
+		JMenuItem mntmNewProjectItem = new JMenuItem("Nowa gra");
 		mnProject.add(mntmNewProjectItem);
 
 		JMenuItem mntmGenRaport = new JMenuItem("Raport");
 		mnProject.add(mntmGenRaport);
 
-		JMenuItem mntmOpenProjectItem = new JMenuItem("Otw\u00F3rz");
+		JMenuItem mntmOpenProjectItem = new JMenuItem("Wczytaj grę");
 		mnProject.add(mntmOpenProjectItem);
 
 		JMenu mnUser = new JMenu("User");

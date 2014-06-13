@@ -96,18 +96,18 @@ public class QuestView extends JPanel implements DescribeView {
 		add(picsScrollPane);
 		
 		lblNarration = new JLabel("Dźwięk do narracji");
-		lblNarration.setBounds(23,220,120,23);
+		lblNarration.setBounds(23,234,120,23);
 		add(lblNarration);
 		
 		listNarration = new ArrayList();
 		listNarration.add("0");
 		
 		comboBoxNarration = new JComboBox(listNarration.toArray());
-		comboBoxNarration.setBounds(163,220,60,23);
+		comboBoxNarration.setBounds(188,234,137,23);
 		add(comboBoxNarration);
 		
 		btnAddParagraph = new JButton("Edytuj paragraf");
-		btnAddParagraph.setBounds(23, 243, 120, 23);
+		btnAddParagraph.setBounds(527, 234, 120, 23);
 		add(btnAddParagraph);
 
 
