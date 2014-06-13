@@ -46,6 +46,7 @@ public class MarkerRect {
     
     private int barWidth=10;
     private int barHeight=10;
+   
     
     public MarkerRect(double tLatitude, double tLongtitude)
     {
@@ -61,9 +62,21 @@ public class MarkerRect {
         height = (int) (tHeight/MapGetter.getYToMap());
         if(height<0){height*=-1;}
     }
+    
+    public double get2CoordLat()
+    {
+    	return rightBottomLatitude;
+    }
+    
+    public double get2CoordLong()
+    {
+    	return rightBottomLongtitude;
+    }
+    
     public double getWidthCoordinates()
     {
         return width*MapGetter.getXToMap();
+    	//return getLongtitude()+getWidthCoordinates();
     }
     
     public double getHeightCoordinates()

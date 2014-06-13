@@ -412,4 +412,14 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
 		MapGetter.getMapImage(MapGetter.createUrl(0, 0));
 		repaint();
 	}
+	
+	public double get2CoordLong()
+	{
+		return markerRect.get2CoordLong();
+	}
+	
+	public double get2CoordLat()
+	{
+		return markerRect.get2CoordLat();
+	}
 }

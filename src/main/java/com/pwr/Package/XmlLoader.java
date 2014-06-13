@@ -457,9 +457,10 @@ public class XmlLoader {
 	private void setGpsQuest(FieldQuest quest, String x, String y,
 			String width, String height) {
 		quest.setXCoordinate(Double.parseDouble(x));
-		quest.setXWidth(Double.parseDouble(width));
 		quest.setYCoordinate(Double.parseDouble(y));
-		quest.setYWidth(Double.parseDouble(height));
+		quest.setX2Coordinate(Double.parseDouble(width));
+		quest.setY2Coordinate(Double.parseDouble(height));
+		quest.countDimmension();
 	}
 
 	private void setMofNQuest(ChoiceQuest quest, ArrayList<String> answerList,

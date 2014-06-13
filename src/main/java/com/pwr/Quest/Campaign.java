@@ -188,7 +188,8 @@ public class Campaign extends Observable {
 						quest.getPostNote(), quest.getGoTo(),
 						quest.getPoints(), quest.getDate(),
 						quest.getXCoordinate(), quest.getYCoordinate(),
-						quest.getWidth(), quest.getHeight(),
+						//quest.getWidth(), quest.getHeight(),
+						quest.getX2Coordinate(), quest.getY2Coordinate(),
 						quest.getQuestTimeout(), quest.getWrong());
 			} else if (tempQuest.getQuestType() == QuestType.DECISIONQUEST) {
 				DecisionQuest quest = (DecisionQuest) tempQuest;

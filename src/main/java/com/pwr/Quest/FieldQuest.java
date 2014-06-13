@@ -2,9 +2,13 @@ package com.pwr.Quest;
 
 import java.util.ArrayList;
 
+import com.pwr.Map.MapGetter;
+
 public class FieldQuest extends QuestPoint implements DescribeQuest {
 	private double xCoordinate;
 	private double yCoordinate;
+	private double x2Coordinate;
+	private double y2Coordinate;
     private double width;
     private double height;
 	private String goTo;
@@ -19,7 +23,30 @@ public class FieldQuest extends QuestPoint implements DescribeQuest {
 	{
 		return xCoordinate+", "+yCoordinate;
 	}
-	
+		public void countDimmension()
+		{
+			width = (y2Coordinate - yCoordinate);
+			 height = (x2Coordinate - xCoordinate);
+		}
+		public void setX2Coordinate(double x)
+		{
+			x2Coordinate=x;
+		}
+		
+		public void setY2Coordinate(double y)
+		{
+			y2Coordinate=y;
+		}
+		
+		public double getX2Coordinate()
+		{
+			return x2Coordinate;
+		}
+		
+		public double getY2Coordinate()
+		{
+			return y2Coordinate;
+		}
 
         public void setXCoordinate(double x)
         {

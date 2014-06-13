@@ -235,10 +235,11 @@ public class NewQuizView extends JFrame {
 	private void fillWithFieldQuestData(FieldQuest q) {
 		fieldView.heightField.setText(Double.toString(q.getHeight()));
 		fieldView.widthField.setText(Double.toString(q.getWidth()));
-		fieldView.latitudeField.setText(Double.toString(q.getYCoordinate()));
-		fieldView.longitudeField.setText(Double.toString(q.getXCoordinate()));
-		fieldView.googlePanel.setMapPoint(q.getXCoordinate(),
-				q.getYCoordinate(), q.getWidth(), q.getHeight());
+		fieldView.latitudeField.setText(Double.toString(q.getXCoordinate()));
+		fieldView.longitudeField.setText(Double.toString(q.getYCoordinate()));
+		
+		fieldView.googlePanel.setMapPoint(q.getYCoordinate(),
+				q.getXCoordinate(), q.getWidth(), q.getHeight());
 	}
 
 	private void fillWithTextQuestData(TextQuest q) {
@@ -622,10 +623,10 @@ public class NewQuizView extends JFrame {
 					.getText()));
 			newQuest.setXCoordinate(Double.parseDouble(questView.longitudeField
 					.getText()));
-			newQuest.setXWidth(Double.parseDouble(questView.widthField
-					.getText()));
-			newQuest.setYWidth(Double.parseDouble(questView.heightField
-					.getText()));
+			newQuest.setXWidth((questView.googlePanel.getMarkerWidth()));
+			newQuest.setYWidth((questView.googlePanel.getMarkerHeight()));
+			newQuest.setX2Coordinate(questView.googlePanel.get2CoordLat());
+			newQuest.setY2Coordinate(questView.googlePanel.get2CoordLong());
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Wybierz punkt na mapie");
 			throw new NoDataInFieldException();

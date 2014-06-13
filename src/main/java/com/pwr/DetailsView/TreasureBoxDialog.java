@@ -8,6 +8,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,8 +20,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.pwr.Map.GoogleMapPanel;
+import com.pwr.Map.MapGetter;
 import com.pwr.Quest.Campaign;
 import com.pwr.Quest.TreasureBox;
+
 import javax.swing.border.EtchedBorder;
 
 public class TreasureBoxDialog extends JDialog{
@@ -249,7 +252,8 @@ public class TreasureBoxDialog extends JDialog{
 		this.heightField.setText(Double.toString(height));
 		this.textArea.setText(text);
 		
-		this.googlePanel.setMapPoint(x,y,width,height);
+		this.googlePanel.setMapPoint(y,x,width,height);
+		MapGetter.getMapImage(MapGetter.createUrl(0, 0));
 	}
 	
 	private void addTreasureBox()

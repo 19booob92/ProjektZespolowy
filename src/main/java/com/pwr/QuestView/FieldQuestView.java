@@ -44,6 +44,7 @@ public class FieldQuestView extends QuestView implements DescribeView {
 
 		latitudeField = new JTextField();
 		latitudeField.setBounds(26, 289, 150, 30);
+		latitudeField.setEditable(false);
 		add(latitudeField);
 
 		lblLongitude = new JLabel("Długość geograficzna");
@@ -52,6 +53,7 @@ public class FieldQuestView extends QuestView implements DescribeView {
 
 		longitudeField = new JTextField();
 		longitudeField.setBounds(196, 289, 150, 30);
+		longitudeField.setEditable(false);
 		add(longitudeField);
 
 		lblWidth = new JLabel("Szerokość obszaru");
@@ -60,6 +62,7 @@ public class FieldQuestView extends QuestView implements DescribeView {
 
 		widthField = new JTextField();
 		widthField.setBounds(26, 339, 150, 30);
+		widthField.setEditable(false);
 		add(widthField);
 
 		lblHeight = new JLabel("Wysokość obszaru");
@@ -68,6 +71,7 @@ public class FieldQuestView extends QuestView implements DescribeView {
 
 		heightField = new JTextField();
 		heightField.setBounds(196, 339, 150, 30);
+		heightField.setEditable(false);
 		add(heightField);
 		
 		add(googlePanel);
@@ -78,12 +82,13 @@ public class FieldQuestView extends QuestView implements DescribeView {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				latitudeField.setText(Double.toString(googlePanel
-						.getMarkerLatitude()));
-				longitudeField.setText(Double.toString(googlePanel
 						.getMarkerLongtitude()));
-				widthField.setText(Double.toString(googlePanel.getMarkerWidth()));
-				heightField.setText(Double.toString(googlePanel
-						.getMarkerHeight()));
+				longitudeField.setText(Double.toString(googlePanel
+						.getMarkerLatitude()));
+				//widthField.setText(Double.toString(googlePanel.getMarkerWidth()));
+				widthField.setText(Double.toString(googlePanel.get2CoordLong()));
+				//heightField.setText(Double.toString(googlePanel.getMarkerHeight()));
+				heightField.setText(Double.toString(googlePanel.get2CoordLat()));
 				FieldQuestView.this.repaint();
 			}
 
