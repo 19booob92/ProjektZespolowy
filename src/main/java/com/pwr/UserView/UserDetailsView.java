@@ -166,7 +166,7 @@ public class UserDetailsView extends JFrame {
 		contentPane.add(email);
 		email.setColumns(10);
 
-		JLabel lblLogin = new JLabel("Login");
+		JLabel lblLogin = new JLabel("Nazwa");
 		lblLogin.setBounds(20, 11, 70, 15);
 		contentPane.add(lblLogin);
 
