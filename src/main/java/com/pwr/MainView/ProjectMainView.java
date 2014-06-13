@@ -48,8 +48,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
-
-
 import com.pwr.DetailsView.GameSettingsDialog;
 import com.pwr.DetailsView.TreasureBoxDialog;
 //import com.pwr.Editor.QuestsTableView;
@@ -176,9 +174,9 @@ public class ProjectMainView extends JFrame implements Serializable {
 		statusPanel.setPreferredSize(new Dimension(this.getWidth(), 20));
 		statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
 		statusPanel.setBackground(Color.WHITE);
-		JLabel info = new JLabel(
-				"Informacje o projekcie.");
-		//Data startu: "+campaign.getGameDate()+"/Liczba quizów: "+campaign.getQuizes().size()+"/"
+		JLabel info = new JLabel("Informacje o projekcie.");
+		// Data startu: "+campaign.getGameDate()+"/Liczba quizów:
+		// "+campaign.getQuizes().size()+"/"
 		info.setHorizontalAlignment(SwingConstants.LEFT);
 		statusPanel.add(info);
 		getContentPane().add(statusPanel, BorderLayout.SOUTH);
@@ -324,20 +322,22 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				 Thread queryThread = new Thread() {
-				      public void run() {
-				    	  try {
-				    		  JFileChooser fileChooser = new JFileChooser();
-				    		  fileChooser.showSaveDialog(confirmView);
-				    		  filePath = fileChooser.getSelectedFile().getAbsolutePath();
-				    		  updateStatusPanel(progressBar);
-				    		  requests.sendFile(filePath);
-				    	  } catch (Exception e) {
-				    		  JOptionPane.showMessageDialog(null, "Upłynął czas na połączenie z serwerem");
-				    	  }
-				      }
-				    };
-				    queryThread.start();
+				Thread queryThread = new Thread() {
+					public void run() {
+						try {
+							JFileChooser fileChooser = new JFileChooser();
+							fileChooser.showSaveDialog(confirmView);
+							filePath = fileChooser.getSelectedFile()
+									.getAbsolutePath();
+							updateStatusPanel(progressBar);
+							requests.sendFile(filePath);
+						} catch (Exception e) {
+							JOptionPane.showMessageDialog(null,
+									"Upłynął czas na połączenie z serwerem");
+						}
+					}
+				};
+				queryThread.start();
 			}
 		});
 
@@ -450,7 +450,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		JMenuItem infoItem = new JMenuItem("Informacje");
 		mnPomoc.add(infoItem);
 
-		JMenuItem oProgramieItem = new JMenuItem("O Programie");
+		JMenuItem oProgramieItem = new JMenuItem("O programie");
 		mnPomoc.add(oProgramieItem);
 
 		mntmGenRaport.addActionListener(new ActionListener() {
@@ -490,7 +490,10 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Jakies informacje");
+				JOptionPane
+						.showMessageDialog(
+								null,
+								"Program utworzony na potrzeby Instytutu Pamięć i Przyszłość jako narzędzie wspomagające proces tworzenia gier edukacyjnych na platformę Android");
 			}
 		});
 
@@ -651,7 +654,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 	public void updateStatusPanel(java.awt.Component component) {
 		File f = new File(filePath);
 		if (f.isFile()) {
-			progressBar.setMaximum((int)(f.length()));
+			progressBar.setMaximum((int) (f.length()));
 			statusPanel.removeAll();
 			statusPanel.add(component);
 			statusPanel.revalidate();
