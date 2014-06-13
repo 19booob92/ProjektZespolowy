@@ -50,6 +50,7 @@ public class ZipPacker {
     	String folder = directory.replaceAll(fileName, "");
     	fileName=fileName.replaceAll(" ","");
     	fileName=fileName.replaceAll("[^A-Za-z0-9]", "_");
+    	fileName=fileName.substring(0,fileName.length()-4)+".zip";
     	directory=folder+fileName;
         file=new File(directory);
         if(file.exists())
