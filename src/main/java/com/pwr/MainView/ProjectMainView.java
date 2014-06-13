@@ -48,8 +48,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
-
-
 import com.pwr.DetailsView.GameSettingsDialog;
 import com.pwr.DetailsView.TreasureBoxDialog;
 //import com.pwr.Editor.QuestsTableView;
@@ -176,9 +174,9 @@ public class ProjectMainView extends JFrame implements Serializable {
 		statusPanel.setPreferredSize(new Dimension(this.getWidth(), 20));
 		statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
 		statusPanel.setBackground(Color.WHITE);
-		JLabel info = new JLabel(
-				"Informacje o projekcie.");
-		//Data startu: "+campaign.getGameDate()+"/Liczba quizów: "+campaign.getQuizes().size()+"/"
+		JLabel info = new JLabel("Informacje o projekcie.");
+		// Data startu: "+campaign.getGameDate()+"/Liczba quizów:
+		// "+campaign.getQuizes().size()+"/"
 		info.setHorizontalAlignment(SwingConstants.LEFT);
 		statusPanel.add(info);
 		getContentPane().add(statusPanel, BorderLayout.SOUTH);
@@ -235,7 +233,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		btnNewUser.setBounds(6, 112, 207, 28);
 		leftSidePanel.add(btnNewUser);
 
-		btnDeleteQuestts = new JButton("Usun questy");
+		btnDeleteQuestts = new JButton("Usun zagadki");
 		btnDeleteQuestts.setBounds(6, 72, 207, 28);
 		leftSidePanel.add(btnDeleteQuestts);
 
@@ -324,20 +322,22 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				 Thread queryThread = new Thread() {
-				      public void run() {
-				    	  try {
-				    		  JFileChooser fileChooser = new JFileChooser();
-				    		  fileChooser.showSaveDialog(confirmView);
-				    		  filePath = fileChooser.getSelectedFile().getAbsolutePath();
-				    		  updateStatusPanel(progressBar);
-				    		  requests.sendFile(filePath);
-				    	  } catch (Exception e) {
-				    		  JOptionPane.showMessageDialog(null, "Upłynął czas na połączenie z serwerem");
-				    	  }
-				      }
-				    };
-				    queryThread.start();
+				Thread queryThread = new Thread() {
+					public void run() {
+						try {
+							JFileChooser fileChooser = new JFileChooser();
+							fileChooser.showSaveDialog(confirmView);
+							filePath = fileChooser.getSelectedFile()
+									.getAbsolutePath();
+							updateStatusPanel(progressBar);
+							requests.sendFile(filePath);
+						} catch (Exception e) {
+							JOptionPane.showMessageDialog(null,
+									"Upłynął czas na połączenie z serwerem");
+						}
+					}
+				};
+				queryThread.start();
 			}
 		});
 
@@ -411,8 +411,8 @@ public class ProjectMainView extends JFrame implements Serializable {
 		createTabPage1();
 		createTabPage2();
 
-		tabbedPane.addTab("Project", projectTabPane);
-		tabbedPane.addTab("User", userTabPane);
+		tabbedPane.addTab("Gra", projectTabPane);
+		tabbedPane.addTab("Użytkownicy", userTabPane);
 		rightSidePanel.add(tabbedPane);
 	}
 
@@ -423,19 +423,19 @@ public class ProjectMainView extends JFrame implements Serializable {
 		mnProject = new JMenu("Project");
 		menuBar.add(mnProject);
 
-		JMenuItem mntmNewProjectItem = new JMenuItem("Nowy projekt");
+		JMenuItem mntmNewProjectItem = new JMenuItem("Nowa gra");
 		mnProject.add(mntmNewProjectItem);
 
 		JMenuItem mntmGenRaport = new JMenuItem("Raport");
 		mnProject.add(mntmGenRaport);
 
-		JMenuItem mntmOpenProjectItem = new JMenuItem("Otw\u00F3rz");
+		JMenuItem mntmOpenProjectItem = new JMenuItem("Wczytaj grę");
 		mnProject.add(mntmOpenProjectItem);
 
 		JMenu mnUser = new JMenu("User");
 		menuBar.add(mnUser);
 
-		JMenuItem usunQuestyItem = new JMenuItem("Usun questy");
+		JMenuItem usunQuestyItem = new JMenuItem("Usun zagadki");
 		mnUser.add(usunQuestyItem);
 
 		JMenuItem usunWszystkieDaneItem = new JMenuItem("Usun wszystkie dane");
@@ -447,10 +447,13 @@ public class ProjectMainView extends JFrame implements Serializable {
 		JMenu mnPomoc = new JMenu("Pomoc");
 		menuBar.add(mnPomoc);
 
-		JMenuItem infoItem = new JMenuItem("Informacje");
-		mnPomoc.add(infoItem);
+		JMenuItem infoGameItem = new JMenuItem("Informacje o tworzeniu gier");
+		mnPomoc.add(infoGameItem);
 
-		JMenuItem oProgramieItem = new JMenuItem("O Programie");
+		JMenuItem infoUserItem = new JMenuItem("Informacje o zarządzaniu użytkownikami");
+		mnPomoc.add(infoUserItem);
+		
+		JMenuItem oProgramieItem = new JMenuItem("O programie");
 		mnPomoc.add(oProgramieItem);
 
 		mntmGenRaport.addActionListener(new ActionListener() {
@@ -478,7 +481,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 			}
 		});
 
-		infoItem.addActionListener(new ActionListener() {
+		infoGameItem.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -490,7 +493,10 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Jakies informacje");
+				JOptionPane
+						.showMessageDialog(
+								null,
+								"Program utworzony na potrzeby Instytutu Pamięć i Przyszłość jako narzędzie wspomagające proces tworzenia gier edukacyjnych na platformę Android");
 			}
 		});
 
@@ -554,8 +560,8 @@ public class ProjectMainView extends JFrame implements Serializable {
 	}
 
 	private void addTable() {
-		tableModel = new DefaultTableModel(new String[] { "login", "points",
-				"end time" }, 0);
+		tableModel = new DefaultTableModel(new String[] { "nazwa", "punkty",
+				"czas zakończenia" }, 0);
 
 		table = new JTable(tableModel);
 
@@ -651,7 +657,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 	public void updateStatusPanel(java.awt.Component component) {
 		File f = new File(filePath);
 		if (f.isFile()) {
-			progressBar.setMaximum((int)(f.length()));
+			progressBar.setMaximum((int) (f.length()));
 			statusPanel.removeAll();
 			statusPanel.add(component);
 			statusPanel.revalidate();

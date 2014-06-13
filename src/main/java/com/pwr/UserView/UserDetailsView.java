@@ -39,13 +39,14 @@ public class UserDetailsView extends JFrame {
 	private JButton btnDeleteAllDoneQuests;
 	private JButton btnDeleteUser;
 	private JButton btnCreateGameForUser;
+	private JButton btnZamknij;
 
 	static final int STATUS_CONFLICT = 409;
 	
 	private static String userName;
 
 	public UserDetailsView() {
-		setBounds(100, 100, 534, 300);
+		setBounds(100, 100, 534, 280);
 		Toolkit toolkt = Toolkit.getDefaultToolkit();
 		Dimension screenSize = toolkt.getScreenSize();
 		this.setLocation(screenSize.width / 4, screenSize.height / 4);
@@ -56,9 +57,9 @@ public class UserDetailsView extends JFrame {
 		contentPane.setLayout(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		btnDeleteUser = new JButton("Delete user");
+		btnDeleteUser = new JButton("Usuń użytkownika");
 		btnDeleteAllDoneQuests = new JButton(
-				"<html><body style=\"text-align:center;\">Usun wszystkie<br />zakonczone questy</body></html>");
+				"<html><body style=\"text-align:center;\">Usun wszystkie<br />zakonczone zagadki</body></html>");
 
 		btnDeleteAllDoneQuests.addActionListener(new ActionListener() {
 
@@ -105,7 +106,7 @@ public class UserDetailsView extends JFrame {
 			}
 		});
 		btnDeleteUser.setBounds(391, 90, 117, 25);
-		btnDeleteAllDoneQuests.setBounds(38, 213, 196, 37);
+		btnDeleteAllDoneQuests.setBounds(10, 189, 244, 37);
 		contentPane.add(btnDeleteUser);
 		contentPane.add(btnDeleteAllDoneQuests);
 
@@ -126,7 +127,7 @@ public class UserDetailsView extends JFrame {
 		btnDeleteGame.setBounds(137, 132, 117, 25);
 		contentPane.add(btnDeleteGame);
 
-		JButton btnUpdate = new JButton("Update");
+		JButton btnUpdate = new JButton("Aktualizuj");
 		btnUpdate.addActionListener(new ActionListener() {
 
 			@Override
@@ -165,17 +166,30 @@ public class UserDetailsView extends JFrame {
 		contentPane.add(email);
 		email.setColumns(10);
 
-		JLabel lblLogin = new JLabel("Login");
+		JLabel lblLogin = new JLabel("Nazwa");
 		lblLogin.setBounds(20, 11, 70, 15);
 		contentPane.add(lblLogin);
 
-		JLabel lblPassword = new JLabel("Password");
+		JLabel lblPassword = new JLabel("Hasło");
 		lblPassword.setBounds(262, 11, 70, 15);
 		contentPane.add(lblPassword);
 
 		JLabel lblEmail = new JLabel("E-Mail");
 		lblEmail.setBounds(20, 68, 70, 15);
 		contentPane.add(lblEmail);
+		
+		btnZamknij = new JButton("Zamknij");
+		
+		btnZamknij.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		
+		btnZamknij.setBounds(391, 207, 117, 23);
+		contentPane.add(btnZamknij);
 	}
 
 	public String getUserName() {
@@ -196,5 +210,4 @@ public class UserDetailsView extends JFrame {
 		setTitle(name);
 		setVisible(true);
 	}
-
 }

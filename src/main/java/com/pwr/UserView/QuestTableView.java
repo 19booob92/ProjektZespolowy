@@ -41,7 +41,7 @@ public class QuestTableView extends JFrame {
 	
 	@Autowired
 	public QuestTableView(final Requests requests) {
-		super("Quests");
+		super("Zagadki");
 
 		questList = null;
 		try {
@@ -64,7 +64,7 @@ public class QuestTableView extends JFrame {
 		
 		add(contentPane);
 
-		deleteQuest = new JButton("Usun quest");
+		deleteQuest = new JButton("Usun zagadke");
 
 		deleteQuest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -88,7 +88,7 @@ public class QuestTableView extends JFrame {
 
 	// kiedy User będzie miał w tabeli maila, layout się ułoży
 	private void addTable() {
-		tableModel = new DefaultTableModel(new String[] { "id", "czas domysny",
+		tableModel = new DefaultTableModel(new String[] { "id", "czas domyslny",
 				"domyslne punkty", "nazwa" }, 0);
 
 		table = new JTable(tableModel);
