@@ -76,10 +76,10 @@ public class UserProperties extends JFrame {
 		setVisible(true);
 	}
 
-	// kiedy User będzie miał w tabeli maila, layout się ułoży
+	// kiedy User bÄ™dzie miaÅ‚ w tabeli maila, layout siÄ™ uÅ‚oÅ¼y
 	private void addTable() {
-		tableModel = new DefaultTableModel(new String[] { "login", 
-				"points", "end time" }, 0);
+		tableModel = new DefaultTableModel(new String[] { "nazwa", 
+				"punkty", "czas zakończenia" }, 0);
 
 		table = new JTable(tableModel);
 

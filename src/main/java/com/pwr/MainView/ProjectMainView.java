@@ -435,7 +435,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		JMenu mnUser = new JMenu("User");
 		menuBar.add(mnUser);
 
-		JMenuItem usunQuestyItem = new JMenuItem("Usun questy");
+		JMenuItem usunQuestyItem = new JMenuItem("Usun zagadki");
 		mnUser.add(usunQuestyItem);
 
 		JMenuItem usunWszystkieDaneItem = new JMenuItem("Usun wszystkie dane");
@@ -560,8 +560,8 @@ public class ProjectMainView extends JFrame implements Serializable {
 	}
 
 	private void addTable() {
-		tableModel = new DefaultTableModel(new String[] { "login", "points",
-				"end time" }, 0);
+		tableModel = new DefaultTableModel(new String[] { "nazwa", "punkty",
+				"czas zakończenia" }, 0);
 
 		table = new JTable(tableModel);
 

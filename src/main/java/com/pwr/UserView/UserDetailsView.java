@@ -57,7 +57,7 @@ public class UserDetailsView extends JFrame {
 		contentPane.setLayout(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		btnDeleteUser = new JButton("Delete user");
+		btnDeleteUser = new JButton("Usuń użytkownika");
 		btnDeleteAllDoneQuests = new JButton(
 				"<html><body style=\"text-align:center;\">Usun wszystkie<br />zakonczone zagadki</body></html>");
 
@@ -127,7 +127,7 @@ public class UserDetailsView extends JFrame {
 		btnDeleteGame.setBounds(137, 132, 117, 25);
 		contentPane.add(btnDeleteGame);
 
-		JButton btnUpdate = new JButton("Update");
+		JButton btnUpdate = new JButton("Aktualizuj");
 		btnUpdate.addActionListener(new ActionListener() {
 
 			@Override
