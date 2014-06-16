@@ -189,10 +189,13 @@ public class XmlLoader {
 					.get(i)));
 			treasureBox.setyCoordinate(Double.parseDouble(treasureBoxYList
 					.get(i)));
-			treasureBox
-					.setWidth(Double.parseDouble(treasureBoxWidthList.get(i)));
-			treasureBox.setHeight(Double.parseDouble(treasureBoxHeightList
-					.get(i)));
+			//treasureBox
+			//		.setWidth(Double.parseDouble(treasureBoxWidthList.get(i)));
+			//treasureBox.setHeight(Double.parseDouble(treasureBoxHeightList
+			//		.get(i)));
+			treasureBox.setX2Coordinate(Double.parseDouble(treasureBoxWidthList.get(i)));
+			treasureBox.setY2Coordinate(Double.parseDouble(treasureBoxHeightList.get(i)));
+			treasureBox.countDimmension();
 			campaign.addTreasureBox(treasureBox);
 		}
 

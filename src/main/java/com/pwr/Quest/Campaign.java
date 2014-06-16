@@ -229,7 +229,8 @@ public class Campaign extends Observable {
 		for (int i = 0; i < boxes.size(); i++) {
 			TreasureBox box = boxes.get(i);
 			xml.addTreasureBox(box.getxCoordinate(), box.getyCoordinate(),
-					box.getWidth(), box.getHeight(), box.getNote());
+					//box.getWidth(), box.getHeight(), 
+					box.getX2Coordinate(),box.getY2Coordinate(),box.getNote());
 		}
 
 		try {

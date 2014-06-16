@@ -33,7 +33,6 @@ public class QuestView extends JPanel implements DescribeView {
 	protected JList<String> sounds;
 	protected Set<String> setOfpath;
 	protected String paragraph="";
-	protected ArrayList<Boolean> imageInventoryList;
 
 	protected DefaultListModel<String> picsListModel;
 	protected DefaultListModel<String> soundsListModel;
@@ -62,6 +61,9 @@ public class QuestView extends JPanel implements DescribeView {
 	
 	protected JComboBox comboBoxNarration;
 	private ArrayList<String> listNarration;
+	
+	private ArrayList<Boolean> soundInventoryList;
+	private ArrayList<Boolean> imageInventoryList;
 
 	protected final static int PANEL_WIDTH = 900;
 	protected final static int PANEL_HEIGHT = 800;
@@ -77,6 +79,7 @@ public class QuestView extends JPanel implements DescribeView {
 		picsListModel = new DefaultListModel<String>();
 		soundsListModel = new DefaultListModel<String>();
 		imageInventoryList = new ArrayList();
+		soundInventoryList = new ArrayList();
 		
 		sounds = new JList(soundsListModel);
 		
@@ -171,6 +174,7 @@ public class QuestView extends JPanel implements DescribeView {
 			public void actionPerformed(ActionEvent arg0) {
 				if (picsListModel.getSize() != 0)
 				{
+					imageInventoryList.remove(pics.getSelectedIndex());
 					String path = picsListModel.getElementAt(pics.getSelectedIndex());
 					deleteFile(path);
 					picsListModel.remove(pics.getSelectedIndex());
@@ -185,6 +189,7 @@ public class QuestView extends JPanel implements DescribeView {
 					String path = soundsListModel.getElementAt(sounds.getSelectedIndex());
 					deleteFile(path);
 					soundsListModel.remove(sounds.getSelectedIndex());
+					soundInventoryList.remove(sounds.getSelectedIndex());
 					int size = listNarration.size();
 					listNarration = new ArrayList();
 					for(int i=0;i<size-1;i++)
@@ -228,6 +233,7 @@ public class QuestView extends JPanel implements DescribeView {
 		chooser.setAcceptAllFileFilterUsed(false);
 
 		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+			imageInventoryList.add(false);
 			//String str = chooser.getSelectedFile().getName();
 			String str = chooser.getSelectedFile().getPath();
 			list.addElement(str);
@@ -250,6 +256,7 @@ public class QuestView extends JPanel implements DescribeView {
 		chooser.setAcceptAllFileFilterUsed(false);
 
 		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+			soundInventoryList.add(false);
 			//String str = chooser.getSelectedFile().getName();
 			String str = chooser.getSelectedFile().getPath();
 			list.addElement(str);

@@ -265,6 +265,8 @@ public class TreasureBoxDialog extends JDialog{
 			box.setWidth(Double.parseDouble(widthField.getText()));
 			box.setxCoordinate(Double.parseDouble(xField.getText()));
 			box.setyCoordinate(Double.parseDouble(yField.getText()));
+			box.setX2Coordinate(googlePanel.get2CoordLat());
+			box.setY2Coordinate(googlePanel.get2CoordLong());
 			box.setNote(textArea.getText());
 			
 			campaignRef.addTreasureBox(box);
@@ -282,6 +284,8 @@ public class TreasureBoxDialog extends JDialog{
 			box.setWidth(Double.parseDouble(widthField.getText()));
 			box.setxCoordinate(Double.parseDouble(xField.getText()));
 			box.setyCoordinate(Double.parseDouble(yField.getText()));
+			box.setX2Coordinate(googlePanel.get2CoordLat());
+			box.setY2Coordinate(googlePanel.get2CoordLong());
 			box.setNote(textArea.getText());
 			
 			campaignRef.putTreasureBox(box, treasureComboBox.getSelectedIndex());

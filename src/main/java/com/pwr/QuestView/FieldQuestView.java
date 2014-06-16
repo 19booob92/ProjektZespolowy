@@ -85,10 +85,10 @@ public class FieldQuestView extends QuestView implements DescribeView {
 						.getMarkerLongtitude()));
 				longitudeField.setText(Double.toString(googlePanel
 						.getMarkerLatitude()));
-				//widthField.setText(Double.toString(googlePanel.getMarkerWidth()));
-				widthField.setText(Double.toString(googlePanel.get2CoordLong()));
-				//heightField.setText(Double.toString(googlePanel.getMarkerHeight()));
-				heightField.setText(Double.toString(googlePanel.get2CoordLat()));
+				widthField.setText(Double.toString(googlePanel.getMarkerWidth()));
+				//widthField.setText(Double.toString(googlePanel.get2CoordLong()));
+				heightField.setText(Double.toString(googlePanel.getMarkerHeight()));
+				//heightField.setText(Double.toString(googlePanel.get2CoordLat()));
 				FieldQuestView.this.repaint();
 			}
 
