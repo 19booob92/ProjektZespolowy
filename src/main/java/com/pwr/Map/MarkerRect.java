@@ -58,6 +58,8 @@ public class MarkerRect {
     {
         leftUpperLatitude=tLatitude;
         leftUpperLongtitude=tLongtitude;
+        rightBottomLatitude = tLatitude+tHeight;
+        rightBottomLongtitude = tLongtitude+tWidth;
         width = (int) (tWidth/MapGetter.getXToMap());
         height = (int) (tHeight/MapGetter.getYToMap());
         if(height<0){height*=-1;}

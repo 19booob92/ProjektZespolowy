@@ -213,6 +213,8 @@ public class NewQuizView extends JFrame {
 
 		view.preNote.setText(q.getPreNote());
 		view.postNote.setText(q.getPostNote());
+		view.imageInventoryList = q.getPictureInventoryList();
+		view.soundInventoryList = q.getSoundInventoryList();
 		this.tfQuizName.setText(q.getQuestName());
 		thisName = this.tfQuizName.getText();
 		this.timeoutField.setText(Integer.toString(q.getQuestTimeout()));
@@ -235,8 +237,8 @@ public class NewQuizView extends JFrame {
 	private void fillWithFieldQuestData(FieldQuest q) {
 		fieldView.heightField.setText(Double.toString(q.getHeight()));
 		fieldView.widthField.setText(Double.toString(q.getWidth()));
-		fieldView.latitudeField.setText(Double.toString(q.getXCoordinate()));
-		fieldView.longitudeField.setText(Double.toString(q.getYCoordinate()));
+		fieldView.latitudeField.setText(Double.toString(q.getYCoordinate()));
+		fieldView.longitudeField.setText(Double.toString(q.getXCoordinate()));
 		
 		fieldView.googlePanel.setMapPoint(q.getYCoordinate(),
 				q.getXCoordinate(), q.getWidth(), q.getHeight());
@@ -533,6 +535,8 @@ public class NewQuizView extends JFrame {
 	}
 
 	private void GetGeneralQuestFields(QuestPoint newQuest, QuestView questView) {
+		newQuest.setSoundInventoryList(selectedCard.soundInventoryList);
+		newQuest.setPictureInventoryList(selectedCard.imageInventoryList);
 		newQuest.setSoundNarration(selectedCard.comboBoxNarration.getSelectedIndex()-1);
 		newQuest.setPicturePaths(rewriteJListToArrayList(selectedCard.pics));
 		newQuest.setSoundPaths(rewriteJListToArrayList(selectedCard.sounds));

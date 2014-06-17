@@ -36,6 +36,7 @@ public class QuestView extends JPanel implements DescribeView {
 
 	protected DefaultListModel<String> picsListModel;
 	protected DefaultListModel<String> soundsListModel;
+	
 
 	private ParagraphInputDialog paragraphInputDialog;
 	
@@ -62,8 +63,8 @@ public class QuestView extends JPanel implements DescribeView {
 	protected JComboBox comboBoxNarration;
 	private ArrayList<String> listNarration;
 	
-	private ArrayList<Boolean> soundInventoryList;
-	private ArrayList<Boolean> imageInventoryList;
+	protected ArrayList<Boolean> soundInventoryList;
+	protected ArrayList<Boolean> imageInventoryList;
 
 	protected final static int PANEL_WIDTH = 900;
 	protected final static int PANEL_HEIGHT = 800;
@@ -188,8 +189,8 @@ public class QuestView extends JPanel implements DescribeView {
 				{
 					String path = soundsListModel.getElementAt(sounds.getSelectedIndex());
 					deleteFile(path);
-					soundsListModel.remove(sounds.getSelectedIndex());
 					soundInventoryList.remove(sounds.getSelectedIndex());
+					soundsListModel.remove(sounds.getSelectedIndex());
 					int size = listNarration.size();
 					listNarration = new ArrayList();
 					for(int i=0;i<size-1;i++)
@@ -232,8 +233,13 @@ public class QuestView extends JPanel implements DescribeView {
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		chooser.setAcceptAllFileFilterUsed(false);
 
-		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-			imageInventoryList.add(false);
+		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {	
+			int dialogResult=JOptionPane.showConfirmDialog (null, "Czy chcesz dodać dźwięk jako ekwipunek?","Ekwipunek",JOptionPane.YES_NO_OPTION);
+			if(dialogResult==JOptionPane.YES_OPTION)
+			{
+				soundInventoryList.add(true);
+			}
+			else{soundInventoryList.add(false);}
 			//String str = chooser.getSelectedFile().getName();
 			String str = chooser.getSelectedFile().getPath();
 			list.addElement(str);
@@ -256,7 +262,13 @@ public class QuestView extends JPanel implements DescribeView {
 		chooser.setAcceptAllFileFilterUsed(false);
 
 		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-			soundInventoryList.add(false);
+			int dialogResult=JOptionPane.showConfirmDialog (null, "Czy chcesz dodać obraz jako ekwipunek?","Ekwipunek",JOptionPane.YES_NO_OPTION);
+			if(dialogResult==JOptionPane.YES_OPTION)
+			{
+				imageInventoryList.add(true);
+			}
+			else{imageInventoryList.add(false);}
+
 			//String str = chooser.getSelectedFile().getName();
 			String str = chooser.getSelectedFile().getPath();
 			list.addElement(str);
