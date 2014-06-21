@@ -36,7 +36,7 @@ public class ConfirmView extends JFrame {
 		btnCancel.setBounds(40, 156, 117, 25);
 
 		confirm = new JLabel(
-				"Czy jestes pewny ze chcesz usunac wszsytkie dane?");
+				"Czy jestes pewny ze chcesz usunac wszystkie dane?");
 
 		add(confirm);
 		add(btnOK);

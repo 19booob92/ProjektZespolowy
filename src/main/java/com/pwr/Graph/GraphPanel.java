@@ -483,7 +483,7 @@ public class GraphPanel extends JPanel  implements MouseListener{
 				{
 					clicked=true;
 					 JPopupMenu menu = new JPopupMenu("Popup");
-					 JMenuItem item = new JMenuItem("Usuń quiz");
+					 JMenuItem item = new JMenuItem("Usuń zagadkę");
 					 item.setToolTipText(quizRect.get(n).id);
 					 menu.add(item);
 					 item.addActionListener(new ActionListener() {
@@ -504,7 +504,7 @@ public class GraphPanel extends JPanel  implements MouseListener{
 			if(!clicked)
 			{
 				 JPopupMenu menu = new JPopupMenu("Popup");
-				 JMenuItem item = new JMenuItem("Dodaj nowy quiz");
+				 JMenuItem item = new JMenuItem("Dodaj nową zagadkę");
 				 menu.add(item);
 				 item.addActionListener(new ActionListener() {
 

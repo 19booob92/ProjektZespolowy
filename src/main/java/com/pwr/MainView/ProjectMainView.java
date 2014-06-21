@@ -420,7 +420,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
-		mnProject = new JMenu("Project");
+		mnProject = new JMenu("Projekt");
 		menuBar.add(mnProject);
 
 		JMenuItem mntmNewProjectItem = new JMenuItem("Nowa gra");
@@ -432,7 +432,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		JMenuItem mntmOpenProjectItem = new JMenuItem("Wczytaj grę");
 		mnProject.add(mntmOpenProjectItem);
 
-		JMenu mnUser = new JMenu("User");
+		JMenu mnUser = new JMenu("Użytkownicy");
 		menuBar.add(mnUser);
 
 		JMenuItem usunQuestyItem = new JMenuItem("Usun zagadki");

@@ -21,7 +21,7 @@ public class FieldQuest extends QuestPoint implements DescribeQuest {
 
 	public String toString()
 	{
-		return xCoordinate+", "+yCoordinate;
+		return super.getQuestName();
 	}
 		public void countDimmension()
 		{
