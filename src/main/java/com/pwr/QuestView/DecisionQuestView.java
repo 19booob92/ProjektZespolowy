@@ -147,25 +147,12 @@ public class DecisionQuestView extends QuestView implements DescribeView {
 		dialog.add(tfAnswer);
 		tfAnswer.setColumns(10);
 
-		// tu bedzie JCombo, z ktorego mozna bedzie wybrac numer zagadki obiektu
-		// Campaign
-
-		JLabel lblGoToLabel = new JLabel("Wprowadź numer kolejnej zagadki");
-		lblGoToLabel.setBounds(25, 85, 134, 14);
-		dialog.add(lblGoToLabel);
-
-		final JTextField tfGoTo = new JTextField();
-		tfGoTo.setBounds(25, 100, 399, 30);
-		dialog.add(tfGoTo);
-		tfGoTo.setColumns(10);
-
 		JButton btnOk = new JButton("Ok");
 		btnOk.setBounds(335, 137, 89, 23);
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String tempAnswer = tfAnswer.getText();
-				String goToNumber = tfGoTo.getText();
-				tableModel.addRow(new Object[] { "", tempAnswer, goToNumber,
+				tableModel.addRow(new Object[] { "", tempAnswer, 0,
 						new JComboBox() });
 				dialog.dispose();
 			}
