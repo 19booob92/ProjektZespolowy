@@ -40,6 +40,10 @@ public abstract class QuestPoint implements DescribeQuest {
 		date = "10-03-1410 14:33";
 		//id++;
 	}
+	public static void resetId()
+	{
+		id = 1;
+	}
 	
 	public void setParagraph(String paragraph)
 	{

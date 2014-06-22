@@ -47,6 +47,7 @@ public class GameSettingsDialog extends JDialog{
 	private JButton okBtn;
 	private JButton btnCancel;
 	
+	
 	public GameSettingsDialog(Campaign campaign)
 	{
 		super();

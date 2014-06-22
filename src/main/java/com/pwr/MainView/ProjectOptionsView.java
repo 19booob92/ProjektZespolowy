@@ -136,7 +136,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		addIntroOutroButtons();
 	}
 
-	public void initiateGameFields() {
+	public void initiateGameFields() {	
 		this.tfGameTitle.setText(campaign.getGameTitle());
 		//this.tfStartDate.setText(campaign.getGameDate());
 		
@@ -147,6 +147,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			dateTimePicker.setDate(simple.parse(campaign.getGameDate()));
 			dateTimePicker.updateUI();
 		} catch (ParseException e) {
+			e.printStackTrace();
 			throw new NoDataInFieldException();
 		}
 		for (String q : campaign.getIntroPics()) {
@@ -157,6 +158,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		}
 		introTextList = campaign.getIntroText();
 		outroTextList = campaign.getOutroText();
+		updateQuestList();
 	}
 	
 	public void addIntroOutroButtons() {
@@ -276,10 +278,13 @@ public class ProjectOptionsView extends JPanel implements Observer {
 
 			public void actionPerformed(ActionEvent e) {
 				for (QuestPoint quest : campaign.getQuizes()) {
-					if (listOfQuizes.getSelectedValue().toString().equals(quest.getQuestName())) {
-						NewQuizView quizEditView = NewQuizView.getInstance(campaign, quest.getId());
-						quizEditView.show();
-					}
+					//if(listOfQuizes.getSelectedIndex()>-1)
+					//{
+						if (listOfQuizes.getSelectedValue().toString().equals(quest.getQuestName())) {
+							NewQuizView quizEditView = NewQuizView.getInstance(campaign, quest.getId());
+							quizEditView.show();
+						}
+					//}
 				}
 			}
 		});
@@ -464,5 +469,10 @@ public class ProjectOptionsView extends JPanel implements Observer {
 				file.delete();
 			}
 		}
+	}
+	
+	public void setCampaign(Campaign campaign)
+	{
+		this.campaign=campaign;
 	}
 }

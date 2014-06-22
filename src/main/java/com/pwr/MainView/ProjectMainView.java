@@ -316,7 +316,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				wczytajPaczke();
-			}
+		}
 
 		});
 
@@ -379,8 +379,12 @@ public class ProjectMainView extends JFrame implements Serializable {
 	}
 
 	private void wczytajPaczke() {
+		//this.campaign = new Campaign();
+		this.campaign.clearCampaign();
 		campaign.loadXml(getXML());
+		//projectTabPane.setCampaign(campaign);
 		projectTabPane.initiateGameFields();
+		
 		projectTabPane.updateGraph();
 		repaint();
 	}

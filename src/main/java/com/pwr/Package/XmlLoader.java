@@ -160,6 +160,7 @@ public class XmlLoader {
 						.item(0).getTextContent().trim();
 			}
 			campaign.setSettings(settingsBackGround1, settingsBackGround2, settingsBackGround3, settingsLogo1, settingsButton1,settingsStartdate,gameTitle);
+			//campaign.setGameDate(settingsStartdate);
 		}
 		NodeList treasureBoxList = doc.getElementsByTagName("treasurebox");
 

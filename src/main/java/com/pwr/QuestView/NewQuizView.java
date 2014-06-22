@@ -91,6 +91,11 @@ public class NewQuizView extends JFrame {
 	
 	private static NewQuizView instanceOfNewQuizView = null;
 	
+	public static void setCampaign(Campaign campaign)
+	{
+		campaignRef=campaign;
+	}
+	
 	private NewQuizView(Campaign campaign, int qInd) {
 		super();
 		campaignRef = campaign;

@@ -53,6 +53,7 @@ public class TreasureBoxDialog extends JDialog{
 	private int index;
 	private JButton btnClose;
 	
+	
 	public TreasureBoxDialog(Campaign campaign)
 	{
 		super();

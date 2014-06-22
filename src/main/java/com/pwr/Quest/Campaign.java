@@ -58,6 +58,29 @@ public class Campaign extends Observable {
 		introText = new ArrayList();
 		outroText = new ArrayList();
 	}
+	
+	public void clearCampaign()
+	{
+		quests.clear();
+		boxes = new ArrayList();
+		introPics = new ArrayList();
+		outroPics = new ArrayList();
+		introText = new ArrayList();
+		outroText = new ArrayList();
+		created = false;
+		edited = false;
+		saved = true;
+		deleted = false;
+
+		gameTitle = "";
+		date = "";
+		background1 = "";
+		background2 = "";
+		background3 = "";
+		logo = "";
+		button = "";
+		QuestPoint.resetId();
+	}
 
 	public List<QuizDataObject> convertQuiz() {
 		List<QuizDataObject> quizDTOs = new ArrayList<>();
@@ -273,7 +296,8 @@ public class Campaign extends Observable {
 				}
 			}
 			// srcFile.delete();
-			 PackageCoder.codeAllFilesInDirectoryExceptSound("temp");
+			 //PackageCoder.codeAllFilesInDirectoryExceptSound("temp");
+			PackageCoder.codeFile("temp"+File.separatorChar+"Config.xml");
 			File[] files = destFolder.listFiles();
 			for (int i = 0; i < files.length; i++) {
 				try {
@@ -372,7 +396,8 @@ public class Campaign extends Observable {
 		if (!file.equals("")) {
 			zipUnpacker = new ZipUnpacker(file);
 			zipUnpacker.unZip();
-			 PackageCoder.decodeAllFilesInDirectory("temp");
+			 //PackageCoder.decodeAllFilesInDirectory("temp");
+			PackageCoder.decodeFile("temp"+File.separatorChar+"Config.xml");
 
 			XmlLoader xml = new XmlLoader("temp" + File.separator
 					+ "Config.xml");
