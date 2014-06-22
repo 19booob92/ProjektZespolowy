@@ -34,8 +34,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.table.DefaultTableModel;
 
 
+import com.pwr.Map.GoogleMapPanel;
 import com.pwr.Other.DateTimePicker;
 import com.pwr.Other.NoDataInFieldException;
 import com.pwr.Package.ZipPacker;
@@ -65,6 +67,9 @@ public class NewQuizView extends JFrame {
 	private JLabel lblType;
 	private JLabel lblPoints;
 	private JLabel lblDate;
+	
+	private JComboBox questTypeCombo;
+	
 	private static final int PANEL_WIDTH = 1000;
 	private static final int PANEL_HEIGHT = 700;
 
@@ -108,7 +113,7 @@ public class NewQuizView extends JFrame {
 		} else {
 			quizIndex = qInd;
 			campaignRef = campaign;
-			instanceOfNewQuizView.fillFieldsWithQuizData();			
+			instanceOfNewQuizView.fillFieldsWithQuizData();	
 		}
 		return instanceOfNewQuizView;
 	}
@@ -125,6 +130,7 @@ public class NewQuizView extends JFrame {
 	}
 	private void clearFields() {
 		//Czyszczenie ogolnych pol
+		questTypeCombo.setEnabled(true);
 		fieldView.setVisible(true);
 		fieldView.preNote.setText("");
 		fieldView.postNote.setText("");
@@ -132,16 +138,24 @@ public class NewQuizView extends JFrame {
 		fieldView.soundInventoryList = new ArrayList<Boolean>();
 		this.tfQuizName.setText("");
 		thisName = this.tfQuizName.getText();
-		this.timeoutField.setText("");
+		this.timeoutField.setText("0");
 		points.setText("0");
 		SimpleDateFormat simple = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		datePickerDate = new Date();
 		dateTimePicker.updateUI();
 		fieldView.paragraph = "";
 		
-		//czyszczenie pol zagadki terenowej
-		
-		
+		//czyszczenie pol zagadek
+		fieldView = new FieldQuestView();
+		textView = new TextQuestView();
+		orderView = new OrderQuestView();
+		decisionView = new DecisionQuestView();
+		choiceView = new MultipleChoiceQuestView();
+		fieldView.setVisible(true);
+		choiceView.setVisible(false);
+		orderView.setVisible(false);
+		decisionView.setVisible(false);
+		textView.setVisible(false);
 	}
 
 	/**
@@ -232,6 +246,8 @@ public class NewQuizView extends JFrame {
 			fillWithTextQuestData((TextQuest) q);
 		}
 		System.out.println(dateTimePicker.getDate());
+		questTypeCombo.setEnabled(false);
+		
 	}
 
 	private void fillWithGeneralData(QuestPoint q, QuestView view) {
@@ -337,7 +353,7 @@ public class NewQuizView extends JFrame {
 		lblTimeout.setBounds(24, 78, 46, 14);
 		leftSidePanel.add(lblTimeout);
 
-		final JComboBox questTypeCombo = new JComboBox(quizTypes);
+		questTypeCombo = new JComboBox(quizTypes);
 		questTypeCombo.setBounds(24, 321, 226, 27);
 		leftSidePanel.add(questTypeCombo);
 
