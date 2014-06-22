@@ -124,7 +124,24 @@ public class NewQuizView extends JFrame {
 		return instanceOfNewQuizView;
 	}
 	private void clearFields() {
-
+		//Czyszczenie ogolnych pol
+		fieldView.setVisible(true);
+		fieldView.preNote.setText("");
+		fieldView.postNote.setText("");
+		fieldView.imageInventoryList = new ArrayList<Boolean>();
+		fieldView.soundInventoryList = new ArrayList<Boolean>();
+		this.tfQuizName.setText("");
+		thisName = this.tfQuizName.getText();
+		this.timeoutField.setText("");
+		points.setText("0");
+		SimpleDateFormat simple = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		datePickerDate = new Date();
+		dateTimePicker.updateUI();
+		fieldView.paragraph = "";
+		
+		//czyszczenie pol zagadki terenowej
+		
+		
 	}
 
 	/**

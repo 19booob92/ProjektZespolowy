@@ -76,10 +76,15 @@ public TextQuestView() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                textAnswer.add(JOptionPane.showInputDialog("Podaj odpowiedź"));
-                answers.addElement(textAnswer.get(answerTrigger));
-                answersComboBox.setSelectedIndex(answerTrigger);
-                answerTrigger++;
+            	String answ = JOptionPane.showInputDialog("Podaj odpowiedź");
+            	if (!answ.equals("")) {
+            		textAnswer.add(answ);
+            		answers.addElement(textAnswer.get(answerTrigger));
+            		answersComboBox.setSelectedIndex(answerTrigger);
+            		answerTrigger++;	            		
+            	} else {
+            		
+            	}
             }
         });
         
