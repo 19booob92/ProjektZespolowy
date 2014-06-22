@@ -77,13 +77,14 @@ public TextQuestView() {
             @Override
             public void actionPerformed(ActionEvent e) {
             	String answ = JOptionPane.showInputDialog("Podaj odpowiedź");
-            	if (!answ.equals("")) {
+            	String answTest = answ;
+            	if (answ.trim().length()>0) {
             		textAnswer.add(answ);
             		answers.addElement(textAnswer.get(answerTrigger));
             		answersComboBox.setSelectedIndex(answerTrigger);
             		answerTrigger++;	            		
             	} else {
-            		
+            		JOptionPane.showMessageDialog(null, "Odpowiedź nie może być pusta!");
             	}
             }
         });
