@@ -425,24 +425,33 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 		JMenuItem mntmNewProjectItem = new JMenuItem("Nowa gra");
 		mnProject.add(mntmNewProjectItem);
+		
+		JMenuItem mntmSaveProjectItem = new JMenuItem("Zapisz grę");
+		mnProject.add(mntmSaveProjectItem);
+		
+		JMenuItem mntmOpenProjectItem = new JMenuItem("Wczytaj grę");
+		mnProject.add(mntmOpenProjectItem);
+		
+		mnProject.addSeparator();
 
 		JMenuItem mntmGenRaport = new JMenuItem("Raport");
 		mnProject.add(mntmGenRaport);
-
-		JMenuItem mntmOpenProjectItem = new JMenuItem("Wczytaj grę");
-		mnProject.add(mntmOpenProjectItem);
+		
+		JMenuItem mntmCloseProgramItem = new JMenuItem("Zakończ");
+		mnProject.add(mntmCloseProgramItem);
 
 		JMenu mnUser = new JMenu("Użytkownicy");
 		menuBar.add(mnUser);
 
+		JMenuItem dodajUzytkownikaItem = new JMenuItem("Dodaj uzytkownika");
+		mnUser.add(dodajUzytkownikaItem);
+		
 		JMenuItem usunQuestyItem = new JMenuItem("Usun zagadki");
 		mnUser.add(usunQuestyItem);
 
 		JMenuItem usunWszystkieDaneItem = new JMenuItem("Usun wszystkie dane");
 		mnUser.add(usunWszystkieDaneItem);
 
-		JMenuItem dodajUzytkownikaItem = new JMenuItem("Dodaj uzytkownika");
-		mnUser.add(dodajUzytkownikaItem);
 
 		JMenu mnPomoc = new JMenu("Pomoc");
 		menuBar.add(mnPomoc);
@@ -473,11 +482,27 @@ public class ProjectMainView extends JFrame implements Serializable {
 			}
 		});
 
-		mntmNewProjectItem.addActionListener(new ActionListener() {
+		mntmSaveProjectItem.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				tworzNowaGre();
+			}
+		});
+		
+		mntmCloseProgramItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		
+		mntmNewProjectItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 

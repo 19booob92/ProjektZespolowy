@@ -30,7 +30,7 @@ public class UserDataRegister extends JFrame {
 	private JButton btnCommit;
 	private JTextField loginTxt;
 	private JTextField passTxt;
-	private final JLabel lblUserLogin = new JLabel("User login");
+	private final JLabel lblUserLogin = new JLabel("Login");
 
 	@Autowired
 	private Requests requests;
@@ -53,7 +53,7 @@ public class UserDataRegister extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		btnCommit = new JButton("commit");
+		btnCommit = new JButton("Dodaj");
 		btnCommit.setBounds(79, 96, 117, 25);
 		contentPane.add(btnCommit);
 
@@ -67,11 +67,11 @@ public class UserDataRegister extends JFrame {
 		contentPane.add(passTxt);
 		passTxt.setColumns(10);
 
-		JLabel passLbl = new JLabel("Password Label");
+		JLabel passLbl = new JLabel("Hasło");
 		lblUserLogin.setBounds(12, 0, 125, 33);
 		contentPane.add(lblUserLogin);
 
-		JLabel lblPassword = new JLabel("Password");
+		JLabel lblPassword = new JLabel("Hasło");
 		lblPassword.setBounds(12, 39, 46, 14);
 		contentPane.add(lblPassword);
 
@@ -100,11 +100,11 @@ public class UserDataRegister extends JFrame {
 						projectMainView.updateTable();
 					} else {
 						new JOptionPane().showMessageDialog(null,
-								"Nie mo�na utworzyc konta !");
+								"Nie można utworzyc konta !");
 					}
 				} catch (Exception ex) {
 					new JOptionPane().showMessageDialog(null,
-							"Nie mo�na utworzyc konta !");
+							"Nie można utworzyc konta !");
 					ex.printStackTrace();
 				}
 			}
