@@ -146,16 +146,29 @@ public class NewQuizView extends JFrame {
 		fieldView.paragraph = "";
 		
 		//czyszczenie pol zagadek
+		rightSidePanel.remove(fieldView);
+		rightSidePanel.remove(textView);
+		rightSidePanel.remove(choiceView);
+		rightSidePanel.remove(orderView);
+		rightSidePanel.remove(decisionView);
+		
 		fieldView = new FieldQuestView();
 		textView = new TextQuestView();
 		orderView = new OrderQuestView();
 		decisionView = new DecisionQuestView();
 		choiceView = new MultipleChoiceQuestView();
+		
 		fieldView.setVisible(true);
 		choiceView.setVisible(false);
 		orderView.setVisible(false);
 		decisionView.setVisible(false);
 		textView.setVisible(false);
+		
+		rightSidePanel.add(fieldView, "Zagadka terenowa");
+		rightSidePanel.add(textView, "Zagadka tekstowa");
+		rightSidePanel.add(choiceView, "Zagadka wielokrotnego wyboru");
+		rightSidePanel.add(orderView, "Zagadka uporządkowania");
+		rightSidePanel.add(decisionView, "Zagadka decyzji");
 	}
 
 	/**
@@ -218,34 +231,41 @@ public class NewQuizView extends JFrame {
 				break;
 			}
 		}
-		
-		choiceView.setVisible(false);
-		decisionView.setVisible(false);
-		orderView.setVisible(false);
-		textView.setVisible(false);
+
 		fieldView.setVisible(false);
+		textView.setVisible(false);
+		choiceView.setVisible(false);
+		orderView.setVisible(false);
+		decisionView.setVisible(false);
+		int index = 0;
 		if (q.getQuestType() == QuestType.CHOICEQUEST) {
 			choiceView.setVisible(true);
 			fillWithGeneralData(q, choiceView);
 			fillWithChoiceQuestData((ChoiceQuest) q);
+			index = 2;
 		} else if (q.getQuestType() == QuestType.DECISIONQUEST) {
 			decisionView.setVisible(true);
 			fillWithGeneralData(q, decisionView);
 			fillWithDecisionQuestData((DecisionQuest) q);
+			index = 4;
 		} else if (q.getQuestType() == QuestType.FIELDQUEST) {
 			fieldView.setVisible(true);
 			fillWithGeneralData(q, fieldView);
 			fillWithFieldQuestData((FieldQuest) q);
+			index = 0;
 		} else if (q.getQuestType() == QuestType.ORDERQUEST) {
 			orderView.setVisible(true);
 			fillWithGeneralData(q, orderView);
 			fillWithOrderQuestData((OrderQuest) q);
+			index = 3;
 		} else if (q.getQuestType() == QuestType.TEXTQUEST) {
 			textView.setVisible(true);
 			fillWithGeneralData(q, textView);
 			fillWithTextQuestData((TextQuest) q);
+			index = 1;
 		}
 		System.out.println(dateTimePicker.getDate());
+		questTypeCombo.setSelectedIndex(index);
 		questTypeCombo.setEnabled(false);
 		
 	}
