@@ -181,7 +181,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		statusPanel.setPreferredSize(new Dimension(this.getWidth(), 20));
 		statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
 		statusPanel.setBackground(Color.WHITE);
-		JLabel info = new JLabel("Informacje o projekcie.");
+		JLabel info = new JLabel("");
 		// Data startu: "+campaign.getGameDate()+"/Liczba quizów:
 		// "+campaign.getQuizes().size()+"/"
 		info.setHorizontalAlignment(SwingConstants.LEFT);
