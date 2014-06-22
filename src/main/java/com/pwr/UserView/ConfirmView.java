@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.pwr.MainView.ProjectMainView;
 import com.pwr.UserRegistration.Requests;
 
 @Component
@@ -28,6 +29,9 @@ public class ConfirmView extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new FlowLayout());
 		setSize(350, 150);
+		
+		setLocationRelativeTo(null);
+		this.setLocation(ProjectMainView.SCREENWIDTH / 4, ProjectMainView.SCREENHEIGHT / 4);
 
 		btnOK = new JButton("OK");
 		btnOK.setBounds(17, 156, 117, 25);

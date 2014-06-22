@@ -42,11 +42,9 @@ public class UserDataRegister extends JFrame {
 	public UserDataRegister() {
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setLocationRelativeTo(null);
 		setBounds(100, 100, 290, 170);
-		Toolkit toolkt = Toolkit.getDefaultToolkit();
-		Dimension screenSize = toolkt.getScreenSize();
-		this.setLocation(screenSize.width / 4, screenSize.height / 4);
+		setLocationRelativeTo(null);
+		this.setLocation(ProjectMainView.SCREENWIDTH / 4, ProjectMainView.SCREENHEIGHT / 4);
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

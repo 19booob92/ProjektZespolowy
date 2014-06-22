@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -89,6 +90,12 @@ public class ProjectMainView extends JFrame implements Serializable {
 	// chwilowe rozwiazanie, nie wiem jak przekazywac parametry do metody z
 	// aspektu
 	SplashWindow splashWindow;
+	
+	public static Toolkit tk = Toolkit.getDefaultToolkit();
+	public static Dimension screenSize = tk.getScreenSize();
+	public static final int SCREENWIDTH = screenSize.width;
+	public static final int SCREENHEIGHT = screenSize.height;
+	
 
 	private JPanel leftSidePanel;
 	private JPanel rightSidePanel;
@@ -165,7 +172,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		});
 		getContentPane().setLayout(new BorderLayout());
 		setSize(windowWidth, windowHeight);
-
+		
 		progressBar = new JProgressBar();
 		progressBar.setStringPainted(true);
 
