@@ -18,6 +18,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -31,6 +32,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.pwr.DetailsView.DescribeView;
 import com.pwr.DetailsView.ParagraphInputDialog;
+import com.pwr.MainView.ImagePreview;
 import com.pwr.MainView.ProjectMainView;
 import com.pwr.Other.ListRender;
 
@@ -104,6 +106,18 @@ public class QuestView extends JPanel implements DescribeView {
 		pics = new JList(picsListModel);
 		pics.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		pics.setCellRenderer(new ListRender());
+		pics.addMouseListener(new MouseAdapter() {
+		    public void mouseClicked(MouseEvent evt) {
+		        JList list = (JList)evt.getSource();
+		        if (evt.getClickCount() == 2) {
+		            int index = list.locationToIndex(evt.getPoint());
+		            JFrame jf= new JFrame();
+		            jf.setContentPane(new ImagePreview((String)list.getSelectedValue()));
+		            jf.pack();
+		            jf.setVisible(true);
+		        } 
+		    }
+		});
 		picsScrollPane = new JScrollPane(pics);
 		picsScrollPane.setBounds(23, 67, 302, 60);
 		add(picsScrollPane);

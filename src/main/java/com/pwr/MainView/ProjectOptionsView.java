@@ -2,10 +2,10 @@ package com.pwr.MainView;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Scrollbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -26,17 +26,12 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
 import javax.swing.border.EtchedBorder;
-
-
-
-
 
 import com.pwr.Graph.GraphFacade;
 import com.pwr.Other.DateTimePicker;
@@ -125,13 +120,37 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		introScroll = new JScrollPane(introPics);
 		introScroll.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		introScroll.setBounds(10, 233, 290, 69);
+		
+		introPics.addMouseListener(new MouseAdapter() {
+		    public void mouseClicked(MouseEvent evt) {
+		        JList list = (JList)evt.getSource();
+		        if (evt.getClickCount() == 2) {
+		            int index = list.locationToIndex(evt.getPoint());
+		            JFrame jf= new JFrame();
+		            jf.setContentPane(new ImagePreview((String)list.getSelectedValue()));
+		            jf.pack();
+		            jf.setVisible(true);
+		        } 
+		    }
+		});
 		add(introScroll);
-
 		outroPics = new JList(outroPicsListModel);
 		outroPics.setCellRenderer(new ListRender());
 		outroScroll = new JScrollPane(outroPics);
 		outroScroll.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		outroScroll.setBounds(10, 342, 290, 69);
+		outroPics.addMouseListener(new MouseAdapter() {
+		    public void mouseClicked(MouseEvent evt) {
+		        JList list = (JList)evt.getSource();
+		        if (evt.getClickCount() == 2) {
+		            int index = list.locationToIndex(evt.getPoint());
+		            JFrame jf= new JFrame();
+		            jf.setContentPane(new ImagePreview((String)list.getSelectedValue()));
+		            jf.pack();
+		            jf.setVisible(true);
+		        } 
+		    }
+		});
 		add(outroScroll);
 
 		listOfQuizes = new JList(quizListModel);

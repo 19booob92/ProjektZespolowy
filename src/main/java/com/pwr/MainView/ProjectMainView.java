@@ -524,10 +524,13 @@ public class ProjectMainView extends JFrame implements Serializable {
 		mnPomoc.add(infoGameItem);
 
 		JMenuItem infoUserItem = new JMenuItem("Informacje o zarządzaniu użytkownikami");
-		mnPomoc.add(infoUserItem);
+		//mnPomoc.add(infoUserItem);
 		
 		JMenuItem oProgramieItem = new JMenuItem("O programie");
 		mnPomoc.add(oProgramieItem);
+		
+		JMenuItem infoAuthorsItem = new JMenuItem("Twórcy");
+		mnPomoc.add(infoAuthorsItem);
 
 		mntmGenRaport.addActionListener(new ActionListener() {
 
@@ -590,6 +593,26 @@ public class ProjectMainView extends JFrame implements Serializable {
 						.showMessageDialog(
 								null,
 								"Program utworzony na potrzeby Instytutu Pamięć i Przyszłość jako narzędzie wspomagające proces tworzenia gier edukacyjnych na platformę Android");
+			}
+		});
+		
+		infoAuthorsItem.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				JOptionPane
+				.showMessageDialog(
+						null,
+						"O autorach\n\nKrzysztof Pozorski:\n\tProjektowanie:\n\t\tpomysł, \t\tmechanika gry\n"
+						+ "\tAndroid:\n\t\tdevelopment\n\tEdytor:\n\t\tnarzędzia, \t\tkonsulting, "
+						+ "\t\tintegracja z aplikacją mobilną, \ttestowanie\n\nMichał Kowalik:\n\tAndroid:\n"
+						+ "\t\tintegracja aplikacji z web serwisem\n\tWeb serwis:\n\t\tbaza danych, "
+						+ "\t\tdevelopment, \t\ttestowanie\n\tEdytor:\n\t\tintegracja z web serwisem, \ttestowanie\n\n"
+						+ "Arkadiusz Janz:\n\tEdytor:\n\t\tGUI, \t\tLogika\n\nMateusz Olczak:\n\tWeb serwis:\n\t\tintegracja z edytorem, "
+						+ "\t\tkonsulting\t\nAdministracja\n\nMichał Sypniewski:\n\tEdytor:\n\t\tmapa, \t\tgenerowanie plikow wynikowych, "
+						+ "\t\tpomoc przy GUI, \t\tobsługa I/O, \ttestowanie\n");
 			}
 		});
 
