@@ -38,7 +38,7 @@ public class UserGameDTO implements Serializable{
 	}
 
 	public String[] toArray() {
-		return new String [] {String.valueOf(points), endTime.toString()} ;
+		return new String [] {String.valueOf(points), endTime==null?" ":endTime.toString()} ;
 	}
 	public List<DoneQuestDTO> getSetDoneQuestDTO() {
 		return setDoneQuestDTO;

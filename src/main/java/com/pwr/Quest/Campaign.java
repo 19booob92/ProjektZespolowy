@@ -194,7 +194,7 @@ public class Campaign extends Observable {
 			QuestPoint tempQuest = quests.get(i);
 			if (tempQuest.getQuestType() == QuestType.TEXTQUEST) {
 				TextQuest quest = (TextQuest) tempQuest;
-				xml.addQuizText(quest.getQuestName(), quest.getPicturePaths(),
+				xml.addQuizText(quest.getQuestName(),quest.getId(), quest.getPicturePaths(),
 						quest.getPictureInventoryList(), quest.getSoundPaths(),
 						quest.getSoundInventoryList(), quest.getSoundNarration(),
 						quest.getParagraph(), quest.getPreNote(),
@@ -204,7 +204,7 @@ public class Campaign extends Observable {
 						quest.getWrong());
 			} else if (tempQuest.getQuestType() == QuestType.FIELDQUEST) {
 				FieldQuest quest = (FieldQuest) tempQuest;
-				xml.addQuizGPS(quest.getQuestName(), quest.getPicturePaths(),
+				xml.addQuizGPS(quest.getQuestName(),quest.getId(), quest.getPicturePaths(),
 						quest.getPictureInventoryList(), quest.getSoundPaths(),
 						quest.getSoundInventoryList(), quest.getSoundNarration(),
 						quest.getParagraph(), quest.getPreNote(),
@@ -216,7 +216,7 @@ public class Campaign extends Observable {
 						quest.getQuestTimeout(), quest.getWrong());
 			} else if (tempQuest.getQuestType() == QuestType.DECISIONQUEST) {
 				DecisionQuest quest = (DecisionQuest) tempQuest;
-				xml.addQuizDecision(quest.getQuestName(),
+				xml.addQuizDecision(quest.getQuestName(),quest.getId(),
 						quest.getPicturePaths(),
 						quest.getPictureInventoryList(), quest.getSoundPaths(),
 						quest.getSoundInventoryList(), quest.getSoundNarration(),
@@ -227,7 +227,7 @@ public class Campaign extends Observable {
 						quest.getWrong());
 			} else if (tempQuest.getQuestType() == QuestType.CHOICEQUEST) {
 				ChoiceQuest quest = (ChoiceQuest) tempQuest;
-				xml.addQuizMofn(quest.getQuestName(), quest.getPicturePaths(),
+				xml.addQuizMofn(quest.getQuestName(),quest.getId(), quest.getPicturePaths(),
 						quest.getPictureInventoryList(), quest.getSoundPaths(),
 						quest.getSoundInventoryList(), quest.getSoundNarration(),
 						quest.getParagraph(), quest.getPreNote(),
@@ -237,7 +237,7 @@ public class Campaign extends Observable {
 						quest.getQuestTimeout(), quest.getWrong());
 			} else if (tempQuest.getQuestType() == QuestType.ORDERQUEST) {
 				OrderQuest quest = (OrderQuest) tempQuest;
-				xml.addQuizPermutation(quest.getQuestName(),
+				xml.addQuizPermutation(quest.getQuestName(),quest.getId(),
 						quest.getPicturePaths(),
 						quest.getPictureInventoryList(), quest.getSoundPaths(),
 						quest.getSoundInventoryList(), quest.getSoundNarration(),
@@ -470,6 +470,11 @@ public class Campaign extends Observable {
 
 	public TreasureBox getTreasureBox(int index) {
 		return boxes.get(index);
+	}
+	
+	public void removeTreasureBox(int index)
+	{
+		boxes.remove(index);
 	}
 
 	public void setSettings(String background1, String background2,

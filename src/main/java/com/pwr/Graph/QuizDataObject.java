@@ -113,6 +113,16 @@ public class QuizDataObject {
 		tempGRect.get(0).add(new GraphRect(id,0, randomX+x+xGapIn-5,randomY+ y+yGapIn-5, 10, 10));
 		for(int n=0;n<howMany;n++)
 		{
+			if(correct[n].equals(""))
+			{
+				g2d.setColor(new Color(0xffffcc));
+				g2d.fillRect(randomX+x+xGapOut-5,randomY+ y+ yGapOut-5+n*15,  50, (int) (size / 5));
+				g2d.setColor(new Color(0));
+				g2d.setStroke(new BasicStroke(1));
+				g2d.drawRect(randomX+x+xGapOut-5,randomY+ y+ yGapOut-5+n*15,  50, (int) (size / 5));
+				
+				g2d.drawString("Koniec",randomX+x+xGapOut-5+10,randomY+ y+ yGapOut-5+n*15+(int) (size / 5));
+			}
 			g2d.fillOval(randomX+x+xGapOut-5,randomY+ y+ yGapOut-5+n*15, 10, 10);
 			tempGRect.get(1).add(new GraphRect(id,n, randomX+x+xGapOut-5,randomY+ y+ yGapOut-5+n*15, 10, 10));
 		}
@@ -223,7 +233,7 @@ public class QuizDataObject {
 	
 	public void convert(QuestPoint quiz) {
 		quiz.setWrong(wrong);
-		quiz.setGoTo(correct[0]);
+		quiz.setGoTo(correct);
 		quiz.setQuestName(title);
 		quiz.setId(id);
 	}
