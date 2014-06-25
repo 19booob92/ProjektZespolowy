@@ -168,7 +168,15 @@ public class Campaign extends Observable {
 	public ArrayList<QuestPoint> getQuizes() {
 		return quests;
 	}
-
+	public QuestPoint getQuizById(int argId)
+	{
+		QuestPoint qP=null;
+		
+		for(int n=0;n<quests.size();n++)
+			if(quests.get(n).getId()==argId)
+				return quests.get(n);
+		return null;
+	}
 	public ArrayList<String> getQuizesNames() {
 		ArrayList names = new ArrayList();
 		for (QuestPoint p : quests) {
@@ -502,6 +510,15 @@ public class Campaign extends Observable {
 		list.add(logo);
 		list.add(button);
 		return list;
+	}
+
+	public void setQuizById(int quizIndex, QuestPoint qp) {
+		for(int n=0;n<quests.size();n++)
+			if(quests.get(n).getId()==quizIndex)
+			{
+				quests.set(n,qp);
+				return;
+			}
 	}
 
 }

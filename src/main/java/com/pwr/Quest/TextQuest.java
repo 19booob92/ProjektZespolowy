@@ -12,6 +12,7 @@ public class TextQuest extends QuestPoint implements DescribeQuest{
 	public TextQuest()
 	{
 		super(QuestType.TEXTQUEST);
+		goTo="";
 	}
 	
 	public TextQuest(String answer, String content, double timeout){

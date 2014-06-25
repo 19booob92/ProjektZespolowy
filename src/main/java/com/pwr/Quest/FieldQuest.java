@@ -17,6 +17,7 @@ public class FieldQuest extends QuestPoint implements DescribeQuest {
 		super(QuestType.FIELDQUEST);
 		xCoordinate = 0;
 		yCoordinate = 0;
+		goTo="";
 	}
 
 	public String toString()

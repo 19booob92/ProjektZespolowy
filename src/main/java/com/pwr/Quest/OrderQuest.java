@@ -19,6 +19,7 @@ public class OrderQuest extends QuestPoint implements DescribeQuest {
     
     public OrderQuest() {
     	super(QuestType.ORDERQUEST);
+    	goTo="";
     }
 
     public String getGoTo() {

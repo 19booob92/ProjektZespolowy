@@ -44,6 +44,11 @@ public abstract class QuestPoint implements DescribeQuest {
 	{
 		id = 1;
 	}
+	public static void compareAndChangeId(int comparedId)
+	{
+		if(id<comparedId)
+			id=comparedId+1;
+	}
 	
 	public void setParagraph(String paragraph)
 	{

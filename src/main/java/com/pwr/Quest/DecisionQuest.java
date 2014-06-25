@@ -9,6 +9,7 @@ public class DecisionQuest extends QuestPoint implements DescribeQuest {
     
 	public DecisionQuest() {
 		super(QuestType.DECISIONQUEST);
+		
 	}
 
 	@Override

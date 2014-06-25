@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.jdesktop.swingx.calendar.SingleDaySelectionModel;
 import org.jdesktop.swingx.JXDatePicker;
 
@@ -425,13 +426,19 @@ public class NewQuizView extends JFrame {
 							campaignRef.addQuiz(newQuest);
 							campaignRef.createdTrue();
 						} else {
-							newQuest = campaignRef.getQuizes().get(
-									quizIndex - 1);
+							newQuest = campaignRef.getQuizById(
+									quizIndex);
+							if(newQuest== null)
+							{
+								System.out.println("ten quest nie istnieje jakims cudem");
+								return;
+							}
 							for (Component comp : rightSidePanel
 									.getComponents()) {
 								choiceQuestType(newQuest, comp);
 							}
-							campaignRef.setQuiz(newQuest, quizIndex - 1);
+							campaignRef.setQuizById(
+									quizIndex,newQuest);
 							campaignRef.editedTrue();
 						}
 						dispose();

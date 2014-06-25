@@ -462,6 +462,7 @@ public class XmlLoader {
 		quest.setParagraph(paragraphList);
 		quest.setPreNote(preNote);
 		quest.setPostNote(postNote);
+		QuestPoint.compareAndChangeId(Integer.parseInt(id));
 	}
 
 	private void setQuestAnswer(QuestPoint quest, String goTo, int points,

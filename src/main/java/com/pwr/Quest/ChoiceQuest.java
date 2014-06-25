@@ -12,6 +12,7 @@ public class ChoiceQuest extends QuestPoint implements DescribeQuest{
 	public ChoiceQuest()
 	{
 		super(QuestType.CHOICEQUEST);
+		goTo="";
 	}
 
 

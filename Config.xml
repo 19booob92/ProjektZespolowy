@@ -33,7 +33,7 @@ Musisz zdecydować, który wpis odebrać.</paragraph>
 <postnote>...</postnote>
 <answermodule>
 <answer datetime="13-06-2014 01:49:44" points="0" type="Decision">
-<option goto="5">Analiza</option>
+<option goto="3">Analiza</option>
 <option goto="9">Programowanie</option>
 </answer>
 </answermodule>
@@ -64,27 +64,9 @@ Musisz zdecydować, który wpis odebrać.</paragraph>
 <postnote>Koniec!</postnote>
 <answermodule>
 <answer datetime="13-06-2014 01:49:44" goto="2" points="20" type="Permutation">
-<option index="2">Wydział Elektroniki</option>
 <option index="1">Wydział Architektury</option>
+<option index="2">Wydział Elektroniki</option>
 <option index="3">Wydział Informatyki i Zarządzania</option>
-</answer>
-</answermodule>
-</quiz>
-<quiz id="5" title="fdasf">
-<imagemodule>
-<image inventory="true" src="kjl.png"/>
-<image inventory="true" src="wyhoduj.png"/>
-<image inventory="true" src="zrzut.png"/>
-</imagemodule>
-<questionmodule>
-<paragraph>fsadfsdfsd</paragraph>
-</questionmodule>
-<soundmodule/>
-<prenote>fdsafd</prenote>
-<postnote>fdafds</postnote>
-<answermodule>
-<answer datetime="25-06-2014 10:18:23" goto="3" points="1" type="Text">
-<correct>a</correct>
 </answer>
 </answermodule>
 </quiz>
@@ -97,7 +79,7 @@ Musisz zdecydować, który wpis odebrać.</paragraph>
 <prenote>dsadas</prenote>
 <postnote>das</postnote>
 <answermodule>
-<answer datetime="25-06-2014 13:06:36" points="1" type="Text">
+<answer datetime="25-06-2014 13:06:36" goto="12" points="1" type="Text">
 <correct>a</correct>
 </answer>
 </answermodule>
@@ -111,21 +93,21 @@ Musisz zdecydować, który wpis odebrać.</paragraph>
 <prenote>fadsf</prenote>
 <postnote>dsfsdf</postnote>
 <answermodule>
-<answer datetime="25-06-2014 13:07:10" goto="10" points="1" type="Text">
+<answer datetime="25-06-2014 13:07:10" goto="8" points="1" type="Text">
 <correct>a</correct>
 </answer>
 </answermodule>
 </quiz>
-<quiz id="10" title="fasdfsd">
+<quiz id="12" title="Koniec">
 <imagemodule/>
 <questionmodule>
-<paragraph>fdafsdfsdfasd</paragraph>
+<paragraph/>
 </questionmodule>
 <soundmodule/>
-<prenote>asdfsd</prenote>
-<postnote>fsdfas</postnote>
+<prenote>df</prenote>
+<postnote>fdsfasd</postnote>
 <answermodule>
-<answer datetime="25-06-2014 13:07:52" goto="8" points="2" type="Text">
+<answer datetime="25-06-2014 14:14:08" points="1" type="Text">
 <correct>a</correct>
 </answer>
 </answermodule>
