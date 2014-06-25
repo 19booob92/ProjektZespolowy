@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<game title="PwrPaczka2">
+<campaign>
+<quiz id="1" title="Władze uczelni">
+<imagemodule/>
+<questionmodule>
+<paragraph>Wskaż kto pełni funkcję rektora uczelni.</paragraph>
+</questionmodule>
+<soundmodule>
+<sound inventory="true" src="04.Antonio Vivaldi -  Spring (the Four Season).mp3"/>
+</soundmodule>
+<prenote>Przystępuję do pierwszej zagadki, ale będzie zabawa.</prenote>
+<postnote>To nie było takie trudne.</postnote>
+<answermodule>
+<answer datetime="15-06-2014 13:44:48" goto="4" points="10" type="MofN">
+<option correct="true">prof. dr hab. inż. Tadeusz Więckowski</option>
+<option correct="false">prof. dr hab. inż. Jerzy Walendziewski</option>
+<option correct="false">prof. dr hab. inż. Eugeniusz Rusiński</option>
+</answer>
+</answermodule>
+</quiz>
+<quiz id="2" title="Wpisy">
+<imagemodule>
+<image inventory="true" src="indeks.jpg"/>
+</imagemodule>
+<questionmodule>
+<paragraph>Gratulacje udało Ci się zdać egzaminy z analizy oraz programowania. 
+Niestety wpisy do indeksu przeprowadzane są w tym samym czasie. 
+Musisz zdecydować, który wpis odebrać.</paragraph>
+</questionmodule>
+<soundmodule/>
+<prenote>Trudny wybór...</prenote>
+<postnote>...</postnote>
+<answermodule>
+<answer datetime="13-06-2014 01:49:44" points="0" type="Decision">
+<option goto="5">Analiza</option>
+<option goto="9">Programowanie</option>
+</answer>
+</answermodule>
+</quiz>
+<quiz id="3" title="Akademik">
+<imagemodule>
+<image inventory="true" src="styks.jpg"/>
+</imagemodule>
+<questionmodule>
+<paragraph>Podaj nazwę domu akademickiego T15.</paragraph>
+</questionmodule>
+<soundmodule/>
+<prenote>Teraz coś bardziej przyziemnego.</prenote>
+<postnote>Też nie było jakies skomplikowane</postnote>
+<answermodule>
+<answer datetime="13-06-2014 01:49:44" goto="8" points="10" type="Text">
+<correct>hades</correct>
+</answer>
+</answermodule>
+</quiz>
+<quiz id="4" title="Wydziały">
+<imagemodule/>
+<questionmodule>
+<paragraph/>
+</questionmodule>
+<soundmodule/>
+<prenote>To już ostatnie zadanie.</prenote>
+<postnote>Koniec!</postnote>
+<answermodule>
+<answer datetime="13-06-2014 01:49:44" goto="2" points="20" type="Permutation">
+<option index="2">Wydział Elektroniki</option>
+<option index="1">Wydział Architektury</option>
+<option index="3">Wydział Informatyki i Zarządzania</option>
+</answer>
+</answermodule>
+</quiz>
+<quiz id="5" title="fdasf">
+<imagemodule>
+<image inventory="true" src="kjl.png"/>
+<image inventory="true" src="wyhoduj.png"/>
+<image inventory="true" src="zrzut.png"/>
+</imagemodule>
+<questionmodule>
+<paragraph>fsadfsdfsd</paragraph>
+</questionmodule>
+<soundmodule/>
+<prenote>fdsafd</prenote>
+<postnote>fdafds</postnote>
+<answermodule>
+<answer datetime="25-06-2014 10:18:23" goto="3" points="1" type="Text">
+<correct>a</correct>
+</answer>
+</answermodule>
+</quiz>
+<quiz id="8" title="dsfasdf">
+<imagemodule/>
+<questionmodule>
+<paragraph>dsadasdas</paragraph>
+</questionmodule>
+<soundmodule/>
+<prenote>dsadas</prenote>
+<postnote>das</postnote>
+<answermodule>
+<answer datetime="25-06-2014 13:06:36" points="1" type="Text">
+<correct>a</correct>
+</answer>
+</answermodule>
+</quiz>
+<quiz id="9" title="adfasdfasdfasd">
+<imagemodule/>
+<questionmodule>
+<paragraph>fdsafdsf</paragraph>
+</questionmodule>
+<soundmodule/>
+<prenote>fadsf</prenote>
+<postnote>dsfsdf</postnote>
+<answermodule>
+<answer datetime="25-06-2014 13:07:10" goto="10" points="1" type="Text">
+<correct>a</correct>
+</answer>
+</answermodule>
+</quiz>
+<quiz id="10" title="fasdfsd">
+<imagemodule/>
+<questionmodule>
+<paragraph>fdafsdfsdfasd</paragraph>
+</questionmodule>
+<soundmodule/>
+<prenote>asdfsd</prenote>
+<postnote>fsdfas</postnote>
+<answermodule>
+<answer datetime="25-06-2014 13:07:52" goto="8" points="2" type="Text">
+<correct>a</correct>
+</answer>
+</answermodule>
+</quiz>
+<treasurebox>
+<coordinates>
+<x>51.10724523472706</x>
+<y>17.058875186327686</y>
+<width>51.107137217559675</width>
+<height>17.06097773178223</height>
+</coordinates>
+<note>prof. dr hab. inż. Tadeusz Więckowski</note>
+</treasurebox>
+</campaign>
+<intro>
+<introModule image="logo.png">&lt;b&gt;Zapraszamy!&lt;/b&gt;</introModule>
+<introModule image="pwr.png">Witamy w naszej grze traktującej o PWR!</introModule>
+</intro>
+<outro>
+<outroModule image="sesja.jpg">A teraz wracaj do nauki!</outroModule>
+</outro>
+<settings>
+<startdate>15-06-2014 13:10:30</startdate>
+</settings>
+</game>

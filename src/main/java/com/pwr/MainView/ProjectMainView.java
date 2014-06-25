@@ -13,7 +13,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -122,6 +125,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 	private JButton btnNewQuiz;
 	private JButton btnZapiszUstawieniaGry;
 	private JButton btnNowaGra;
+	private JButton btnNowaPaczka;
 	private JButton btnNewUser;
 	private JButton btnDeleteAllDoneQuests;
 	private JButton btnLoadQuests;
@@ -182,7 +186,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
 		statusPanel.setBackground(Color.WHITE);
 		JLabel info = new JLabel("");
-		// Data startu: "+campaign.getGameDate()+"/Liczba quizów:
+		// Data startu: "+campaign.getGameDate()+"/Liczba quizÃ³w:
 		// "+campaign.getQuizes().size()+"/"
 		info.setHorizontalAlignment(SwingConstants.LEFT);
 		statusPanel.add(info);
@@ -240,7 +244,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		btnNewUser.setBounds(6, 112, 207, 28);
 		leftSidePanel.add(btnNewUser);
 
-		btnDeleteQuestts = new JButton("Usun zagadki");
+		btnDeleteQuestts = new JButton("Usuń zagadki");
 		btnDeleteQuestts.setBounds(6, 72, 207, 28);
 		leftSidePanel.add(btnDeleteQuestts);
 
@@ -251,7 +255,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 			}
 		});
 
-		btnDeleteAll = new JButton("Usun wszystkie dane");
+		btnDeleteAll = new JButton("Usuń wszystkie dane");
 
 		btnDeleteAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -297,7 +301,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		leftSidePanel.add(btnGenerateRaport);
 
 		JButton btnNowaGra = new JButton("Zapisz grę");
-		btnNowaGra.setBounds(6, 32, 206, 28);
+		btnNowaGra.setBounds(6, 45, 206, 28);
 		leftSidePanel.add(btnNowaGra);
 
 		btnNowaGra.addActionListener(new ActionListener() {
@@ -307,23 +311,47 @@ public class ProjectMainView extends JFrame implements Serializable {
 			}
 
 		});
+		
+		btnNowaPaczka = new JButton("Nowa gra");
+		btnNowaPaczka.setBounds(6,10,206,28);
+		leftSidePanel.add(btnNowaPaczka);
+		
+		btnNowaPaczka.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int dialogResult = JOptionPane.showConfirmDialog (null, "Twój obecny projekt zostanie utracony. Czy chcesz kontynuować?");
+				if(dialogResult == JOptionPane.YES_OPTION){
+					nowaPaczka();
+					JOptionPane.showMessageDialog(null, "Utworzono nowy projekt gry.");
+				} 
+			}
+		}
+		
+		
+		);
 
 		btnLoadQuests = new JButton("Wczytaj grę");
-		btnLoadQuests.setBounds(6, 70, 206, 28);
+		btnLoadQuests.setBounds(6, 80, 206, 28);
 
 		btnLoadQuests.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				wczytajPaczke();
+				int dialogResult = JOptionPane.showConfirmDialog (null, "Twój obecny projekt zostanie utracony. Czy chcesz kontynuować?");
+				if(dialogResult == JOptionPane.YES_OPTION){
+					wczytajPaczke();
+					NewQuizView.setInstance();
+				} 
 		}
 
 		});
 
 		leftSidePanel.add(btnLoadQuests);
 
-		btnSendPackageToServer = new JButton("Wyslij paczke");
-		btnSendPackageToServer.setBounds(6, 152, 207, 28);
+		btnSendPackageToServer = new JButton("Wyślij paczkę");
+		btnSendPackageToServer.setBounds(6, 160, 207, 28);
 
 		btnSendPackageToServer.addActionListener(new ActionListener() {
 
@@ -365,7 +393,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		leftSidePanel.add(btnAddTreasureBox);
 
 		btnEditGameSettings = new JButton("Ustawienia gry");
-		btnEditGameSettings.setBounds(6, 112, 207, 28);
+		btnEditGameSettings.setBounds(6, 125, 207, 28);
 		btnEditGameSettings.addActionListener(new ActionListener() {
 
 			@Override
@@ -382,9 +410,19 @@ public class ProjectMainView extends JFrame implements Serializable {
 		//this.campaign = new Campaign();
 		this.campaign.clearCampaign();
 		campaign.loadXml(getXML());
+		NewQuizView.setCampaign(campaign);
 		//projectTabPane.setCampaign(campaign);
 		projectTabPane.initiateGameFields();
 		
+		projectTabPane.updateGraph();
+		repaint();
+	}
+	
+	private void nowaPaczka()
+	{
+		this.campaign.clearCampaign();
+		this.campaign.setGameDate(projectTabPane.getGameDate());
+		projectTabPane.initiateGameFields();
 		projectTabPane.updateGraph();
 		repaint();
 	}
@@ -454,13 +492,13 @@ public class ProjectMainView extends JFrame implements Serializable {
 		JMenu mnUser = new JMenu("Użytkownicy");
 		menuBar.add(mnUser);
 
-		JMenuItem dodajUzytkownikaItem = new JMenuItem("Dodaj uzytkownika");
+		JMenuItem dodajUzytkownikaItem = new JMenuItem("Dodaj użytkownika");
 		mnUser.add(dodajUzytkownikaItem);
 		
-		JMenuItem usunQuestyItem = new JMenuItem("Usun zagadki");
+		JMenuItem usunQuestyItem = new JMenuItem("Usuń zagadki");
 		mnUser.add(usunQuestyItem);
 
-		JMenuItem usunWszystkieDaneItem = new JMenuItem("Usun wszystkie dane");
+		JMenuItem usunWszystkieDaneItem = new JMenuItem("Usuń wszystkie dane");
 		mnUser.add(usunWszystkieDaneItem);
 
 
@@ -513,7 +551,11 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				int dialogResult = JOptionPane.showConfirmDialog (null, "Twój obecny projekt zostanie utracony. Czy chcesz kontynuować?");
+				if(dialogResult == JOptionPane.YES_OPTION){
+					nowaPaczka();
+					JOptionPane.showMessageDialog(null, "Utworzono nowy projekt gry.");
+				} 
 			}
 		});
 
@@ -633,7 +675,6 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 	private String getXML() {
 		JFileChooser chooser = new JFileChooser();
-		chooser.setCurrentDirectory(new java.io.File("."));
 		chooser.setDialogTitle("Choose Package file");
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		chooser.setAcceptAllFileFilterUsed(false);
@@ -712,7 +753,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 			for (QuestPoint p : campaign.getQuizes()) {
 				if (Integer.parseInt(q.getId()) == p.getId()) {
 					p.setWrong(q.getWrong());
-					p.setGoTo(q.getCorrect()[0]);
+					p.setGoTo(q.getCorrect());
 					break;
 				}
 			}

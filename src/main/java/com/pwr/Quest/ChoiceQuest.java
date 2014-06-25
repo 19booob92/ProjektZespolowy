@@ -40,8 +40,8 @@ public class ChoiceQuest extends QuestPoint implements DescribeQuest{
     }
 
 
-    public void setGoTo(String goTo) {
-        this.goTo=goTo;
+    public void setGoTo(String []goTo) {
+        this.goTo=goTo[0];
     }
 
 

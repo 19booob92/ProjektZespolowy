@@ -36,6 +36,7 @@ import javax.swing.border.EtchedBorder;
 
 import com.pwr.Graph.GraphFacade;
 import com.pwr.Other.DateTimePicker;
+import com.pwr.Other.ListRender;
 import com.pwr.Other.NoDataInFieldException;
 import com.pwr.Quest.Campaign;
 import com.pwr.Quest.QuestPoint;
@@ -96,7 +97,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		outroPicsListModel = new DefaultListModel<String>();
 		quizListModel = new DefaultListModel<String>();
 		
-		lblGameTitle = new JLabel("Tytuł gry");
+		lblGameTitle = new JLabel("Tytuł‚ gry");
 		lblGameTitle.setBounds(10, 28, 81, 14);
 		add(lblGameTitle);
 
@@ -114,18 +115,21 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		add(lblOutroModulePics);
 		
 		introPics = new JList(introPicsListModel);
+		introPics.setCellRenderer(new ListRender());
 		introScroll = new JScrollPane(introPics);
 		introScroll.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		introScroll.setBounds(10, 233, 290, 69);
 		add(introScroll);
 
 		outroPics = new JList(outroPicsListModel);
+		outroPics.setCellRenderer(new ListRender());
 		outroScroll = new JScrollPane(outroPics);
 		outroScroll.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		outroScroll.setBounds(10, 342, 290, 69);
 		add(outroScroll);
 
 		listOfQuizes = new JList(quizListModel);
+		listOfQuizes.setCellRenderer(new ListRender());
 		listScroll = new JScrollPane(listOfQuizes);
 		listScroll.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		listScroll.setBounds(10, 465, 290, 253);
@@ -150,6 +154,12 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			e.printStackTrace();
 			throw new NoDataInFieldException();
 		}
+		introPicsListModel = new DefaultListModel<String>();
+		introPics.setModel(introPicsListModel);
+		
+		outroPicsListModel = new DefaultListModel<String>();
+		outroPics.setModel(outroPicsListModel);
+		
 		for (String q : campaign.getIntroPics()) {
 			this.introPicsListModel.addElement(q);			
 		}
@@ -166,7 +176,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		btnAddIntro.setBounds(93, 206, 69, 23);
 		add(btnAddIntro);
 
-		btnDelIntro = new JButton("Usun");
+		btnDelIntro = new JButton("Usuń");
 		btnDelIntro.setBounds(231, 206, 69, 23);
 		add(btnDelIntro);
 		
@@ -182,7 +192,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		btnEditOutro.setBounds(162,313,69,23);
 		add(btnEditOutro);
 
-		btnDelOutro = new JButton("Usun");
+		btnDelOutro = new JButton("Usuń");
 		btnDelOutro.setBounds(231, 313, 69, 23);
 		add(btnDelOutro);
 
@@ -336,7 +346,6 @@ public class ProjectOptionsView extends JPanel implements Observer {
 
 	private void getPicturesPath(DefaultListModel<String> list) {
 		JFileChooser chooser = new JFileChooser();
-		chooser.setCurrentDirectory(new java.io.File("."));
 		chooser.setDialogTitle("Chose JPEG file");
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		chooser.setAcceptAllFileFilterUsed(false);
@@ -391,7 +400,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 
 	public String getGameTitle() {
 		if (tfGameTitle.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Podaj tytul");
+			JOptionPane.showMessageDialog(null, "Podaj tytuł");
 			throw new NoDataInFieldException();
 		} else {
 			return tfGameTitle.getText();
@@ -425,7 +434,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 
 		dialog.setSize(new Dimension(400,400));
 		dialog.getContentPane().setLayout(new BorderLayout());
-		
+		dialog.setLocation(ProjectMainView.SCREENWIDTH/4, ProjectMainView.SCREENHEIGHT/4);
 		textArea = new JTextArea();
 		textArea.setPreferredSize(new Dimension(360,300));
 		textArea.setLineWrap(true);

@@ -98,11 +98,11 @@ public class UserDataRegister extends JFrame {
 						projectMainView.updateTable();
 					} else {
 						new JOptionPane().showMessageDialog(null,
-								"Nie można utworzyc konta !");
+								"Nie moÅ¼na utworzyc konta !");
 					}
 				} catch (Exception ex) {
 					new JOptionPane().showMessageDialog(null,
-							"Nie można utworzyc konta !");
+							"Nie moÅ¼na utworzyc konta !");
 					ex.printStackTrace();
 				}
 			}

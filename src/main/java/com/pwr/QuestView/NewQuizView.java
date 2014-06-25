@@ -36,7 +36,6 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
-
 import com.pwr.Map.GoogleMapPanel;
 import com.pwr.Other.DateTimePicker;
 import com.pwr.Other.NoDataInFieldException;
@@ -67,9 +66,9 @@ public class NewQuizView extends JFrame {
 	private JLabel lblType;
 	private JLabel lblPoints;
 	private JLabel lblDate;
-	
+
 	private JComboBox questTypeCombo;
-	
+
 	private static final int PANEL_WIDTH = 1000;
 	private static final int PANEL_HEIGHT = 700;
 
@@ -93,14 +92,13 @@ public class NewQuizView extends JFrame {
 	private DecisionQuestView decisionView = new DecisionQuestView();
 
 	private String thisName;
-	
+
 	private static NewQuizView instanceOfNewQuizView = null;
-	
-	public static void setCampaign(Campaign campaign)
-	{
-		campaignRef=campaign;
+
+	public static void setCampaign(Campaign campaign) {
+		campaignRef = campaign;
 	}
-	
+
 	private NewQuizView(Campaign campaign, int qInd) {
 		super();
 		campaignRef = campaign;
@@ -112,68 +110,81 @@ public class NewQuizView extends JFrame {
 	}
 
 	public static NewQuizView getInstance(Campaign campaign, int qInd) {
-		
+
 		if (instanceOfNewQuizView == null) {
 			instanceOfNewQuizView = new NewQuizView(campaign);
 		} else {
 			quizIndex = qInd;
 			campaignRef = campaign;
-			instanceOfNewQuizView.fillFieldsWithQuizData();	
+			instanceOfNewQuizView.clearFields();
+			instanceOfNewQuizView.fillFieldsWithQuizData();
 		}
 		return instanceOfNewQuizView;
 	}
+	
+	public static void setInstance() {
+		instanceOfNewQuizView = new NewQuizView(campaignRef);
+	}
 
 	public static NewQuizView getInstance(Campaign campaign) {
-		
+
 		if (instanceOfNewQuizView == null) {
 			instanceOfNewQuizView = new NewQuizView(campaign);
-		} else {			
+		} else {
 			instanceOfNewQuizView.clearFields();
 		}
 		quizIndex = -1;
 		return instanceOfNewQuizView;
 	}
+
 	private void clearFields() {
-		//Czyszczenie ogolnych pol
-		questTypeCombo.setEnabled(true);
-		fieldView.setVisible(true);
-		fieldView.preNote.setText("");
-		fieldView.postNote.setText("");
-		fieldView.imageInventoryList = new ArrayList<Boolean>();
-		fieldView.soundInventoryList = new ArrayList<Boolean>();
-		this.tfQuizName.setText("");
-		thisName = this.tfQuizName.getText();
-		this.timeoutField.setText("0");
-		points.setText("0");
-		SimpleDateFormat simple = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+		this.remove(splitPane);
+
+		leftSidePanel = new JPanel();
+		leftSidePanel.setPreferredSize(new Dimension(320, PANEL_HEIGHT));
+		rightSidePanel = new JPanel(new CardLayout());
+		rightSidePanel
+				.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
+
 		datePickerDate = new Date();
-		dateTimePicker.updateUI();
-		fieldView.paragraph = "";
-		
-		//czyszczenie pol zagadek
+		dateTimePicker = new DateTimePicker(datePickerDate);
+		dateTimePicker.setBounds(24, 205, 226, 27);
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		dateTimePicker.setFormats(dateFormat);
+		dateTimePicker.setTimeFormat(DateFormat
+				.getTimeInstance(DateFormat.MEDIUM));
+		dateTimePicker.setDate(datePickerDate);
+		leftSidePanel.add(dateTimePicker);
+
+		leftScroll = new JScrollPane(leftSidePanel);
+		rightScroll = new JScrollPane(rightSidePanel);
+		rightScroll
+				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftScroll,
+				rightScroll);
+
+		leftSidePanel.setLayout(null);
+
 		rightSidePanel.remove(fieldView);
 		rightSidePanel.remove(textView);
 		rightSidePanel.remove(choiceView);
 		rightSidePanel.remove(orderView);
 		rightSidePanel.remove(decisionView);
-		
+
 		fieldView = new FieldQuestView();
 		textView = new TextQuestView();
 		orderView = new OrderQuestView();
-		decisionView = new DecisionQuestView();
 		choiceView = new MultipleChoiceQuestView();
-		
-		fieldView.setVisible(true);
-		choiceView.setVisible(false);
-		orderView.setVisible(false);
-		decisionView.setVisible(false);
-		textView.setVisible(false);
-		
-		rightSidePanel.add(fieldView, "Zagadka terenowa");
-		rightSidePanel.add(textView, "Zagadka tekstowa");
-		rightSidePanel.add(choiceView, "Zagadka wielokrotnego wyboru");
-		rightSidePanel.add(orderView, "Zagadka uporządkowania");
-		rightSidePanel.add(decisionView, "Zagadka decyzji");
+		decisionView = new DecisionQuestView();
+
+		createLeftSidePanel();
+
+		splitPane.setResizeWeight(0.3);
+		splitPane.setBounds(10, 11, 764, 418);
+
+		this.add(splitPane);
 	}
 
 	/**
@@ -224,11 +235,10 @@ public class NewQuizView extends JFrame {
 		splitPane.setResizeWeight(0.3);
 		splitPane.setBounds(10, 11, 764, 418);
 		getContentPane().add(splitPane);
-		setVisible(true);
 	}
 
 	private void fillFieldsWithQuizData() {
-		//QuestPoint q = campaignRef.getQuizes().get(quizIndex - 1);
+		// QuestPoint q = campaignRef.getQuizes().get(quizIndex - 1);
 		QuestPoint q = campaignRef.getQuizes().get(0);
 		for (int i = 0; i < campaignRef.getQuizes().size(); i++) {
 			if (campaignRef.getQuizes().get(i).getId() == quizIndex) {
@@ -272,7 +282,7 @@ public class NewQuizView extends JFrame {
 		System.out.println(dateTimePicker.getDate());
 		questTypeCombo.setSelectedIndex(index);
 		questTypeCombo.setEnabled(false);
-		
+
 	}
 
 	private void fillWithGeneralData(QuestPoint q, QuestView view) {
@@ -281,6 +291,14 @@ public class NewQuizView extends JFrame {
 		view.postNote.setText(q.getPostNote());
 		view.imageInventoryList = q.getPictureInventoryList();
 		view.soundInventoryList = q.getSoundInventoryList();
+		
+		for(int i=0;i<view.soundInventoryList.size();i++)
+		{
+			view.listNarration.add(Integer.toString(i+1));
+		}
+		view.newNarration();
+		view.comboBoxNarration.setSelectedIndex(q.getSoundNarration()+1);
+		
 		this.tfQuizName.setText(q.getQuestName());
 		thisName = this.tfQuizName.getText();
 		this.timeoutField.setText(Integer.toString(q.getQuestTimeout()));
@@ -305,7 +323,7 @@ public class NewQuizView extends JFrame {
 		fieldView.widthField.setText(Double.toString(q.getWidth()));
 		fieldView.latitudeField.setText(Double.toString(q.getYCoordinate()));
 		fieldView.longitudeField.setText(Double.toString(q.getXCoordinate()));
-		
+
 		fieldView.googlePanel.setMapPoint(q.getYCoordinate(),
 				q.getXCoordinate(), q.getWidth(), q.getHeight());
 	}
@@ -313,6 +331,8 @@ public class NewQuizView extends JFrame {
 	private void fillWithTextQuestData(TextQuest q) {
 		textView.textAnswer = new ArrayList();
 		// textView.textAnswer.addAll(q.getQuestAnswer());
+		textView.getAnswersCombo().removeAllElements();
+		textView.setAnswers(q.getQuestAnswer());
 		for (int i = 0; i < q.getQuestAnswer().size(); i++) {
 			textView.getAnswersCombo().addElement(q.getQuestAnswer().get(i));
 		}
@@ -320,37 +340,24 @@ public class NewQuizView extends JFrame {
 
 	private void fillWithOrderQuestData(OrderQuest q) {
 		for (int i = 0; i < q.getQuestAnswer().size(); i++) {
-			orderView.tableModel.addRow(new Object[] { "",
-					q.getQuestAnswer().get(i), "add" });
+			orderView.tableModel.addRow(new Object[] { q.getQuestAnswer()
+					.get(i) });
 		}
 	}
 
 	private void fillWithChoiceQuestData(ChoiceQuest q) {
 		for (int i = 0; i < q.getQuestAnswer().size(); i++) {
 			choiceView.tableModel
-					.addRow(new Object[] { "", q.getQuestAnswer().get(i),
+					.addRow(new Object[] { q.getQuestAnswer().get(i),
 							q.getQuestAnswerCorrect().get(i) });
 		}
 	}
 
 	private void fillWithDecisionQuestData(DecisionQuest q) {
-//		for (int i = 0; i < q.getQuestAnswer().size(); i++) {
-//			String qname = "";
-//			for (int j = 0; j < ProjectMainView.getCampaign().getQuizes()
-//					.size(); j++) {
-//				if (ProjectMainView.getCampaign().getQuizes().get(j).getId() == Integer
-//						.parseInt(q.getGoToList().get(i))) {
-//					qname = ProjectMainView.getCampaign().getQuizes().get(j).getQuestName();
-//					break;
-//				}
-//			}
-//			decisionView.tableModel.addRow(new Object[] { "",
-//					q.getQuestAnswer().get(i), q.getGoToList().get(i),
-//					qname });
-//		}
 		for (int i = 0; i < q.getQuestAnswer().size(); i++) {
-			decisionView.tableModel.addRow(new Object[] { "",
-					q.getQuestAnswer().get(i), q.getGoToList().get(i), q.getGoToList().get(i)});
+			decisionView.tableModel.addRow(new Object[] {
+					q.getQuestAnswer().get(i), q.getGoToList().get(i),
+					q.getGoToList().get(i) });
 		}
 	}
 
@@ -603,7 +610,8 @@ public class NewQuizView extends JFrame {
 	private void GetGeneralQuestFields(QuestPoint newQuest, QuestView questView) {
 		newQuest.setSoundInventoryList(selectedCard.soundInventoryList);
 		newQuest.setPictureInventoryList(selectedCard.imageInventoryList);
-		newQuest.setSoundNarration(selectedCard.comboBoxNarration.getSelectedIndex()-1);
+		newQuest.setSoundNarration(selectedCard.comboBoxNarration
+				.getSelectedIndex() - 1);
 		newQuest.setPicturePaths(rewriteJListToArrayList(selectedCard.pics));
 		newQuest.setSoundPaths(rewriteJListToArrayList(selectedCard.sounds));
 		newQuest.setParagraph(selectedCard.paragraph);
@@ -640,20 +648,22 @@ public class NewQuizView extends JFrame {
 			throw new EmptyStackException();
 		}
 	}
-	// jeśli tworzymy quesr musi on mieć indywidualną nazwę,
-	// jeśli edytujemy nazwa może się powtarzać
+
+	// jeÅ›li tworzymy quesr musi on mieÄ‡ indywidualnÄ… nazwÄ™,
+	// jeÅ›li edytujemy nazwa moÅ¼e siÄ™ powtarzaÄ‡
 	private void validateName(QuestPoint newQuest) {
 		if (!tfQuizName.getText().equals("")) {
 			// jesli jest edytowana
 			if (this.tfQuizName.getText().equals(thisName)) {
 				newQuest.setQuestName(tfQuizName.getText());
-			// jesli jest tworzona nowa zagadka
+				// jesli jest tworzona nowa zagadka
 			} else {
-				if (!campaignRef.getQuizesNames().contains(
-						tfQuizName.getText())) {
+				if (!campaignRef.getQuizesNames()
+						.contains(tfQuizName.getText())) {
 					newQuest.setQuestName(tfQuizName.getText());
 				} else {
-					JOptionPane.showMessageDialog(null, "Podaj inną nazwę zagadki");
+					JOptionPane.showMessageDialog(null,
+							"Podaj inną nazwę zagadki");
 					throw new NoDataInFieldException();
 				}
 			}

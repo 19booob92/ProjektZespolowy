@@ -43,21 +43,22 @@ public class OrderQuestView extends QuestView implements DescribeView {
 		rowNum = 0;
 		// quest = QuestFactory.createQuest(QuestType.ORDERQUEST);
 	}
+	
+	public void clearTable()
+	{
+		tableModel = new DefaultTableModel(new String[] { "Treść odpowiedzi"}, 0);
+		table = new JTable(tableModel);
+	}
 
 	private void addAnswersTable() {
 		tablePanel = new JPanel();
-		tableModel = new DefaultTableModel(new String[] { "Nr",
-				"Treść odpowiedzi", "Operacja" }, 0);
+		tableModel = new DefaultTableModel(
+				new String[] { "Treść odpowiedzi" }, 0);
 
 		tablePanel.setLayout(new BorderLayout());
 
 		table = new JTable(tableModel);
 		header = table.getTableHeader();
-
-		table.getColumn("Nr").setMinWidth(50);
-		table.getColumn("Nr").setMaxWidth(50);
-		table.getColumn("Operacja").setMinWidth(80);
-		table.getColumn("Operacja").setMaxWidth(80);
 
 		// Moze bedzie kolumna JButtonow
 
@@ -123,7 +124,7 @@ public class OrderQuestView extends QuestView implements DescribeView {
 			public void actionPerformed(ActionEvent e) {
 				String tempAnswer = JOptionPane.showInputDialog(
 						"Podaj odpowiedź", null);
-				tableModel.addRow(new Object[] { "", tempAnswer, "Add" });
+				tableModel.addRow(new Object[] { tempAnswer });
 			}
 		});
 		btnAdd.setBounds(551, 309, 89, 23);
@@ -167,7 +168,7 @@ public class OrderQuestView extends QuestView implements DescribeView {
 	public ArrayList getAnswers() {
 		ArrayList collectedAnswers = new ArrayList<String>();
 		for (int i = 0; i < table.getModel().getRowCount(); i++) {
-			collectedAnswers.add(tableModel.getValueAt(i, 1));
+			collectedAnswers.add(tableModel.getValueAt(i, 0));
 		}
 		return collectedAnswers;
 	}

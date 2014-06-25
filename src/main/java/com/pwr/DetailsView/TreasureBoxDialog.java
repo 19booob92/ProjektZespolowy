@@ -45,6 +45,7 @@ public class TreasureBoxDialog extends JDialog{
 	
 	private JButton btnAdd;
 	private JButton btnSave;
+	private JButton btnDelete;
 	
 	private JPanel dataPanel;
 	private GoogleMapPanel googlePanel;
@@ -219,6 +220,19 @@ public class TreasureBoxDialog extends JDialog{
 		});
 		dataPanel.add(treasureComboBox);
 		
+		btnDelete = new JButton("Usuń");
+		btnDelete.setBounds(320, 146,150,30);
+		btnDelete.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				removeTreasureBox();
+			}
+			
+		}
+		);
+		dataPanel.add(btnDelete);
 		getContentPane().add(dataPanel);
 		
 		JLabel lblNotka = new JLabel("Notka");
@@ -291,6 +305,18 @@ public class TreasureBoxDialog extends JDialog{
 			
 			campaignRef.putTreasureBox(box, treasureComboBox.getSelectedIndex());
 			updateComboBox();
+		}
+	}
+	
+	private void removeTreasureBox()
+	{
+		if(treasureComboBox.getSelectedIndex()>=0)
+		{
+			campaignRef.removeTreasureBox(treasureComboBox.getSelectedIndex());
+			updateComboBox();
+			if(campaignRef.getTreasureBoxes().size()>0){
+			TreasureBox box = campaignRef.getTreasureBox(treasureComboBox.getSelectedIndex());
+			setUpData(box.getxCoordinate(),box.getyCoordinate(),box.getWidth(),box.getHeight(),box.getNote());}
 		}
 	}
 	

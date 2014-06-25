@@ -25,8 +25,8 @@ public class OrderQuest extends QuestPoint implements DescribeQuest {
         return goTo;
     }
 
-    public void setGoTo(String goTo) {
-        this.goTo=goTo;
+    public void setGoTo(String []goTo) {
+        this.goTo=goTo[0];
     }
 
     @Override

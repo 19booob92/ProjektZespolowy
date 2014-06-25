@@ -194,15 +194,7 @@ public class GoogleMapPanel extends JPanel implements ActionListener,MouseMotion
         
         if(markerRect!=null)
         {
-   /*         if(markerRect.isSelected())
-            {
-                markerRect.selectMarker(e.getX(), e.getY());
-                if(markerRect.isSelected()){
-                markerRect.setLabel(JOptionPane.showInputDialog("Dodaj nazwę"));
-                }
-            }
-            markerRect.selectMarker(e.getX(), e.getY());
-            markerRect.cleanUp();*/
+
         }
         
         repaint();

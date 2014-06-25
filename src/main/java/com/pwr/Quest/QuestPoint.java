@@ -179,24 +179,13 @@ public abstract class QuestPoint implements DescribeQuest {
 		return QuestName;
 	}
 
-	public abstract void setGoTo(String goTo); 
+	public abstract void setGoTo(String []goTo); 
 		//this.goTo = goTo;
 	
 	public abstract String getGoTo() ;
 	public abstract ArrayList<String> getGoToList();
 	public QuizDataObject convert() {
-		//MessageDigest md;
-		//String id = "";
 		QuizDataObject quizDTO;
-		//try {
-			//md = MessageDigest.getInstance("MD5");
-			//byte[] questNameBytes = QuestName.getBytes();
-			//byte[] digested = md.digest(questNameBytes);
-			//id = digested.toString();
-			
-		//} catch (NoSuchAlgorithmException e) {
-			//e.printStackTrace();
-		//}
 		if (this.type == QuestType.DECISIONQUEST) {
 			String [] arr = getGoToList().toArray(new String[getGoToList().size()]);
 			quizDTO = new QuizDataObject(QuestName, arr,wrong,Integer.toString(questId));			

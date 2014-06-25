@@ -40,9 +40,12 @@ public class DecisionQuest extends QuestPoint implements DescribeQuest {
 	}
 
 	@Override
-	public void setGoTo(String goTo) {
-		// TODO Auto-generated method stub
-		
+	public void setGoTo(String []goTo) {
+		goToList.clear();
+		for(int i=0;i<goTo.length;i++)
+		{
+			goToList.add(goTo[i]);
+		}
 	}
 
 	@Override

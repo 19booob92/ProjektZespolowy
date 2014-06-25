@@ -466,7 +466,9 @@ public class XmlLoader {
 
 	private void setQuestAnswer(QuestPoint quest, String goTo, int points,
 			String date, String wrong, int timestop) {
-		quest.setGoTo(goTo);
+		String gt[] = new String[1];
+		gt[0]=goTo;
+		quest.setGoTo(gt);
 		quest.setPoints(points);
 		quest.setDate(date);
 		quest.setWrong(wrong);

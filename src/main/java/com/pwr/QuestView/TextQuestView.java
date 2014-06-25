@@ -95,7 +95,7 @@ public TextQuestView() {
             public void actionPerformed(ActionEvent e) {
                 int selectedIndex = answersComboBox.getSelectedIndex();
                 if(selectedIndex!=-1){
-                String tempAnswer=JOptionPane.showInputDialog("Podaj odpowiedź",textAnswer.get(selectedIndex));
+                String tempAnswer=JOptionPane.showInputDialog("Podaj odpowiedÅº",textAnswer.get(selectedIndex));
                 textAnswer.set(selectedIndex, tempAnswer);
                 answers.removeAllElements();
                 for(int i=0;i<textAnswer.size();i++)
@@ -126,5 +126,10 @@ public TextQuestView() {
 	
 	public DefaultComboBoxModel getAnswersCombo() {
 		return answers;
+	}
+	
+	public void setAnswers(ArrayList<String> answers)
+	{
+		textAnswer=answers;
 	}
 }

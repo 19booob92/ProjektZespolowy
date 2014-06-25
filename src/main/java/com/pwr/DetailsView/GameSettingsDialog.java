@@ -163,7 +163,6 @@ public class GameSettingsDialog extends JDialog{
 	
 	private void getPicturesPath(JTextField field) {
 		JFileChooser chooser = new JFileChooser();
-		chooser.setCurrentDirectory(new java.io.File("."));
 		chooser.setDialogTitle("Chose JPEG file");
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		chooser.setAcceptAllFileFilterUsed(false);

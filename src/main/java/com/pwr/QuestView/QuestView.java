@@ -2,6 +2,8 @@ package com.pwr.QuestView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -12,7 +14,9 @@ import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -27,6 +31,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.pwr.DetailsView.DescribeView;
 import com.pwr.DetailsView.ParagraphInputDialog;
+import com.pwr.Other.ListRender;
+
 
 public class QuestView extends JPanel implements DescribeView {
 	protected JList<String> pics;
@@ -61,7 +67,7 @@ public class QuestView extends JPanel implements DescribeView {
 	private JLabel lblNarration;
 	
 	protected JComboBox comboBoxNarration;
-	private ArrayList<String> listNarration;
+	protected ArrayList<String> listNarration;
 	
 	protected ArrayList<Boolean> soundInventoryList;
 	protected ArrayList<Boolean> imageInventoryList;
@@ -85,6 +91,7 @@ public class QuestView extends JPanel implements DescribeView {
 		sounds = new JList(soundsListModel);
 		
 		sounds.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		sounds.setCellRenderer(new ListRender());
 		soundsScrollPane = new JScrollPane(sounds);
 		soundsScrollPane.setBounds(23, 163, 302, 60);
 		add(soundsScrollPane);
@@ -95,6 +102,7 @@ public class QuestView extends JPanel implements DescribeView {
 
 		pics = new JList(picsListModel);
 		pics.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		pics.setCellRenderer(new ListRender());
 		picsScrollPane = new JScrollPane(pics);
 		picsScrollPane.setBounds(23, 67, 302, 60);
 		add(picsScrollPane);
@@ -104,13 +112,13 @@ public class QuestView extends JPanel implements DescribeView {
 		add(lblNarration);
 		
 		listNarration = new ArrayList();
-		listNarration.add("0");
+		listNarration.add("Brak");
 		
 		comboBoxNarration = new JComboBox(listNarration.toArray());
 		comboBoxNarration.setBounds(188,234,137,23);
 		add(comboBoxNarration);
 		
-		btnAddParagraph = new JButton("Edytuj paragraf");
+		btnAddParagraph = new JButton("Edytuj treść zagadki");
 		btnAddParagraph.setBounds(527, 234, 120, 23);
 		add(btnAddParagraph);
 
@@ -131,7 +139,7 @@ public class QuestView extends JPanel implements DescribeView {
 		btnAddSounds.setBounds(126, 134, 89, 23);
 		add(btnAddSounds);
 
-		btnDelSounds = new JButton("Usun");
+		btnDelSounds = new JButton("Usuń");
 		btnDelSounds.setBounds(236, 134, 89, 23);
 		add(btnDelSounds);
 
@@ -193,7 +201,8 @@ public class QuestView extends JPanel implements DescribeView {
 					soundsListModel.remove(sounds.getSelectedIndex());
 					int size = listNarration.size();
 					listNarration = new ArrayList();
-					for(int i=0;i<size-1;i++)
+					listNarration.add("Brak");
+					for(int i=1;i<size-1;i++)
 					{
 						listNarration.add(Integer.toString(i));
 					}
@@ -214,21 +223,70 @@ public class QuestView extends JPanel implements DescribeView {
 				        paragraph = paragraphInputDialog.getParagraph();
 				    }
 				});
-				/*paragraphs.addElement("Paragraf "
-						+ Integer.toString(paragraphsTrigger));
-				paragraphList.add("");
-				paragraphsComboBox.setSelectedIndex(paragraphsTrigger - 1);
-				paragraphsTrigger++;*/
 			}
 		});
 
+		sounds.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					int index = sounds.getSelectedIndex();
+					String selected = sounds.getSelectedValue();
+					createDialog(soundInventoryList, index);
+				}
+			}
+		});
+		
+		pics.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					int index = pics.getSelectedIndex();
+					String selected = pics.getSelectedValue();
+					createDialog(imageInventoryList, index);
+				}
+			}
+		});
 
+	}
+	
+	private void createDialog(final ArrayList<Boolean> list, final int index) {
+		final JDialog dialog = new JDialog();
+		Boolean bool = list.get(index);
+		dialog.setSize(360, 150);
+		dialog.setResizable(false);
+		dialog.getContentPane().setLayout(null);
 
+		dialog.setLocationRelativeTo(this);
+		dialog.setLayout(null);
+
+		JLabel lblEquipmentLabel = new JLabel("Czy dodać jako ekwipunek?");
+		lblEquipmentLabel.setBounds(25, 25, 200, 14);
+		dialog.add(lblEquipmentLabel);
+
+		final JCheckBox chckbxTrueOrFalse = new JCheckBox(
+				"Tak/Nie");
+		chckbxTrueOrFalse.setBounds(25, 47, 200, 23);
+		chckbxTrueOrFalse.setSelected(bool);
+		dialog.add(chckbxTrueOrFalse);
+
+		JButton btnOk = new JButton("Ok");
+		btnOk.setBounds(235, 70, 89, 23);
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean trueOrFalse = chckbxTrueOrFalse.isSelected();
+					if (trueOrFalse == true) {
+						list.set(index, true);
+					} else {
+						list.set(index, false);
+					}
+				dialog.dispose();
+			}
+		});
+		dialog.add(btnOk);
+		dialog.setVisible(true);
 	}
 
 	private void getPicturesPath(DefaultListModel<String> list) {
 		JFileChooser chooser = new JFileChooser();
-		chooser.setCurrentDirectory(new java.io.File("."));
 		chooser.setDialogTitle("Chose JPEG file");
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		chooser.setAcceptAllFileFilterUsed(false);
@@ -256,7 +314,6 @@ public class QuestView extends JPanel implements DescribeView {
 
 	private void getSoundsPath(DefaultListModel<String> list) {
 		JFileChooser chooser = new JFileChooser();
-		chooser.setCurrentDirectory(new java.io.File("."));
 		chooser.setDialogTitle("Chose MP3 file");
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		chooser.setAcceptAllFileFilterUsed(false);
@@ -296,6 +353,12 @@ public class QuestView extends JPanel implements DescribeView {
 				file.delete();
 			}
 		}
+	}
+	
+	public void newNarration()
+	{
+		comboBoxNarration.removeAllItems();
+		comboBoxNarration.setModel(new DefaultComboBoxModel(listNarration.toArray()));
 	}
 	
 }

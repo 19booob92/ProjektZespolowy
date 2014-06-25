@@ -37,7 +37,7 @@ public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 	private final JButton btnUp = new JButton("W górę");
 	private final JButton btnDown = new JButton("W dół");
 	private final JButton btnAdd = new JButton("Dodaj");
-	private final JButton btnDelete = new JButton("Usun");
+	private final JButton btnDelete = new JButton("Usuń");
 
 	public MultipleChoiceQuestView() {
 		super();
@@ -49,15 +49,12 @@ public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 
 	private void addAnswersTable() {
 		tablePanel = new JPanel();
-		tableModel = new DefaultTableModel(new String[] { "Nr",
-				"Treść odpowiedzi", "Poprawna" }, 0);
+		tableModel = new DefaultTableModel(new String[] { "Treść odpowiedzi", "Poprawna" }, 0);
 
 		tablePanel.setLayout(new BorderLayout());
 		table = new JTable(tableModel);
 		header = table.getTableHeader();
 
-		table.getColumn("Nr").setMinWidth(50);
-		table.getColumn("Nr").setMaxWidth(50);
 		table.getColumn("Poprawna").setMinWidth(80);
 		table.getColumn("Poprawna").setMaxWidth(80);
 
@@ -152,7 +149,7 @@ public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 			public void actionPerformed(ActionEvent e) {
 				String tempAnswer = tfAnswer.getText();
 				boolean trueOrFalse = chckbxTrueOrFalse.isSelected();
-				tableModel.addRow(new Object[] { "", tempAnswer, trueOrFalse });
+				tableModel.addRow(new Object[] { tempAnswer, trueOrFalse });
 				dialog.dispose();
 			}
 		});
@@ -184,7 +181,7 @@ public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 		ArrayList collectedAnswers = new ArrayList();
 
 		for (int i = 0; i < table.getModel().getRowCount(); i++) {
-			collectedAnswers.add(tableModel.getValueAt(i, 1));
+			collectedAnswers.add(tableModel.getValueAt(i, 0));
 		}
 		return collectedAnswers;
 	}
@@ -193,7 +190,7 @@ public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 		ArrayList collectedAnswers = new ArrayList();
 
 		for (int i = 0; i < table.getModel().getRowCount(); i++) {
-			collectedAnswers.add(tableModel.getValueAt(i, 2));
+			collectedAnswers.add(tableModel.getValueAt(i, 1));
 		}
 		return collectedAnswers;
 	}

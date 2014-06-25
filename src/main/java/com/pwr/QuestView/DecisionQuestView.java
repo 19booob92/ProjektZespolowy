@@ -55,18 +55,15 @@ public class DecisionQuestView extends QuestView implements DescribeView {
 
 	private void addAnswersTable() {
 		tablePanel = new JPanel();
-		tableModel = new DefaultTableModel(new String[] { "Nr",
-				"Treść odpowiedzi", "Combo zagadka" }, 0);
+		tableModel = new DefaultTableModel(new String[] { "Treść odpowiedzi", "Kolejna zagadka" }, 0);
 
 		tablePanel.setBounds(23, 286, 518, 203);
 		tablePanel.setLayout(new BorderLayout());
 		table = new JTable(tableModel);
 		header = table.getTableHeader();
 
-		table.getColumn("Nr").setMinWidth(30);
-		table.getColumn("Nr").setMaxWidth(30);
-		table.getColumn("Combo zagadka").setMinWidth(100);
-		table.getColumn("Combo zagadka").setMaxWidth(100);
+		table.getColumn("Kolejna zagadka").setMinWidth(100);
+		table.getColumn("Kolejna zagadka").setMaxWidth(100);
 
 		setUpComboBoxColumn();
 
@@ -116,18 +113,20 @@ public class DecisionQuestView extends QuestView implements DescribeView {
 
 	private void setUpComboBoxColumn() {
 		createComboBox();
-		table.getColumnModel().getColumn(2)
+		table.getColumnModel().getColumn(1)
 				.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		table.getColumnModel().getColumn(2).setCellRenderer(renderer);
+		table.getColumnModel().getColumn(1).setCellRenderer(renderer);
 	}
 
 	private void createComboBox() {
 		comboBox = new JComboBox();
-		for (QuestPoint q : ProjectMainView.getCampaign().getQuizes()) {
-			comboBox.addItem(Integer.toString(q.getId()));
+		if (ProjectMainView.getCampaign().getQuizes().size()!=0) {
+			for (QuestPoint q : ProjectMainView.getCampaign().getQuizes()) {
+				comboBox.addItem(Integer.toString(q.getId()));
+			}
+			table.getColumnModel().getColumn(1);
 		}
-		table.getColumnModel().getColumn(2);
 	}
 
 	private void createDialog(String answ) {
@@ -152,7 +151,7 @@ public class DecisionQuestView extends QuestView implements DescribeView {
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String tempAnswer = tfAnswer.getText();
-				tableModel.addRow(new Object[] { "", tempAnswer, 0,
+				tableModel.addRow(new Object[] { tempAnswer, "0",
 						new JComboBox() });
 				dialog.dispose();
 			}
@@ -170,7 +169,7 @@ public class DecisionQuestView extends QuestView implements DescribeView {
 		ArrayList collectedAnswers = new ArrayList();
 
 		for (int i = 0; i < table.getModel().getRowCount(); i++) {
-			collectedAnswers.add(tableModel.getValueAt(i, 1));
+			collectedAnswers.add(tableModel.getValueAt(i, 0));
 		}
 		return collectedAnswers;
 	}
@@ -179,7 +178,7 @@ public class DecisionQuestView extends QuestView implements DescribeView {
 		ArrayList collectedAnswers = new ArrayList();
 
 		for (int i = 0; i < table.getModel().getRowCount(); i++) {
-			collectedAnswers.add(tableModel.getValueAt(i, 2));
+			collectedAnswers.add(tableModel.getValueAt(i, 1));
 		}
 		return collectedAnswers;
 	}
