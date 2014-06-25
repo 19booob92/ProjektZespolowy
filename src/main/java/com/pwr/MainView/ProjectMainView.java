@@ -362,11 +362,17 @@ public class ProjectMainView extends JFrame implements Serializable {
 					public void run() {
 						try {
 							JFileChooser fileChooser = new JFileChooser();
-							fileChooser.showSaveDialog(confirmView);
-							filePath = fileChooser.getSelectedFile()
-									.getAbsolutePath();
-							updateStatusPanel(progressBar);
-							requests.sendFile(filePath);
+							FileNameExtensionFilter filter = new FileNameExtensionFilter("*.zip", "zip");
+							fileChooser.setFileFilter(filter);
+							fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+							if(JFileChooser.APPROVE_OPTION==fileChooser.showSaveDialog(confirmView))
+							{
+								filePath = fileChooser.getSelectedFile()
+										.getAbsolutePath();
+								
+								updateStatusPanel(progressBar);
+								requests.sendFile(filePath);
+							}
 						} catch (Exception e) {
 							JOptionPane.showMessageDialog(null,
 									"Upłynął czas na połączenie z serwerem");

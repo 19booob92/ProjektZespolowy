@@ -21,6 +21,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -32,6 +33,7 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
 import javax.swing.border.EtchedBorder;
+
 
 
 import com.pwr.Graph.GraphFacade;
@@ -48,10 +50,11 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	private static final int panelHeight = 750;
 	private JTextField tfGameTitle;
 	private JTextField tfStartDate;
-	
+	private boolean graphWindowed=false;
 	private DateTimePicker dateTimePicker;
 	private Date datePickerDate;
 
+	private JFrame graphInWindow;
 	private JLabel lblGameTitle;
 	private JLabel lblIntroModulePics;
 	private JLabel lblOutroModulePics;
@@ -71,6 +74,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 	protected DefaultListModel<String> outroPicsListModel;
 	protected DefaultListModel<String> quizListModel;
 	
+	private JButton btnGraphWindow;
 	private JButton btnAddIntro;
 	private JButton btnDelIntro;
 	private JButton btnEditIntro;
@@ -97,7 +101,7 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		outroPicsListModel = new DefaultListModel<String>();
 		quizListModel = new DefaultListModel<String>();
 		
-		lblGameTitle = new JLabel("Tytuł‚ gry");
+		lblGameTitle = new JLabel("Tytuł gry");
 		lblGameTitle.setBounds(10, 28, 81, 14);
 		add(lblGameTitle);
 
@@ -219,9 +223,13 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		graphFacade.getGraphPanel().setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		graphFacade.getGraphPanel().setBounds(310, 53, 900, 900);
 		
+		btnGraphWindow= new JButton("");
+		btnGraphWindow.setBounds(310, 28, 600, 20);
+		
+		add(btnGraphWindow);
 		graphScrollPane = new JScrollPane();
 		graphScrollPane.setLayout(new ScrollPaneLayout());
-		graphScrollPane.setBounds(310, 28, 600, 600);
+		graphScrollPane.setBounds(310, 48, 600, 400);
 		graphScrollPane.setViewportView(graphFacade.getGraphPanel());
 
 		add(graphScrollPane);
@@ -246,13 +254,50 @@ public class ProjectOptionsView extends JPanel implements Observer {
 			public void actionPerformed(ActionEvent e) {
 				getPicturesPath(outroPicsListModel);
 				outroTextList.add("");
+				
+				
 			}
 		});
 
+		btnGraphWindow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!graphWindowed)
+				{
+					graphInWindow=new JFrame();
+					graphInWindow.addWindowListener(new WindowAdapter() {
+					      public void windowClosing(WindowEvent e) {
+					    	  graphScrollPane.setLayout(new ScrollPaneLayout());
+								graphScrollPane.setBounds(310, 48, 600, 400);
+								graphScrollPane.setViewportView(graphFacade.getGraphPanel());
+								add(graphScrollPane);
+								graphInWindow.dispose();
+								graphWindowed=!graphWindowed;
+					      }
+					    });
+					graphInWindow.setPreferredSize(new Dimension(600, 400));
+					graphInWindow.setContentPane(graphScrollPane);
+					graphInWindow.pack();
+					graphInWindow.setVisible(true);
+					graphWindowed=!graphWindowed;
+					repaint();
+				}
+				else
+				{
+					
+					graphScrollPane.setLayout(new ScrollPaneLayout());
+					graphScrollPane.setBounds(310, 48, 600, 400);
+					graphScrollPane.setViewportView(graphFacade.getGraphPanel());
+					add(graphScrollPane);
+					graphInWindow.dispose();
+					graphWindowed=!graphWindowed;
+				}
+			}
+		});
 		btnAddIntro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getPicturesPath(introPicsListModel);
 				introTextList.add("");
+				
 			}
 		});
 		

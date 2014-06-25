@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<game title="PwrPaczka2">
+<game title="Pwr">
 <campaign>
 <quiz id="1" title="Władze uczelni">
 <imagemodule/>
@@ -7,7 +7,7 @@
 <paragraph>Wskaż kto pełni funkcję rektora uczelni.</paragraph>
 </questionmodule>
 <soundmodule>
-<sound inventory="true" src="04.Antonio Vivaldi -  Spring (the Four Season).mp3"/>
+<sound inventory="true" narration="true" src="04.Antonio Vivaldi -  Spring (the Four Season).mp3"/>
 </soundmodule>
 <prenote>Przystępuję do pierwszej zagadki, ale będzie zabawa.</prenote>
 <postnote>To nie było takie trudne.</postnote>
@@ -19,7 +19,49 @@
 </answer>
 </answermodule>
 </quiz>
-<quiz id="2" title="Wpisy">
+<quiz id="2" title="C13">
+<imagemodule>
+<image inventory="true" src="serowiec.jpg"/>
+</imagemodule>
+<questionmodule>
+<paragraph>Musisz odnaleźć budynek C13.</paragraph>
+</questionmodule>
+<soundmodule/>
+<prenote>C-13? To taki duży, dziwny budynek przy rzecze. Nie będzie trudno go wyłapać.</prenote>
+<postnote>No i się udało.</postnote>
+<answermodule>
+<answer datetime="13-06-2014 01:44:48" goto="5" points="13" type="GPS">
+<coordinates>
+<x>51.107265506836285</x>
+<y>17.05897068906456</y>
+<width>51.107163</width>
+<height>17.06062</height>
+</coordinates>
+</answer>
+</answermodule>
+</quiz>
+<quiz id="3" title="C11">
+<imagemodule>
+<image inventory="true" src="gildiaMagow.jpg"/>
+</imagemodule>
+<questionmodule>
+<paragraph>Musisz odnaleźć budynek C11.</paragraph>
+</questionmodule>
+<soundmodule/>
+<prenote>Zastanawia mnie gdzie to jest, chyba powinienem spojrzeć na mapę kampusu.</prenote>
+<postnote>Udało się!</postnote>
+<answermodule>
+<answer datetime="13-06-2014 01:44:48" goto="5" points="13" type="GPS">
+<coordinates>
+<x>51.10949336091354</x>
+<y>17.06072874967062</y>
+<width>51.109204</width>
+<height>17.061092</height>
+</coordinates>
+</answer>
+</answermodule>
+</quiz>
+<quiz id="4" title="Wpisy">
 <imagemodule>
 <image inventory="true" src="indeks.jpg"/>
 </imagemodule>
@@ -34,11 +76,11 @@ Musisz zdecydować, który wpis odebrać.</paragraph>
 <answermodule>
 <answer datetime="13-06-2014 01:49:44" points="0" type="Decision">
 <option goto="3">Analiza</option>
-<option goto="9">Programowanie</option>
+<option goto="2">Programowanie</option>
 </answer>
 </answermodule>
 </quiz>
-<quiz id="3" title="Akademik">
+<quiz id="5" title="Akademik">
 <imagemodule>
 <image inventory="true" src="styks.jpg"/>
 </imagemodule>
@@ -49,12 +91,12 @@ Musisz zdecydować, który wpis odebrać.</paragraph>
 <prenote>Teraz coś bardziej przyziemnego.</prenote>
 <postnote>Też nie było jakies skomplikowane</postnote>
 <answermodule>
-<answer datetime="13-06-2014 01:49:44" goto="8" points="10" type="Text">
+<answer datetime="13-06-2014 01:49:44" goto="6" points="10" type="Text">
 <correct>hades</correct>
 </answer>
 </answermodule>
 </quiz>
-<quiz id="4" title="Wydziały">
+<quiz id="6" title="Wydziały">
 <imagemodule/>
 <questionmodule>
 <paragraph/>
@@ -63,52 +105,10 @@ Musisz zdecydować, który wpis odebrać.</paragraph>
 <prenote>To już ostatnie zadanie.</prenote>
 <postnote>Koniec!</postnote>
 <answermodule>
-<answer datetime="13-06-2014 01:49:44" goto="2" points="20" type="Permutation">
+<answer datetime="13-06-2014 01:49:44" goto="1" points="20" timestop="1" type="Permutation">
 <option index="1">Wydział Architektury</option>
 <option index="2">Wydział Elektroniki</option>
 <option index="3">Wydział Informatyki i Zarządzania</option>
-</answer>
-</answermodule>
-</quiz>
-<quiz id="8" title="dsfasdf">
-<imagemodule/>
-<questionmodule>
-<paragraph>dsadasdas</paragraph>
-</questionmodule>
-<soundmodule/>
-<prenote>dsadas</prenote>
-<postnote>das</postnote>
-<answermodule>
-<answer datetime="25-06-2014 13:06:36" goto="12" points="1" type="Text">
-<correct>a</correct>
-</answer>
-</answermodule>
-</quiz>
-<quiz id="9" title="adfasdfasdfasd">
-<imagemodule/>
-<questionmodule>
-<paragraph>fdsafdsf</paragraph>
-</questionmodule>
-<soundmodule/>
-<prenote>fadsf</prenote>
-<postnote>dsfsdf</postnote>
-<answermodule>
-<answer datetime="25-06-2014 13:07:10" goto="8" points="1" type="Text">
-<correct>a</correct>
-</answer>
-</answermodule>
-</quiz>
-<quiz id="12" title="Koniec">
-<imagemodule/>
-<questionmodule>
-<paragraph/>
-</questionmodule>
-<soundmodule/>
-<prenote>df</prenote>
-<postnote>fdsfasd</postnote>
-<answermodule>
-<answer datetime="25-06-2014 14:14:08" points="1" type="Text">
-<correct>a</correct>
 </answer>
 </answermodule>
 </quiz>
