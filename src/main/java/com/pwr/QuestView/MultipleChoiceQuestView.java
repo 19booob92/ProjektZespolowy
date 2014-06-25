@@ -49,7 +49,16 @@ public class MultipleChoiceQuestView extends QuestView implements DescribeView {
 
 	private void addAnswersTable() {
 		tablePanel = new JPanel();
-		tableModel = new DefaultTableModel(new String[] { "Treść odpowiedzi", "Poprawna" }, 0);
+		tableModel = new DefaultTableModel(new String[] { "Treść odpowiedzi", "Poprawna" }, 0){
+	        Class[] types = {
+	                String.class, Boolean.class
+	            };
+	            // making sure that it returns boolean.class.   
+	            @Override
+	            public Class getColumnClass(int columnIndex) {
+	                return types[columnIndex];
+	            }
+	        };;
 
 		tablePanel.setLayout(new BorderLayout());
 		table = new JTable(tableModel);

@@ -8,9 +8,13 @@ import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.transform.TransformerException;
 
 import org.apache.commons.io.FileUtils;
+
+
 
 
 import com.pwr.Graph.QuizDataObject;
@@ -189,11 +193,14 @@ public class Campaign extends Observable {
 		return boxes;
 	}
 
-	public void createXml() {
+	public boolean createXml() {
+		pathToFile = selectFile();
+		if(pathToFile!=null)
+		{
 		saved = true;
 		XmlBuilder xml = new XmlBuilder(gameTitle);
 		xml.resetId();
-		pathToFile = selectFile();
+		
 		zip = new ZipPacker(pathToFile);
 		xml.createIntro(introPics, introText);
 		xml.createOutro(outroPics, outroText);
@@ -319,13 +326,21 @@ public class Campaign extends Observable {
 		}
 
 		zip.closeZip();
+		return true;
+		}
+		return false;
 	}
 
 	private String selectFile() {
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setSelectedFile(new File(gameTitle + ".zip"));
-		fileChooser.showSaveDialog(new JFrame());
-		return fileChooser.getSelectedFile().getAbsolutePath();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("*.zip", "zip");
+		fileChooser.setFileFilter(filter);
+		if (fileChooser.showOpenDialog(new JFrame()) == JFileChooser.APPROVE_OPTION) {
+			return fileChooser.getSelectedFile().getAbsolutePath();
+		}
+		return null;
+		
 	}
 
 	private void FileTransfer(QuestPoint newQuest) {
@@ -400,7 +415,7 @@ public class Campaign extends Observable {
 		}
 	}
 
-	public void loadXml(String file) {
+	public boolean loadXml(String file) {
 		if (!file.equals("")) {
 			zipUnpacker = new ZipUnpacker(file);
 			zipUnpacker.unZip();
@@ -411,7 +426,9 @@ public class Campaign extends Observable {
 					+ "Config.xml");
 			xml.LoadXml(this);
 			saved = true;
+			return true;
 		}
+		return false;
 	}
 
 	public void closeCampaign() {

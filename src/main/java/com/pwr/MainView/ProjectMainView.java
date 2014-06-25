@@ -44,6 +44,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -408,14 +409,19 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 	private void wczytajPaczke() {
 		//this.campaign = new Campaign();
+		String tempStr=getXML();
+		if(tempStr.equals(""))
+			return;
 		this.campaign.clearCampaign();
-		campaign.loadXml(getXML());
-		NewQuizView.setCampaign(campaign);
-		//projectTabPane.setCampaign(campaign);
-		projectTabPane.initiateGameFields();
+		if(campaign.loadXml(tempStr))
+		{
+			NewQuizView.setCampaign(campaign);
+		}	//projectTabPane.setCampaign(campaign);
+			projectTabPane.initiateGameFields();
+			
+			projectTabPane.updateGraph();
+			repaint();
 		
-		projectTabPane.updateGraph();
-		repaint();
 	}
 	
 	private void nowaPaczka()
@@ -435,7 +441,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		campaign.setIntroPics(rewriteJListToArrayList(projectTabPane.introPics));
 		campaign.setOutroPics(rewriteJListToArrayList(projectTabPane.outroPics));
 		try {
-			campaign.createXml();
+			if(campaign.createXml())
 			JOptionPane.showMessageDialog(null, "Zapisano grę");
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Nie udało się zapisać gry");
@@ -675,6 +681,8 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 	private String getXML() {
 		JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("*.zip", "zip");
+		chooser.setFileFilter(filter);
 		chooser.setDialogTitle("Choose Package file");
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		chooser.setAcceptAllFileFilterUsed(false);

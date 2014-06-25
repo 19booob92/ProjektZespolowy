@@ -55,15 +55,17 @@ public class DecisionQuestView extends QuestView implements DescribeView {
 
 	private void addAnswersTable() {
 		tablePanel = new JPanel();
-		tableModel = new DefaultTableModel(new String[] { "Treść odpowiedzi", "Kolejna zagadka" }, 0);
-
+		tableModel = new DefaultTableModel(new String[] { "Treść odpowiedzi","ID"}, 0);
+		
 		tablePanel.setBounds(23, 286, 518, 203);
 		tablePanel.setLayout(new BorderLayout());
 		table = new JTable(tableModel);
 		header = table.getTableHeader();
-
-		table.getColumn("Kolejna zagadka").setMinWidth(100);
-		table.getColumn("Kolejna zagadka").setMaxWidth(100);
+		table.getColumn("ID").setPreferredWidth(0);
+		table.getColumn("ID").setMinWidth(0);
+		table.getColumn("ID").setWidth(0);
+		table.getColumn("ID").setMaxWidth(0);
+		
 
 		setUpComboBoxColumn();
 
@@ -127,6 +129,7 @@ public class DecisionQuestView extends QuestView implements DescribeView {
 			}
 			table.getColumnModel().getColumn(1);
 		}
+		comboBox.setVisible(false);
 	}
 
 	private void createDialog(String answ) {
@@ -151,7 +154,7 @@ public class DecisionQuestView extends QuestView implements DescribeView {
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String tempAnswer = tfAnswer.getText();
-				tableModel.addRow(new Object[] { tempAnswer, "0",
+				tableModel.addRow(new Object[] { tempAnswer, "",
 						new JComboBox() });
 				dialog.dispose();
 			}

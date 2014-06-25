@@ -201,9 +201,9 @@ public class XmlBuilder {
         	{
 	            Element optionElement = doc.createElement("option");
 	            Attr attr = doc.createAttribute("goto");
-	            int gotoValue = Integer.parseInt(goToList.get(i));
-	            attr.setValue(Integer.toString(gotoValue));
-	            
+//	            int gotoValue = Integer.parseInt(goToList.get(i));
+//	            attr.setValue(Integer.toString(gotoValue));
+	            attr.setValue(goToList.get(i));
 	            optionElement.setAttributeNode(attr);
 	            optionElement.appendChild(doc.createTextNode(answerList.get(i)));
 	            answerElement.appendChild(optionElement);
