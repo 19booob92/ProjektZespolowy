@@ -17,7 +17,9 @@ import org.apache.commons.io.FileUtils;
 
 
 
+
 import com.pwr.Graph.QuizDataObject;
+import com.pwr.MainView.ProjectMainView;
 import com.pwr.Package.PackageCoder;
 import com.pwr.Package.XmlBuilder;
 import com.pwr.Package.XmlLoader;
@@ -334,10 +336,14 @@ public class Campaign extends Observable {
 	private String selectFile() {
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setSelectedFile(new File(gameTitle + ".zip"));
+		if(ProjectMainView.actualFolder!=null)
+			fileChooser.setCurrentDirectory(ProjectMainView.actualFolder);
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("*.zip", "zip");
 		fileChooser.setFileFilter(filter);
 		if (fileChooser.showOpenDialog(new JFrame()) == JFileChooser.APPROVE_OPTION) {
+			ProjectMainView.actualFolder=fileChooser.getSelectedFile().getParentFile();
 			return fileChooser.getSelectedFile().getAbsolutePath();
+			
 		}
 		return null;
 		

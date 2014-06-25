@@ -75,6 +75,7 @@ import com.sun.xml.bind.v2.runtime.unmarshaller.UnmarshallingContext.State;
 @Component
 public class ProjectMainView extends JFrame implements Serializable {
 
+	public static File actualFolder=null;
 	@Autowired
 	private QuestTableView questTableView;
 	@Autowired
@@ -362,6 +363,8 @@ public class ProjectMainView extends JFrame implements Serializable {
 					public void run() {
 						try {
 							JFileChooser fileChooser = new JFileChooser();
+							if(ProjectMainView.actualFolder!=null)
+								fileChooser.setCurrentDirectory(ProjectMainView.actualFolder);
 							FileNameExtensionFilter filter = new FileNameExtensionFilter("*.zip", "zip");
 							fileChooser.setFileFilter(filter);
 							fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -369,7 +372,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 							{
 								filePath = fileChooser.getSelectedFile()
 										.getAbsolutePath();
-								
+								ProjectMainView.actualFolder=fileChooser.getSelectedFile().getParentFile();
 								updateStatusPanel(progressBar);
 								requests.sendFile(filePath);
 							}
@@ -687,6 +690,8 @@ public class ProjectMainView extends JFrame implements Serializable {
 
 	private String getXML() {
 		JFileChooser chooser = new JFileChooser();
+		if(ProjectMainView.actualFolder!=null)
+			chooser.setCurrentDirectory(ProjectMainView.actualFolder);
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("*.zip", "zip");
 		chooser.setFileFilter(filter);
 		chooser.setDialogTitle("Choose Package file");
@@ -695,6 +700,7 @@ public class ProjectMainView extends JFrame implements Serializable {
 		String str = "";
 		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 			str = chooser.getSelectedFile().toString();
+			ProjectMainView.actualFolder=chooser.getSelectedFile().getParentFile();
 		}
 		return str;
 	}

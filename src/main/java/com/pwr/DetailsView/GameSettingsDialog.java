@@ -13,6 +13,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import com.pwr.MainView.ProjectMainView;
 import com.pwr.Quest.Campaign;
 
 public class GameSettingsDialog extends JDialog{
@@ -163,12 +164,15 @@ public class GameSettingsDialog extends JDialog{
 	
 	private void getPicturesPath(JTextField field) {
 		JFileChooser chooser = new JFileChooser();
+		if(ProjectMainView.actualFolder!=null)
+		chooser.setCurrentDirectory(ProjectMainView.actualFolder);
 		chooser.setDialogTitle("Chose JPEG file");
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		chooser.setAcceptAllFileFilterUsed(false);
 
 		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 			String str = chooser.getSelectedFile().getPath();
+			ProjectMainView.actualFolder=chooser.getSelectedFile().getParentFile();
 			field.setText(str);
 		} else {
 			System.out.println("No Selection ");

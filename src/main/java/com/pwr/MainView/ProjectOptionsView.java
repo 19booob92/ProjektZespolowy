@@ -36,6 +36,8 @@ import javax.swing.border.EtchedBorder;
 
 
 
+
+
 import com.pwr.Graph.GraphFacade;
 import com.pwr.Other.DateTimePicker;
 import com.pwr.Other.ListRender;
@@ -394,10 +396,12 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		chooser.setDialogTitle("Chose JPEG file");
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		chooser.setAcceptAllFileFilterUsed(false);
-
+		if(ProjectMainView.actualFolder!=null)
+			chooser.setCurrentDirectory(ProjectMainView.actualFolder);
 		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 			String str = chooser.getSelectedFile().getPath();
 			list.addElement(str);
+			ProjectMainView.actualFolder=chooser.getSelectedFile().getParentFile();
 		} else {
 			System.out.println("No Selection ");
 		}

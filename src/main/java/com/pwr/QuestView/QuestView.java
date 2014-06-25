@@ -31,6 +31,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.pwr.DetailsView.DescribeView;
 import com.pwr.DetailsView.ParagraphInputDialog;
+import com.pwr.MainView.ProjectMainView;
 import com.pwr.Other.ListRender;
 
 
@@ -290,8 +291,10 @@ public class QuestView extends JPanel implements DescribeView {
 		chooser.setDialogTitle("Chose JPEG file");
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		chooser.setAcceptAllFileFilterUsed(false);
-
+		if(ProjectMainView.actualFolder!=null)
+			chooser.setCurrentDirectory(ProjectMainView.actualFolder);
 		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {	
+			ProjectMainView.actualFolder=chooser.getSelectedFile().getParentFile();
 			int dialogResult=JOptionPane.showConfirmDialog (null, "Czy chcesz dodać dźwięk jako ekwipunek?","Ekwipunek",JOptionPane.YES_NO_OPTION);
 			if(dialogResult==JOptionPane.YES_OPTION)
 			{
@@ -314,11 +317,14 @@ public class QuestView extends JPanel implements DescribeView {
 
 	private void getSoundsPath(DefaultListModel<String> list) {
 		JFileChooser chooser = new JFileChooser();
+		if(ProjectMainView.actualFolder!=null)
+			chooser.setCurrentDirectory(ProjectMainView.actualFolder);
 		chooser.setDialogTitle("Chose MP3 file");
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		chooser.setAcceptAllFileFilterUsed(false);
 
 		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+			ProjectMainView.actualFolder=chooser.getSelectedFile().getParentFile();
 			int dialogResult=JOptionPane.showConfirmDialog (null, "Czy chcesz dodać obraz jako ekwipunek?","Ekwipunek",JOptionPane.YES_NO_OPTION);
 			if(dialogResult==JOptionPane.YES_OPTION)
 			{

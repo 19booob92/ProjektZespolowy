@@ -4,10 +4,12 @@
 <quiz id="1" title="Władze uczelni">
 <imagemodule/>
 <questionmodule>
-<paragraph>Wskaż kto pełni funkcję rektora uczelni.</paragraph>
+<paragraph>&lt;font size="3" color="red"&gt;This is some text!&lt;/font&gt;
+&lt;font size="2" color="blue"&gt;This is some text!&lt;/font&gt;
+&lt;font face="verdana" color="green"&gt;This is some text!&lt;/font&gt;</paragraph>
 </questionmodule>
 <soundmodule>
-<sound inventory="true" narration="true" src="04.Antonio Vivaldi -  Spring (the Four Season).mp3"/>
+<sound inventory="true" src="04.Antonio Vivaldi -  Spring (the Four Season).mp3"/>
 </soundmodule>
 <prenote>Przystępuję do pierwszej zagadki, ale będzie zabawa.</prenote>
 <postnote>To nie było takie trudne.</postnote>
@@ -105,9 +107,9 @@ Musisz zdecydować, który wpis odebrać.</paragraph>
 <prenote>To już ostatnie zadanie.</prenote>
 <postnote>Koniec!</postnote>
 <answermodule>
-<answer datetime="13-06-2014 01:49:44" goto="1" points="20" timestop="1" type="Permutation">
-<option index="1">Wydział Architektury</option>
+<answer datetime="13-06-2014 01:49:44" points="20" timestop="1" type="Permutation">
 <option index="2">Wydział Elektroniki</option>
+<option index="1">Wydział Architektury</option>
 <option index="3">Wydział Informatyki i Zarządzania</option>
 </answer>
 </answermodule>
