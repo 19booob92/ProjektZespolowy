@@ -125,11 +125,16 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		    public void mouseClicked(MouseEvent evt) {
 		        JList list = (JList)evt.getSource();
 		        if (evt.getClickCount() == 2) {
-		            int index = list.locationToIndex(evt.getPoint());
-		            JFrame jf= new JFrame();
-		            jf.setContentPane(new ImagePreview((String)list.getSelectedValue()));
-		            jf.pack();
-		            jf.setVisible(true);
+		        	if(list.getSelectedValue()!=null)
+		        	{
+			            int index = list.locationToIndex(evt.getPoint());
+			            JFrame jf= new JFrame();
+			            jf.setContentPane(new ImagePreview((String)list.getSelectedValue()));
+			            jf.setLocation(evt.getPoint().x,evt.getPoint().y);
+				           
+			            jf.pack();
+			            jf.setVisible(true);
+		        	}
 		        } 
 		    }
 		});
@@ -143,11 +148,16 @@ public class ProjectOptionsView extends JPanel implements Observer {
 		    public void mouseClicked(MouseEvent evt) {
 		        JList list = (JList)evt.getSource();
 		        if (evt.getClickCount() == 2) {
-		            int index = list.locationToIndex(evt.getPoint());
-		            JFrame jf= new JFrame();
-		            jf.setContentPane(new ImagePreview((String)list.getSelectedValue()));
-		            jf.pack();
-		            jf.setVisible(true);
+		        	if(list.getSelectedValue()!=null)
+		        	{
+			            int index = list.locationToIndex(evt.getPoint());
+			            JFrame jf= new JFrame();
+			            jf.setContentPane(new ImagePreview((String)list.getSelectedValue()));
+			            jf.setLocation(evt.getPoint().x,evt.getPoint().y);
+				           
+			            jf.pack();
+			            jf.setVisible(true);
+		        	}
 		        } 
 		    }
 		});
