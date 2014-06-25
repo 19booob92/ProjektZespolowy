@@ -72,7 +72,7 @@ public class CreateHTMLRaport {
 				bw.write("<td>" + userDTO.getLogin() + "</td>");
 				if (userGameDTO != null) {
 					bw.write("<td>" + userGameDTO.getPoints() + "</td>");
-					bw.write("<td>" + userGameDTO.getEndTime().toString()
+					bw.write("<td>" + ((userGameDTO.getEndTime()==null)?"":userGameDTO.getEndTime().toString())
 							+ "</td>");
 
 				} else {
